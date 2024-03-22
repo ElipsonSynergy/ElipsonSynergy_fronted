@@ -1,4 +1,4 @@
-import Csrf from "@/components/Csrf"
+// import Csrf from "@/components/Csrf"
 import Link from "next/link"
 
 export default function Login() {
@@ -19,7 +19,7 @@ export default function Login() {
                 </a>
               </div>
               <form>
-                <Csrf/>
+                {/* <Csrf/> */}
                 <div className="mb-6">
                   <input
                     type="text"

@@ -119,24 +119,24 @@ export default function page() {
                     className="mb-6 text-base wow fadeInUp text-body-color"
                     
                   >
-                    There's a time and place for everything… including asking
+                    There&apos;s a time and place for everything… including asking
                     for reviews. For instance: you should not asking for a
                     review on your checkout page. The sole purpose of this page
                     is to guide your customer to complete their purchase, and
                     this means that the page should be as minimalist and
-                    pared-down possible. You don't want to have any unnecessary
+                    pared-down possible. You don&apos;t want to have any unnecessary
                     elements or Call To Actions.
                   </p>
                   <p
                     className="mb-8 text-base wow fadeInUp text-body-color"
                     
                   >
-                    There's a time and place for everything… including asking
+                    There&apos;s a time and place for everything… including asking
                     for reviews. For instance: you should not asking for a
                     review on your checkout page. The sole purpose of this page
                     is to guide your customer to complete their purchase, and
                     this means that the page should be as minimalist and
-                    pared-down possible. You don't want to have any unnecessary
+                    pared-down possible. You don&apos;t want to have any unnecessary
                     elements or Call To Actions.
                   </p>
                   <h3

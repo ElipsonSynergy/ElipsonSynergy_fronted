@@ -366,7 +366,7 @@ export default function Testimonials() {
                         <p
                           className="mb-11 text-base font-normal italic leading-[1.81] text-body-color  sm:text-[22px]"
                         >
-                          "La tecnología de Elipson ha revolucionado la forma en que manejo mi granja. Su facilidad de uso y eficacia son incomparables."
+                          &apos;&apos;La tecnología de Elipson ha revolucionado la forma en que manejo mi granja. Su facilidad de uso y eficacia son incomparables.&apos;&apos;
                         </p>
 
                         <h4
@@ -690,7 +690,7 @@ export default function Testimonials() {
                         <p
                           className="mb-11 text-base font-normal italic leading-[1.81] text-body-color sm:text-[22px]"
                         >
-                          "Elipson ha transformado mi trabajo en la agronomía. Sus soluciones innovadoras son cruciales para el manejo sostenible y eficiente de los cultivos."
+                          &apos;&apos;Elipson ha transformado mi trabajo en la agronomía. Sus soluciones innovadoras son cruciales para el manejo sostenible y eficiente de los cultivos.&apos;&apos;
                         </p>
 
                         <h4
@@ -1014,7 +1014,7 @@ export default function Testimonials() {
                         <p
                           className="mb-11 text-base font-normal italic leading-[1.81] text-body-color sm:text-[22px]"
                         >
-                          "Con Elipson, optimizamos nuestras operaciones de manera significativa. Sus sistemas de gestión han sido un cambio total para nuestra empresa."
+                          &apos;&apos;Con Elipson, optimizamos nuestras operaciones de manera significativa. Sus sistemas de gestión han sido un cambio total para nuestra empresa.&apos;&apos;
                         </p>
 
                         <h4
