@@ -1,6 +1,9 @@
 import { Montserrat } from 'next/font/google'
 import Image from 'next/image';
 import heroImg from '@/public/assets/images/hero/hero-image-04.png';
+import alqueria from '@/public/assets/images/brands/alqueria.svg';
+import uniandes from '@/public/assets/images/brands/uniandes.svg';
+import ministerio from '@/public/assets/images/brands/ministerio.svg';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 
@@ -81,16 +84,22 @@ export default function Hero() {
                 </h6>
                 <div className="flex items-center gap-4 xl:gap-[50px]">
                   <a href="https://www.alqueria.com.co" className="block py-3" target='_blank'>
-                    <img src="assets/images/brands/alqueria.svg" alt="Alquería" />
+                    <Image 
+                      src={alqueria}
+                      alt="Alquería"    
+                    /> 
                   </a>
                   <a href="https://uniandes.edu.co" className="block py-3 text-gray-600" target='_blank'> 
-                    <img src="assets/images/brands/uniandes.svg" alt="Universidad de los andes" />
+                    <Image 
+                      src={uniandes}
+                      alt="Universidad de los andes"    
+                    /> 
                   </a>
                   <a href="https://www.minagricultura.gov.co/paginas/default.aspx" className="block py-3" target='_blank'>
-                    <img
-                      src="assets/images/brands/ministerio.svg"
-                      alt="Ministerio de agricultura y desarrollo rural colombia"
-                    />
+                    <Image 
+                      src={ministerio}
+                      alt="Ministerio de agricultura y desarrollo rural colombia"    
+                    /> 
                   </a>
                 </div>
               </div>

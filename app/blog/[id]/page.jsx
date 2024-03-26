@@ -1,5 +1,6 @@
 import RelatedBlogs from '@/components/RelatedBlogs';
 import { Montserrat } from 'next/font/google';
+import Image from 'next/image';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 
@@ -11,22 +12,31 @@ export default function page() {
         <div className="flex flex-wrap justify-center -mx-4">
           <div className="w-full px-4">
             <div className="wow fadeInUp relative z-20 mb-[50px] h-[300px] overflow-hidden rounded-[5px] md:h-[400px] lg:h-[500px]">
-              <img
-                src="../assets/images/blogs/blog-01/details.jpg"
+              <Image
+                src="/assets/images/blogs/blog-01/details.jpg"
                 alt="Banner"
                 className="object-cover object-center w-full h-full"
+                width={1000}
+                height={1000}
               />
+
+              
+              
               <div
                 className="absolute top-0 left-0 z-10 flex items-end w-full h-full bg-gradient-to-t from-dark-700 to-transparent"
               >
                 <div className="flex flex-wrap items-center p-4 pb-4 sm:px-8">
                   <div className="flex items-center mb-4 mr-5 md:mr-10">
                     <div className="w-10 h-10 mr-4 overflow-hidden rounded-full">
-                      <img
-                        src="../assets/images/blogs/blog-01/author.png"
-                        alt="image"
-                        className="w-full"
+                      <Image 
+                        src="/assets/images/blogs/blog-01/author.png"
+                        alt="logo"
+                        className=" w-full"
+                        width={1000}  
+                        height={600} 
+                      
                       />
+                      
                     </div>
                     <p className="text-base font-medium text-white">
                       By &nbsp;
@@ -709,11 +719,15 @@ export default function page() {
                         <div
                           className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
                         >
-                          <img
-                            src="../assets/images/blogs/blog-01/author.png"
+                          <Image 
+                            src="/assets/images/blogs/blog-01/author.png"
                             alt="image"
                             className="w-full"
+                            width={1000}  
+                            height={1000} 
+                          
                           />
+                    
                         </div>
                         <div className="w-full">
                           <h4>
@@ -737,11 +751,15 @@ export default function page() {
                         <div
                           className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
                         >
-                          <img
-                            src="../assets/images/blogs/blog-01/author.png"
+                          <Image 
+                            src="/assets/images/blogs/blog-01/author.png"
                             alt="image"
                             className="w-full"
+                            width={1000}  
+                            height={1000} 
+                          
                           />
+                          
                         </div>
                         <div className="w-full">
                           <h4>
@@ -766,11 +784,15 @@ export default function page() {
                         <div
                           className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
                         >
-                          <img
-                            src="../assets/images/blogs/blog-01/author.png"
+                          <Image 
+                            src="/assets/images/blogs/blog-01/author.png"
                             alt="image"
                             className="w-full"
+                            width={1000}  
+                            height={1000} 
+                          
                           />
+                          
                         </div>
                         <div className="w-full">
                           <h4>
@@ -795,11 +817,15 @@ export default function page() {
                         <div
                           className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
                         >
-                          <img
-                            src="../assets/images/blogs/blog-01/author.png"
+                          <Image 
+                            src="/assets/images/blogs/blog-01/author.png"
                             alt="image"
                             className="w-full"
+                            width={1000}  
+                            height={1000} 
+                          
                           />
+                          
                         </div>
                         <div className="w-full">
                           <h4>
@@ -822,11 +848,14 @@ export default function page() {
                     className="wow fadeInUp mb-12 overflow-hidden rounded-[5px]"
                     
                   >
-                    <img
-                      src="../assets/images/blogs/blog-01/ad.png"
+                    <Image 
+                      src="/assets/images/blogs/blog-01/ad.png"
                       alt="image"
                       className="w-full"
+                      width={1000}  
+                      height={1000} 
                     />
+                    
                   </div>
                 </div>
               </div>

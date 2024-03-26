@@ -1,4 +1,5 @@
 import { Montserrat, Numans } from 'next/font/google';
+import Image from 'next/image';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
@@ -12,27 +13,36 @@ export default function About() {
             <div className="-mx-3 flex items-center sm:-mx-4">
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
                 <div className="py-3 sm:py-4">
-                  <img
-                    src="assets/images/about/image-1.jpg"
-                    alt=""
-                    className="w-full rounded-2xl"
-                  />
+                  <Image 
+                      src="/assets/images/about/image-1.jpg"
+                      alt="Elipson"    
+                      className="w-full rounded-2xl"
+                      width={1000}
+                      height={1000}
+                  /> 
+                
                 </div>
                 <div className="py-3 sm:py-4">
-                  <img
-                    src="assets/images/about/image-2.jpg"
-                    alt=""
-                    className="w-full rounded-2xl"
-                  />
+                  <Image 
+                      src="/assets/images/about/image-2.jpg"
+                      alt="Elipson"    
+                      className="w-full rounded-2xl"
+                      width={1000}
+                      height={1000}
+                  /> 
+                  
                 </div>
               </div>
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
                 <div className="relative z-10 my-4">
-                  <img
-                    src="assets/images/about/image-3.jpg"
-                    alt=""
-                    className="w-full rounded-2xl"
-                  />
+                  <Image 
+                      src="/assets/images/about/image-3.jpg"
+                      alt="Elipson"    
+                      className="w-full rounded-2xl"
+                      width={1000}
+                      height={1000}
+                  /> 
+                  
                   <span className="absolute -bottom-7 -right-7 z-[-1]">
                     <svg
                       width="134"

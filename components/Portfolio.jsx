@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Montserrat, Numans } from 'next/font/google'
+import Image from "next/image";
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
@@ -88,10 +89,12 @@ export default function Portfolio() {
           >
             <div className="relative mb-12">
               <div className="overflow-hidden rounded-[10px]">
-                <img
-                  src="assets/images/portfolio/portfolio-01/image-01.jpg"
+                <Image 
+                  src="/assets/images/portfolio/portfolio-01/image-01.jpg"
                   alt="portfolio"
                   className="w-full"
+                  width={1000}  
+                  height={1000}       
                 />
               </div>
               <div
@@ -117,11 +120,14 @@ export default function Portfolio() {
           >
             <div className="relative mb-12">
               <div className="overflow-hidden rounded-[10px]">
-                <img
-                  src="assets/images/portfolio/portfolio-01/image-02.jpg"
+                <Image 
+                  src="/assets/images/portfolio/portfolio-01/image-02.jpg"
                   alt="portfolio"
                   className="w-full"
+                  width={1000}  
+                  height={1000}       
                 />
+                
               </div>
               <div
                 className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
@@ -146,11 +152,14 @@ export default function Portfolio() {
           >
             <div className="relative mb-12">
               <div className="overflow-hidden rounded-[10px]">
-                <img
-                  src="assets/images/portfolio/portfolio-01/image-03.jpg"
+                <Image 
+                  src="/assets/images/portfolio/portfolio-01/image-03.jpg"
                   alt="portfolio"
                   className="w-full"
+                  width={1000}  
+                  height={1000}       
                 />
+                
               </div>
               <div
                 className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
@@ -173,11 +182,14 @@ export default function Portfolio() {
           <div className={`${showCards == 'all' || showCards == 'design' ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}>
             <div className="relative mb-12">
               <div className="overflow-hidden rounded-[10px]">
-                <img
-                  src="assets/images/portfolio/portfolio-01/image-04.jpg"
+                <Image 
+                  src="/assets/images/portfolio/portfolio-01/image-04.jpg"
                   alt="portfolio"
                   className="w-full"
+                  width={1000}  
+                  height={1000}       
                 />
+                
               </div>
               <div
                 className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
@@ -202,11 +214,14 @@ export default function Portfolio() {
           >
             <div className="relative mb-12">
               <div className="overflow-hidden rounded-[10px]">
-                <img
-                  src="assets/images/portfolio/portfolio-01/image-05.jpg"
+                <Image 
+                  src="/assets/images/portfolio/portfolio-01/image-05.jpg"
                   alt="portfolio"
                   className="w-full"
+                  width={1000}  
+                  height={1000}       
                 />
+                
               </div>
               <div
                 className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
@@ -231,11 +246,14 @@ export default function Portfolio() {
           >
             <div className="relative mb-12">
               <div className="overflow-hidden rounded-[10px]">
-                <img
-                  src="assets/images/portfolio/portfolio-01/image-06.jpg"
+                <Image 
+                  src="/assets/images/portfolio/portfolio-01/image-06.jpg"
                   alt="portfolio"
                   className="w-full"
+                  width={1000}  
+                  height={1000}       
                 />
+                
               </div>
               <div
                 className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"

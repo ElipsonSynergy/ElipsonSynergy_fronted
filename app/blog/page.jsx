@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Montserrat, Numans } from 'next/font/google';
+import Image from "next/image";
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
@@ -24,7 +25,7 @@ export default function page() {
                 <h1 className={`${monserrat.className} mb-4 text-3xl font-bold text-dark sm:text-4xl md:text-[40px] md:leading-[1.2]`}>
                 Nuestro Blog</h1>
                 <p className="mb-5 text-base text-body-color">
-                Explora distintos articulos sobre la industria colombiana
+                Explora distintos artículos sobre la industria Colombiana
                 </p>
 
                 <ul className="flex items-center justify-center gap-[10px]">
@@ -44,7 +45,7 @@ export default function page() {
             </div>
         </div>
         </div>
-    </div>
+    </div> 
 
     <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
     <div className="container">
@@ -53,10 +54,12 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-01.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-01.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
                 </Link>
                 
@@ -83,11 +86,14 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-02.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-02.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
+                  
                 </Link>
                 
               </div>
@@ -114,12 +120,14 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-03.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-03.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
-          
+                  
                 </Link>
                 
               </div>
@@ -146,11 +154,14 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-01.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-01.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
+                  
                 </Link>
                 
               </div>
@@ -176,11 +187,14 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-02.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-02.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
+                  
                 </Link>
                 
               </div>
@@ -207,12 +221,14 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-03.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-03.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
-          
+
                 </Link>
                 
               </div>
@@ -239,10 +255,12 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-01.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-01.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
                 </Link>
                 
@@ -269,11 +287,14 @@ export default function page() {
             <div className="mb-10 w-full group">
               <div className="mb-8 overflow-hidden rounded">
                 <Link href="/blog/1" className="block">
-                  <img
-                    src="assets/images/blogs/blog-01/image-02.jpg"
+                  <Image 
+                    src="/assets/images/blogs/blog-01/image-02.jpg"
                     alt="image"
                     className="w-full transition group-hover:opacity-80"
+                    width={1000}
+                    height={1000}
                   />
+
                 </Link>
                 
               </div>

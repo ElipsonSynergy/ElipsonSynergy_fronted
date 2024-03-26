@@ -1,4 +1,5 @@
 import { Montserrat, Numans } from 'next/font/google'
+import Image from 'next/image';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
@@ -30,10 +31,12 @@ export default function Team() {
           <div className="w-full px-4 md:w-1/2 xl:w-1/4">
             <div className="mx-auto mb-10 w-full max-w-[370px]">
               <div className="relative overflow-hidden rounded-lg">
-                <img
-                  src="assets/images/team/team-01/mateo.jpg"
+                <Image 
+                  src="/assets/images/team/team-01/mateo.jpg"
                   alt="image"
-                  className="w-full"
+                  className="w-full "
+                  width={1000}  
+                  height={1000}       
                 />
                 <div className="absolute bottom-5 left-0 w-full text-center">
                   <div
@@ -224,11 +227,14 @@ export default function Team() {
           <div className="w-full px-4 md:w-1/2 xl:w-1/4">
             <div className="mx-auto mb-10 w-full max-w-[370px]">
               <div className="relative overflow-hidden rounded-lg">
-                <img
-                  src="assets/images/team/team-01/brayan.jpg"
+                <Image 
+                  src="/assets/images/team/team-01/brayan.jpg"
                   alt="image"
-                  className="w-full"
+                  className="w-full "
+                  width={1000}  
+                  height={1000}       
                 />
+                
                 <div className="absolute bottom-5 left-0 w-full text-center">
                   <div
                     className="relative mx-5 overflow-hidden rounded-lg bg-white px-3 py-5"
@@ -418,11 +424,14 @@ export default function Team() {
           <div className="w-full px-4 md:w-1/2 xl:w-1/4">
             <div className="mx-auto mb-10 w-full max-w-[370px]">
               <div className="relative overflow-hidden rounded-lg">
-                <img
-                  src="assets/images/team/team-01/frank.jpg"
+                <Image 
+                  src="/assets/images/team/team-01/frank.jpg"
                   alt="image"
-                  className="w-full"
+                  className="w-full "
+                  width={1000}  
+                  height={1000}       
                 />
+                
                 <div className="absolute bottom-5 left-0 w-full text-center">
                   <div
                     className="relative mx-5 overflow-hidden rounded-lg bg-white px-3 py-5"
@@ -612,11 +621,14 @@ export default function Team() {
           <div className="w-full px-4 md:w-1/2 xl:w-1/4">
             <div className="mx-auto mb-10 w-full max-w-[370px]">
               <div className="relative overflow-hidden rounded-lg">
-                <img
-                  src="assets/images/team/team-01/juan.jpg"
+                <Image 
+                  src="/assets/images/team/team-01/juan.jpg"
                   alt="image"
-                  className="w-full"
+                  className="w-full "
+                  width={1000}  
+                  height={1000}       
                 />
+                
                 <div className="absolute bottom-5 left-0 w-full text-center">
                   <div
                     className="relative mx-5 overflow-hidden rounded-lg bg-white px-3 py-5"
@@ -806,11 +818,14 @@ export default function Team() {
           <div className="w-full px-4 md:w-1/2 xl:w-1/4">
             <div className="mx-auto mb-10 w-full max-w-[370px]">
               <div className="relative overflow-hidden rounded-lg">
-                <img
-                  src="assets/images/team/team-01/cristihan.jpg"
+                <Image 
+                  src="/assets/images/team/team-01/cristihan.jpg"
                   alt="image"
-                  className="w-full"
+                  className="w-full "
+                  width={1000}  
+                  height={1000}       
                 />
+                
                 <div className="absolute bottom-5 left-0 w-full text-center">
                   <div
                     className="relative mx-5 overflow-hidden rounded-lg bg-white px-3 py-5"

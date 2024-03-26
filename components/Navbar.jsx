@@ -76,7 +76,7 @@ export default function Navbar() {
                 Iniciar Sesión
               </Link>
               
-              <Link href="/signup" className={`${monserrat.className} rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-blue-dark capitalize`}>
+              <Link href="/signup" className={`${monserrat.className} rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-blue-dark capitalize flex items-center`}>
                 Registrarse
               </Link>
             

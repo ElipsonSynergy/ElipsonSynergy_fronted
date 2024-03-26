@@ -1,5 +1,7 @@
 // import Csrf from "@/components/Csrf"
 import Link from "next/link"
+import Image from "next/image";
+import logo from '@/public/assets/images/logo/logo.svg';
 
 export default function SignUp() {
   return (
@@ -11,12 +13,17 @@ export default function SignUp() {
               className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white px-10 py-16 text-center sm:px-12 md:px-[60px]"
             >
               <div className="mb-10 text-center md:mb-16">
-                <a
-                  href=""
-                  className="mx-auto inline-block max-w-[160px]"
-                >
-                  <img src="assets/images/logo/logo.svg" alt="logo" />
-                </a>
+                <Link href="/" className="mx-auto inline-block max-w-[160px]">
+                    <Image 
+                      src={logo}
+                      alt="logo"
+                      className="block w-full"
+                      width={1000}  
+                      height={600} 
+                    
+                    />
+                
+                </Link>
               </div>
               <form>
                 {/* <Csrf/> */}
