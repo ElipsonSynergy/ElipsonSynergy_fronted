@@ -1,4 +1,3 @@
-// import Csrf from "@/components/Csrf"
 import Link from "next/link"
 import Image from "next/image";
 import logo from '@/public/assets/images/logo/logo.svg';
@@ -26,7 +25,7 @@ export default function Login() {
                 </Link>
               </div>
               <form>
-                {/* <Csrf/> */}
+
                 <div className="mb-6">
                   <input
                     type="text"
