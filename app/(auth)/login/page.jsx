@@ -25,7 +25,7 @@ export default function Login() {
     } else {
         setStatus(null);
     }
-  });
+  },  [router.reset, errors.length]);
 
   const submitForm = async (event) => {
     event.preventDefault();
