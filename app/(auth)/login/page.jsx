@@ -1,8 +1,43 @@
+"use client"
 import Link from "next/link"
 import Image from "next/image";
 import logo from '@/public/assets/images/logo/logo.svg';
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from "react";
+import { useAuth } from "@/hooks/Auth";
 
 export default function Login() {
+
+  const router = useRouter();
+
+  const {login} = useAuth({middleware: 'guest', redirectIfAuthenticated: '/politics'});
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [shouldRemember, setShouldRemember] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    if (router.reset?.length > 0 && errors.length === 0) {
+        setStatus(atob(router.reset));
+    } else {
+        setStatus(null);
+    }
+  });
+
+  const submitForm = async (event) => {
+    event.preventDefault();
+
+    login({
+        email,
+        password,
+        remember: shouldRemember,
+        setErrors,
+        setStatus,
+    });
+  }
+  
   return (
     <section className="bg-gray-1 py-20 lg:py-[120px]">
       <div className="container mx-auto">
@@ -24,13 +59,16 @@ export default function Login() {
                 
                 </Link>
               </div>
-              <form>
+              <form onSubmit={submitForm}>
 
                 <div className="mb-6">
                   <input
                     type="text"
                     placeholder="Correo"
                     className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    required
                   />
                 </div>
                 <div className="mb-6">
@@ -38,6 +76,9 @@ export default function Login() {
                     type="password"
                     placeholder="Contraseña"
                     className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    required
                   />
                 </div>
                 <div className="mb-10">
@@ -46,6 +87,23 @@ export default function Login() {
                     value="Iniciar Sesión"
                     className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium text-white transition hover:bg-opacity-90"
                   />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-10">
+                  <input
+                      id="remember_me"
+                      type="checkbox"
+                      name="remember"
+                      className="cursor-pointer rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary"
+                      onChange={event =>
+                          setShouldRemember(event.target.checked)
+                      }
+                  />
+                  <label
+                      htmlFor="remember_me"
+                      className="inline-flex items-center cursor-pointer hover:text-gray-400">
+                        Remember me
+                  </label>
+                          
                 </div>
               </form>
               <p className="mb-6 text-base text-secondary-color">

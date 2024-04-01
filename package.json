@@ -15,6 +15,7 @@
     "@ckeditor/ckeditor5-react": "^6.2.0",
     "@ckeditor/ckeditor5-upload": "^41.0.0",
     "alpinejs": "^3.13.3",
+    "axios": "^1.6.8",
     "ckeditor5-custom-build": "file:ckeditor5",
     "crypto-js": "^4.2.0",
     "next": "14.0.4",
@@ -23,6 +24,7 @@
     "react-dom": "^18",
     "sharp": "^0.33.3",
     "swiper": "^11.0.5",
+    "swr": "^2.2.5",
     "tailgrids": "^2.1.0"
   },
   "devDependencies": {
