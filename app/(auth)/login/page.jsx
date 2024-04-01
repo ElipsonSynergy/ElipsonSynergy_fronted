@@ -5,6 +5,7 @@ import logo from '@/public/assets/images/logo/logo.svg';
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/Auth";
+import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 
 export default function Login() {
 
@@ -59,6 +60,7 @@ export default function Login() {
                 
                 </Link>
               </div>
+              <AuthSessionStatus className="mb-4" status={status} />
               <form onSubmit={submitForm}>
 
                 <div className="mb-6">
@@ -81,7 +83,7 @@ export default function Login() {
                     required
                   />
                 </div>
-                <div className="mb-10">
+                <div className="mb-6">
                   <input
                     type="submit"
                     value="Iniciar Sesión"
