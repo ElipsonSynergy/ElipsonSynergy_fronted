@@ -1,8 +1,67 @@
+"use client"
 import Link from "next/link"
 import Image from "next/image";
 import logo from '@/public/assets/images/logo/logo.svg';
+import { useAuth } from "@/hooks/Auth";
+import { useState } from 'react'
+import InputError from '@/components/InputError'
+    
 
 export default function SignUp() {
+
+  const { register } = useAuth({
+    middleware: 'guest',
+    redirectIfAuthenticated: '/politics',
+  });
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('noselect');
+  const [yob, setYob] = useState(0);
+  const [mob, setMob] = useState(0);
+  const [dob, setDob] = useState(0);
+  const [dateOfBirthDay, setDateOfBirthDay] = useState('')
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  function handleDateChange(event) {
+    const dateValue = event.target.value; // formato esperado: "YYYY-MM-DD"
+    setDateOfBirthDay(dateValue);
+
+    if (dateValue) {
+        const dateParts = dateValue.split('-'); 
+        const year = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10);
+        const day = parseInt(dateParts[2], 10);
+
+        // Actualizar los estados
+        setYob(year);
+        setMob(month);
+        setDob(day);
+    }
+  }
+
+  const submitForm = event => {
+      event.preventDefault()
+
+      register({
+          firstName,
+          lastName,
+          userName,
+          email,
+          gender,
+          yob,
+          mob,
+          dob,
+          password,
+          password_confirmation: passwordConfirmation,
+          setErrors,
+      })
+  }
+
   return (
     <section className="bg-gray-1 py-20 lg:py-[120px]">
       <div className="container mx-auto">
@@ -24,27 +83,100 @@ export default function SignUp() {
                 
                 </Link>
               </div>
-              <form>
+              <form onSubmit={submitForm}>
+                <div className="mb-6">
+                  <input
+                    type="text"
+                    placeholder="Nombre"
+                    className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={firstName}
+                    onChange={event => setFirstName(event.target.value)}
+                    required
+                  />
+                  <InputError messages={errors.firstName} className="mt-2" />
+                </div>
+                <div className="mb-6">
+                  <input
+                    type="text"
+                    placeholder="Apellido"
+                    className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={lastName}
+                    onChange={event => setLastName(event.target.value)}
+                    required
+                  />
+                  <InputError messages={errors.lastName} className="mt-2" />
+                </div>
+                <div className="mb-6">
+                  <input
+                    type="text"
+                    placeholder="Nombre de usuario"
+                    className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={userName}
+                    onChange={event => setUserName(event.target.value)}
+                    required
+                  />
+                  <InputError messages={errors.userName} className="mt-2" />
+                </div>
                 <div className="mb-6">
                   <input
                     type="text"
                     placeholder="Correo"
                     className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={email}
+                    onChange={event => setEmail(event.target.value)}
+                    required
                   />
+                  <InputError messages={errors.email} className="mt-2" />
+                </div>
+                <div className="mb-6">
+                  <select 
+                    name="gender" 
+                    id="gender"
+                    className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={gender}
+                    onChange={event => setGender(event.target.value)}
+                    required
+                  >
+                      <option value="noselect" disabled>Género</option>
+                      <option value="male">Hombre</option>
+                      <option value="female" >Mujer</option>
+                      <option value="other">Otro</option>
+                  </select>
+                  <InputError messages={errors.gender} className="mt-2" />
+                </div>
+                <div className="mb-6">
+                  <span className="w-full bg-transparent px-5 py-3 text-base text-body-color">Selecciona tu fecha de nacimiento: </span>
+                  <input
+                    type="date"
+                    placeholder="Fecha de Nacimiento"
+                    className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={dateOfBirthDay}
+                    onChange={handleDateChange}
+                    required
+                  />
+                  <InputError messages={errors.dateOfBirthDay} className="mt-2" />
                 </div>
                 <div className="mb-6">
                   <input
                     type="password"
                     placeholder="Contraseña"
                     className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={password}
+                    onChange={event => setPassword(event.target.value)}
+                    required
                   />
+                  <InputError messages={errors.password} className="mt-2" />
                 </div>
                 <div className="mb-6">
                   <input
                     type="password"
                     placeholder="Confirmar Contraseña"
                     className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none"
+                    value={passwordConfirmation}
+                    onChange={event => setPasswordConfirmation(event.target.value)}
+                    required
                   />
+                  <InputError messages={errors.passwordConfirmation} className="mt-2" />
                 </div>
                 <div className="mb-10">
                   <input
@@ -52,6 +184,7 @@ export default function SignUp() {
                     value="Registrarse"
                     className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium text-white transition hover:bg-opacity-90"
                   />
+                  <InputError messages={errors.register} className="mt-2" />
                 </div>
               </form>
               <p className="mb-6 text-base text-secondary-color">
