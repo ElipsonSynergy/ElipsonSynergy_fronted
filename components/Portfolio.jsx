@@ -3,15 +3,18 @@
 import { useState } from "react"
 import { Montserrat, Numans } from 'next/font/google'
 import Image from "next/image";
+import {projectsData} from "@/data/portfolio";
+import {categoriesData} from "@/data/categories"
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
 
 export default function Portfolio() {
 
-    const [showCards, setshowCards] = useState('all');
-    const activeclassNamees = 'bg-primary text-white';
-    const inactiveclassNamees = 'text-body-color hover:bg-primary hover:text-white';
+
+  const [showCards, setshowCards] = useState('all');
+  const activeclassNamees = 'bg-primary text-white';
+  const inactiveclassNamees = 'text-body-color hover:bg-primary hover:text-white';
     
 
   return (
@@ -48,231 +51,62 @@ export default function Portfolio() {
                   Todos los proyectos
                 </button>
               </li>
-              <li className="mb-1">
-                <button
-                    onClick={ () => setshowCards( 'branding')}
-                    className={`inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8 ${showCards == 'branding' ? activeclassNamees : inactiveclassNamees}`}
-                >
-                  Agricultura
-                </button>
-              </li>
-              <li className="mb-1">
-                <button
-                    onClick={ () => setshowCards( 'design')}
-                    className={`inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8 ${showCards == 'design' ? activeclassNamees : inactiveclassNamees}`}
-                >
-                  Diseño
-                </button>
-              </li>
-              <li className="mb-1">
-                <button
-                    onClick={ () => setshowCards( 'marketing')}
-                    className={`inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8 ${showCards == 'marketing' ? activeclassNamees : inactiveclassNamees}`}
-                >
-                  Marketing
-                </button>
-              </li>
-              <li className="mb-1">
-                <button
-                    onClick={ () => setshowCards( 'development')}
-                    className={`inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8 ${showCards == 'development' ? activeclassNamees : inactiveclassNamees}`}
-                >
-                  Sofware
-                </button>
-              </li>
+              {categoriesData.map((project, index) => {
+                return(
+                  <li className="mb-1" key={index}>
+                    <button
+                        onClick={ () => setshowCards(project.label)}
+                        className={`inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8 ${showCards == project.label ? activeclassNamees : inactiveclassNamees}`}
+                    >
+                      {project.category}
+                    </button>
+                  </li>
+                );
+              })}
+              
             </ul>
           </div>
         </div>
         <div className="-mx-4 flex flex-wrap">
-          <div
-            className={`${showCards == 'all' || showCards == 'branding' ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}
-          >
-            <div className="relative mb-12">
-              <div className="overflow-hidden rounded-[10px]">
-                <Image 
-                  src="/assets/images/portfolio/portfolio-01/image-01.jpg"
-                  alt="portfolio"
-                  className="w-full"
-                  width={1000}  
-                  height={1000}       
-                />
-              </div>
+
+          {projectsData.map((project, index)=> {
+            return(
               <div
-                className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
+              className={`${showCards == 'all' || showCards == project.label ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}
+              key={index}
               >
-                <span className="mb-2 block text-sm font-medium text-primary">
-                  Branding
-                </span>
-                <h3 className="mb-5 text-xl font-bold text-dark">
-                  Branding Design
-                </h3>
-                <a
-                  href=""
-                  className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
-                >
-                  View Details
-                </a>
+                <div className="relative mb-12">
+                  <div className="overflow-hidden rounded-[10px]">
+                    <Image 
+                      src={project.img}
+                      alt="portfolio"
+                      className="w-full"
+                      width={1000}  
+                      height={1000}       
+                    />
+                  </div>
+                  <div
+                    className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
+                  >
+                    <span className="mb-2 block text-sm font-medium text-primary">
+                      {project.category}
+                    </span>
+                    <h3 className="mb-5 text-xl font-bold text-dark">
+                      {project.title}
+                    </h3>
+                    <a
+                      href=""
+                      className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
+                    >
+                      View Details
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div
-            className={`${showCards == 'all' || showCards == 'marketing' ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}
-          >
-            <div className="relative mb-12">
-              <div className="overflow-hidden rounded-[10px]">
-                <Image 
-                  src="/assets/images/portfolio/portfolio-01/image-02.jpg"
-                  alt="portfolio"
-                  className="w-full"
-                  width={1000}  
-                  height={1000}       
-                />
-                
-              </div>
-              <div
-                className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
-              >
-                <span className="mb-2 block text-sm font-medium text-primary">
-                  Marketing
-                </span>
-                <h3 className="mb-5 text-xl font-bold text-dark">
-                  Best Marketing tips
-                </h3>
-                <a
-                  href=""
-                  className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            className={`${showCards == 'all' || showCards == 'development' ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}
-          >
-            <div className="relative mb-12">
-              <div className="overflow-hidden rounded-[10px]">
-                <Image 
-                  src="/assets/images/portfolio/portfolio-01/image-03.jpg"
-                  alt="portfolio"
-                  className="w-full"
-                  width={1000}  
-                  height={1000}       
-                />
-                
-              </div>
-              <div
-                className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
-              >
-                <span className="mb-2 block text-sm font-medium text-primary">
-                  Development
-                </span>
-                <h3 className="mb-5 text-xl font-bold text-dark">
-                  Web Design Trend
-                </h3>
-                <a
-                  href=""
-                  className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className={`${showCards == 'all' || showCards == 'design' ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}>
-            <div className="relative mb-12">
-              <div className="overflow-hidden rounded-[10px]">
-                <Image 
-                  src="/assets/images/portfolio/portfolio-01/image-04.jpg"
-                  alt="portfolio"
-                  className="w-full"
-                  width={1000}  
-                  height={1000}       
-                />
-                
-              </div>
-              <div
-                className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
-              >
-                <span className="mb-2 block text-sm font-medium text-primary">
-                  Design
-                </span>
-                <h3 className="mb-5 text-xl font-bold text-dark">
-                  Business Card Design
-                </h3>
-                <a
-                  href=""
-                  className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            className={`${showCards == 'all' || showCards == 'marketing' ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}
-          >
-            <div className="relative mb-12">
-              <div className="overflow-hidden rounded-[10px]">
-                <Image 
-                  src="/assets/images/portfolio/portfolio-01/image-05.jpg"
-                  alt="portfolio"
-                  className="w-full"
-                  width={1000}  
-                  height={1000}       
-                />
-                
-              </div>
-              <div
-                className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
-              >
-                <span className="mb-2 block text-sm font-medium text-primary">
-                  Marketing
-                </span>
-                <h3 className="mb-5 text-xl font-bold text-dark">
-                  Digital marketing
-                </h3>
-                <a
-                  href=""
-                  className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            className={`${showCards == 'all' || showCards == 'branding' ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`} 
-          >
-            <div className="relative mb-12">
-              <div className="overflow-hidden rounded-[10px]">
-                <Image 
-                  src="/assets/images/portfolio/portfolio-01/image-06.jpg"
-                  alt="portfolio"
-                  className="w-full"
-                  width={1000}  
-                  height={1000}       
-                />
-                
-              </div>
-              <div
-                className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
-              >
-                <span className="mb-2 block text-sm font-medium text-primary">
-                  Branding
-                </span>
-                <h3 className="mb-5 text-xl font-bold text-dark">
-                  Creative Agency
-                </h3>
-                <a
-                  href=""
-                  className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
-          </div>
+            );
+            
+          })}
+          
         </div>
         
       </div>

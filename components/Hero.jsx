@@ -71,18 +71,18 @@ export default function Hero() {
                         />
                       </svg>
                     </span>
-                    Obtener Demo
+                    Centro Elipson
                   </a>
                 </li>
               </ul>
-              <div className="clients pt-16">
+              <div className="clients pt-16 hidden">
                 <h6
                   className="mb-6 flex items-center text-xs font-normal text-body-color"
                 >
                   Nuestros Aliados
                   <span className="ml-3 inline-block h-px w-8 bg-body-color"></span>
                 </h6>
-                <div className="flex items-center gap-4 xl:gap-[50px]">
+                <div className="flex items-center gap-4 xl:gap-[50px] ">
                   <a href="https://www.alqueria.com.co" className="block py-3" target='_blank'>
                     <Image 
                       src={alqueria}
