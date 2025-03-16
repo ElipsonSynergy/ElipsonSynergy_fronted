@@ -20,7 +20,7 @@ export default function Services() {
               </h2>
               <p className="text-base text-body-color">
                 Contamos con una amplia gama de servicios y soluciones que impactan
-                en la innovación y desarrollo de la industria colombiana.
+                en la innovación y desarrollo de diversos sectores de la industria Latino Americana.
               </p>
             </div>
           </div>

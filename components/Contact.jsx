@@ -2,6 +2,7 @@
 
 import {useState} from "react"
 import Modal from "./Modal";
+import {infoData} from "@/data/info"
 
 import { Montserrat, Numans } from 'next/font/google'
 
@@ -119,7 +120,7 @@ export default function Contact() {
                     Nuestra Ubicación
                   </h4>
                   <p className="text-base text-body-color">
-                  Cra 1 E #19a-70, Bogotá, Colombia.
+                  {infoData.location}
                   </p>
                 </div>
               </div>
@@ -161,7 +162,7 @@ export default function Contact() {
                     Número de telefono
                   </h4>
                   <p className="text-base text-body-color">
-                    (+57) 320 8145302
+                    {infoData.tel}
                   </p>
                 </div>
               </div>
@@ -188,7 +189,7 @@ export default function Contact() {
                     Correo Electrónico
                   </h4>
                   <p className="text-base text-body-color">
-                   elipsonsynergy@gmail.com
+                   {infoData.mail}
                   </p>
                 </div>
               </div>
