@@ -37,7 +37,7 @@ export default function Hero() {
                     Empezar
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href=""
                     className="inline-flex items-center justify-center px-5 py-3 text-center text-base font-medium text-[#464646] hover:text-primary"
@@ -73,7 +73,7 @@ export default function Hero() {
                     </span>
                     Centro Elipson
                   </a>
-                </li>
+                </li> */}
               </ul>
               <div className="clients pt-16 hidden">
                 <h6

@@ -199,11 +199,11 @@ export default function Services() {
               <h4
                 className="mb-[14px] text-2xl font-semibold text-dark"
               >
-                Marketing & Crecimiento
+                Desarrollo & Crecimiento
               </h4>
               <p className="text-body-color">
                 Impulsamos tu presencia en el mercado mediante estrategias 
-                de marketing efectivas, generando un crecimiento sostenible y significativo.
+                tecnologicas para desarrollar la industria, generando un crecimiento sostenible y significativo.
                 
               </p>
             </div>

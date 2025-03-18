@@ -635,7 +635,7 @@ export default function About() {
                 Nuestro enfoque se basa en un profundo conocimiento de las necesidades y objetivos únicos de cada industria, lo que nos permite desarrollar estrategias comerciales y soluciones de software y hardware personalizadas que optimizan la productividad, la eficiencia, la rentabilidad y la comunicación con las partes interesadas.
               </p>
               <p className="mb-8 text-base text-body-color">
-                Trabajamos en estrecha colaboración con las empresas durante todo el proceso, asegurando su satisfacción y éxito a largo plazo. En Elipson priorizamos la empatía y el conocimiento profundo de las necesidades de nuestros clientes. Tu crecimiento es nuestro crecimiento.
+                Trabajamos en estrecha colaboración con los interesados en determinado sectro de la industria durante todo el proceso, asegurando su satisfacción y éxito a largo plazo. En Elipson priorizamos la empatía y el conocimiento profundo de las necesidades de nuestros clientes. Tu crecimiento es nuestro crecimiento.
               </p>
               <a
                 href=""

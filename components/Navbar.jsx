@@ -26,7 +26,6 @@ export default function Navbar() {
                   height={600} 
                 
                 />
-              
             </Link>
 
           </div>
@@ -71,7 +70,7 @@ export default function Navbar() {
                 </ul>
               </nav>
             </div>
-            <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+            {/* <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
               <Link href="/login" className={`${monserrat.className} px-7 py-3 text-base font-medium text-dark hover:text-primary`}>
                 Ingresar
               </Link>
@@ -80,7 +79,7 @@ export default function Navbar() {
                 Registrarse
               </Link>
             
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

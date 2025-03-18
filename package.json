@@ -15,7 +15,7 @@
     "axios": "^1.6.8",
     "ckeditor5": "^44.1.0",
     "crypto-js": "^4.2.0",
-    "next": "14.0.4",
+    "next": "^14.2.25",
     "nodemailer": "^6.9.8",
     "react": "^18",
     "react-dom": "^18",

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '@/public/assets/images/logo/logo-white.svg';
 import { Montserrat, Numans } from 'next/font/google'
+import { infoData } from '@/data/info';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
@@ -28,7 +29,7 @@ export default function Footer() {
               <p className="mb-7 text-base text-body-color dark:text-dark-6">
                 
                 Impulsando la innovación, desarrollo y transformación 
-                industrial colombiana a través de soluciones tecnológicas sostenibles.
+                industrial latino americana a través de soluciones tecnológicas sostenibles.
               </p>
               <p
                 className="flex items-center text-sm font-medium text-dark dark:text-white"
@@ -62,7 +63,7 @@ export default function Footer() {
                     </defs>
                   </svg>
                 </span>
-                <span>(+57) 320 8145302</span>
+                <span>{infoData.tel}</span>
               </p>
             </div>
           </div>
