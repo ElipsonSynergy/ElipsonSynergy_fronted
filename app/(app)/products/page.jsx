@@ -6,8 +6,8 @@ export default function page() {
   return (
     <>
         <Portfolio/>
-        <Pricing/>
-        <Faq/>
+        {/* <Pricing/>
+        <Faq/> */}
     </>
   )
 }
