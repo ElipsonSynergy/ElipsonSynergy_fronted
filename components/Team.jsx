@@ -9,7 +9,7 @@ const numans = Numans({ subsets: ["latin"], weight: ["400"] });
 
 export default function Team() {
   return (
-    <section className="pb-10 pt-20 lg:pb-20 lg:pt-[20px]">
+    <section className="pb-10 pt-20 lg:pb-20 lg:pt-[20px]" id='team'>
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import heroImg from '@/public/assets/images/hero/hero-image-04.png';
 import alqueria from '@/public/assets/images/brands/alqueria.svg';
 import uniandes from '@/public/assets/images/brands/uniandes.svg';
+import google from '@/public/assets/images/brands/google.svg'
 import ministerio from '@/public/assets/images/brands/ministerio.svg';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
@@ -21,12 +22,12 @@ export default function Hero() {
               >
                 La Innovación <br />
                 De La Industria<br />
-                Colombiana.
+                Latino Americana.
               </h1>
               <p
                 className="mb-8 max-w-[480px] text-base text-body-color"
               >
-                Elipson existe para impulsar la innovación, desarrollo y transformación industrial colombiana a través de soluciones tecnológicas sostenibles y toma de decisiones inteligentes.
+                Elipson existe para impulsar la innovación, desarrollo y transformación industrial latino americana a través de soluciones tecnológicas sostenibles y toma de decisiones inteligentes.
               </p>
               <ul className="flex flex-wrap items-center">
                 <li>
@@ -75,7 +76,7 @@ export default function Hero() {
                   </a>
                 </li> */}
               </ul>
-              <div className="clients pt-16 hidden">
+              <div className="clients pt-16 ">
                 <h6
                   className="mb-6 flex items-center text-xs font-normal text-body-color"
                 >
@@ -83,24 +84,27 @@ export default function Hero() {
                   <span className="ml-3 inline-block h-px w-8 bg-body-color"></span>
                 </h6>
                 <div className="flex items-center gap-4 xl:gap-[50px] ">
-                  <a href="https://www.alqueria.com.co" className="block py-3" target='_blank'>
+                  {/* <a href="https://www.alqueria.com.co" className="block py-3" target='_blank'>
                     <Image 
                       src={alqueria}
-                      alt="Alquería"    
+                      alt="Alquería"   
+                      height={35} 
                     /> 
-                  </a>
+                  </a> */}
                   <a href="https://uniandes.edu.co" className="block py-3 text-gray-600" target='_blank'> 
                     <Image 
-                      src={uniandes}
-                      alt="Universidad de los andes"    
+                      src={google}
+                      alt="Patner by Google"    
+                      height={35}
                     /> 
                   </a>
-                  <a href="https://www.minagricultura.gov.co/paginas/default.aspx" className="block py-3" target='_blank'>
+                  {/* <a href="https://www.minagricultura.gov.co/paginas/default.aspx" className="block py-3" target='_blank'>
                     <Image 
                       src={ministerio}
-                      alt="Ministerio de agricultura y desarrollo rural colombia"    
+                      alt="Ministerio de agricultura y desarrollo rural colombia"   
+                      height={35} 
                     /> 
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

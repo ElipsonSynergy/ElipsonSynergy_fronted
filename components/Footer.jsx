@@ -73,37 +73,21 @@ export default function Footer() {
                 Recursos
               </h4>
               <ul className="space-y-3">
+               
                 <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Desarrollo de SaaS
-                  </a>
+                  <Link href="/blog"
+                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
+                      Blog
+                    </Link>
+                  
                 </li>
+                
                 <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Nuestros Productos
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Flujo de Usuario
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Estrategias de Usuario
-                  </a>
+                  <Link href="/products"
+                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
+                      Líneas de trabajo
+                  </Link>
+                  
                 </li>
               </ul>
             </div>
@@ -115,29 +99,20 @@ export default function Footer() {
               </h4>
               <ul className="space-y-3">
                 <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Sobre Elipson
-                  </a>
+                  <Link href="/#about"
+                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
+                      Sobre Elipson
+                  </Link>
+                  
                 </li>
                 <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Contacto & Soporte
-                  </a>
+                  <Link href="/#contact"
+                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
+                     Contacto & Soporte
+                  </Link>
+              
                 </li>
-                <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Historia de Éxito
-                  </a>
-                </li>
+                
                 <li>
                   <Link href="/politics" className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
                     Políticas
@@ -154,34 +129,33 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href=""
+                    href="https://wa.link/9ewtgu"
+                    about='_blank'
                     className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
                   >
-                    Soporte Premium
+                    Soporte Whatsapp
                   </a>
+                </li>
+                <li>
+                  <Link href="/products"
+                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
+                      Nuestros Servicios
+                  </Link>
+                 
+                </li>
+                <li>
+                  <Link href="/#team"
+                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
+                      Conoce nuestro equipo
+                  </Link>
+                  
                 </li>
                 <li>
                   <a
                     href=""
                     className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
                   >
-                    Nuestros Servicios
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Conoce nuestro equipo
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6"
-                  >
-                    Descargar Demo
+                    Centro de Elipson 
                   </a>
                 </li>
               </ul>

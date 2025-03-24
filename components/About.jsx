@@ -6,7 +6,7 @@ const numans = Numans({ subsets: ["latin"], weight: ["400"] });
 
 export default function About() {
   return (
-    <section className="overflow-hidden bg-white pb-12 pt-20 lg:pb-[90px] lg:pt-[10px]">
+    <section className="overflow-hidden bg-white pb-12 pt-20 lg:pb-[90px] lg:pt-[10px]" id="about">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap items-center justify-between">
           <div className="w-full px-4 lg:w-6/12">
@@ -628,14 +628,14 @@ export default function About() {
                 Elipson impulsa el desarrollo e innovación.
               </h2>
               <p className="mb-5 text-base text-body-color">
-                En Elipson, aprovechamos nuestra experiencia en estrategias digitales, liderazgo empresarial e innovación tecnológica para elaborar soluciones integrales y personalizadas que aceleran el crecimiento y desarrollo de diversos sectores de la industria. 
+                En Elipson, aprovechamos nuestra experiencia en liderazgo empresarial, desarrollo e innovación tecnológica para elaborar soluciones integrales y personalizadas que aceleran el crecimiento y desarrollo de diversos sectores de la industria. 
             
               </p>
               <p className="mb-8 text-base text-body-color">
                 Nuestro enfoque se basa en un profundo conocimiento de las necesidades y objetivos únicos de cada industria, lo que nos permite desarrollar estrategias comerciales y soluciones de software y hardware personalizadas que optimizan la productividad, la eficiencia, la rentabilidad y la comunicación con las partes interesadas.
               </p>
               <p className="mb-8 text-base text-body-color">
-                Trabajamos en estrecha colaboración con los interesados en determinado sectro de la industria durante todo el proceso, asegurando su satisfacción y éxito a largo plazo. En Elipson priorizamos la empatía y el conocimiento profundo de las necesidades de nuestros clientes. Tu crecimiento es nuestro crecimiento.
+                Trabajamos en estrecha colaboración con los interesados en determinado sector de la industria durante todo el proceso, asegurando su satisfacción y éxito a largo plazo. En Elipson priorizamos la empatía y el conocimiento profundo de las necesidades de nuestros clientes. Tu crecimiento es nuestro crecimiento.
               </p>
               <a
                 href=""

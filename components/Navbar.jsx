@@ -70,16 +70,16 @@ export default function Navbar() {
                 </ul>
               </nav>
             </div>
-            {/* <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
-              <Link href="/login" className={`${monserrat.className} px-7 py-3 text-base font-medium text-dark hover:text-primary`}>
-                Ingresar
-              </Link>
+            <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+              {/* <Link href="/#contact" className={`${monserrat.className} px-7 py-3 text-base font-medium text-dark hover:text-primary`}>
+                Contactar
+              </Link> */}
               
-              <Link href="/signup" className={`${monserrat.className} rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-blue-dark capitalize flex items-center`}>
-                Registrarse
+              <Link href="/#contact" className={`${monserrat.className} rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-blue-dark capitalize flex items-center`}>
+                Contactar
               </Link>
             
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
