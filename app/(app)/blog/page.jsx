@@ -93,7 +93,7 @@ export default function page() {
         
       </div>
 
-      <div className="mt-8 text-center wow fadeInUp" data-wow-delay=".2s">
+      {/* <div className="mt-8 text-center wow fadeInUp" data-wow-delay=".2s">
         <div className="inline-flex p-3 bg-white border rounded-[10px] border-stroke">
           <ul className="flex items-center -mx-1">
             <li className="px-1">
@@ -146,7 +146,7 @@ export default function page() {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   </section>
     </>

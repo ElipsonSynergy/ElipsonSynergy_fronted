@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Montserrat, Numans } from 'next/font/google'
 import Image from "next/image";
+import Modal from "./Modal";
 
 
 import {projectsData} from "@/data/portfolio";
@@ -17,10 +18,37 @@ export default function Portfolio() {
   const [showCards, setshowCards] = useState('all');
   const activeclassNamees = 'bg-primary text-white';
   const inactiveclassNamees = 'text-body-color hover:bg-primary hover:text-white';
+
+  const [data, setData] = useState({
+    "response": '',
+    "message": ""
+  });
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const closeView = () => {
+    setModalOpen(false);
+    setData({
+      "response": '',
+      "message": ""
+    });
+  }
+
+
+  const openView = (title, description) => {
+    
+    setData({
+      "response": title,
+      "message": `${description}. Para más información o contratación de servicios escribe a hola@elipson.co o contáctanos por Whatsapp al +57 315 0489455`
+    });
+    setModalOpen(true);
+  }
+
     
 
   return (
     <section className="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+      <Modal modalOpen={modalOpen} data={data} close={closeView}/>
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
@@ -96,12 +124,12 @@ export default function Portfolio() {
                     <h3 className="mb-5 text-xl font-bold text-dark">
                       {project.title}
                     </h3>
-                    <a
-                      href=""
+                    <button
+                      onClick={() => openView(project.title, project.description)}
                       className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
                     >
                       Ver Detalles
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

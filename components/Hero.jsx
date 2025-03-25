@@ -84,18 +84,18 @@ export default function Hero() {
                   <span className="ml-3 inline-block h-px w-8 bg-body-color"></span>
                 </h6>
                 <div className="flex items-center gap-4 xl:gap-[50px] ">
-                  {/* <a href="https://www.alqueria.com.co" className="block py-3" target='_blank'>
+                   {/* <a href="https://www.alqueria.com.co" className="block py-3" target='_blank'>
                     <Image 
                       src={alqueria}
                       alt="Alquería"   
-                      height={35} 
+                      height={50} 
                     /> 
-                  </a> */}
+                  </a>  */}
                   <a href="https://uniandes.edu.co" className="block py-3 text-gray-600" target='_blank'> 
                     <Image 
                       src={google}
                       alt="Patner by Google"    
-                      height={35}
+                      height={50}
                     /> 
                   </a>
                   {/* <a href="https://www.minagricultura.gov.co/paginas/default.aspx" className="block py-3" target='_blank'>
