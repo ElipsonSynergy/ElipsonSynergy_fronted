@@ -3,7 +3,7 @@ export const blogData = [
         id: 1,
         img: "/assets/images/blogs/blog-01/details.jpg",
         autor: "Brayan Joya",
-        date: "26 Feb 2023",
+        date: "26 Feb 2024",
         commentsCount: 9,
         viewCount: 35,
         title: "Las mejores herramientas de gestión integradas con IA",

@@ -52,48 +52,29 @@ export default function page() {
                   <h2
                     className={`${monserrat.className} wow fadeInUp mb-8 text-2xl font-bold text-dark sm:text-3xl md:text-[35px] md:leading-[1.28]`}
                   >
-                    Facing a challenge is kind of a turn-on for an easy rider
+                    Innovar es enfrentar desafíos con visión tecnológica
                   </h2>
                   <p
                     className="mb-6 text-base wow fadeInUp text-body-color"
                     
                   >
-                    There&apos;s a time and place for everything… including asking
-                    for reviews. For instance: you should not asking for a
-                    review on your checkout page. The sole purpose of this page
-                    is to guide your customer to complete their purchase, and
-                    this means that the page should be as minimalist and
-                    pared-down possible. You don&apos;t want to have any unnecessary
-                    elements or Call To Actions.
+                    Cada solución tecnológica tiene su momento y lugar para ser implementada. Por ejemplo, no se debe forzar una innovación sin analizar su impacto real. En Elipson, comprendemos que la clave del éxito es la integración estratégica de la tecnología, garantizando que cada solución responda a una necesidad real y optimice procesos sin generar fricciones innecesarias.
                   </p>
-                  <p
-                    className="mb-8 text-base wow fadeInUp text-body-color"
-                    
-                  >
-                    There&apos;s a time and place for everything… including asking
-                    for reviews. For instance: you should not asking for a
-                    review on your checkout page. The sole purpose of this page
-                    is to guide your customer to complete their purchase, and
-                    this means that the page should be as minimalist and
-                    pared-down possible. You don&apos;t want to have any unnecessary
-                    elements or Call To Actions.
-                  </p>
+                  
                   <h3
                     className="wow fadeInUp mb-6 text-2xl font-bold text-dark sm:text-[28px] sm:leading-[40px]"
                     
                   >
-                    Sea no quidam vulputate
+                    Tecnología con propósito
                   </h3>
                   <p
                     className="mb-10 text-base wow fadeInUp text-body-color"
                     
                   >
-                    At quo cetero fastidii. Usu ex ornatus corpora sententiae,
-                    vocibus deleniti ut nec. Ut enim eripuit eligendi est, in
-                    iracundia signiferumque quo. Sed virtute suavitate
-                    suscipiantur ea, dolor this can eloquentiam ei pro. Suas
-                    adversarium interpretaris eu sit, eum viris impedit ne.
-                    Erant appareat corrumpit ei vel.
+                    Nuestro enfoque está en la convergencia entre software, hardware e inteligencia artificial. Creemos que la innovación no solo es una cuestión de desarrollo tecnológico, sino de impacto. Diseñamos y operamos plataformas que no solo automatizan procesos, sino que mejoran la experiencia de los usuarios y potencian nuevas oportunidades de negocio.
+                  </p>
+                  <p className="mb-10 text-base wow fadeInUp text-body-color">
+                    Fusionamos creatividad y desarrollo para diseñar soluciones que no solo funcionan, sino que inspiran. Desde inteligencia artificial hasta sistemas digitales integrados, cada avance es una oportunidad para repensar lo posible y expandir los límites de la innovación en diversas industrias.
                   </p>
                   <div
                     className="wow fadeInUp relative z-10 mb-10 overflow-hidden rounded-[5px] bg-primary/5 px-6 py-8 text-center sm:p-10 md:px-[60px]"
@@ -119,14 +100,12 @@ export default function page() {
                       <p
                         className="mb-[18px] text-base italic leading-[28px] text-dark"
                       >
-                        A spring of truth shall flow from it: like a new star it
-                        shall scatter the darkness of ignorance, and cause a
-                        light heretofore unknown to shine amongst men.
+                        "El hombre razonable se adapta al mundo; el hombre irrazonable insiste en adaptar el mundo a sí mismo. Por lo tanto, todo progreso depende del hombre irrazonable."
                       </p>
                       <span
                         className="text-xs italic text-body-color"
                       >
-                        “Andrio Domeco”
+                        “George Bernard Shaw”
                       </span>
                     </div>
                     <div>
@@ -206,33 +185,18 @@ export default function page() {
                     className="wow fadeInUp mb-6 text-2xl font-semibold text-dark sm:text-[28px] sm:leading-[40px]"
                     
                   >
-                    What is it with your ideas?
+                    ¿Cómo visualizamos la innovación?
                   </h3>
 
                   <p
                     className="mb-6 text-base wow fadeInUp text-body-color"
                     
                   >
-                    At quo cetero fastidii. Usu ex ornatus corpora sententiae,
-                    vocibus deleniti ut nec. Ut enim eripuit eligendi est, in
-                    iracundia signiferumque quo. Sed virtute suavitate
-                    suscipiantur ea, dolor this can eloquentiam ei pro. Suas
-                    adversarium interpretaris eu sit, eum viris impedit ne.
-                    Erant appareat corrumpit ei vel.
+                    En Elipson, cada proyecto comienza con una visión clara y un propósito definido. Analizamos, desarrollamos e integramos soluciones que van más allá del software y el hardware; buscamos generar impacto a través de la transformación digital.
                   </p>
-                  <p
-                    className="mb-10 text-base wow fadeInUp text-body-color"
-                    
-                  >
-                    At quo cetero fastidii. Usu ex ornatus corpora sententiae,
-                    vocibus deleniti ut nec. Ut enim eripuit eligendi est, in
-                    iracundia signiferumque quo. Sed virtute suavitate
-                    suscipiantur ea, dolor this can eloquentiam ei pro. Suas
-                    adversarium interpretaris eu sit, eum viris impedit ne.
-                    Erant appareat corrumpit ei vel.
-                  </p>
+                 
 
-                  <div className="flex flex-wrap items-center mb-12 -mx-4">
+                  {/* <div className="flex flex-wrap items-center mb-12 -mx-4">
                     <div className="w-full px-4 md:w-1/2">
                       <div
                         className="flex flex-wrap items-center gap-3 mb-8 wow fadeInUp md:mb-0"
@@ -326,7 +290,7 @@ export default function page() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               

@@ -1,5 +1,6 @@
 import { Montserrat, Numans } from 'next/font/google';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
@@ -637,12 +638,12 @@ export default function About() {
               <p className="mb-8 text-base text-body-color">
                 Trabajamos en estrecha colaboración con los interesados en determinado sector de la industria durante todo el proceso, asegurando su satisfacción y éxito a largo plazo. En Elipson priorizamos la empatía y el conocimiento profundo de las necesidades de nuestros clientes. Tu crecimiento es nuestro crecimiento.
               </p>
-              <a
-                href=""
-                className="inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-7 py-3 text-center text-base font-medium text-white hover:bg-opacity-90"
-              >
-                Trabajar con Elipson
-              </a>
+              <Link
+              href="/products"
+              className="inline-flex items-center justify-center rounded-md border border-transparent bg-primary px-7 py-3 text-center text-base font-medium text-white hover:bg-opacity-90">
+                Líneas de Tabajo
+              </Link>
+
             </div>
           </div>
         </div>

@@ -5,8 +5,8 @@ export const infoData = {
     mail: "elipsonsynergy@gmail.com",
     title: "La Innovación De La Industria Colombiana.",
     description: "Elipson existe para impulsar la innovación, desarrollo y transformación industrial latino americana a través de soluciones tecnológicas sostenibles y toma de decisiones inteligentes.",
-    facebook: "",
-    instagram: "",
-    youtube: "",
-    linkedin: "",
+    facebook: "https://facebook.com",
+    instagram: "https://instagram.com",
+    youtube: "https://www.youtube.com/@ElipsonSynergy",
+    linkedin: "https://linkedin.com",
 }

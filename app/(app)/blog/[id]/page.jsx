@@ -83,7 +83,7 @@ export default function page({params}) {
                      {blog.date}
                     </p>
 
-                    <p
+                    {/* <p
                       className="flex items-center mr-5 text-sm font-medium text-white md:mr-6"
                     >
                       <span className="mr-3">
@@ -107,7 +107,7 @@ export default function page({params}) {
                         </svg>
                       </span>
                       {blog.commentsCount}
-                    </p>
+                    </p> */}
                     <p className="flex items-center text-sm font-medium text-white">
                       <span className="mr-3">
                         <svg
@@ -154,19 +154,19 @@ export default function page({params}) {
                       >
                         {blog.labels.map((label, index) => {
                           return (
-                            <a
-                              href=""
+                            <span
+                          
                               className="block rounded-md bg-primary/[0.08] px-[14px] py-[5px] text-base text-dark hover:bg-primary hover:text-white"
                               key={index}
                             >
                               {label}
-                            </a>
+                            </span>
                           );
                         })}
                         
                       </div>
                     </div>
-                    <div className="w-full px-4 md:w-1/2">
+                    {/* <div className="w-full px-4 md:w-1/2">
                       <div
                         className="flex items-center wow fadeInUp md:justify-end"
                         
@@ -233,7 +233,7 @@ export default function page({params}) {
                           </a>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                 </div>
@@ -242,7 +242,7 @@ export default function page({params}) {
 
               <div className="w-full px-4 lg:w-4/12">
                 <div>
-                  <div
+                  {/* <div
                     className="wow fadeInUp relative mb-12 overflow-hidden rounded-[5px] bg-primary px-11 py-[60px] text-center lg:px-8"
                   >
                     <h3
@@ -549,7 +549,7 @@ export default function page({params}) {
                         </svg>
                       </span>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="flex flex-wrap mb-8 -mx-4">
                     <div className="w-full px-4">
@@ -562,140 +562,47 @@ export default function page({params}) {
                         className="mb-10 inline-block h-[2px] w-20 bg-primary"
                       ></span>
                     </div>
-
-                    <div className="w-full px-4 md:w-1/2 lg:w-full">
-                      <div
-                        className="flex items-center w-full pb-5 mb-5 border-b wow fadeInUp border-stroke"
-                      >
-                        <div
-                          className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
-                        >
-                          <Image 
-                            src="/assets/images/blogs/blog-01/author.png"
-                            alt="image"
-                            className="w-full"
-                            width={1000}  
-                            height={1000} 
-                          
-                          />
                     
-                        </div>
-                        <div className="w-full">
-                          <h4>
-                            <a
-                              href=""
-                              className="inline-block mb-1 text-lg font-medium leading-snug text-dark hover:text-primary lg:text-base xl:text-lg"
+                    {blogData.map( (blog, index) => {
+                        return(
+                          <div className="w-full px-4 md:w-1/2 lg:w-full" key={index}>
+                            <div
+                              className="flex items-center w-full pb-5 mb-5 border-b wow fadeInUp border-stroke"
                             >
-                              Create engaging online courses your student…
-                            </a>
-                          </h4>
-                          <p className="text-sm text-body-color">
-                            Glomiya Lucy
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full px-4 md:w-1/2 lg:w-full">
-                      <div
-                        className="flex items-center w-full pb-5 mb-5 border-b wow fadeInUp border-stro"
-                      >
-                        <div
-                          className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
-                        >
-                          <Image 
-                            src="/assets/images/blogs/blog-01/author.png"
-                            alt="image"
-                            className="w-full"
-                            width={1000}  
-                            height={1000} 
+                              <div
+                                className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
+                              >
+                                <Image 
+                                  src={blog.img}
+                                  alt="image"
+                                  className="h-full  rounded-full object-cover"
+                                  width={1000}  
+                                  height={1000} 
+                                
+                                />
                           
-                          />
-                          
-                        </div>
-                        <div className="w-full">
-                          <h4>
-                            <a
-                              href=""
-                              className="inline-block mb-1 text-lg font-medium leading-snug text-dark hover:text-prima lg:text-base xl:text-lg"
-                            >
-                              The ultimate formula for launching online course
-                            </a>
-                          </h4>
-                          <p className="text-sm text-body-col">
-                            Andrio jeson
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full px-4 md:w-1/2 lg:w-full">
-                      <div
-                        className="flex items-center w-full pb-5 mb-5 border-b wow fadeInUp border-stro"
-                        
-                      >
-                        <div
-                          className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
-                        >
-                          <Image 
-                            src="/assets/images/blogs/blog-01/author.png"
-                            alt="image"
-                            className="w-full"
-                            width={1000}  
-                            height={1000} 
-                          
-                          />
-                          
-                        </div>
-                        <div className="w-full">
-                          <h4>
-                            <a
-                              href=""
-                              className="inline-block mb-1 text-lg font-medium leading-snug text-dark hover:text-prima lg:text-base xl:text-lg"
-                            >
-                              50 Best web design tips & tricks that will help
-                              you
-                            </a>
-                          </h4>
-                          <p className="text-sm text-body-col">
-                            Samoyel Dayno
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full px-4 md:w-1/2 lg:w-full">
-                      <div
-                        className="flex items-center w-full pb-5 mb-5 border-0 wow fadeInUp border-stro md:border-b lg:border-0"
-                      >
-                        <div
-                          className="mr-5 h-20 w-full max-w-[80px] overflow-hidden rounded-full"
-                        >
-                          <Image 
-                            src="/assets/images/blogs/blog-01/author.png"
-                            alt="image"
-                            className="w-full"
-                            width={1000}  
-                            height={1000} 
-                          
-                          />
-                          
-                        </div>
-                        <div className="w-full">
-                          <h4>
-                            <a
-                              href=""
-                              className="inline-block mb-1 text-lg font-medium leading-snug text-dark hover:text-primary lg:text-base xl:text-lg"
-                            >
-                              The 8 best landing page builders, reviewed
-                            </a>
-                          </h4>
-                          <p className="text-sm text-body-color">
-                            Andrio Glori
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                              </div>
+                              <div className="w-full">
+                                <h4>
+                                  <Link href={`/blog/${blog.id}`}
+                                    className="inline-block mb-1 text-lg font-medium leading-snug text-dark hover:text-primary lg:text-base xl:text-lg">
+                                      {blog.title}
+                                  </Link>
+                                
+                                </h4>
+                                <p className="text-sm text-body-color">
+                                {blog.autor}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                    })}
+                    
+                    
                   </div>
 
-                  <div
+                  {/* <div
                     className="wow fadeInUp mb-12 overflow-hidden rounded-[5px]"
                     
                   >
@@ -707,7 +614,7 @@ export default function page({params}) {
                       height={1000} 
                     />
                     
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
