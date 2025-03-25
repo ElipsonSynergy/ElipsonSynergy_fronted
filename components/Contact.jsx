@@ -65,7 +65,7 @@ export default function Contact() {
 
       setData({
         "response": 'Error al enviar el mensaje',
-        "message": "Lo sentimos, ocurrió un error al intentar enviar tu mensaje. Por favor, intenta nuevamente más tarde."
+        "message": "Ha ocurrido un error al intentar enviar tu mensaje. Por favor, intenta nuevamente más tarde."
       });
 
       console.error('Error interno al enviar el formulario', error);
