@@ -100,12 +100,12 @@ export default function page() {
                       <p
                         className="mb-[18px] text-base italic leading-[28px] text-dark"
                       >
-                        "El hombre razonable se adapta al mundo; el hombre irrazonable insiste en adaptar el mundo a sí mismo. Por lo tanto, todo progreso depende del hombre irrazonable."
+                        &quot;El hombre razonable se adapta al mundo; el hombre irrazonable insiste en adaptar el mundo a sí mismo. Por lo tanto, todo progreso depende del hombre irrazonable.&quot;
                       </p>
                       <span
                         className="text-xs italic text-body-color"
                       >
-                        “George Bernard Shaw”
+                        &quot;George Bernard Shaw&quot;
                       </span>
                     </div>
                     <div>

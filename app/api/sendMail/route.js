@@ -52,7 +52,7 @@ export async function POST(request) {
 
   // Configuración del correo electrónico
   let mailOptions = {
-    from: MAIL_FROM_ADDRESS, 
+    from: "hola@elipson.co", 
     to: "hola@elipson.co", 
     subject: `Nuevo mensaje de ${name}`,
     text: `Nombre: ${name}\nEmail: ${email}\nTeléfono: ${phone}\n\nMensaje:\n\n${message}`,
