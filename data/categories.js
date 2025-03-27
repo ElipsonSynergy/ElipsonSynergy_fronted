@@ -29,8 +29,8 @@ export const categoriesData = [
 
     {
         id: 5, 
-        category: "Software",
-        label: "saas",
+        category: "Software&Hadware",
+        label: "saas&hw",
 
     }
     

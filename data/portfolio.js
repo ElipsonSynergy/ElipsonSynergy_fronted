@@ -122,11 +122,11 @@ export const projectsData = [
 
     {
         id: 14, 
-        title: "Software a Medida",
+        title: "Software y Hadware a Medida",
         img: "/assets/images/portfolio/portfolio-01/17.jpg",
-        category: "Software",
-        label: "saas",
-        description: "Software a Medida es la solución tecnológica diseñada para adaptarse a las necesidades específicas de cada negocio e impulsar a los pequeños emprendedores visionarios. En Elipson, desarrollamos plataformas personalizadas que optimizan procesos, integran sistemas y potencian la eficiencia operativa. Desde aplicaciones empresariales hasta soluciones IoT y analítica avanzada, creamos software escalable y seguro que impulsa la innovación y el crecimiento de nuestros clientes"
+        category: "Software&Hadware",
+        label: "saas&hw",
+        description: "Software y Hadware a Medida es la solución tecnológica diseñada para adaptarse a las necesidades específicas de cada negocio e impulsar a los pequeños emprendedores visionarios. En Elipson, desarrollamos plataformas personalizadas que optimizan procesos, integran sistemas y potencian la eficiencia operativa. Desde aplicaciones empresariales hasta soluciones IoT y analítica avanzada, creamos software escalable y seguro que impulsa la innovación y el crecimiento de nuestros clientes"
 
     },
     

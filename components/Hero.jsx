@@ -91,10 +91,10 @@ export default function Hero() {
                       height={50} 
                     /> 
                   </a>  */}
-                  <a href="https://uniandes.edu.co" className="block py-3 text-gray-600" target='_blank'> 
+                  <a href="https://google.coM" className="block py-3 text-gray-600" target='_blank'> 
                     <Image 
                       src={google}
-                      alt="Patner by Google"    
+                      alt="Partner by Google"    
                       height={50}
                     /> 
                   </a>
