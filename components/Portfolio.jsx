@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Montserrat, Numans } from 'next/font/google'
 import Image from "next/image";
 import Modal from "./Modal";
-
+import Link from 'next/link';
 
 import {projectsData} from "@/data/portfolio";
 import {categoriesData} from "@/data/categories"
@@ -125,10 +125,13 @@ export default function Portfolio() {
                       {project.title}
                     </h3>
                     <button
-                      onClick={() => openView(project.title, project.description)}
+                      // onClick={() => openView(project.title, project.description)}
                       className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
                     >
-                      Ver Detalles
+                      <Link href={`/products/${project.id}`} >
+                            Ver Detalles
+                      </Link>
+                      
                     </button>
                   </div>
                 </div>

@@ -114,8 +114,8 @@ export default function Footer() {
                 </li>
                 
                 <li>
-                  <Link href="/politics" className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
-                    Políticas
+                  <Link href="/vision" className="inline-block text-base leading-loose text-body-color hover:text-primary dark:text-dark-6">
+                    Visión
                   </Link>
                 </li>
               </ul>

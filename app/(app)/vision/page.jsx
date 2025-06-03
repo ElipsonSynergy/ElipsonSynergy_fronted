@@ -16,9 +16,9 @@ export default function page() {
             <div className="w-full px-4">
             <div className="text-center">
                 <h1 className={`${monserrat.className} mb-4 text-3xl font-bold text-dark sm:text-4xl md:text-[40px] md:leading-[1.2]`}>
-                Nuestras Políticas</h1>
+                Nuestra Visión</h1>
                 <p className="mb-5 text-base text-body-color">
-                Descubre nuestras políticas y enfoques estratégicos sobre la industria colombiana
+                Descubre nuestra vision y enfoques estratégicos sobre la industria colombiana
                 </p>
 
                 <ul className="flex items-center justify-center gap-[10px]">
@@ -28,9 +28,9 @@ export default function page() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/politics" className="flex items-center gap-[10px] text-base font-medium text-body-color"> 
+                    <Link href="/vision" className="flex items-center gap-[10px] text-base font-medium text-body-color"> 
                     <span className="text-body-color"> / </span>
-                        Políticas
+                        Visión
                     </Link>
                 </li>
                 </ul>
@@ -192,7 +192,7 @@ export default function page() {
                     className="mb-6 text-base wow fadeInUp text-body-color"
                     
                   >
-                    En Elipson, cada proyecto comienza con una visión clara y un propósito definido. Analizamos, desarrollamos e integramos soluciones que van más allá del software y el hardware; buscamos generar impacto a través de la transformación digital.
+                    En Elipson, cada proyecto comienza con una visión clara y un propósito definido. Analizamos, desarrollamos e integramos soluciones que van más allá del software y el hardware; buscamos generar impacto a través de la transformación tecnológica.
                   </p>
                  
 

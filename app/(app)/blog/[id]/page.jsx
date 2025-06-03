@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 
-function getBlog(id) {
+async function getBlog(id) {
   const blogs = [...blogData];
   const blog = blogs[parseInt(id) - 1]; 
   return blog;
@@ -16,9 +16,13 @@ function getBlog(id) {
 
 
 
-export default function page({params}) {
+export default async function page({params}) {
 
-  const blog = getBlog(params.id);
+  const { id } = await params
+
+  const blog =  await  getBlog(id);
+
+
 
   return (
     <section className="pb-10 pt-20 lg:pb-20 lg:pt-[120px]">
@@ -43,7 +47,7 @@ export default function page({params}) {
                   <div className="flex items-center mb-4 mr-5 md:mr-10">
                     <div className="w-10 h-10 mr-4 overflow-hidden rounded-full">
                       <Image 
-                        src="/assets/images/blogs/blog-01/author.png"
+                        src="/assets/images/team/team-01/brayan.jpg"
                         alt="logo"
                         className=" w-full"
                         width={1000}  
