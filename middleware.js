@@ -22,3 +22,5 @@ export async function middleware(request) {
     return NextResponse.rewrite(request.nextUrl)
   }
 }
+
+
