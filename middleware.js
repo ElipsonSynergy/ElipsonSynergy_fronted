@@ -1,26 +1,26 @@
-import { NextResponse } from 'next/server'
-import { get } from '@vercel/edge-config'
+// import { NextResponse } from 'next/server'
+// import { get } from '@vercel/edge-config'
 
-export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)'
-  ]
-}
+// export const config = {
+//   matcher: [
+//     /*
+//      * Match all request paths except for the ones starting with:
+//      * - api (API routes)
+//      * - _next/static (static files)
+//      * - _next/image (image optimization files)
+//      * - favicon.ico (favicon file)
+//      */
+//     '/((?!api|_next/static|_next/image|favicon.ico).*)'
+//   ]
+// }
 
-export async function middleware(request) {
-  const isInMaintenanceMode = await get('maintenance')
+// export async function middleware(request) {
+//   const isInMaintenanceMode = await get('maintenance')
 
-  if (isInMaintenanceMode) {
-    request.nextUrl.pathname = `/maintenance`
-    return NextResponse.rewrite(request.nextUrl)
-  }
-}
+//   if (isInMaintenanceMode) {
+//     request.nextUrl.pathname = `/maintenance`
+//     return NextResponse.rewrite(request.nextUrl)
+//   }
+// }
 
 
