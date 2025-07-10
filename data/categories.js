@@ -1,10 +1,10 @@
 export const categoriesData = [
-    {
-        id: 1, 
-        category: "Agro",
-        label: "agricultura",
+    // {
+    //     id: 1, 
+    //     category: "Agro",
+    //     label: "agricultura",
 
-    },
+    // },
 
     // {
     //     id: 2, 
