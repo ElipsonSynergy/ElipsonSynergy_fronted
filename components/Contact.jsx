@@ -1,83 +1,119 @@
 "use client"
 
-import {useState} from "react"
+import { useState, useEffect } from "react"
 import Modal from "./Modal";
-import {infoData} from "@/data/info"
-
+import { infoData } from "@/data/info"
 import { Montserrat, Numans } from 'next/font/google'
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 const numans = Numans({ subsets: ["latin"], weight: ["400"] });
 
 export default function Contact() {
-
-  const [data, setData] = useState({
-    "response": '',
-    "message": ""
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
   });
+  const [errors, setErrors] = useState({});
   const [disableButton, setDisableButton] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [responseData, setResponseData] = useState({
+    response: '',
+    message: ""
+  });
 
-  // Función para cerrar el modal
+  /** * Function to close the modal and reset response data */
   const closeSending = () => {
     setModalOpen(false);
-    setData({
-      "response": '',
-      "message": ""
+    setResponseData({
+      response: '',
+      message: ""
     });
   }
 
+  /** * Function to validate form inputs */
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) newErrors.name = 'Nombre es requerido';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email es requerido';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Email inválido';
+    }
+    if (formData.message.length < 10) newErrors.message = 'Mensaje debe tener al menos 10 caracteres';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /** * Function to handle input changes and clear errors */
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Clear error for the specific field if it exists
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
+    // Validate form before sending
+    if (!validateForm()) return;
+    
     setDisableButton(true);
-
-    setData({
-      "response": 'Enviando...',
-      "message": "Tu mensaje está siendo enviado, espera un momento."
-    })
-
-
-    setModalOpen(true)
-  
-    const formData = {
-      name: event.target.name.value,
-      email: event.target.email.value,
-      phone: event.target.phone.value,
-      message: event.target.message.value
-    };
-
+    setResponseData({
+      response: 'Enviando...',
+      message: "Tu mensaje está siendo enviado, espera un momento."
+    });
+    setModalOpen(true);
   
     try {
-      const sendResponse = await fetch('api/sendMail', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData)
       });
       
-      const info = await sendResponse.json();
+      const result = await response.json();
 
-      setData(info);
-    
+      if (result.success) {
+        setResponseData({
+          response: 'Mensaje enviado con éxito',
+          message: result.message || 'Gracias por contactarte con nosotros.'
+        });
+        // Reset form data after successful submission
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setResponseData({
+          response: 'Error al enviar',
+          message: result.message || 'Hubo un problema al enviar tu mensaje.'
+        });
+      }
     } catch (error) {
-
-      setData({
-        "response": 'Error al enviar el mensaje',
-        "message": "Ha ocurrido un error al intentar enviar tu mensaje. Por favor, intenta nuevamente más tarde."
+      setResponseData({
+        response: 'Error de conexión',
+        message: "No se pudo conectar con el servidor. Por favor intenta nuevamente."
       });
-
-      console.error('Error interno al enviar el formulario', error);
+      console.error('Error al enviar formulario:', error);
     }
 
     setDisableButton(false);
-    
   };
 
   return (
     <section className="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]" id="contact">
-      <Modal modalOpen={modalOpen} data={data} close={closeSending}/>
+      <Modal modalOpen={modalOpen} data={responseData} close={closeSending}/>
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap lg:justify-between">
           <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
@@ -197,50 +233,48 @@ export default function Contact() {
           </div>
 
           <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
-            <div
-              className="relative rounded-lg bg-white p-8 shadow-lg sm:p-12"
-            >
-              <form  onSubmit={handleSubmit}>
-                
+            <div className="relative rounded-lg bg-white p-8 shadow-lg sm:p-12">
+              <form onSubmit={handleSubmit}>
                 <div className="mb-6">
                   <input
                     type="text"
                     placeholder="Tu nombre"
                     name="name"
-                    className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className={`w-full rounded border ${errors.name ? 'border-red-500' : 'border-stroke'} px-[14px] py-3 text-base text-body-color outline-none focus:border-primary`}
                   />
+                  {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
                 </div>
                 <div className="mb-6">
                   <input
                     type="email"
                     placeholder="Tu correo"
                     name="email"
-                    className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`w-full rounded border ${errors.email ? 'border-red-500' : 'border-stroke'} px-[14px] py-3 text-base text-body-color outline-none focus:border-primary`}
                   />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    placeholder="Tu teléfono"
-                    name="phone"
-                    className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary"
-                  />
+                  {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                 </div>
                 <div className="mb-6">
                   <textarea
                     rows="6"
                     placeholder="Déjanos tu mensaje"
                     name="message"
-                    className="w-full resize-none rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className={`w-full resize-none rounded border ${errors.message ? 'border-red-500' : 'border-stroke'} px-[14px] py-3 text-base text-body-color outline-none focus:border-primary`}
                   ></textarea>
+                  {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
                 </div>
                 <div>
                   <button
                     type="submit"
                     disabled={disableButton} 
-                    className={`w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90 ${disableButton?"cursor-not-allowed opacity-5":"enabled"}`}
+                    className={`w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90 ${disableButton ? "cursor-not-allowed opacity-50" : ""}`}
                   >
-                    Enviar Mensaje
+                    {disableButton ? 'Enviando...' : 'Enviar Mensaje'}
                   </button>
                 </div>
               </form>
