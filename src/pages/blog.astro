@@ -1,0 +1,215 @@
+---
+/**
+ * Blog Page Component
+ * 
+ * Main blog listing page that displays blog posts with search, filtering, and pagination functionality.
+ * Fetches posts and tags from the API and provides a user-friendly interface for browsing content.
+ * 
+ * Features:
+ * - Search functionality across post titles and summaries
+ * - Tag-based filtering system
+ * - Client-side pagination with configurable page size
+ * - Responsive grid layout for blog cards
+ * - SEO-friendly URL parameters
+ * 
+ * @component BlogPage
+ * @requires BlogsListBanner - Banner component for page header
+ * @requires BlogCard - Individual blog post card component
+ * @since 1.0.0
+ */
+
+import BlogsListBanner from "../components/BlogsListBanner.astro";
+import BlogCard from "../components/BlogCard.astro";
+
+/**
+ * Tag interface matching TagDto from backend
+ * Represents a blog post tag with unique identifier and name
+ * 
+ * @interface TagType
+ * @property {string} id - Unique identifier for the tag
+ * @property {string} name - Display name of the tag
+ */
+interface TagType {
+    id: string;
+    name: string;
+}
+
+/**
+ * Author interface matching AuthorDto from backend
+ * Represents blog post author information with optional profile data
+ * 
+ * @interface AuthorType
+ * @property {string} id - Unique identifier for the author
+ * @property {string} name - Full name of the author
+ * @property {string} [bio] - Optional author biography (can be null or undefined)
+ * @property {string} [avatarUrl] - Optional author avatar image URL (can be null or undefined)
+ */
+interface AuthorType {
+    id: string;
+    name: string;
+    bio?: string; // can be null or undefined
+    avatarUrl?: string; // can be null or undefined
+}
+
+/**
+ * Post interface matching PostDto from backend
+ * Represents a complete blog post with all associated data
+ * 
+ * @interface PostType
+ * @property {string} id - Unique identifier for the post
+ * @property {string} slug - URL-friendly slug for SEO
+ * @property {string} title - Post title
+ * @property {string} summary - Brief post summary/excerpt
+ * @property {string} content - Full post content
+ * @property {string|null} imageUrl - Featured image URL (can be null)
+ * @property {string} createdAt - ISO date string of creation
+ * @property {string} updatedAt - ISO date string of last update
+ * @property {AuthorType} author - Post author information
+ * @property {TagType[]} tags - Array of associated tags
+ */
+interface PostType {
+    id: string;
+    slug: string;
+    title: string;
+    summary: string;
+    content: string;
+    imageUrl: string | null;
+    createdAt: string;
+    updatedAt: string;
+    author: AuthorType;
+    tags: TagType[];
+}
+
+/**
+ * API endpoint for posts data
+ * @constant {string}
+ */
+const POSTS_API = "http://localhost:3000/api/posts";
+
+/**
+ * API endpoint for tags data
+ * @constant {string}
+ */
+const TAGS_API = "http://localhost:3000/api/tags";
+
+// Extract and process URL parameters for search, filtering, and pagination
+const url = new URL(Astro.request.url);
+const search = url.searchParams.get("search")?.toLowerCase() || "";
+const tag = url.searchParams.get("tag") || "All";
+const pageNum = parseInt(url.searchParams.get("page") || "1", 10);
+
+/**
+ * Number of posts to display per page
+ * @constant {number}
+ */
+const pageSize = 9;
+
+/**
+ * Fetch blog posts from API with error handling
+ * @throws {Error} When API request fails
+ */
+const postsRes = await fetch(POSTS_API);
+if (!postsRes.ok) throw new Error(`Error loading posts: ${postsRes.status}`);
+const posts: PostType[] = await postsRes.json();
+
+/**
+ * Fetch available tags from API with graceful fallback
+ * Falls back to empty array if tags API fails
+ */
+const tagsRes = await fetch(TAGS_API);
+const tagsData: TagType[] = tagsRes.ok ? await tagsRes.json() : [];
+
+/**
+ * Build complete list of tag names for filter selector
+ * Includes "All" option for showing all posts
+ * @constant {string[]}
+ */
+const allTags: string[] = ["All", ...tagsData.map((t) => t.name)];
+
+/**
+ * Filter posts based on search query and selected tag
+ * Search is performed across post titles and summaries (case-insensitive)
+ * Tag filtering supports "All" option and exact tag name matching
+ */
+const filtered = posts.filter(
+    (p) =>
+        (p.title.toLowerCase().includes(search) ||
+            p.summary.toLowerCase().includes(search)) &&
+        (tag === "All" || p.tags.some((t) => t.name === tag)),
+);
+
+/**
+ * Calculate pagination values
+ */
+const total = filtered.length;
+const totalPages = Math.ceil(total / pageSize);
+const start = (pageNum - 1) * pageSize;
+
+/**
+ * Get current page slice of filtered posts
+ * @constant {PostType[]}
+ */
+const slice: PostType[] = filtered.slice(start, start + pageSize);
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Blog Squair</title>
+        <link rel="stylesheet" href="/styles.css" />
+    </head>
+    <body>
+        <!-- Page header with banner image and title -->
+        <BlogsListBanner title="Blog Squair" image="/banner.jpg" />
+
+        <!-- Search and tag filter section -->
+        <section class="search-filter">
+            <h2>Descubra más sobre lo que es importante para usted</h2>
+            
+            <!-- Search form with text input and submit button -->
+            <form method="get" class="search-form">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Buscar"
+                    value={search}
+                />
+                <button type="submit" aria-label="Buscar">🔍</button>
+            </form>
+
+            <!-- Tag filter navigation -->
+            <div class="tags">
+                {
+                    allTags.map((t) => (
+                        <a
+                            class={t === tag ? "tag active" : "tag"}
+                            href={`?tag=${encodeURIComponent(t)}&search=${encodeURIComponent(search)}`}
+                        >
+                            {t}
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Blog posts grid layout -->
+        <section class="posts-grid">
+            {slice.map((post) => <BlogCard post={post} />)}
+        </section>
+
+        <!-- Pagination navigation -->
+        <nav class="pagination">
+            {
+                Array.from({ length: totalPages }, (_, i) => (
+                    <a
+                        class={i + 1 === pageNum ? "page active" : "page"}
+                        href={`?page=${i + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
+                    >
+                        {i + 1}
+                    </a>
+                ))
+            }
+        </nav>
+    </body>
+</html>
