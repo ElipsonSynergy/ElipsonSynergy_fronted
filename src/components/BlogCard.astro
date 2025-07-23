@@ -96,14 +96,14 @@ const {
  * Uses fallback image if post has no featured image
  * @constant {string}
  */
-const imgSrc    = imageUrl   ?? '/fallback-post-image.png';
+const imgSrc    = imageUrl ? encodeURI(imageUrl) : '/fallback-image.png';
 
 /**
  * Author avatar source with fallback
  * Uses fallback avatar if author has no profile picture
  * @constant {string}
  */
-const avatarSrc = avatarUrl  ?? '/fallback-avatar.png';
+const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : '/fallback-avatar.png';
 ---
 <!-- 
   Blog Card Article Element
