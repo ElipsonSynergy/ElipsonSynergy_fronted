@@ -1,0 +1,143 @@
+---
+/**
+ * Blog Card Component
+ * 
+ * Displays an individual blog post as a card with image, title, summary, author info, and metadata.
+ * Provides clickable links to the full blog post and handles fallback images for missing content.
+ * 
+ * Features:
+ * - Responsive card layout with featured image
+ * - Author information with avatar and name
+ * - Formatted publication date using date-fns
+ * - Fallback images for missing post images and author avatars
+ * - SEO-friendly links using post slugs
+ * - Truncated summary with "read more" link
+ * 
+ * @component BlogCard
+ * @requires date-fns - For date formatting functionality
+ * @param {PostType} post - Blog post data object
+ * @since 1.0.0
+ */
+
+import { format } from 'date-fns';
+
+/**
+ * Tag interface for blog post categorization
+ * Represents a tag associated with blog posts
+ * 
+ * @interface TagType
+ * @property {string} id - Unique identifier for the tag
+ * @property {string} name - Display name of the tag
+ */
+interface TagType {
+  id: string;
+  name: string;
+}
+
+/**
+ * Author interface for blog post creators
+ * Represents author information with optional avatar
+ * 
+ * @interface AuthorType
+ * @property {string} id - Unique identifier for the author
+ * @property {string} name - Full name of the author
+ * @property {string} [avatarUrl] - Optional author avatar image URL
+ */
+interface AuthorType {
+  id: string;
+  name: string;
+  avatarUrl?: string;
+}
+
+/**
+ * Post interface for blog post data
+ * Represents a blog post with all necessary display information
+ * 
+ * @interface PostType
+ * @property {string} slug - URL-friendly identifier for the post
+ * @property {string} title - Post title
+ * @property {string} summary - Brief post summary/excerpt
+ * @property {string|null} imageUrl - Featured image URL (can be null)
+ * @property {string} createdAt - ISO date string of post creation
+ * @property {AuthorType} author - Post author information
+ * @property {TagType[]} tags - Array of associated tags
+ */
+interface PostType {
+  slug: string;
+  title: string;
+  summary: string;
+  imageUrl: string | null;
+  createdAt: string;
+  author: AuthorType;
+  tags: TagType[];
+}
+
+/**
+ * Component props interface
+ * @property {PostType} post - Blog post data to display
+ */
+const { post } = Astro.props as { post: PostType };
+
+/**
+ * Destructure post data for easier access
+ * Extracts all necessary fields from the post object and author nested object
+ */
+const {
+  slug,
+  title,
+  summary,
+  imageUrl,
+  createdAt,
+  author: { name: authorName, avatarUrl },
+} = post;
+
+/**
+ * Featured image source with fallback
+ * Uses fallback image if post has no featured image
+ * @constant {string}
+ */
+const imgSrc    = imageUrl   ?? '/fallback-post-image.png';
+
+/**
+ * Author avatar source with fallback
+ * Uses fallback avatar if author has no profile picture
+ * @constant {string}
+ */
+const avatarSrc = avatarUrl  ?? '/fallback-avatar.png';
+---
+<!-- 
+  Blog Card Article Element
+  
+  Semantic HTML5 article element representing a single blog post card.
+  Contains clickable featured image, post metadata, and content preview.
+  Designed for use in blog listing grids and search results.
+-->
+<article class="card">
+  <!-- Featured image link to full post -->
+  <a href={`/blog/${slug}`}>
+    <img src={imgSrc} alt={title} class="card-image" />
+  </a>
+  
+  <!-- Card content container -->
+  <div class="card-content">
+    <!-- Post title -->
+    <h3 class="card-title">{title}</h3>
+    
+    <!-- Post metadata: author info and publication date -->
+    <div class="card-meta">
+      <img src={avatarSrc} alt={authorName} class="author-avatar" />
+      <span class="author-name">{authorName}</span>
+      
+      <!-- Semantic time element with formatted date -->
+      <time datetime={createdAt}>
+        {format(new Date(createdAt), 'LLL d, yyyy')}
+      </time>
+    </div>
+    
+    <!-- Post summary/excerpt -->
+    <p class="card-summary">{summary}</p>
+    
+    <!-- Read more link to full post -->
+    <a href={`/blog/${slug}`} class="read-more">Leer más</a>
+  </div>
+</article>
