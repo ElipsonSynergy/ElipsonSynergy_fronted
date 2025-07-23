@@ -115,7 +115,7 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : '/fallback-avatar.png';
 <article class="card">
   <!-- Featured image link to full post -->
   <a href={`/blog/${slug}`}>
-    <img src={imgSrc} alt={title} class="card-image" />
+    <img loading="lazy" src={imgSrc} alt={title} class="card-image" />
   </a>
   
   <!-- Card content container -->
@@ -125,7 +125,7 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : '/fallback-avatar.png';
     
     <!-- Post metadata: author info and publication date -->
     <div class="card-meta">
-      <img src={avatarSrc} alt={authorName} class="author-avatar" />
+      <img loading="lazy" src={avatarSrc} alt={authorName} class="author-avatar" />
       <span class="author-name">{authorName}</span>
       
       <!-- Semantic time element with formatted date -->
