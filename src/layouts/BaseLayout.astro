@@ -1,0 +1,158 @@
+---
+// BaseLayout.astro - Premium base layout for all pages
+import Navbar from '../components/Navbar.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+}
+
+const { 
+  title, 
+  description = "Elipson Synergy - Soluciones tecnológicas innovadoras que transforman ideas en realidad digital", 
+  keywords = "tecnología, innovación, desarrollo, software, soluciones digitales"
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    
+    <!-- Optimization preconnections -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  
+  <body class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-sans antialiased">
+    <Navbar />
+    
+    <!-- Main content -->
+    <main class="flex-1 relative">
+      <slot />
+    </main>
+    
+    <footer class="bg-gray-900 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 opacity-90"></div>
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-4 left-4 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+        <div class="absolute top-12 left-20 w-1 h-1 bg-white rounded-full animate-pulse delay-300"></div>
+        <div class="absolute top-8 left-40 w-1.5 h-1.5 bg-white rounded-full animate-pulse delay-700"></div>
+      </div>
+      
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="md:col-span-2">
+            <div class="flex items-center space-x-3 mb-6">
+              <div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">Elipson Synergy</h3>
+                <p class="text-xs text-gray-400 tracking-wide">INNOVATION & TECHNOLOGY</p>
+              </div>
+            </div>
+            <p class="text-gray-300 leading-relaxed max-w-md">
+              Transformamos ideas en soluciones tecnológicas innovadoras que impulsan el crecimiento de tu negocio. 
+              Nuestra pasión es crear el futuro digital.
+            </p>
+          </div>
+          
+          <!-- Quick links -->
+          <div>
+            <h4 class="text-white font-semibold mb-4">Enlaces</h4>
+            <ul class="space-y-2">
+              <li><a href="/nosotros" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Nosotros</a></li>
+              <li><a href="/producto" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Producto</a></li>
+              <li><a href="/blog" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Blog</a></li>
+              <li><a href="/contactanos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Contacto</a></li>
+            </ul>
+          </div>
+          
+          <!-- Contact information -->
+          <div>
+            <h4 class="text-white font-semibold mb-4">Contacto</h4>
+            <div class="space-y-2">
+              <p class="text-gray-300 text-sm">
+                <span class="block">Email: info@elipsonsynergy.com</span>
+                <span class="block">Tel: +57 (1) 234-5678</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Divider line -->
+        <div class="border-t border-gray-700 mt-8 pt-8">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">
+              © 2024 Elipson Synergy. Todos los derechos reservados.
+            </p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-200">
+                <span class="sr-only">LinkedIn</span>
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-200">
+                <span class="sr-only">Twitter</span>
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Smooth effects script -->
+    <script>
+      // Scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe elements that should animate
+      document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        animatedElements.forEach(el => observer.observe(el));
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  /* Imported global styles */
+  @import '../styles/global.css';
+</style> 
