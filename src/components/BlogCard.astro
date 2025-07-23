@@ -113,7 +113,10 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : "/fallback-avatar.png";
   Contains clickable featured image, post metadata, and content preview.
   Designed for use in blog listing grids and search results.
 -->
-<article class="card">
+<article
+  class="card post-card"
+  data-tags={post.tags.map((t) => t.name.toUpperCase()).join(",")}
+>
   <!-- Featured image link to full post -->
   <a href={`/blog/${slug}`}>
     <img loading="lazy" src={imgSrc} alt={title} class="card-image" />
