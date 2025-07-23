@@ -124,7 +124,7 @@ const tagsData: TagType[] = tagsRes.ok ? await tagsRes.json() : [];
  * Includes "All" option for showing all posts
  * @constant {string[]}
  */
-const allTags: string[] = ["All", ...tagsData.map((t) => t.name)];
+const allTags: string[] = ["All", ...tagsData.map((t) => t.name.toUpperCase())];
 
 /**
  * Filter posts based on search query and selected tag
@@ -135,7 +135,7 @@ const filtered = posts.filter(
     (p) =>
         (p.title.toLowerCase().includes(search) ||
             p.summary.toLowerCase().includes(search)) &&
-        (tag === "All" || p.tags.some((t) => t.name === tag)),
+        (tag === "All" || p.tags.some((t) => t.name.toUpperCase() === tag)),
 );
 
 /**
@@ -156,7 +156,8 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <title>Blog Squair</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Elipson | Blog</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
@@ -166,7 +167,7 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
         <!-- Search and tag filter section -->
         <section class="search-filter">
             <div class="left-column">
-                <h2>Descubra más sobre lo que es importante para usted</h2>
+                <h2>Descubre más sobre lo que es importante para ti</h2>
 
                 <!-- Search form with text input and submit button -->
                 <form method="get" class="search-form">
@@ -176,7 +177,21 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                         placeholder="Buscar"
                         value={search}
                     />
-                    <button type="submit" aria-label="Buscar">🔍</button>
+                    <button type="submit" aria-label="Buscar">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
                 </form>
             </div>
 
@@ -197,21 +212,64 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
 
         <!-- Blog posts grid layout -->
         <section class="posts-grid">
-            {slice.map((post) => <BlogCard post={post} />)}
+            {
+                slice.length > 0 ? (
+                    slice.map((post) => <BlogCard post={post} />)
+                ) : (
+                    <div class="no-results">
+                        <h3>No se encontraron resultados</h3>
+                        <p>Intenta ajustar tu búsqueda o los filtros</p>
+                    </div>
+                )
+            }
         </section>
 
         <!-- Pagination navigation -->
-        <nav class="pagination">
-            {
-                Array.from({ length: totalPages }, (_, i) => (
-                    <a
-                        class={i + 1 === pageNum ? "page active" : "page"}
-                        href={`?page=${i + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
-                    >
-                        {i + 1}
-                    </a>
-                ))
-            }
-        </nav>
+        {
+            totalPages > 0 && (
+                <nav
+                    class="pagination"
+                    role="navigation"
+                    aria-label="Navegación de páginas"
+                >
+                    {/* Previous arrow - only show if there are multiple pages and not on first page */}
+                    {totalPages > 1 && pageNum > 1 && (
+                        <a
+                            class="page arrow"
+                            href={`?page=${pageNum - 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
+                            aria-label="Página anterior"
+                        >
+                            ‹
+                        </a>
+                    )}
+
+                    {/* Page numbers */}
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <a
+                            class={i + 1 === pageNum ? "page active" : "page"}
+                            href={`?page=${i + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
+                            aria-label={
+                                i + 1 === pageNum
+                                    ? `Página actual: ${i + 1}`
+                                    : `Ir a página ${i + 1}`
+                            }
+                        >
+                            {i + 1}
+                        </a>
+                    ))}
+
+                    {/* Next arrow - only show if there are multiple pages and not on last page */}
+                    {totalPages > 1 && pageNum < totalPages && (
+                        <a
+                            class="page arrow"
+                            href={`?page=${pageNum + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
+                            aria-label="Página siguiente"
+                        >
+                            ›
+                        </a>
+                    )}
+                </nav>
+            )
+        }
     </body>
 </html>
