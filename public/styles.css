@@ -1,31 +1,55 @@
 /* =====================================
-   Variables Globales (Custom Properties)
+   Global Variables (CSS Custom Properties)
    ===================================== */
+/**
+ * CSS Custom Properties (CSS Variables) for consistent theming
+ * These variables provide a centralized way to manage colors, spacing,
+ * border radius values, and transitions throughout the application
+ */
 :root {
-  --primary: #5419ff;
-  --primary-hover: #4015cc;
-  --border-light: #e1e8ed;
-  --text-dark: #2c3e50;
-  --text-muted: #6c757d;
-  --gap-sm: 0.5rem;
-  --gap-md: 1rem;
-  --gap-lg: 1.5rem;
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --transition-fast: 0.3s ease;
+  /* Brand Colors */
+  --primary: #5419ff;              /* Main brand color - purple */
+  --primary-hover: #4015cc;        /* Darker shade for hover states */
+  
+  /* Border and Text Colors */
+  --border-light: #e1e8ed;         /* Light border color for cards and inputs */
+  --text-dark: #2c3e50;            /* Primary text color for headings and content */
+  --text-muted: #6c757d;           /* Secondary text color for meta information */
+  
+  /* Spacing System */
+  --gap-sm: 0.5rem;                /* Small spacing - 8px */
+  --gap-md: 1rem;                  /* Medium spacing - 16px */
+  --gap-lg: 1.5rem;                /* Large spacing - 24px */
+  
+  /* Border Radius System */
+  --radius-sm: 0.25rem;            /* Small border radius - 4px */
+  --radius-md: 0.5rem;             /* Medium border radius - 8px */
+  --radius-lg: 1rem;               /* Large border radius - 16px */
+  
+  /* Animation */
+  --transition-fast: 0.3s ease;    /* Fast transition for hover effects */
 }
 
 /* =====================================
-   Fuente Global
+   Global Font Family
    ===================================== */
+/**
+ * Apply system font stack to all elements
+ * Uses the operating system's default font for better performance
+ * and native appearance across different platforms
+ */
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
 /* =====================================
-   Transiciones Compartidas
+   Shared Transitions
    ===================================== */
+/**
+ * Define consistent transition effects for interactive elements
+ * These transitions provide smooth hover and focus states
+ * for cards, tags, buttons, and links
+ */
 .card,
 .tag,
 .page,
@@ -38,119 +62,187 @@
 }
 
 /* =====================================
-   Top Banner
+   Top Banner Section
    ===================================== */
+/**
+ * Hero banner with background image and overlay
+ * Features a semi-transparent purple overlay for better text readability
+ */
 .banner {
-  height: 300px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
+  height: 300px;                   /* Fixed height for consistent layout */
+  background-size: cover;          /* Scale image to cover entire container */
+  background-position: center;     /* Center the background image */
+  position: relative;              /* Enable absolute positioning for overlay */
 }
+
+/**
+ * Dark overlay on top of banner image
+ * Provides better contrast for white text
+ */
 .banner .overlay {
   position: absolute;
-  inset: 0;
-  background: rgba(85, 33, 245, 0.7);
+  inset: 0;                        /* Cover entire banner area */
+  background: rgba(85, 33, 245, 0.7); /* Semi-transparent brand color */
   display: flex;
-  align-items: center;
-  padding-left: 3rem;
+  align-items: center;             /* Vertically center content */
+  padding-left: 3rem;              /* Left padding for text positioning */
 }
+
+/**
+ * Main banner heading
+ * Large, bold text with shadow for better readability
+ */
 .banner h1 {
   color: #fff;
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Subtle shadow for depth */
 }
 
 /* =====================================
    Search and Filter Section
    ===================================== */
+/**
+ * Layout container for search functionality and filter tags
+ * Uses CSS Grid for responsive two-column layout:
+ * - Left column: Search title and form
+ * - Right column: Tag filters spanning both rows
+ */
 .search-filter {
-  max-width: 1200px;
-  margin: 3rem auto;
-  padding: 0 2rem;
+  max-width: 1200px;               /* Limit maximum width for readability */
+  margin: 3rem auto;               /* Center container with vertical spacing */
+  padding: 0 2rem;                 /* Horizontal padding for mobile */
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto auto;
-  gap: var(--gap-lg) 3rem;
+  grid-template-columns: 1fr 2fr;  /* Left column smaller than right */
+  grid-template-rows: auto auto;   /* Two rows: title and search form */
+  gap: var(--gap-lg) 3rem;         /* Vertical and horizontal spacing */
 }
+
+/**
+ * Section heading for search area
+ */
 .search-filter h2 {
   font-size: 1.8rem;
   color: var(--text-dark);
   margin: 0;
   font-weight: 600;
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
+  grid-column: 1 / 2;              /* First column only */
+  grid-row: 1 / 2;                 /* First row only */
 }
+
+/**
+ * Search form container with input and button
+ * Styled as a unified component with shadow and border
+ */
 .search-form {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
+  grid-column: 1 / 2;              /* First column only */
+  grid-row: 2 / 3;                 /* Second row only */
   display: flex;
-  gap: 0;
+  gap: 0;                          /* No gap between input and button */
   margin: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
   border-radius: 4px;
-  overflow: hidden;
+  overflow: hidden;                /* Ensure border radius applies to children */
   background: #fff;
-  align-self: start;
+  align-self: start;               /* Align to top of grid cell */
   height: fit-content;
   border: 1px solid var(--border-light);
 }
+
+/**
+ * Search input field
+ * Flexible width, no border to integrate with button
+ */
 .search-form input[type="text"] {
-  flex: 1;
+  flex: 1;                         /* Take remaining space */
   padding: 0.75rem 1rem;
-  border: none;
+  border: none;                    /* Remove default border */
   font-size: 0.9rem;
-  outline: none;
+  outline: none;                   /* Remove default focus outline */
   background: transparent;
   color: var(--text-dark);
 }
+
+/**
+ * Placeholder text styling for search input
+ */
 .search-form input[type="text"]::placeholder {
   color: var(--text-muted);
 }
+
+/**
+ * Search button with subtle styling
+ * Matches the input height and provides visual separation
+ */
 .search-form button {
   padding: 0.75rem 1rem;
   border: none;
-  background: #f8f9fa;
+  background: #f8f9fa;            /* Light background to distinguish from input */
   color: var(--text-muted);
   cursor: pointer;
   font-size: 1rem;
-  border-left: 1px solid var(--border-light);
+  border-left: 1px solid var(--border-light); /* Separator line */
 }
+
+/**
+ * Search button hover state
+ */
 .search-form button:hover {
-  background: #e9ecef;
+  background: #e9ecef;            /* Slightly darker on hover */
 }
 
 /* =====================================
-   Tag Selector - Estilo Rectangular
+   Tag Selector - Rectangular Style
    ===================================== */
+/**
+ * Container for filter tags
+ * Spans both rows of the search-filter grid on the right side
+ * Uses flexbox for responsive tag wrapping
+ */
 .tags {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
+  grid-column: 2 / 3;              /* Second column only */
+  grid-row: 1 / 3;                 /* Span both rows */
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-content: flex-start;
+  flex-wrap: wrap;                 /* Allow tags to wrap to new lines */
+  gap: 0.5rem;                     /* Space between tags */
+  align-content: flex-start;       /* Align wrapped content to top */
 }
+
+/**
+ * Individual tag styling
+ * Rectangular design with subtle borders and hover effects
+ * Used for category filtering
+ */
 .tag {
   padding: 0.5rem 1rem;
   border: 1px solid var(--border-light);
-  border-radius: 4px; /* Bordes más rectangulares */
-  text-decoration: none;
+  border-radius: 4px;              /* Slightly rounded corners */
+  text-decoration: none;           /* Remove link underline */
   font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 500;
   background: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
+  text-transform: uppercase;       /* All caps for consistency */
+  letter-spacing: 0.5px;           /* Slight letter spacing for readability */
+  white-space: nowrap;             /* Prevent text wrapping within tag */
   display: inline-block;
 }
+
+/**
+ * Tag hover state
+ * Highlights with brand color and subtle background
+ */
 .tag:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(84, 25, 255, 0.05);
+  background: rgba(84, 25, 255, 0.05); /* Very light brand color background */
 }
+
+/**
+ * Active tag state
+ * Full brand color styling for selected tags
+ */
 .tag.active {
   background: var(--primary);
   color: #fff;
@@ -158,213 +250,375 @@
 }
 
 /* =====================================
-   Cards Grid
+   Cards Grid Layout
    ===================================== */
+/**
+ * Responsive grid container for blog post cards
+ * Uses auto-fit with minimum width for responsive behavior
+ * Cards automatically adjust to screen size
+ */
 .posts-grid {
-  max-width: 1200px;
-  margin: 3rem auto;
-  padding: 0 2rem;
+  max-width: 1200px;               /* Limit maximum width */
+  margin: 3rem auto;               /* Center with vertical spacing */
+  padding: 0 2rem;                 /* Horizontal padding */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive columns */
+  gap: 2rem;                       /* Space between cards */
 }
 
 /* =====================================
-   Blog Card - Estilo más rectangular
+   Blog Card - Rectangular Style
    ===================================== */
+/**
+ * Individual blog post card component
+ * Features image, content area, and hover effects
+ * Uses flexbox for consistent height and content distribution
+ */
 .card {
-  border-radius: 8px; /* Menos redondeado */
-  overflow: hidden;
+  border-radius: 8px;              /* Moderately rounded corners */
+  overflow: hidden;                /* Ensure content stays within borders */
   display: flex;
-  flex-direction: column;
+  flex-direction: column;          /* Stack image and content vertically */
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Subtle shadow */
   border: 1px solid var(--border-light);
 }
+
+/**
+ * Card hover effect
+ * Lifts card and increases shadow for interactive feedback
+ */
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-4px);     /* Lift effect */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12); /* Enhanced shadow */
 }
+
+/**
+ * Card featured image
+ * Fixed height for consistent card appearance
+ */
 .card-image {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
-  loading: lazy;
+  height: 220px;                   /* Fixed height for consistency */
+  object-fit: cover;               /* Crop image to fit container */
+  loading: lazy;                   /* Lazy load for performance */
 }
+
+/**
+ * Card content container
+ * Flexible container that expands to fill available space
+ */
 .card-content {
   padding: 1.5rem;
-  flex: 1;
+  flex: 1;                         /* Take remaining space in card */
   display: flex;
-  flex-direction: column;
+  flex-direction: column;          /* Stack content vertically */
 }
+
+/**
+ * Card title styling
+ * Links to the full blog post
+ */
 .card-title {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: var(--text-dark);
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.4;                /* Improved readability */
   cursor: pointer;
 }
+
+/**
+ * Title link styling
+ * Inherits color from parent, removes default link styles
+ */
 .card-title a {
-  color: inherit;
-  text-decoration: none;
+  color: inherit;                  /* Use parent color */
+  text-decoration: none;           /* Remove underline */
 }
+
+/**
+ * Title link hover effect
+ */
 .card-title a:hover {
-  color: var(--primary);
+  color: var(--primary);           /* Brand color on hover */
 }
+
+/**
+ * Card metadata container
+ * Displays author information and other meta data
+ */
 .card-meta {
   display: flex;
-  align-items: center;
-  gap: 0.8rem;
+  align-items: center;             /* Vertically center items */
+  gap: 0.8rem;                     /* Space between meta items */
   font-size: 0.85rem;
   margin-bottom: 0.5rem;
   color: var(--text-muted);
 }
+
+/**
+ * Publication date display
+ */
 .card-date {
   display: block;
   font-size: 0.8rem;
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
+
+/**
+ * Author avatar image
+ * Small circular image for author identification
+ */
 .author-avatar {
   width: 28px;
   height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid var(--border-light);
-  loading: lazy;
+  border-radius: 50%;              /* Make circular */
+  object-fit: cover;               /* Crop to fit circle */
+  border: 1px solid var(--border-light); /* Subtle border */
+  loading: lazy;                   /* Lazy load for performance */
 }
+/**
+ * Author name styling in card metadata
+ */
 .author-name {
   font-weight: 500;
-  color: #495057;
+  color: #495057;                  /* Slightly darker than muted text */
 }
+
+/**
+ * Card summary/excerpt text
+ * Flexible container that expands to fill available space
+ */
 .card-summary {
-  flex: 1;
+  flex: 1;                         /* Take remaining space, pushing read-more to bottom */
   margin-bottom: 1.5rem;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.5;                /* Improved readability */
   font-size: 0.9rem;
 }
+
+/**
+ * Read more link
+ * Positioned at bottom of card with separator line
+ */
 .read-more {
   font-size: 0.85rem;
   color: var(--primary);
-  text-decoration: none;
+  text-decoration: none;           /* Remove underline */
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: uppercase;       /* All caps for emphasis */
+  letter-spacing: 0.5px;           /* Slight letter spacing */
   padding: 0.5rem 0;
-  border-top: 1px solid #e9ecef;
-  margin-top: auto;
+  border-top: 1px solid #e9ecef;   /* Separator line */
+  margin-top: auto;                /* Push to bottom of flex container */
 }
+
+/**
+ * Read more link hover effect
+ */
 .read-more:hover {
-  color: var(--primary-hover);
+  color: var(--primary-hover);     /* Darker brand color on hover */
 }
 
 /* =====================================
-   Pagination - Estilo simple sin bordes
+   Pagination - Simple Style Without Borders
    ===================================== */
+/**
+ * Pagination controls for navigating through blog posts
+ * Clean, minimal design without borders or background colors
+ */
 .pagination {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 3rem 0;
+  justify-content: center;         /* Center pagination controls */
+  align-items: center;             /* Vertically align items */
+  gap: 0.5rem;                     /* Space between page numbers */
+  margin: 3rem 0;                  /* Vertical spacing */
 }
+
+/**
+ * Individual page number or navigation link
+ * Minimal styling with hover effects
+ */
 .page {
   padding: 0.5rem 0.75rem;
-  border: none;
-  border-radius: 0;
-  text-decoration: none;
+  border: none;                    /* No borders for clean look */
+  border-radius: 0;                /* Sharp corners */
+  text-decoration: none;           /* Remove link underline */
   color: var(--text-muted);
   font-weight: 400;
-  background: transparent;
+  background: transparent;         /* No background color */
   font-size: 1rem;
-  min-width: 32px;
+  min-width: 32px;                 /* Consistent minimum width */
   text-align: center;
   transition: color var(--transition-fast);
 }
+
+/**
+ * Page link hover effect
+ */
 .page:hover {
-  color: var(--primary);
+  color: var(--primary);           /* Brand color on hover */
 }
+
+/**
+ * Active/current page styling
+ * Distinguished by color and font weight
+ */
 .page.active {
-  background: transparent;
-  color: var(--primary);
-  font-weight: 600;
+  background: transparent;         /* Keep transparent background */
+  color: var(--primary);           /* Brand color for current page */
+  font-weight: 600;                /* Bold font for emphasis */
 }
+
+/**
+ * Arrow navigation (previous/next) styling
+ * Slightly different sizing for arrow symbols
+ */
 .page.arrow {
-  font-size: 1.2rem;
-  padding: 0.25rem 0.5rem;
+  font-size: 1.2rem;               /* Larger font for arrows */
+  padding: 0.25rem 0.5rem;         /* Adjusted padding */
 }
+
+/**
+ * Arrow navigation hover effect
+ */
 .page.arrow:hover {
-  color: var(--primary);
+  color: var(--primary);           /* Brand color on hover */
 }
 
 /* =====================================
-   Responsive
+   Responsive Design
    ===================================== */
+/**
+ * Tablet and small desktop breakpoint
+ * Adjusts layout for screens 768px and smaller
+ */
 @media (max-width: 768px) {
+  /**
+   * Reduce banner heading size for smaller screens
+   */
   .banner h1 {
     font-size: 2rem;
   }
+  
+  /**
+   * Adjust banner overlay padding for mobile
+   */
   .banner .overlay {
     padding-left: 1.5rem;
   }
+  
+  /**
+   * Convert search-filter to single column layout
+   * Stack search and tags vertically
+   */
   .search-filter {
-    padding: 0 1rem;
-    grid-template-columns: 1fr;
-    gap: var(--gap-lg);
+    padding: 0 1rem;                /* Reduce horizontal padding */
+    grid-template-columns: 1fr;     /* Single column layout */
+    gap: var(--gap-lg);             /* Consistent vertical spacing */
   }
+  
+  /**
+   * Center and resize section heading
+   */
   .search-filter h2 {
     font-size: 1.5rem;
-    grid-column: 1 / -1;
-    text-align: center;
+    grid-column: 1 / -1;            /* Span full width */
+    text-align: center;             /* Center align text */
   }
+  
+  /**
+   * Full width search form
+   */
   .search-form {
-    grid-column: 1 / -1;
-    grid-row: auto;
+    grid-column: 1 / -1;            /* Span full width */
+    grid-row: auto;                 /* Auto row placement */
   }
+  
+  /**
+   * Center tags and make them full width
+   */
   .tags {
-    grid-column: 1 / -1;
-    grid-row: auto;
-    justify-content: center;
+    grid-column: 1 / -1;            /* Span full width */
+    grid-row: auto;                 /* Auto row placement */
+    justify-content: center;        /* Center tags horizontally */
   }
+  
+  /**
+   * Single column grid for cards
+   */
   .posts-grid {
-    grid-template-columns: 1fr;
-    padding: 0 1rem;
-    gap: var(--gap-lg);
+    grid-template-columns: 1fr;     /* Single column */
+    padding: 0 1rem;                /* Reduce padding */
+    gap: var(--gap-lg);             /* Consistent spacing */
   }
+  
+  /**
+   * Smaller tag sizing for mobile
+   */
   .tag {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;         /* Reduced padding */
+    font-size: 0.75rem;             /* Smaller font */
   }
 }
 
+/**
+ * Mobile phone breakpoint
+ * Additional adjustments for very small screens (480px and smaller)
+ */
 @media (max-width: 480px) {
+  /**
+   * Maintain consistent border radius on small screens
+   */
   .search-form {
     border-radius: 4px;
   }
+  
+  /**
+   * Slightly reduce card border radius for mobile
+   */
   .card {
     border-radius: 6px;
   }
+  
+  /**
+   * Reduce card content padding for smaller screens
+   */
   .card-content {
-    padding: 1rem;
+    padding: 1rem;                  /* Reduced from 1.5rem */
   }
 }
 
 /* =====================================
-   No Results & Loading
+   No Results & Loading States
    ===================================== */
+/**
+ * Empty state when no blog posts match search/filter criteria
+ * Provides user feedback when search returns no results
+ */
 .no-results {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 3rem 1rem;              /* Generous padding for visual separation */
   color: var(--text-muted);
   font-size: 1.1rem;
 }
+
+/**
+ * No results heading
+ * Slightly larger and darker than body text
+ */
 .no-results h3 {
   margin-bottom: 1rem;
-  color: #495057;
+  color: #495057;                  /* Darker than muted text */
   font-size: 1.5rem;
 }
+
+/**
+ * Loading state indicator
+ * Shown while content is being fetched
+ */
 .loading {
   text-align: center;
   padding: 2rem;
@@ -372,13 +626,23 @@
 }
 
 /* =====================================
-   Mejoras de accesibilidad
+   Accessibility Improvements
    ===================================== */
+/**
+ * Custom focus outline for search input
+ * Provides clear visual feedback when input is focused
+ * Uses brand color with transparency for consistency
+ */
 .search-form input[type="text"]:focus {
-  outline: 2px solid rgba(84, 25, 255, 0.2);
-  outline-offset: -2px;
+  outline: 2px solid rgba(84, 25, 255, 0.2); /* Semi-transparent brand color */
+  outline-offset: -2px;            /* Keep outline inside element */
 }
+
+/**
+ * Custom focus outline for search button
+ * Matches the input focus styling for consistency
+ */
 .search-form button:focus {
-  outline: 2px solid rgba(84, 25, 255, 0.2);
-  outline-offset: -2px;
+  outline: 2px solid rgba(84, 25, 255, 0.2); /* Semi-transparent brand color */
+  outline-offset: -2px;            /* Keep outline inside element */
 }
