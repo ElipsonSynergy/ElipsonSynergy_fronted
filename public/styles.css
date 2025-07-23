@@ -1,6 +1,38 @@
-/* ================================
+/* =====================================
+   Variables Globales (Custom Properties)
+   ===================================== */
+:root {
+  --primary: #5419ff;
+  --primary-hover: #4015cc;
+  --border-light: #e1e8ed;
+  --text-dark: #2c3e50;
+  --text-muted: #6c757d;
+  --gap-sm: 0.5rem;
+  --gap-md: 1rem;
+  --gap-lg: 1.5rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --transition-fast: 0.3s ease;
+}
+
+/* =====================================
+   Transiciones Compartidas
+   ===================================== */
+.card,
+.tag,
+.page,
+.search-form button,
+.card-title a {
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background var(--transition-fast),
+              color var(--transition-fast);
+}
+
+/* =====================================
    Top Banner
-   ================================ */
+   ===================================== */
 .banner {
   height: 300px;
   background-size: cover;
@@ -23,42 +55,39 @@
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-/* ================================
+/* =====================================
    Search and Filter Section
-   ================================ */
+   ===================================== */
 .search-filter {
   max-width: 1200px;
   margin: 3rem auto;
   padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto auto;   
-  gap: 1.5rem 3rem;               
+  grid-template-rows: auto auto;
+  gap: var(--gap-lg) 3rem;
 }
-
 .search-filter h2 {
   font-size: 1.8rem;
-  color: #2c3e50;
+  color: var(--text-dark);
   margin: 0;
   font-weight: 600;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
 }
-
 .search-form {
-  grid-column: 1 / 2; 
+  grid-column: 1 / 2;
   grid-row: 2 / 3;
   display: flex;
-  gap: 0.5rem;
+  gap: var(--gap-sm);
   margin: 0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   border-radius: 50px;
   overflow: hidden;
-  background: white;
+  background: #fff;
   align-self: start;
   height: fit-content;
 }
-
 .search-form input[type="text"] {
   flex: 1;
   padding: 1rem 1.5rem;
@@ -67,24 +96,21 @@
   outline: none;
   background: transparent;
 }
-
 .search-form button {
   padding: 1rem 1.5rem;
   border: none;
-  background: #5419ff;
+  background: var(--primary);
   color: #fff;
   cursor: pointer;
   font-size: 1.2rem;
-  transition: background 0.3s ease;
 }
-
 .search-form button:hover {
-  background: #4015cc;
+  background: var(--primary-hover);
 }
 
-/* ================================
-   Tag Selector - Estilo Mockup con Grid
-   ================================ */
+/* =====================================
+   Tag Selector
+   ===================================== */
 .tags {
   grid-column: 2 / 3;
   grid-row: 1 / 3;
@@ -93,39 +119,35 @@
   gap: 0.8rem;
   align-content: flex-start;
 }
-
 .tag {
   padding: 0.6rem 1.2rem;
-  border: 2px solid #e1e8ed;
-  border-radius: 25px;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-lg);
   text-decoration: none;
   font-size: 0.9rem;
-  color: #5a6c7d;
+  color: var(--text-muted);
   font-weight: 500;
-  transition: all 0.3s ease;
-  background: white;
+  background: #fff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
 .tag:hover {
-  border-color: #5419ff;
-  color: #5419ff;
+  border-color: var(--primary);
+  color: var(--primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(84, 25, 255, 0.2);
 }
-
 .tag.active {
-  background: #5419ff;
+  background: var(--primary);
   color: #fff;
-  border-color: #5419ff;
+  border-color: var(--primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(84, 25, 255, 0.3);
 }
 
-/* ================================
+/* =====================================
    Cards Grid
-   ================================ */
+   ===================================== */
 .posts-grid {
   max-width: 1200px;
   margin: 3rem auto;
@@ -135,9 +157,9 @@
   gap: 2rem;
 }
 
-/* ================================
-   Blog Card - Estilo Mockup Mejorado
-   ================================ */
+/* =====================================
+   Blog Card
+   ===================================== */
 .card {
   border-radius: 16px;
   overflow: hidden;
@@ -145,78 +167,67 @@
   flex-direction: column;
   background: #fff;
   box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
   border: none;
 }
-
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 16px 40px rgba(0,0,0,0.12);
 }
-
 .card-image {
   width: 100%;
   height: 220px;
   object-fit: cover;
+  loading: lazy;
 }
-
 .card-content {
   padding: 1.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-
 .card-title {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #2c3e50;
+  color: var(--text-dark);
   font-weight: 700;
   line-height: 1.3;
+  cursor: pointer;
 }
-
 .card-title a {
   color: inherit;
-  text-decoration: none;
-  transition: color 0.3s ease;
 }
-
 .card-title a:hover {
-  color: #5419ff;
+  color: var(--primary);
 }
-
 .card-meta {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   font-size: 0.9rem;
   margin-bottom: 1rem;
-  color: #6c757d;
+  color: var(--text-muted);
 }
-
 .author-avatar {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e9ecef;
+  loading: lazy;
 }
-
 .author-name {
   font-weight: 600;
   color: #495057;
 }
-
 .card-summary {
   flex: 1;
   margin-bottom: 1.5rem;
-  color: #6c757d;
+  color: var(--text-muted);
   line-height: 1.6;
 }
-
 .read-more {
   font-size: 0.95rem;
-  color: #5419ff;
+  color: var(--primary);
   text-decoration: none;
   font-weight: 600;
   text-transform: uppercase;
@@ -224,87 +235,74 @@
   padding: 0.5rem 0;
   border-top: 1px solid #e9ecef;
   margin-top: auto;
-  transition: color 0.3s ease;
 }
-
 .read-more:hover {
-  color: #4015cc;
+  color: var(--primary-hover);
 }
 
-/* ================================
-   Pagination - Estilo Mejorado
-   ================================ */
+/* =====================================
+   Pagination
+   ===================================== */
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--gap-sm);
   margin: 3rem 0;
 }
-
 .page {
   padding: 0.8rem 1.2rem;
-  border: 2px solid #e1e8ed;
+  border: 2px solid var(--border-light);
   border-radius: 8px;
   text-decoration: none;
-  color: #5a6c7d;
+  color: var(--text-muted);
   font-weight: 600;
-  transition: all 0.3s ease;
-  background: white;
+  background: #fff;
 }
-
 .page:hover {
-  border-color: #5419ff;
-  color: #5419ff;
+  border-color: var(--primary);
+  color: var(--primary);
   transform: translateY(-2px);
 }
-
 .page.active {
-  background: #5419ff;
+  background: var(--primary);
   color: #fff;
-  border-color: #5419ff;
+  border-color: var(--primary);
 }
 
-/* ================================
-   Responsive Design
-   ================================ */
+/* =====================================
+   Responsive
+   ===================================== */
 @media (max-width: 768px) {
   .banner h1 {
     font-size: 2rem;
   }
-  
   .banner .overlay {
     padding-left: 1.5rem;
   }
-
   .search-filter {
     padding: 0 1rem;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: var(--gap-lg);
   }
-
   .search-filter h2 {
     font-size: 1.5rem;
     grid-column: 1 / -1;
     text-align: center;
   }
-
   .search-form {
     grid-column: 1 / -1;
     grid-row: auto;
   }
-
   .tags {
     grid-column: 1 / -1;
     grid-row: auto;
     justify-content: center;
   }
-
   .posts-grid {
     grid-template-columns: 1fr;
     padding: 0 1rem;
-    gap: 1.5rem;
+    gap: var(--gap-lg);
   }
-
   .tag {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
@@ -315,74 +313,41 @@
   .search-form {
     border-radius: 25px;
   }
-  
   .card {
     border-radius: 12px;
   }
-
   .card-content {
     padding: 1rem;
   }
 }
 
-/* ================================
-   Estados adicionales y mejoras visuales
-   ================================ */
-.card-title {
-  cursor: pointer;
-}
-
-.card a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Mejorar la legibilidad de las fechas */
-.card-meta time {
-  color: #8e9aaf;
-  font-size: 0.85rem;
-}
-
-/* Hover effect para toda la tarjeta cuando se hace click en la imagen */
-.card a:hover .card-image {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
-}
-
-/* Estilo para cuando no hay resultados */
+/* =====================================
+   No Results & Loading
+   ===================================== */
 .no-results {
   text-align: center;
   padding: 3rem 1rem;
-  color: #6c757d;
+  color: var(--text-muted);
   font-size: 1.1rem;
 }
-
 .no-results h3 {
   margin-bottom: 1rem;
   color: #495057;
   font-size: 1.5rem;
 }
-
-/* Indicador de carga para cuando se está filtrando */
 .loading {
   text-align: center;
   padding: 2rem;
-  color: #6c757d;
+  color: var(--text-muted);
 }
 
-/* Mejoras de accesibilidad */
-.tag:focus,
-.page:focus,
-.read-more:focus {
-  outline: 2px solid #5419ff;
-  outline-offset: 2px;
-}
-
+/* =====================================
+   Mejoras de accesibilidad
+   ===================================== */
 .search-form input[type="text"]:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(84, 25, 255, 0.2);
 }
-
 .search-form button:focus {
   outline: 2px solid #fff;
   outline-offset: 2px;

@@ -1,17 +1,17 @@
 ---
 /**
  * Blog Page Component
- * 
+ *
  * Main blog listing page that displays blog posts with search, filtering, and pagination functionality.
  * Fetches posts and tags from the API and provides a user-friendly interface for browsing content.
- * 
+ *
  * Features:
  * - Search functionality across post titles and summaries
  * - Tag-based filtering system
  * - Client-side pagination with configurable page size
  * - Responsive grid layout for blog cards
  * - SEO-friendly URL parameters
- * 
+ *
  * @component BlogPage
  * @requires BlogsListBanner - Banner component for page header
  * @requires BlogCard - Individual blog post card component
@@ -24,7 +24,7 @@ import BlogCard from "../components/BlogCard.astro";
 /**
  * Tag interface matching TagDto from backend
  * Represents a blog post tag with unique identifier and name
- * 
+ *
  * @interface TagType
  * @property {string} id - Unique identifier for the tag
  * @property {string} name - Display name of the tag
@@ -37,7 +37,7 @@ interface TagType {
 /**
  * Author interface matching AuthorDto from backend
  * Represents blog post author information with optional profile data
- * 
+ *
  * @interface AuthorType
  * @property {string} id - Unique identifier for the author
  * @property {string} name - Full name of the author
@@ -54,7 +54,7 @@ interface AuthorType {
 /**
  * Post interface matching PostDto from backend
  * Represents a complete blog post with all associated data
- * 
+ *
  * @interface PostType
  * @property {string} id - Unique identifier for the post
  * @property {string} slug - URL-friendly slug for SEO
@@ -165,18 +165,20 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
 
         <!-- Search and tag filter section -->
         <section class="search-filter">
-            <h2>Descubra más sobre lo que es importante para usted</h2>
-            
-            <!-- Search form with text input and submit button -->
-            <form method="get" class="search-form">
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Buscar"
-                    value={search}
-                />
-                <button type="submit" aria-label="Buscar">🔍</button>
-            </form>
+            <div class="left-column">
+                <h2>Descubra más sobre lo que es importante para usted</h2>
+
+                <!-- Search form with text input and submit button -->
+                <form method="get" class="search-form">
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Buscar"
+                        value={search}
+                    />
+                    <button type="submit" aria-label="Buscar">🔍</button>
+                </form>
+            </div>
 
             <!-- Tag filter navigation -->
             <div class="tags">
