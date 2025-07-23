@@ -278,12 +278,28 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
             const postCards = Array.from(
                 document.querySelectorAll(".card.post-card"),
             );
-            /** @type {string[]} */
-            let selectedTags = [];
-
+            /** @type {HTMLFormElement | null} */
+            const form = document.querySelector(".search-form");
+            /** @type {HTMLInputElement | null} */
+            const searchInput =
+                form?.querySelector('input[name="search"]') ?? null;
+            /** @type {HTMLElement | null} */
             const noResultsEl = document.querySelector(
                 ".posts-grid .no-results",
             );
+
+            /** @type {string[]} */
+            let selectedTags = [];
+            /** @type {string} */
+            let searchTerm = searchInput?.value.trim().toLowerCase() || "";
+
+            // Evita recarga al enviar el formulario
+            form?.addEventListener("submit", (e) => e.preventDefault());
+            // Actualiza searchTerm al teclear
+            searchInput?.addEventListener("input", () => {
+                searchTerm = searchInput.value.trim().toLowerCase();
+                filterPosts();
+            });
 
             function updateUI() {
                 tagButtons.forEach((btn) => {
@@ -306,19 +322,32 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                 let anyVisible = false;
 
                 postCards.forEach((card) => {
+                    // tags
                     const tagsAttr = card.getAttribute("data-tags") || "";
                     const cardTags = tagsAttr
                         .split(",")
                         .map((t) => t.trim().toUpperCase());
-                    const visible =
+                    const matchesTag =
                         selectedTags.length === 0 ||
                         selectedTags.some((tag) => cardTags.includes(tag));
 
+                    // búsqueda
+                    const title = card.getAttribute("data-title") || "";
+                    const summary = card.getAttribute("data-summary") || "";
+                    const content = card.getAttribute("data-content") || "";
+                    const hayTexto = [
+                        title,
+                        summary,
+                        content,
+                        tagsAttr.toLowerCase(),
+                    ].some((field) => field.includes(searchTerm));
+
+                    const visible = matchesTag && hayTexto;
                     card.style.display = visible ? "" : "none";
                     if (visible) anyVisible = true;
                 });
 
-                // Si no quedó ninguno visible, mostramos el mensaje
+                // muestra/oculta “no results”
                 if (noResultsEl) {
                     noResultsEl.style.display = anyVisible ? "none" : "";
                 }
