@@ -293,10 +293,9 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
             /** @type {string} */
             let searchTerm = searchInput?.value.trim().toLowerCase() || "";
 
-            // Evita recarga al enviar el formulario
-            form?.addEventListener("submit", (e) => e.preventDefault());
-            // Actualiza searchTerm al teclear
-            searchInput?.addEventListener("input", () => {
+            // Maneja el submit: evita recarga, toma el valor y filtra
+            form?.addEventListener("submit", (e) => {
+                e.preventDefault();
                 searchTerm = searchInput.value.trim().toLowerCase();
                 filterPosts();
             });
@@ -304,17 +303,12 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
             function updateUI() {
                 tagButtons.forEach((btn) => {
                     const name = btn.textContent?.trim().toUpperCase() || "";
-                    if (name === "ALL") {
-                        btn.classList.toggle(
-                            "active",
-                            selectedTags.length === 0,
-                        );
-                    } else {
-                        btn.classList.toggle(
-                            "active",
-                            selectedTags.includes(name),
-                        );
-                    }
+                    btn.classList.toggle(
+                        "active",
+                        name === "ALL"
+                            ? selectedTags.length === 0
+                            : selectedTags.includes(name),
+                    );
                 });
             }
 
@@ -332,17 +326,25 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                         selectedTags.some((tag) => cardTags.includes(tag));
 
                     // búsqueda
+                    const hayTagsTxt = tagsAttr
+                        .toLowerCase()
+                        .includes(searchTerm);
                     const title = card.getAttribute("data-title") || "";
                     const summary = card.getAttribute("data-summary") || "";
                     const content = card.getAttribute("data-content") || "";
+                    const author = card.getAttribute("data-author") || "";
+                    const slug = card.getAttribute("data-slug") || "";
                     const hayTexto = [
                         title,
                         summary,
                         content,
-                        tagsAttr.toLowerCase(),
+                        author,
+                        slug,
+                        hayTagsTxt ? tagsAttr.toLowerCase() : "",
                     ].some((field) => field.includes(searchTerm));
 
-                    const visible = matchesTag && hayTexto;
+                    const visible =
+                        matchesTag && (searchTerm === "" || hayTexto);
                     card.style.display = visible ? "" : "none";
                     if (visible) anyVisible = true;
                 });
