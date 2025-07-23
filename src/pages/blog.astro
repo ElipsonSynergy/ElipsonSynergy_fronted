@@ -212,16 +212,14 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
 
         <!-- Blog posts grid layout -->
         <section class="posts-grid">
-            {
-                slice.length > 0 ? (
-                    slice.map((post) => <BlogCard post={post} />)
-                ) : (
-                    <div class="no-results">
-                        <h3>No se encontraron resultados</h3>
-                        <p>Intenta ajustar tu búsqueda o los filtros</p>
-                    </div>
-                )
-            }
+            <!-- Blocque de “no results” siempre presente, oculto inicialmente -->
+            <div class="no-results" style="display: none;">
+                <h3>No se encontraron resultados</h3>
+                <p>Intenta ajustar tu búsqueda o los filtros</p>
+            </div>
+
+            <!-- Aquí van todas las cards, sin condicionar -->
+            {slice.map((post) => <BlogCard post={post} />)}
         </section>
 
         <!-- Pagination navigation -->
@@ -271,5 +269,80 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                 </nav>
             )
         }
+        <script type="module">
+            /** @type {HTMLAnchorElement[]} */
+            const tagButtons = Array.from(
+                document.querySelectorAll(".tags .tag"),
+            );
+            /** @type {HTMLElement[]} */
+            const postCards = Array.from(
+                document.querySelectorAll(".card.post-card"),
+            );
+            /** @type {string[]} */
+            let selectedTags = [];
+
+            const noResultsEl = document.querySelector(
+                ".posts-grid .no-results",
+            );
+
+            function updateUI() {
+                tagButtons.forEach((btn) => {
+                    const name = btn.textContent?.trim().toUpperCase() || "";
+                    if (name === "ALL") {
+                        btn.classList.toggle(
+                            "active",
+                            selectedTags.length === 0,
+                        );
+                    } else {
+                        btn.classList.toggle(
+                            "active",
+                            selectedTags.includes(name),
+                        );
+                    }
+                });
+            }
+
+            function filterPosts() {
+                let anyVisible = false;
+
+                postCards.forEach((card) => {
+                    const tagsAttr = card.getAttribute("data-tags") || "";
+                    const cardTags = tagsAttr
+                        .split(",")
+                        .map((t) => t.trim().toUpperCase());
+                    const visible =
+                        selectedTags.length === 0 ||
+                        selectedTags.some((tag) => cardTags.includes(tag));
+
+                    card.style.display = visible ? "" : "none";
+                    if (visible) anyVisible = true;
+                });
+
+                // Si no quedó ninguno visible, mostramos el mensaje
+                if (noResultsEl) {
+                    noResultsEl.style.display = anyVisible ? "none" : "";
+                }
+            }
+
+            tagButtons.forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const name = btn.textContent?.trim().toUpperCase() || "";
+                    if (name === "ALL") {
+                        selectedTags = [];
+                    } else {
+                        const idx = selectedTags.indexOf(name);
+                        if (idx >= 0) selectedTags.splice(idx, 1);
+                        else selectedTags.push(name);
+                    }
+                    updateUI();
+                    filterPosts();
+                });
+            });
+
+            // Inicializamos
+            updateUI();
+            filterPosts();
+        </script>
     </body>
 </html>
