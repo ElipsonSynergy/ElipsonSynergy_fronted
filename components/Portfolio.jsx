@@ -1,0 +1,148 @@
+"use client"
+
+import { useState } from "react"
+import { Montserrat, Numans } from 'next/font/google'
+import Image from "next/image";
+import Modal from "./Modal";
+import Link from 'next/link';
+
+import {projectsData} from "@/data/portfolio";
+import {categoriesData} from "@/data/categories"
+
+const monserrat = Montserrat({ subsets: ["latin"] });
+const numans = Numans({ subsets: ["latin"], weight: ["400"] });
+
+export default function Portfolio() {
+
+
+  const [showCards, setshowCards] = useState('all');
+  const activeclassNamees = 'bg-primary text-white';
+  const inactiveclassNamees = 'text-body-color hover:bg-primary hover:text-white';
+
+  const [data, setData] = useState({
+    "response": '',
+    "message": ""
+  });
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const closeView = () => {
+    setModalOpen(false);
+    setData({
+      "response": '',
+      "message": ""
+    });
+  }
+
+
+  const openView = (title, description) => {
+    
+    setData({
+      "response": title,
+      "message": `${description}. Para más información o contratación de servicios escribe a hola@elipson.co o contáctanos por Whatsapp al +57 315 0489455`
+    });
+    setModalOpen(true);
+  }
+
+    
+
+  return (
+    <section className="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+      <Modal modalOpen={modalOpen} data={data} close={closeView}/>
+      <div className="container mx-auto">
+        <div className="-mx-4 flex flex-wrap">
+          <div className="w-full px-4">
+            <div className="mx-auto mb-[60px] max-w-[510px] text-center">
+              <span className={`${numans.className} mb-2 block text-lg font-semibold text-primary`}>
+                Proyectos
+              </span>
+              <h2
+                className={`${monserrat.className} mb-3 text-3xl font-bold leading-[1.208] text-dark sm:text-4xl md:text-[40px]`}
+              >
+                Nuestros Desarrollos Recientes
+              </h2>
+              <p className="text-base text-body-color">
+                En elipson nos mantenemos activos desarrollando proyectos de alto impacto, 
+                que ayuden a innovar y desarrollar diversos sectores de la industria Colombiana.
+
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="-mx-4 flex flex-wrap justify-center">
+          <div className="w-full px-4">
+            <ul className="mb-12 flex flex-wrap justify-center space-x-1">
+              <li className="mb-1">
+                <button
+                  className={`inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8 ${showCards == 'all' ? activeclassNamees : inactiveclassNamees }`}
+                  onClick={ () => setshowCards('all')}
+                
+                >
+                  Todos los proyectos
+                </button>
+              </li>
+              {categoriesData.map((project, index) => {
+                return(
+                  <li className="mb-1" key={index}>
+                    <button
+                        onClick={ () => setshowCards(project.label)}
+                        className={`inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8 ${showCards == project.label ? activeclassNamees : inactiveclassNamees}`}
+                    >
+                      {project.category}
+                    </button>
+                  </li>
+                );
+              })}
+              
+            </ul>
+          </div>
+        </div>
+        <div className="-mx-4 flex flex-wrap">
+
+          {projectsData.map((project, index)=> {
+            return(
+              <div
+              className={`${showCards == 'all' || showCards == project.label ? 'block' : 'hidden'} w-full px-4 md:w-1/2 xl:w-1/3`}
+              key={index}
+              >
+                <div className="relative mb-12">
+                  <div className="overflow-hidden rounded-[10px]">
+                    <Image 
+                      src={project.img}
+                      alt="portfolio"
+                      className="w-full"
+                      width={1000}  
+                      height={1000}       
+                    />
+                  </div>
+                  <div
+                    className="relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center shadow-portfolio"
+                  >
+                    <span className="mb-2 block text-sm font-medium text-primary">
+                      {project.category}
+                    </span>
+                    <h3 className="mb-5 text-xl font-bold text-dark">
+                      {project.title}
+                    </h3>
+                    <button
+                      // onClick={() => openView(project.title, project.description)}
+                      className="inline-block rounded-md border border-stroke px-7 py-[10px] text-sm font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white"
+                    >
+                      <Link href={`/products/${project.id}`} >
+                            Ver Detalles
+                      </Link>
+                      
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+            
+          })}
+          
+        </div>
+        
+      </div>
+    </section>
+  )
+}
