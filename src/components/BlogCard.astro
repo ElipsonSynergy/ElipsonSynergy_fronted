@@ -119,6 +119,8 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : "/fallback-avatar.png";
   data-title={post.title.toLowerCase()}
   data-summary={post.summary.toLowerCase()}
   data-content={post.summary.toLowerCase()}
+  data-author={post.author.name.toLowerCase()}
+  data-slug={post.slug.toLowerCase()}
 >
   <!-- Featured image link to full post -->
   <a href={`/blog/${slug}`}>
