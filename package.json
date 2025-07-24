@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",
+    "@fontsource/montserrat": "^5.2.6",
+    "@fontsource/numans": "^5.2.6",
     "@tailwindcss/vite": "^4.1.11",
     "@types/react": "^19.1.8",
     "astro": "^5.12.2",
+    "data": "^1.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.11"

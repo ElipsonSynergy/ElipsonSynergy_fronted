@@ -1,23 +1,154 @@
 ---
-// contactanos.astro - Contact Us page
-import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactModel from '@/components/ContactModel.astro';
+import infoData from '@/data/info';
+
+// Get the backend URL based on environment variables or defaults
+function getBackendUrl() {
+  // Priority: Environment Variable -> Auto-Detect
+  if (import.meta.env.PUBLIC_BACKEND_URL) {
+    return import.meta.env.PUBLIC_BACKEND_URL;
+  }
+
+  // Auto-detection based on environment
+  if (import.meta.env.PROD) {
+    // In production - CHANGE to your real URL
+    return 'https://tu-api-produccion.com';
+  } else if (import.meta.env.DEV) {
+    // In development
+    return 'http://localhost:8000';
+  }
+  
+  // Fallback
+  return 'http://localhost:8000';
+}
+
+const backendUrl = getBackendUrl();
 ---
 
-<BaseLayout 
-  title="Contáctanos - Elipson Synergy" 
-  description="Ponte en contacto con nosotros. Estamos aquí para ayudarte con tus necesidades tecnológicas."
->
-  <div class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-          <span class="block">Contáctanos</span>
-          <span class="block text-blue-600 mt-2">Estamos aquí para ayudarte</span>
-        </h1>
-        <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-          Esta sección está en desarrollo. Aquí estará nuestro formulario de contacto y información de contacto.
-        </p>
+<section class="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]" id="contact">
+  <!-- For contact information -->
+  <div class="container mx-auto">
+    <div class="-mx-4 flex flex-wrap">
+      <div class="w-full px-4 lg:w-7/12 xl:w-8/12">
+        <div class="ud-contact-content-wrapper">
+          <div class="ud-contact-title">
+            <span class="text-base font-medium text-dark dark:text-white">
+              CONTÁCTANOS
+            </span>
+            <h2 class="text-[35px] font-semibold leading-[1.14] text-dark dark:text-white">
+              Hablemos de tu próximo proyecto
+            </h2>
+          </div>
+          <div class="mb-12 text-base leading-relaxed text-body-color dark:text-dark-6">
+            ¿Tienes una idea increíble? Nos encantaría escucharla y ayudarte a hacerla realidad.
+            Completa el formulario y nos pondremos en contacto contigo lo antes posible.
+          </div>
+          <div class="mb-8 flex w-full max-w-[370px]">
+            <div class="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
+              <svg width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+                <path d="M21.384 17.752l-3.168-3.168c-.35-.35-.92-.35-1.27 0l-1.368 1.368c-.35.35-.35.92 0 1.27l3.168 3.168c.35.35.92.35 1.27 0l1.368-1.368c.35-.35.35-.92 0-1.27z"/>
+                <path d="M15.5 2C13.567 2 12 3.567 12 5.5S13.567 9 15.5 9 19 7.433 19 5.5 17.433 2 15.5 2zm0 5c-.827 0-1.5-.673-1.5-1.5S14.673 4 15.5 4 17 4.673 17 5.5 16.327 7 15.5 7z"/>
+              </svg>
+            </div>
+            <div class="w-full">
+              <h4 class="mb-1 text-xl font-bold text-dark dark:text-white">
+                Nuestra Ubicación
+              </h4>
+              <p class="text-base text-body-color dark:text-dark-6">
+                {infoData.location}
+              </p>
+            </div>
+          </div>
+          <div class="mb-8 flex w-full max-w-[370px]">
+            <div class="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
+              <svg width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+                <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
+              </svg>
+            </div>
+            <div class="w-full">
+              <h4 class="mb-1 text-xl font-bold text-dark dark:text-white">
+                Correo Electrónico
+              </h4>
+              <p class="text-base text-body-color dark:text-dark-6">
+                {infoData.mail}
+              </p>
+            </div>
+          </div>
+          <div class="mb-8 flex w-full max-w-[370px]">
+            <div class="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
+              <svg width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+            </div>
+            <div class="w-full">
+              <h4 class="mb-1 text-xl font-bold text-dark dark:text-white">
+                Teléfono
+              </h4>
+              <p class="text-base text-body-color dark:text-dark-6">
+                {infoData.tel}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="w-full px-4 lg:w-5/12 xl:w-4/12">
+        <div class="relative rounded-lg bg-white p-8 shadow-lg sm:p-12">
+          <form id="contact-form" class="space-y-6">
+            <div>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Tu nombre"
+                class="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary transition-colors"
+                required
+                maxlength="50"
+              />
+              <p id="name-error" class="mt-1 hidden text-sm text-red-600"></p>
+            </div>
+            
+            <div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Tu correo electrónico"
+                class="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary transition-colors"
+                required
+                maxlength="100"
+              />
+              <p id="email-error" class="mt-1 hidden text-sm text-red-600"></p>
+            </div>
+            
+            <div>
+              <textarea
+                rows="6"
+                id="message"
+                name="message"
+                placeholder="Cuéntanos sobre tu proyecto..."
+                class="w-full resize-none rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary transition-colors"
+                required
+              ></textarea>
+              <p id="message-error" class="mt-1 hidden text-sm text-red-600"></p>
+            </div>
+            
+            <div>
+              <button
+                type="submit"
+                id="submit-btn"
+                class="w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Enviar Mensaje
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</BaseLayout> 
+</section>
+
+<!-- Component ContactModel -->
+<ContactModel backendUrl={backendUrl} />

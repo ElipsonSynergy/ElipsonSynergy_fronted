@@ -1,0 +1,431 @@
+---
+interface Props {
+  backendUrl?: string;
+}
+
+const { backendUrl = 'http://localhost:8000' } = Astro.props;
+---
+
+<!-- Modal HTML -->
+<div id="contact-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg max-w-md w-full p-6 relative mx-4 shadow-2xl">
+    <!-- Status Bar -->
+    <div id="modal-status-bar" class="w-16 h-1 rounded-full mb-4 bg-gray-300"></div>
+
+    <!-- Close Button -->
+    <button
+      id="modal-close"
+      class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
+      type="button"
+      aria-label="Cerrar modal"
+    >
+      ×
+    </button>
+
+    <!-- Status Icon -->
+    <div id="modal-icon" class="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center">
+      <svg id="success-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+      </svg>
+      <svg id="error-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="text-center">
+      <h3 id="modal-title" class="text-lg font-semibold mb-2">Título</h3>
+      <p id="modal-message" class="text-gray-600 mb-4">Mensaje</p>
+      <button 
+        id="modal-ok-btn"
+        class="px-4 py-2 bg-primary text-white rounded hover:bg-opacity-90 transition-colors"
+      >
+        Entendido
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading overlay -->
+<div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-40 hidden">
+  <div class="bg-white rounded-lg p-6 shadow-xl">
+    <div class="flex items-center space-x-3">
+      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+      <span class="text-gray-700">Enviando mensaje...</span>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden element for passing data -->
+<div id="contact-component" data-backend-url={backendUrl} style="display: none;"></div>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+  // Get the backend URL from the hidden element
+  const contactComponent = document.getElementById('contact-component');
+  const backendUrl = contactComponent?.getAttribute('data-backend-url');
+  
+  console.log('🚀 Backend URL obtenida:', backendUrl);
+  
+  if (!backendUrl || backendUrl.includes('${')) {
+    console.error('❌ Error: URL no configurada correctamente');
+    const defaultUrl = 'http://localhost:8000';
+    console.warn(`⚠️ Usando URL por defecto: ${defaultUrl}`);
+    return initContactForm(defaultUrl);
+  }
+  
+  initContactForm(backendUrl);
+});
+
+function initContactForm(backendUrl) {
+  console.log('✅ Inicializando formulario con URL:', backendUrl);
+  
+  class ContactController {
+    constructor() {
+      this.backendUrl = backendUrl;
+      this.form = document.getElementById('contact-form');
+      this.modal = document.getElementById('contact-modal');
+      this.loadingOverlay = document.getElementById('loading-overlay');
+      this.isSubmitting = false; // Prevent multiple submissions
+      this.maxRetries = 3;
+      this.retryCount = 0;
+      
+      if (!this.form) {
+        console.error('❌ Formulario no encontrado');
+        return;
+      }
+      
+      if (!this.modal) {
+        console.error('❌ Modal no encontrado');
+        return;
+      }
+      
+      console.log('✅ Elementos encontrados correctamente');
+      this.setupEvents();
+      this.setupMessageCounter();
+    }
+
+    setupMessageCounter() {
+      const messageField = document.getElementById('message');
+      const counter = document.getElementById('message-counter');
+      
+      if (messageField && counter) {
+        messageField.addEventListener('input', () => {
+          const length = messageField.value.length;
+          counter.textContent = `${length}/1000`;
+          
+          if (length > 900) {
+            counter.classList.add('text-orange-500');
+          } else if (length > 950) {
+            counter.classList.add('text-red-500');
+          } else {
+            counter.classList.remove('text-orange-500', 'text-red-500');
+          }
+        });
+      }
+    }
+
+    showLoading(show = true) {
+      if (this.loadingOverlay) {
+        if (show) {
+          this.loadingOverlay.classList.remove('hidden');
+        } else {
+          this.loadingOverlay.classList.add('hidden');
+        }
+      }
+    }
+
+    async handleSubmit() {
+      // Prevent multiple submissions
+      if (this.isSubmitting) {
+        console.log('⚠️ Ya se está enviando un mensaje');
+        return;
+      }
+      
+      const submitBtn = document.getElementById('submit-btn');
+      
+      try {
+        const formData = {
+          name: this.sanitizeInput(this.form.querySelector('#name').value),
+          email: this.sanitizeInput(this.form.querySelector('#email').value),
+          message: this.sanitizeInput(this.form.querySelector('#message').value)
+        };
+
+        console.log('📝 Datos a enviar:', { ...formData, message: formData.message.substring(0, 50) + '...' });
+
+        if (!this.validateForm(formData)) {
+          console.log('❌ Formulario no válido');
+          return;
+        }
+
+        this.isSubmitting = true;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        this.showLoading(true);
+        
+        console.log('🌐 Enviando a:', `${this.backendUrl}/api/contact`);
+        
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 segundos timeout
+        
+        const response = await fetch(`${this.backendUrl}/api/contact`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error ${response.status}: ${response.statusText}. ${errorText}`);
+        }
+        
+        const result = await response.json();
+        console.log('✅ Respuesta del servidor:', result);
+        
+        this.showResult(result);
+        
+        if (result.success) {
+          this.form.reset();
+          this.clearErrors();
+          // Reset message counter
+          const counter = document.getElementById('message-counter');
+          if (counter) counter.textContent = '0/1000';
+          
+          console.log('🎉 Mensaje enviado exitosamente');
+        }
+        
+      } catch (error) {
+        console.error('💥 Error en la petición:', error);
+        
+        let errorMessage = 'Error de conexión. Por favor, inténtalo de nuevo.';
+        
+        if (error.name === 'AbortError') {
+          errorMessage = 'La petición tardó demasiado. Verifica tu conexión e inténtalo de nuevo.';
+        } else if (error.message.includes('Failed to fetch')) {
+          errorMessage = 'No se pudo conectar con el servidor. Verifica tu conexión a internet.';
+        } else if (error.message.includes('NetworkError')) {
+          errorMessage = 'Error de red. Verifica tu conexión e inténtalo más tarde.';
+        } else if (error.message.includes('500')) {
+          errorMessage = 'Error interno del servidor. Inténtalo más tarde.';
+        } else if (error.message.includes('400')) {
+          errorMessage = 'Los datos enviados no son válidos. Revisa el formulario.';
+        }
+        
+        this.showModal('Error al enviar', errorMessage, false);
+        
+      } finally {
+        this.isSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Mensaje';
+        this.showLoading(false);
+      }
+    }
+
+    // Sanitize input to prevent XSS
+    sanitizeInput(input) {
+      if (!input) return '';
+      
+      return input.trim()
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/&/g, '&amp;');
+    }
+
+    showResult(result) {
+      const success = result.success;
+      const title = success ? '¡Mensaje enviado!' : 'Error al enviar';
+      const message = result.message || (success ? 'Gracias por contactarnos. Te responderemos pronto.' : 'Hubo un problema al enviar tu mensaje');
+      
+      this.showModal(title, message, success);
+    }
+
+    showModal(title, message, isSuccess = false) {
+      const modal = document.getElementById('contact-modal');
+      const modalContent = modal.querySelector('.bg-white');
+      const modalIcon = document.getElementById('modal-icon');
+      const successIcon = document.getElementById('success-icon');
+      const errorIcon = document.getElementById('error-icon');
+      
+      // Update modal content
+      modal.querySelector('#modal-title').textContent = title;
+      modal.querySelector('#modal-message').textContent = message;
+      
+      // Update main container styles
+      modalContent.className = `bg-white rounded-lg max-w-md w-full p-6 relative mx-4 shadow-2xl ${
+        isSuccess ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'
+      }`;
+
+      // Update status bar
+      const statusBar = modal.querySelector('#modal-status-bar');
+      statusBar.className = `w-16 h-1 rounded-full mb-4 ${
+        isSuccess ? 'bg-green-500' : 'bg-red-500'
+      }`;
+      // Update modal icon
+      modalIcon.className = `w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center ${
+        isSuccess ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+      }`;
+      
+      if (isSuccess) {
+        successIcon.classList.remove('hidden');
+        errorIcon.classList.add('hidden');
+      } else {
+        successIcon.classList.add('hidden');
+        errorIcon.classList.remove('hidden');
+      }
+
+      // Update title text color
+      const titleElement = modal.querySelector('#modal-title');
+      titleElement.className = `text-lg font-semibold mb-2 ${
+        isSuccess ? 'text-green-800' : 'text-red-800'
+      }`;
+
+      // Show modal
+      modal.classList.remove('hidden');
+      
+      // Auto-hide after 7 seconds if success
+      if (isSuccess) {
+        setTimeout(() => {
+          if (!modal.classList.contains('hidden')) {
+            modal.classList.add('hidden');
+          }
+        }, 7000);
+      }
+    }
+
+    // Validate form inputs
+    validateForm({ name, email, message }) {
+      let isValid = true;
+      this.clearErrors();
+
+      // Validate name (2-50 characters, only letters, spaces, and basic special characters)
+      if (!name || name.length < 2) {
+        this.showError('name', 'El nombre debe tener al menos 2 caracteres');
+        isValid = false;
+      } else if (name.length > 50) {
+        this.showError('name', 'El nombre no puede exceder 50 caracteres');
+        isValid = false;
+      } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\-'\.]+$/.test(name)) {
+        this.showError('name', 'El nombre solo puede contener letras, espacios, guiones y apostrofes');
+        isValid = false;
+      }
+
+      // Validate email (strict)
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!email) {
+        this.showError('email', 'El correo electrónico es requerido');
+        isValid = false;
+      } else if (!emailRegex.test(email)) {
+        this.showError('email', 'Por favor ingresa un correo electrónico válido');
+        isValid = false;
+      } else if (email.length > 100) {
+        this.showError('email', 'El correo electrónico es demasiado largo');
+        isValid = false;
+      }
+
+      // Validate message (10-inf characters)
+      if (!message || message.length < 10) {
+        this.showError('message', 'El mensaje debe tener al menos 10 caracteres');
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    clearErrors() {
+      document.querySelectorAll('[id$="-error"]').forEach(el => {
+        el.classList.add('hidden');
+        el.textContent = '';
+      });
+    }
+
+    showError(field, message) {
+      const errorElement = document.getElementById(`${field}-error`);
+      if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.classList.remove('hidden');
+        
+        // Scroll to the first error
+        if (document.querySelectorAll('[id$="-error"]:not(.hidden)').length === 1) {
+          errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
+    setupEvents() {
+      // Form
+      this.form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.handleSubmit();
+      });
+
+      // Close modal button (X)
+      document.getElementById('modal-close')?.addEventListener('click', () => {
+        document.getElementById('contact-modal').classList.add('hidden');
+      });
+
+      // "Understood" button of the modal
+      document.getElementById('modal-ok-btn')?.addEventListener('click', () => {
+        document.getElementById('contact-modal').classList.add('hidden');
+      });
+
+      // Close modal by clicking outside
+      this.modal?.addEventListener('click', (e) => {
+        if (e.target === this.modal) {
+          this.modal.classList.add('hidden');
+        }
+      });
+
+      // Close modal with Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !this.modal?.classList.contains('hidden')) {
+          this.modal.classList.add('hidden');
+        }
+      });
+
+      // Real-time validation
+      const nameField = document.getElementById('name');
+      const emailField = document.getElementById('email');
+      const messageField = document.getElementById('message');
+
+      nameField?.addEventListener('blur', () => {
+        const value = this.sanitizeInput(nameField.value);
+        if (value && (value.length < 2 || value.length > 50 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\-'\.]+$/.test(value))) {
+          this.validateForm({ name: value, email: '', message: '' });
+        } else {
+          document.getElementById('name-error')?.classList.add('hidden');
+        }
+      });
+
+      emailField?.addEventListener('blur', () => {
+        const value = this.sanitizeInput(emailField.value);
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (value && (!emailRegex.test(value) || value.length > 100)) {
+          this.validateForm({ name: '', email: value, message: '' });
+        } else {
+          document.getElementById('email-error')?.classList.add('hidden');
+        }
+      });
+
+      messageField?.addEventListener('blur', () => {
+        const value = this.sanitizeInput(messageField.value);
+        if (value && (value.length < 10 || value.length > 1000)) {
+          this.validateForm({ name: '', email: '', message: value });
+        } else {
+          document.getElementById('message-error')?.classList.add('hidden');
+        }
+      });
+    }
+  }
+
+  // Initialize the controller
+  new ContactController();
+}
+</script>
