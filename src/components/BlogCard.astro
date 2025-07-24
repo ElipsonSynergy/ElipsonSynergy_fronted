@@ -21,6 +21,8 @@
 
 import { format } from "date-fns";
 
+import { Image } from "astro:assets";
+
 /**
  * Tag interface for blog post categorization
  * Represents a tag associated with blog posts
@@ -124,7 +126,13 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : "/fallback-avatar.png";
 >
   <!-- Featured image link to full post -->
   <a href={`/blog/${slug}`}>
-    <img loading="lazy" src={imgSrc} alt={title} class="card-image" />
+    <Image
+      src={imgSrc}
+      alt={title}
+      class="card-image"
+      width={400}
+      height={220}
+    />
   </a>
 
   <!-- Card content container -->
@@ -134,11 +142,12 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : "/fallback-avatar.png";
 
     <!-- Post metadata: author info and publication date -->
     <div class="card-meta">
-      <img
-        loading="lazy"
+      <Image
         src={avatarSrc}
         alt={authorName}
         class="author-avatar"
+        width={28}
+        height={28}
       />
       <span class="author-name">{authorName}</span>
     </div>
