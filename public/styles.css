@@ -258,12 +258,13 @@
  * Cards automatically adjust to screen size
  */
 .posts-grid {
-  max-width: 1200px;               /* Limit maximum width */
-  margin: 3rem auto;               /* Center with vertical spacing */
-  padding: 0 2rem;                 /* Horizontal padding */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive columns */
-  gap: 2rem;                       /* Space between cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--gap-md);
+  justify-content: center;  /* centra todo el conjunto de columnas */
+  justify-items: center;    /* centra cada card dentro de su celda */
+  margin: 3rem auto;
+  padding: 0 2rem;
 }
 
 /* =====================================
@@ -365,6 +366,11 @@
   font-size: 0.8rem;
   color: var(--text-muted);
   margin-bottom: 1rem;
+}
+
+.card.post-card {
+  width: 100%;
+  max-width: 300px;
 }
 
 /**
@@ -488,6 +494,13 @@
   color: var(--primary);           /* Brand color on hover */
 }
 
+/* El “no-results” ocupa todas las columnas activas y queda centrado */
+.posts-grid .no-results {
+  grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
+}
+
 /* =====================================
    Responsive Design
    ===================================== */
@@ -549,11 +562,21 @@
   /**
    * Single column grid for cards
    */
-  .posts-grid {
-    grid-template-columns: 1fr;     /* Single column */
-    padding: 0 1rem;                /* Reduce padding */
-    gap: var(--gap-lg);             /* Consistent spacing */
+.posts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-md);
   }
+
+
+.card.post-card {
+    max-width: 100%;
+  }
+
+.posts-grid .no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  justify-self: center;
+}
   
   /**
    * Smaller tag sizing for mobile
