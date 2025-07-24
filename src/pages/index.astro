@@ -1,16 +1,61 @@
 ---
+/**
+ * Homepage Component
+ *
+ * The main landing page of the Elipson Synergy application.
+ * Serves as the entry point for visitors and provides basic site information.
+ *
+ * Features:
+ * - Clean, minimal design
+ * - Responsive layout
+ * - SEO-friendly meta tags
+ * - Astro branding and generator meta tag
+ * - Custom favicon integration
+ *
+ * @component HomePage
+ * @since 1.0.0
+ * 
+ * @example
+ * // This page is accessed via the root URL "/"
+ * // No props needed as it's a static page
+ */
 
+/**
+ * No server-side logic required for this basic homepage
+ * Future enhancements could include:
+ * - Dynamic content fetching
+ * - User authentication state
+ * - Featured blog posts preview
+ * - Contact form integration
+ */
 ---
 
+<!-- 
+  Homepage HTML Document
+  
+  Basic HTML5 document structure with essential meta tags.
+  Uses semantic HTML and follows accessibility best practices.
+  Includes responsive viewport meta tag for mobile compatibility.
+-->
 <html lang="en">
 	<head>
+		<!-- Character encoding for proper text display -->
 		<meta charset="utf-8" />
+		
+		<!-- Custom favicon for brand identity -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		
+		<!-- Responsive viewport configuration for mobile devices -->
 		<meta name="viewport" content="width=device-width" />
+		
+		<!-- Astro generator meta tag for framework identification -->
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Page title for SEO and browser tab display -->
 		<title>Astro</title>
 	</head>
 	<body>
+		<!-- Main page heading -->
 		<h1>Astro</h1>
 	</body>
 </html>
