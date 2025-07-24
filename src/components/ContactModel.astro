@@ -7,51 +7,70 @@ const { backendUrl = 'http://localhost:8000' } = Astro.props;
 ---
 
 <!-- Modal HTML -->
-<div id="contact-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-  <div class="bg-white rounded-lg max-w-md w-full p-6 relative mx-4 shadow-2xl">
-    <!-- Status Bar -->
-    <div id="modal-status-bar" class="w-16 h-1 rounded-full mb-4 bg-gray-300"></div>
-
-    <!-- Close Button -->
-    <button
-      id="modal-close"
-      class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
-      type="button"
-      aria-label="Cerrar modal"
-    >
-      ×
-    </button>
-
-    <!-- Status Icon -->
-    <div id="modal-icon" class="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center">
-      <svg id="success-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-      </svg>
-      <svg id="error-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-      </svg>
+<div id="contact-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-all duration-300">
+  <div class="bg-white rounded-3xl max-w-md w-full mx-4 shadow-2xl border border-white/20 transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+    <!-- Header with Status Bar -->
+    <div class="relative p-8 pb-4">
+      <div id="modal-status-bar" class="w-20 h-1.5 rounded-full mb-6 mx-auto bg-gradient-to-r from-blue-400 to-purple-500"></div>
+      
+      <!-- Close Button -->
+      <button
+        id="modal-close"
+        class="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all duration-200 group"
+        type="button"
+        aria-label="Cerrar modal"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="group-hover:rotate-90 transition-transform duration-200">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <!-- Status Icon -->
+      <div class="flex justify-center mb-6">
+        <div id="modal-icon" class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg bg-gradient-to-r from-blue-500 to-purple-600">
+          <!-- Success Icon -->
+          <svg id="success-icon" class="w-8 h-8 hidden text-white" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <!-- Error Icon -->
+          <svg id="error-icon" class="w-8 h-8 hidden text-white" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+      </div>
     </div>
 
     <!-- Content -->
-    <div class="text-center">
-      <h3 id="modal-title" class="text-lg font-semibold mb-2">Título</h3>
-      <p id="modal-message" class="text-gray-600 mb-4">Mensaje</p>
+    <div class="px-8 pb-8 text-center">
+      <h3 id="modal-title" class="text-2xl font-bold mb-3 text-gray-900">Título</h3>
+      <p id="modal-message" class="text-gray-600 mb-8 leading-relaxed">Mensaje</p>
+      
       <button 
         id="modal-ok-btn"
-        class="px-4 py-2 bg-primary text-white rounded hover:bg-opacity-90 transition-colors"
+        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2"
       >
-        Entendido
+        <span>Entendido</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
       </button>
     </div>
   </div>
 </div>
 
 <!-- Loading overlay -->
-<div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-40 hidden">
-  <div class="bg-white rounded-lg p-6 shadow-xl">
-    <div class="flex items-center space-x-3">
-      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
-      <span class="text-gray-700">Enviando mensaje...</span>
+<div id="loading-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-40 hidden transition-all duration-300">
+  <div class="bg-white rounded-3xl p-8 shadow-2xl border border-white/20 max-w-sm w-full mx-4">
+    <div class="flex flex-col items-center space-y-4">
+      <!-- Modern Loading Spinner -->
+      <div class="relative">
+        <div class="w-12 h-12 border-4 border-blue-200 rounded-full"></div>
+        <div class="absolute inset-0 w-12 h-12 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"></div>
+      </div>
+      <div class="text-center">
+        <div class="text-gray-900 font-semibold text-lg">Enviando mensaje</div>
+        <div class="text-gray-500 text-sm">Por favor espera un momento...</div>
+      </div>
     </div>
   </div>
 </div>
@@ -85,6 +104,7 @@ function initContactForm(backendUrl) {
       this.backendUrl = backendUrl;
       this.form = document.getElementById('contact-form');
       this.modal = document.getElementById('contact-modal');
+      this.modalContent = document.getElementById('modal-content');
       this.loadingOverlay = document.getElementById('loading-overlay');
       this.isSubmitting = false; // Prevent multiple submissions
       this.maxRetries = 3;
@@ -116,8 +136,10 @@ function initContactForm(backendUrl) {
           
           if (length > 900) {
             counter.classList.add('text-orange-500');
+            counter.classList.remove('text-red-500');
           } else if (length > 950) {
             counter.classList.add('text-red-500');
+            counter.classList.remove('text-orange-500');
           } else {
             counter.classList.remove('text-orange-500', 'text-red-500');
           }
@@ -129,6 +151,14 @@ function initContactForm(backendUrl) {
       if (this.loadingOverlay) {
         if (show) {
           this.loadingOverlay.classList.remove('hidden');
+          // Add entrance animation
+          setTimeout(() => {
+            const loadingContent = this.loadingOverlay.querySelector('.bg-white');
+            if (loadingContent) {
+              loadingContent.classList.add('scale-100', 'opacity-100');
+              loadingContent.classList.remove('scale-95', 'opacity-0');
+            }
+          }, 10);
         } else {
           this.loadingOverlay.classList.add('hidden');
         }
@@ -143,6 +173,7 @@ function initContactForm(backendUrl) {
       }
       
       const submitBtn = document.getElementById('submit-btn');
+      const originalContent = submitBtn.innerHTML;
       
       try {
         const formData = {
@@ -150,17 +181,22 @@ function initContactForm(backendUrl) {
           email: this.sanitizeInput(this.form.querySelector('#email').value),
           message: this.sanitizeInput(this.form.querySelector('#message').value)
         };
-
+        
         console.log('📝 Datos a enviar:', { ...formData, message: formData.message.substring(0, 50) + '...' });
-
+        
         if (!this.validateForm(formData)) {
           console.log('❌ Formulario no válido');
           return;
         }
-
+        
         this.isSubmitting = true;
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando...';
+        submitBtn.innerHTML = `
+          <div class="flex items-center justify-center space-x-2">
+            <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+            <span>Enviando...</span>
+          </div>
+        `;
         this.showLoading(true);
         
         console.log('🌐 Enviando a:', `${this.backendUrl}/api/contact`);
@@ -177,9 +213,9 @@ function initContactForm(backendUrl) {
           body: JSON.stringify(formData),
           signal: controller.signal
         });
-
+        
         clearTimeout(timeoutId);
-
+        
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error ${response.status}: ${response.statusText}. ${errorText}`);
@@ -222,7 +258,7 @@ function initContactForm(backendUrl) {
       } finally {
         this.isSubmitting = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar Mensaje';
+        submitBtn.innerHTML = originalContent;
         this.showLoading(false);
       }
     }
@@ -248,63 +284,65 @@ function initContactForm(backendUrl) {
     }
 
     showModal(title, message, isSuccess = false) {
-      const modal = document.getElementById('contact-modal');
-      const modalContent = modal.querySelector('.bg-white');
       const modalIcon = document.getElementById('modal-icon');
       const successIcon = document.getElementById('success-icon');
       const errorIcon = document.getElementById('error-icon');
+      const statusBar = document.getElementById('modal-status-bar');
+      const titleElement = this.modal.querySelector('#modal-title');
       
       // Update modal content
-      modal.querySelector('#modal-title').textContent = title;
-      modal.querySelector('#modal-message').textContent = message;
+      this.modal.querySelector('#modal-title').textContent = title;
+      this.modal.querySelector('#modal-message').textContent = message;
       
-      // Update main container styles
-      modalContent.className = `bg-white rounded-lg max-w-md w-full p-6 relative mx-4 shadow-2xl ${
-        isSuccess ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'
-      }`;
-
-      // Update status bar
-      const statusBar = modal.querySelector('#modal-status-bar');
-      statusBar.className = `w-16 h-1 rounded-full mb-4 ${
-        isSuccess ? 'bg-green-500' : 'bg-red-500'
-      }`;
-      // Update modal icon
-      modalIcon.className = `w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center ${
-        isSuccess ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-      }`;
-      
+      // Update styles based on success/error
       if (isSuccess) {
+        modalIcon.className = 'w-16 h-16 rounded-full flex items-center justify-center shadow-lg bg-gradient-to-r from-green-500 to-emerald-500';
+        statusBar.className = 'w-20 h-1.5 rounded-full mb-6 mx-auto bg-gradient-to-r from-green-400 to-emerald-500';
+        titleElement.className = 'text-2xl font-bold mb-3 text-green-800';
         successIcon.classList.remove('hidden');
         errorIcon.classList.add('hidden');
       } else {
+        modalIcon.className = 'w-16 h-16 rounded-full flex items-center justify-center shadow-lg bg-gradient-to-r from-red-500 to-pink-500';
+        statusBar.className = 'w-20 h-1.5 rounded-full mb-6 mx-auto bg-gradient-to-r from-red-400 to-pink-500';
+        titleElement.className = 'text-2xl font-bold mb-3 text-red-800';
         successIcon.classList.add('hidden');
         errorIcon.classList.remove('hidden');
       }
-
-      // Update title text color
-      const titleElement = modal.querySelector('#modal-title');
-      titleElement.className = `text-lg font-semibold mb-2 ${
-        isSuccess ? 'text-green-800' : 'text-red-800'
-      }`;
-
-      // Show modal
-      modal.classList.remove('hidden');
+      
+      // Show modal with animation
+      this.modal.classList.remove('hidden');
+      
+      // Trigger entrance animation
+      setTimeout(() => {
+        this.modalContent.classList.remove('scale-95', 'opacity-0');
+        this.modalContent.classList.add('scale-100', 'opacity-100');
+      }, 10);
       
       // Auto-hide after 7 seconds if success
       if (isSuccess) {
         setTimeout(() => {
-          if (!modal.classList.contains('hidden')) {
-            modal.classList.add('hidden');
+          if (!this.modal.classList.contains('hidden')) {
+            this.hideModal();
           }
         }, 7000);
       }
+    }
+
+    hideModal() {
+      // Exit animation
+      this.modalContent.classList.remove('scale-100', 'opacity-100');
+      this.modalContent.classList.add('scale-95', 'opacity-0');
+      
+      setTimeout(() => {
+        this.modal.classList.add('hidden');
+      }, 300);
     }
 
     // Validate form inputs
     validateForm({ name, email, message }) {
       let isValid = true;
       this.clearErrors();
-
+      
       // Validate name (2-50 characters, only letters, spaces, and basic special characters)
       if (!name || name.length < 2) {
         this.showError('name', 'El nombre debe tener al menos 2 caracteres');
@@ -316,7 +354,7 @@ function initContactForm(backendUrl) {
         this.showError('name', 'El nombre solo puede contener letras, espacios, guiones y apostrofes');
         isValid = false;
       }
-
+      
       // Validate email (strict)
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!email) {
@@ -329,13 +367,16 @@ function initContactForm(backendUrl) {
         this.showError('email', 'El correo electrónico es demasiado largo');
         isValid = false;
       }
-
-      // Validate message (10-inf characters)
+      
+      // Validate message (10-1000 characters)
       if (!message || message.length < 10) {
         this.showError('message', 'El mensaje debe tener al menos 10 caracteres');
         isValid = false;
+      } else if (message.length > 1000) {
+        this.showError('message', 'El mensaje no puede exceder 1000 caracteres');
+        isValid = false;
       }
-
+      
       return isValid;
     }
 
@@ -344,13 +385,27 @@ function initContactForm(backendUrl) {
         el.classList.add('hidden');
         el.textContent = '';
       });
+      
+      // Remove error styling from inputs
+      document.querySelectorAll('input, textarea').forEach(input => {
+        input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+        input.classList.add('border-gray-200', 'focus:border-blue-500', 'focus:ring-blue-500/20');
+      });
     }
 
     showError(field, message) {
       const errorElement = document.getElementById(`${field}-error`);
+      const inputElement = document.getElementById(field);
+      
       if (errorElement) {
         errorElement.textContent = message;
         errorElement.classList.remove('hidden');
+        
+        // Add error styling to input
+        if (inputElement) {
+          inputElement.classList.remove('border-gray-200', 'focus:border-blue-500', 'focus:ring-blue-500/20');
+          inputElement.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+        }
         
         // Scroll to the first error
         if (document.querySelectorAll('[id$="-error"]:not(.hidden)').length === 1) {
@@ -360,71 +415,89 @@ function initContactForm(backendUrl) {
     }
 
     setupEvents() {
-      // Form
+      // Form submission
       this.form?.addEventListener('submit', (e) => {
         e.preventDefault();
         this.handleSubmit();
       });
-
+      
       // Close modal button (X)
       document.getElementById('modal-close')?.addEventListener('click', () => {
-        document.getElementById('contact-modal').classList.add('hidden');
+        this.hideModal();
       });
-
+      
       // "Understood" button of the modal
       document.getElementById('modal-ok-btn')?.addEventListener('click', () => {
-        document.getElementById('contact-modal').classList.add('hidden');
+        this.hideModal();
       });
-
+      
       // Close modal by clicking outside
       this.modal?.addEventListener('click', (e) => {
         if (e.target === this.modal) {
-          this.modal.classList.add('hidden');
+          this.hideModal();
         }
       });
-
+      
       // Close modal with Escape
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !this.modal?.classList.contains('hidden')) {
-          this.modal.classList.add('hidden');
+          this.hideModal();
         }
       });
-
+      
       // Real-time validation
       const nameField = document.getElementById('name');
       const emailField = document.getElementById('email');
       const messageField = document.getElementById('message');
-
+      
+      // Name field validation
       nameField?.addEventListener('blur', () => {
         const value = this.sanitizeInput(nameField.value);
         if (value && (value.length < 2 || value.length > 50 || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\-'\.]+$/.test(value))) {
           this.validateForm({ name: value, email: '', message: '' });
         } else {
-          document.getElementById('name-error')?.classList.add('hidden');
+          const errorElement = document.getElementById('name-error');
+          if (errorElement) {
+            errorElement.classList.add('hidden');
+            nameField.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+            nameField.classList.add('border-gray-200', 'focus:border-blue-500', 'focus:ring-blue-500/20');
+          }
         }
       });
-
+      
+      // Email field validation
       emailField?.addEventListener('blur', () => {
         const value = this.sanitizeInput(emailField.value);
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (value && (!emailRegex.test(value) || value.length > 100)) {
           this.validateForm({ name: '', email: value, message: '' });
         } else {
-          document.getElementById('email-error')?.classList.add('hidden');
+          const errorElement = document.getElementById('email-error');
+          if (errorElement) {
+            errorElement.classList.add('hidden');
+            emailField.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+            emailField.classList.add('border-gray-200', 'focus:border-blue-500', 'focus:ring-blue-500/20');
+          }
         }
       });
-
+      
+      // Message field validation
       messageField?.addEventListener('blur', () => {
         const value = this.sanitizeInput(messageField.value);
         if (value && (value.length < 10 || value.length > 1000)) {
           this.validateForm({ name: '', email: '', message: value });
         } else {
-          document.getElementById('message-error')?.classList.add('hidden');
+          const errorElement = document.getElementById('message-error');
+          if (errorElement) {
+            errorElement.classList.add('hidden');
+            messageField.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500/20');
+            messageField.classList.add('border-gray-200', 'focus:border-blue-500', 'focus:ring-blue-500/20');
+          }
         }
       });
     }
   }
-
+  
   // Initialize the controller
   new ContactController();
 }
