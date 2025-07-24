@@ -1,6 +1,12 @@
 ---
 // index.astro - Premium main page
 import BaseLayout from '../layouts/BaseLayout.astro';
+import IdeasSolutionsCard from '@/components/IdeasSolutions.astro';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import TeamCarousel from '@/components/MemberSwiper.jsx';
+
 ---
 
 <BaseLayout 
@@ -185,7 +191,88 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
     </div>
-  </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-black leading-tight">
+          ASÍ TRANSFORMAMOS IDEAS EN SOLUCIONES
+        </h2>
+        <p class="text-base sm:text-lg text-gray-800">
+          Desde la escucha profunda hasta la implementación consciente, cada paso en Elipson
+          está diseñado para generar impacto real, sostenible y humano.
+        </p>
+      </div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
+      <IdeasSolutionsCard title="Escucha activa" content="Entendemos necesidades reales desde el territorio y con las comunidades." imageSrc="/images/ActiveListen.png"/>
+      <IdeasSolutionsCard title="Diseño centrado en el ser humano" content="Creamos soluciones útiles, accesibles y pensadas para quienes más las necesitan." imageSrc="/images/SelfCentered.png"/>
+      <IdeasSolutionsCard title="Co-creación con impacto" content="Trabajamos junto a líderes locales, empresas y expertos para que la innovación no se quede en una idea." imageSrc="/images/Impact.png"/>
+      <IdeasSolutionsCard title="Innovación responsable" content="Buscamos soluciones creativas que no solo sean viables y efectivas, sino también sostenibles y éticas para el entorno y la sociedad." imageSrc="/images/Innovation.png"/>
+      <IdeasSolutionsCard title="Tecnología con propósito" content='No usamos lo más nuevo, usamos lo que sirve. Cada herramienta responde a un "para qué".' imageSrc="/images/Technology.png"/>
+      <IdeasSolutionsCard title="Escalabilidad consciente" content="Diseñamos para crecer, pero sin perder la esencia: impacto antes que volumen." imageSrc="/images/Scalability.png"/>
+      <IdeasSolutionsCard title="Cultura de mejora continua" content="Iteramos, aprendemos y evolucionamos en cada proyecto." imageSrc="/images/Culture.png"/>
+      <IdeasSolutionsCard title="Compromiso genuino" content="Trabajamos con integridad y dedicación para generar valor real en cada proyecto, siempre alineados con nuestros principios y propósito." imageSrc="/images/Compromise.png"/>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+<section class="relative w-full h-[500px] flex flex-col lg:flex-row overflow-hidden">
+  <div class="w-full lg:w-1/2 h-full bg-white flex items-center justify-center px-10">
+    <div class="max-w-md text-center lg:text-left">
+      <h1 class="text-4xl font-extrabold text-black mb-4">
+        INNOVAR ES EL NUEVO LATIR<br />DE LATINOAMÉRICA
+      </h1>
+      <p class="text-lg text-gray-700">
+        Desde el corazón de los Andes hasta la selva amazónica,
+        Elipson lleva inteligencia a cada rincón de Latinoamérica. 
+      </p>
+    </div>
+  </div>
+  <div class="hidden lg:block w-1/2 h-full relative">
+    <img src="/images/LatinAmerica.png" alt="Latinoamérica" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-l from-white to-transparent"></div>
+  </div>
+</section>
+<br>
+<br>
+<br>
+
+
+
+<div class="flex justify-center items-center px-4 sm:px-8 lg:px-20">
+  <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-black mb-4 text-center">
+    CONOCE A NUESTRO EQUIPO
+  </h1>
+</div>
+
+<div class="flex justify-center items-center px-4 sm:px-8 lg:px-20">
+  <p class="text-base sm:text-lg md:text-xl text-gray-700 text-center max-w-3xl">
+    Nuestro equipo está conformado por mentes apasionadas, comprometidas con transformar realidades a través de la tecnología. 
+    Cada uno de nosotros aporta desde su experiencia para llevar soluciones inteligentes a los desafíos de Latinoamérica.
+  </p>
+</div>
+
+<TeamCarousel client:load />
+<br>
+<br>
+<div class="flex justify-center mt-4">
+  <a
+    href="/nosotros"
+    class="inline-block no-underline px-6 py-3 text-white text-base sm:text-lg font-semibold rounded-full bg-blue-600 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg focus:outline-none focus:ring-0"
+  >
+    Conoce más acerca de nosotros
+  </a>
+</div>
+
+
 
   <!-- CTA Section -->
   <section class="relative py-24 overflow-hidden">
