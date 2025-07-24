@@ -502,6 +502,235 @@
 }
 
 /* =====================================
+   Post Detail Page Styles
+   ===================================== */
+
+/* Banner Meta Information Overlay */
+.banner-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.banner-meta .author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.banner-meta .author-name {
+  font-weight: 500;
+}
+
+.banner-meta .icon {
+  width: 16px;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.banner-meta .banner-date,
+.banner-meta .banner-views {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+/* Main Container for Post Detail */
+.post-detail.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Post Content Column */
+.post-content {
+  max-width: none;
+}
+
+.detail-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.detail-body {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+}
+
+.detail-body h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+  color: var(--text-dark);
+}
+
+.detail-body h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem 0;
+  color: var(--text-dark);
+}
+
+.detail-body p {
+  margin-bottom: 1.5rem;
+}
+
+.detail-body ul,
+.detail-body ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.detail-body li {
+  margin-bottom: 0.5rem;
+}
+
+.detail-body blockquote {
+  border-left: 4px solid var(--primary);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.detail-body code {
+  background: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+}
+
+.detail-body pre {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.detail-body pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Post Tags */
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.detail-tags .tag {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  background: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+/* Sidebar Styles */
+.post-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.post-sidebar h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary);
+}
+
+.popular-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popular-list li {
+  margin-bottom: 1.5rem;
+}
+
+.popular-list li:last-child hr {
+  display: none;
+}
+
+.popular-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast);
+}
+
+.popular-item:hover {
+  transform: translateX(4px);
+}
+
+.popular-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.popular-info {
+  flex: 1;
+}
+
+.popular-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.popular-author {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.popular-item:hover .popular-title {
+  color: var(--primary);
+}
+
+.popular-list hr {
+  border: none;
+  height: 1px;
+  background: var(--border-light);
+  margin: 1rem 0 0 0;
+}
+
+/* =====================================
    Responsive Design
    ===================================== */
 /**
@@ -577,6 +806,42 @@
   text-align: center;
   justify-self: center;
 }
+
+.banner-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-left: 1.5rem;
+  }
+  
+  .banner-meta > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .post-detail.container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1rem;
+  }
+  
+  .detail-title {
+    font-size: 2rem;
+  }
+  
+  .detail-body {
+    font-size: 1rem;
+  }
+  
+  .post-sidebar {
+    order: -1;
+    position: static;
+  }
+  
+  .post-sidebar h2 {
+    font-size: 1.3rem;
+  }
   
   /**
    * Smaller tag sizing for mobile
@@ -611,6 +876,29 @@
    */
   .card-content {
     padding: 1rem;                  /* Reduced from 1.5rem */
+  }
+
+  .banner-meta {
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+  
+  .detail-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .popular-item {
+    gap: 0.75rem;
+  }
+  
+  .popular-thumb {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .popular-title {
+    font-size: 0.9rem;
   }
 }
 
