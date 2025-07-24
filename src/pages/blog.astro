@@ -3,9 +3,44 @@
  * Blog Page Component
  *
  * Main blog listing page that displays blog posts with search, filtering, and pagination functionality.
- * Fetches posts and tags from the API and provides a user-friendly interface for browsing content.
- *
- * Features:
+ * Fetches posts and tags from the API and provides a user-friendly interface for bro                            class={t === tag ? "tag active" : "tag"}
+                            href={`?tag=${encodeURIComponent(t)}&search=${encodeURIComponent(search)}`}
+                            aria-label={`Filtrar por ${t}`}
+                        >
+                            {t}
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- 
+          Blog Posts Grid Section
+          
+          Displays filtered blog posts in a responsive grid layout.
+          Includes a hidden "no results" message that's shown when no posts match filters.
+          Uses BlogCard component for consistent post presentation.
+        -->
+        <section class="posts-grid" aria-label="Lista de artículos del blog">
+            <!-- 
+              No Results Message
+              
+              Hidden by default, displayed via JavaScript when search/filter returns no results.
+              Provides user feedback and suggestions for refining search criteria.
+            -->
+            <div class="no-results" style="display: none;" role="status" aria-live="polite">
+                <h3>No se encontraron resultados</h3>
+                <p>Intenta ajustar tu búsqueda o los filtros</p>
+            </div>
+
+            <!-- 
+              Blog Post Cards
+              
+              Renders the current page of filtered blog posts using BlogCard component.
+              Each card includes post metadata for client-side filtering via data attributes.
+            -->
+            {slice.map((post) => <BlogCard post={post} />)}
+        </section> * Features:
  * - Search functionality across post titles and summaries
  * - Tag-based filtering system
  * - Client-side pagination with configurable page size
@@ -155,29 +190,49 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
 <!doctype html>
 <html lang="es">
     <head>
+        <!-- Essential document metadata -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Page title for SEO and browser tab -->
         <title>Elipson | Blog</title>
+
+        <!-- Main stylesheet for blog page styling -->
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
         <!-- Page header with banner image and title -->
         <BlogsListBanner title="Blog Squair" image="/banner.jpg" />
 
-        <!-- Search and tag filter section -->
+        <!-- 
+          Search and Filter Section
+          
+          Provides user interface for searching blog posts and filtering by tags.
+          Uses server-side rendering for initial state and client-side JavaScript for interactions.
+        -->
         <section class="search-filter">
+            <!-- Left column: Search title and form -->
             <div class="left-column">
+                <!-- Section heading -->
                 <h2>Descubre más sobre lo que es importante para ti</h2>
 
-                <!-- Search form with text input and submit button -->
+                <!-- 
+                  Search Form
+                  
+                  Allows users to search through blog post titles and content.
+                  Preserves current tag filter when performing search.
+                  Uses GET method for SEO-friendly URLs.
+                -->
                 <form method="get" class="search-form">
                     <input
                         type="text"
                         name="search"
                         placeholder="Buscar"
                         value={search}
+                        aria-label="Buscar en el blog"
                     />
                     <button type="submit" aria-label="Buscar">
+                        <!-- Search icon SVG -->
                         <svg
                             width="16"
                             height="16"
@@ -195,8 +250,18 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                 </form>
             </div>
 
-            <!-- Tag filter navigation -->
-            <div class="tags">
+            <!-- 
+              Tag Filter Navigation
+              
+              Displays clickable tag buttons for filtering blog posts by category.
+              Includes "All" option to show posts from all categories.
+              Preserves search term when changing tag filters.
+            -->
+            <div
+                class="tags"
+                role="navigation"
+                aria-label="Filtros de categoría"
+            >
                 {
                     allTags.map((t) => (
                         <a
@@ -222,7 +287,14 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
             {slice.map((post) => <BlogCard post={post} />)}
         </section>
 
-        <!-- Pagination navigation -->
+        <!-- 
+          Pagination Navigation
+          
+          Provides navigation controls for browsing through multiple pages of blog posts.
+          Only rendered when there are posts to display.
+          Includes previous/next arrows and numbered page links.
+          Preserves search and tag filter state across page navigation.
+        -->
         {
             totalPages > 0 && (
                 <nav
@@ -230,7 +302,13 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                     role="navigation"
                     aria-label="Navegación de páginas"
                 >
-                    {/* Previous arrow - only show if there are multiple pages and not on first page */}
+                    {/* 
+                      Previous Arrow
+                      
+                      Navigation to previous page, only shown when:
+                      - There are multiple pages (totalPages > 1)
+                      - Current page is not the first page (pageNum > 1)
+                    */}
                     {totalPages > 1 && pageNum > 1 && (
                         <a
                             class="page arrow"
@@ -241,7 +319,13 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                         </a>
                     )}
 
-                    {/* Page numbers */}
+                    {/* 
+                      Page Number Links
+                      
+                      Generates numbered links for each page.
+                      Current page is highlighted with 'active' class.
+                      Each link preserves current search and tag filter state.
+                    */}
                     {Array.from({ length: totalPages }, (_, i) => (
                         <a
                             class={i + 1 === pageNum ? "page active" : "page"}
@@ -256,7 +340,13 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                         </a>
                     ))}
 
-                    {/* Next arrow - only show if there are multiple pages and not on last page */}
+                    {/* 
+                      Next Arrow
+                      
+                      Navigation to next page, only shown when:
+                      - There are multiple pages (totalPages > 1)
+                      - Current page is not the last page (pageNum < totalPages)
+                    */}
                     {totalPages > 1 && pageNum < totalPages && (
                         <a
                             class="page arrow"
@@ -269,6 +359,19 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                 </nav>
             )
         }
+        <!-- 
+          Client-Side Interactive Functionality
+          
+          This script provides enhanced user experience through client-side filtering and search.
+          Works alongside server-side rendering to provide immediate feedback without page reloads.
+          
+          Key Features:
+          - Real-time search as user types
+          - Multi-tag filtering with visual feedback
+          - Instant post visibility updates
+          - "No results" message management
+          - Preserves accessibility features
+        -->
         <script type="module">
             /** @type {HTMLAnchorElement[]} */
             const tagButtons = Array.from(
@@ -371,7 +474,7 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
                 });
             });
 
-            // Inicializamos
+            // Initialize application with proper documentation
             updateUI();
             filterPosts();
         </script>
