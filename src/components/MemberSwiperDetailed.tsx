@@ -58,7 +58,7 @@ export default function TeamCarouselDetailed() {
       />
     );
   };
-  const activeMember = members[activeIndex];
+  var memberDetailed;
 
   return (
     <div>
@@ -88,10 +88,12 @@ export default function TeamCarouselDetailed() {
                   ? 1.1
                   : 0.95;
               if (isActive) {
-                memberDetailedCard: member.name,
+                memberDetailed = memberDetailedCard(
+                  member.name,
                   member.roleDetailed,
                   member.description,
-                  member.image;
+                  member.image
+                );
               }
 
               return (
@@ -124,14 +126,7 @@ export default function TeamCarouselDetailed() {
           </div>
         </div>
       </div>
-      <div className="mt-6">
-        {memberDetailedCard(
-          activeMember.name,
-          activeMember.roleDetailed,
-          activeMember.description,
-          activeMember.image
-        )}
-      </div>
+      <div className="mt-6">{memberDetailed}</div>
     </div>
   );
 }
