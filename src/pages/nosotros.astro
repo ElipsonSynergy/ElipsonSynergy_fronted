@@ -1,6 +1,8 @@
 ---
-// nosotros.astro - Modern About Us page
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TeamCarousel from '@/components/MemberSwiper';
+import TeamCarouselDetailed from '@/components/MemberSwiperDetailed';
+import MembersInfoDetailed from '@/components/MembersInfoDetailed'
 ---
 
 <BaseLayout 
@@ -8,29 +10,79 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Conoce más sobre Elipson Synergy, nuestro equipo experto, nuestra misión y cómo transformamos ideas en soluciones tecnológicas innovadoras."
   keywords="equipo, empresa, historia, misión, visión, expertos tecnología"
 >
-  <!-- Hero Section -->
-  <section class="relative py-24 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
-    <div class="absolute inset-0 opacity-5">
-      <div class="grid grid-cols-8 gap-6 h-full p-4">
-        <div class="bg-blue-200 rounded opacity-30"></div>
-        <div class="bg-indigo-200 rounded opacity-20"></div>
-      </div>
-    </div>
-    
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute top-20 left-10 w-20 h-20 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
+    <div class="absolute top-40 right-20 w-32 h-32 bg-indigo-200 rounded-full opacity-20 animate-pulse delay-300"></div>
+    <div class="absolute bottom-20 left-20 w-16 h-16 bg-purple-200 rounded-full opacity-20 animate-pulse delay-700"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 z-0"></div>
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-100 to-transparent rounded-full blur-3xl opacity-30 animate-float-slow z-0"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
       <div class="animate-fade-in-up">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+        <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-8 shadow-sm">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Elipson Synergy · Conectando Tecnología y Futuro
+        </div>
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
           <span class="block text-gray-900">Conoce a</span>
-          <span class="block text-gradient mt-2">Elipson Synergy</span>
+          <span class="block text-gradient bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent mt-2">
+            Elipson Synergy
+          </span>
         </h1>
-        <p class="max-w-3xl mx-auto text-xl text-gray-600 leading-relaxed">
-          Somos un equipo apasionado de innovadores tecnológicos dedicados a transformar 
-          ideas en soluciones digitales que impulsan el futuro de los negocios.
+        <p class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed">
+          Más que un equipo, somos una sinfonía de talentos que cree en el poder de la tecnología como agente de cambio.  
+          Nuestro propósito es claro: <strong>transformar realidades en Latinoamérica</strong> con soluciones que nacen del ingenio, la empatía y la innovación.
         </p>
       </div>
     </div>
   </section>
 
-  
-</BaseLayout> 
+
+  <section class="bg-white py-24 px-6 sm:px-10 lg:px-20">
+  <div class="max-w-7xl mx-auto text-center mb-16">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Nuestra Esencia</h2>
+    <p class="text-lg text-gray-600">
+      Lo que creemos, lo que buscamos y los valores que nos guían en cada paso.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+    <div class="bg-blue-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
+      <h3 class="text-2xl font-bold text-blue-700 mb-3">Misión</h3>
+      <p class="text-gray-700 leading-relaxed">
+        Desarrollar soluciones tecnológicas innovadoras que resuelvan los retos sociales y empresariales de Latinoamérica, empoderando comunidades y generando impacto positivo sostenible.
+      </p>
+    </div>
+
+    <div class="bg-indigo-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
+      <h3 class="text-2xl font-bold text-indigo-700 mb-3">Visión</h3>
+      <p class="text-gray-700 leading-relaxed">
+        Ser la referencia líder en tecnología transformadora en América Latina, destacando por la excelencia, la empatía y el compromiso con un futuro más conectado y justo.
+      </p>
+    </div>
+
+    <div class="bg-purple-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
+      <h3 class="text-2xl font-bold text-purple-700 mb-3">Valores</h3>
+      <ul class="text-gray-700 leading-relaxed list-disc list-inside">
+        <li>Innovación con propósito</li>
+        <li>Colaboración y respeto</li>
+        <li>Empatía social</li>
+        <li>Transparencia y ética</li>
+        <li>Excelencia continua</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="bg-white py-24 px-6 sm:px-10 lg:px-20">
+    <div class="max-w-7xl mx-auto text-center mb-16">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Nuestros Miembros</h2>    
+  </div>
+<TeamCarouselDetailed client:load />
+
+</section>
+
+
+
+</BaseLayout>
