@@ -1094,3 +1094,954 @@
 .banner-button:hover {
   background: rgba(255,255,255,0.1); /* Very light white overlay */
 }
+
+/* =====================================
+   EpsilonTitle Component Styles
+   ===================================== */
+
+/**
+ * Main EpsilonTitle Component Container
+ * 
+ * A sophisticated component featuring animated graphics, floating elements,
+ * and a three-column layout showcasing different aspects of the brand.
+ * 
+ * Features:
+ * - Large centered title with gradient text effects
+ * - Floating circular background animations
+ * - Three-column responsive grid layout
+ * - Interactive hover effects and transitions
+ * - Orbital animations and visual flourishes
+ */
+.epsilon-title {
+  position: relative;              /* Enable absolute positioning for decorative elements */
+  max-width: 1400px;               /* Large container for expansive layout */
+  margin: 6rem auto;               /* Generous vertical spacing */
+  padding: 0 2rem;                 /* Horizontal padding for mobile */
+  overflow: hidden;                /* Hide floating elements that extend beyond bounds */
+}
+
+/**
+ * Background Decorative Elements Container
+ * 
+ * Contains floating circular animations that provide visual interest
+ * without interfering with user interactions or content accessibility.
+ */
+.epsilon-bg-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;            /* Prevent interaction interference */
+  z-index: 0;                      /* Behind main content */
+}
+
+/**
+ * Floating Circle Animation Elements
+ * 
+ * Decorative circles that float and rotate with staggered timing.
+ * Uses subtle gradients and transparency for non-intrusive design.
+ */
+.floating-circle {
+  position: absolute;
+  border-radius: 50%;              /* Perfect circles */
+  background: linear-gradient(135deg, rgba(16, 50, 78, 0.12), rgba(16, 50, 78, 0.06));
+  animation: float 6s ease-in-out infinite; /* Smooth floating animation */
+}
+
+/**
+ * Individual Circle Positioning and Timing
+ * 
+ * Three circles with different sizes, positions, and animation delays
+ * to create a dynamic, non-repetitive background effect.
+ */
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;                        /* Upper left area */
+  left: 5%;
+  animation-delay: 0s;             /* Starts immediately */
+}
+
+.circle-2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;                        /* Lower right area */
+  right: 10%;
+  animation-delay: 2s;             /* Starts after 2 seconds */
+}
+
+.circle-3 {
+  width: 100px;
+  height: 100px;
+  top: 30%;                        /* Upper right area */
+  right: 25%;
+  animation-delay: 4s;             /* Starts after 4 seconds */
+}
+
+/**
+ * Floating Animation Keyframes
+ * 
+ * Creates a smooth floating effect with gentle rotation.
+ * Three phases: up movement, down movement, return to origin.
+ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(10px) rotate(240deg); }
+}
+
+/**
+ * Main Content Container
+ * 
+ * Positioned above background decorations with higher z-index.
+ * Contains all interactive and textual content.
+ */
+.epsilon-container {
+  position: relative;
+  z-index: 1;                      /* Above background decorations */
+}
+
+/**
+ * Main Title Element
+ * 
+ * Large, responsive heading with gradient text effects.
+ * Uses clamp() for fluid typography across screen sizes.
+ */
+.epsilon-main-title {
+  font-size: clamp(3rem, 8vw, 5rem); /* Fluid responsive sizing */
+  font-weight: 800;                /* Extra bold for impact */
+  text-align: center;
+  margin-bottom: 4rem;             /* Space before content grid */
+  letter-spacing: 0.1em;           /* Expanded letter spacing */
+  position: relative;
+}
+
+/**
+ * Title Highlight Text Effect
+ * 
+ * Creates gradient text using background-clip technique.
+ * Provides visual hierarchy and brand color integration.
+ */
+.title-highlight {
+  background: linear-gradient(135deg, #10324e, #1e4a6b);
+  -webkit-background-clip: text;   /* Webkit prefix for compatibility */
+  -webkit-text-fill-color: transparent;
+  background-clip: text;           /* Standard property */
+  color: transparent;              /* Fallback for unsupported browsers */
+}
+
+/**
+ * Title Accent Animation
+ * 
+ * Animated text element with pulsing effect.
+ * Draws attention to key words or phrases.
+ */
+.title-accent {
+  color: #10324e;                  /* Brand color */
+  position: relative;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite; /* Continuous pulse animation */
+}
+
+/**
+ * Pulse Animation Keyframes
+ * 
+ * Subtle scaling animation that creates a breathing effect.
+ * Emphasizes important text without being distracting.
+ */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }   /* 10% scale increase at peak */
+}
+
+/**
+ * Three-Column Graphics Grid
+ * 
+ * Responsive grid layout for the main content sections.
+ * Each column contains different interactive elements and information.
+ */
+.epsilon-graphics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Equal width columns */
+  gap: 4rem;                       /* Large gaps for breathing room */
+  align-items: start;              /* Align to top of grid cells */
+  margin-top: 2rem;                /* Space below title */
+}
+
+/**
+ * Left Column - Planet Section
+ * 
+ * Contains animated planet element with orbital ring and caption.
+ * Represents environmental or global themes.
+ */
+.epsilon-graphic-left {
+  text-align: center;
+}
+
+/**
+ * Planet Container with Orbital Effects
+ * 
+ * Houses the planet image and animated orbital ring.
+ * Creates a space-like aesthetic with rotating elements.
+ */
+.planet-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Animated Orbital Ring
+ * 
+ * Dashed circle that rotates around the planet.
+ * Creates dynamic visual interest and reinforces space theme.
+ */
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border: 2px dashed rgba(84, 25, 255, 0.3); /* Semi-transparent dashed border */
+  border-radius: 50%;
+  animation: rotate 20s linear infinite; /* Slow, continuous rotation */
+}
+
+/**
+ * Rotation Animation Keyframes
+ * 
+ * Simple 360-degree rotation for orbital ring effect.
+ * Uses transform to maintain centered positioning during rotation.
+ */
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/**
+ * Planet Image Element
+ * 
+ * Central visual element with hover effects and shadow.
+ * Positioned above orbital ring with higher z-index.
+ */
+.epsilon-planet {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;              /* Circular planet shape */
+  position: relative;
+  z-index: 2;                      /* Above orbital ring */
+  box-shadow: 0 8px 32px rgba(84, 25, 255, 0.2); /* Purple-tinted shadow */
+  transition: transform 0.3s ease; /* Smooth hover scaling */
+}
+
+/**
+ * Planet Hover Effect
+ * 
+ * Subtle scale increase on hover for interactivity feedback.
+ */
+.epsilon-planet:hover {
+  transform: scale(1.05);          /* 5% scale increase */
+}
+
+/**
+ * Planet Glow Effect
+ * 
+ * Radial gradient background that creates a glowing aura.
+ * Positioned behind planet for atmospheric effect.
+ */
+.planet-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(84, 25, 255, 0.1), transparent);
+  border-radius: 50%;
+  z-index: 1;                      /* Behind planet, above orbital ring */
+}
+
+/**
+ * Caption Content Container
+ * 
+ * Constrains width of descriptive text for optimal readability.
+ * Centers content below the planet visualization.
+ */
+.caption-container {
+  max-width: 280px;                /* Optimal reading width */
+  margin: 0 auto;                  /* Center horizontally */
+}
+
+/**
+ * Caption Title Styling
+ * 
+ * Bold heading for section descriptions.
+ * Uses consistent typography hierarchy.
+ */
+.caption-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+/**
+ * Caption Body Text
+ * 
+ * Supporting descriptive text with improved readability.
+ * Uses muted color for visual hierarchy.
+ */
+.epsilon-caption {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;                /* Comfortable reading line height */
+}
+
+/**
+ * Discover Section Styling
+ * 
+ * Additional content area with separator and interactive elements.
+ * Provides call-to-action or discovery mechanisms.
+ */
+.discover-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(16, 50, 78, 0.1); /* Subtle separator line */
+}
+
+/**
+ * Discover Text Styling
+ * 
+ * Highlighted text that draws attention to discovery content.
+ * Uses brand color for consistency.
+ */
+.discover-text {
+  font-size: 0.9rem;
+  color: #10324e;                  /* Brand color */
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/**
+ * Dot Navigation Container
+ * 
+ * Houses interactive dot indicators for content navigation.
+ * Typically used for carousel or multi-step interfaces.
+ */
+.discover-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/**
+ * Individual Dot Indicator
+ * 
+ * Small circular indicators with active/inactive states.
+ * Provides visual feedback for current position or selection.
+ */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(16, 50, 78, 0.3); /* Muted default state */
+  transition: all 0.3s ease;       /* Smooth state transitions */
+}
+
+/**
+ * Active Dot State
+ * 
+ * Highlighted state for current or selected dot indicator.
+ * Uses brand color and scale transform for emphasis.
+ */
+.dot.active {
+  background: #10324e;             /* Full brand color */
+  transform: scale(1.2);           /* 20% scale increase */
+}
+
+/**
+ * Center Column - Toucan Section
+ * 
+ * Main focal point with large imagery and primary call-to-action.
+ * Contains brand mascot and central messaging.
+ */
+.epsilon-graphic-center {
+  text-align: center;
+  position: relative;
+}
+
+/**
+ * Toucan Image Container
+ * 
+ * Houses the main brand mascot image with backdrop effects.
+ * Provides visual prominence as the central element.
+ */
+.toucan-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Toucan Backdrop Circle
+ * 
+ * Large circular background element that frames the toucan image.
+ * Uses subtle gradients for depth without overwhelming the main image.
+ */
+.toucan-backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  background: linear-gradient(135deg, rgba(16, 50, 78, 0.05), rgba(30, 74, 107, 0.05));
+  border-radius: 50%;
+  z-index: 1;                      /* Behind toucan image */
+}
+
+/**
+ * Toucan Image Element
+ * 
+ * Main brand mascot image with responsive sizing and shadow effects.
+ * Positioned above backdrop with higher z-index.
+ */
+.epsilon-toucan {
+  width: 100%;
+  max-width: 280px;                /* Maximum size constraint */
+  height: auto;                    /* Maintain aspect ratio */
+  position: relative;
+  z-index: 2;                      /* Above backdrop */
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1)); /* Realistic shadow */
+}
+
+/**
+ * Center Content Container
+ * 
+ * Groups subtitle and call-to-action elements.
+ * Positioned above backdrop elements.
+ */
+.center-content {
+  position: relative;
+  z-index: 2;
+}
+
+/**
+ * Center Section Subtitle
+ * 
+ * Two-line subtitle with different styling for each line.
+ * Creates visual hierarchy and emphasizes key messaging.
+ */
+.epsilon-subtitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+/**
+ * Subtitle First Line
+ * 
+ * Standard text color for the opening line.
+ * Provides setup for the emphasized second line.
+ */
+.subtitle-line1 {
+  display: block;
+  color: var(--text-dark);
+}
+
+/**
+ * Subtitle Second Line with Gradient
+ * 
+ * Gradient text effect for emphasis and brand integration.
+ * Uses same technique as main title highlight.
+ */
+.subtitle-line2 {
+  display: block;
+  background: linear-gradient(135deg, #10324e, #2a5a82);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/**
+ * Primary Call-to-Action Link
+ * 
+ * Prominent button-style link with gradient background.
+ * Features icon, hover effects, and brand styling.
+ */
+.epsilon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;                     /* Space between text and arrow */
+  padding: 1rem 2rem;              /* Generous touch target */
+  background: linear-gradient(135deg, #10324e, #1e4a6b);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;             /* Pill-shaped button */
+  font-weight: 600;
+  transition: all 0.3s ease;       /* Smooth hover transitions */
+  box-shadow: 0 4px 15px rgba(16, 50, 78, 0.3);
+}
+
+/**
+ * Primary Link Hover State
+ * 
+ * Lift effect with enhanced shadow for interactive feedback.
+ * Provides clear visual response to user interaction.
+ */
+.epsilon-link:hover {
+  transform: translateY(-2px);     /* Subtle lift effect */
+  box-shadow: 0 8px 25px rgba(16, 50, 78, 0.4); /* Enhanced shadow */
+}
+
+/**
+ * Link Arrow Icon
+ * 
+ * SVG arrow icon with smooth animation.
+ * Provides directional cue and interactive feedback.
+ */
+.link-arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+/**
+ * Arrow Hover Animation
+ * 
+ * Horizontal movement on hover to reinforce forward action.
+ * Complements the lift effect of the parent link.
+ */
+.epsilon-link:hover .link-arrow {
+  transform: translateX(4px);      /* Move arrow right */
+}
+
+/**
+ * Right Column - Statistics Section
+ * 
+ * Contains company stats, metrics, and secondary call-to-action.
+ * Provides credibility and additional engagement opportunities.
+ */
+.epsilon-graphic-right {
+  text-align: center;
+}
+
+/**
+ * Statistics Header Section
+ * 
+ * Combines brand image with numerical badge.
+ * Creates visual interest and introduces the stats section.
+ */
+.stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Brand Cow Image
+ * 
+ * Circular brand image representing agricultural or sustainable themes.
+ * Uses consistent sizing with other circular elements.
+ */
+.epsilon-cow {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Industries Badge Element
+ * 
+ * Highlighted numerical indicator with descriptive text.
+ * Uses subtle gradient and border for prominence.
+ */
+.industries-badge {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  border: 2px solid var(--border-light);
+}
+
+/**
+ * Badge Primary Text
+ * 
+ * Large numerical or key text within the badge.
+ * Uses brand color for emphasis.
+ */
+.badge-text {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/**
+ * Badge Secondary Text
+ * 
+ * Descriptive subtext with uppercase styling.
+ * Provides context for the primary badge text.
+ */
+.badge-subtext {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * Statistics Grid Layout
+ * 
+ * Two-column grid for displaying key metrics.
+ * Responsive design adapts to single column on mobile.
+ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* Equal width columns */
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Individual Statistic Item
+ * 
+ * Card-style container for each metric.
+ * Features hover effects and consistent styling.
+ */
+.stat-item {
+  background: white;
+  padding: 1.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-light);
+  transition: transform 0.3s ease;
+}
+
+/**
+ * Stat Item Hover Effect
+ * 
+ * Subtle lift animation for interactive feedback.
+ * Maintains consistency with other hover effects.
+ */
+.stat-item:hover {
+  transform: translateY(-2px);
+}
+
+/**
+ * Statistic Number Display
+ * 
+ * Large, bold numerical display.
+ * Uses brand color for emphasis and impact.
+ */
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+/**
+ * Statistic Label Text
+ * 
+ * Descriptive text explaining the statistic.
+ * Uses muted color for visual hierarchy.
+ */
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/**
+ * Statistics Section Link
+ * 
+ * Secondary call-to-action with outline style.
+ * Provides additional engagement without competing with primary CTA.
+ */
+.stats-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--primary);
+  border-radius: 25px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/**
+ * Stats Link Hover State
+ * 
+ * Fill effect that inverts colors on hover.
+ * Provides clear interactive feedback.
+ */
+.stats-link:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/**
+ * Stats Link Icon
+ * 
+ * Small icon within the secondary link.
+ * Maintains consistent sizing across components.
+ */
+.stats-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/**
+ * Secondary Epsilon Link Variant
+ * 
+ * Compact version of the primary epsilon link.
+ * Inherits base styles with modified sizing and spacing.
+ */
+.epsilon-link--secondary {
+  /* Inherits properties from .epsilon-link */
+  background: linear-gradient(135deg, #10324e, #1e4a6b);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(16, 50, 78, 0.3);
+  padding: 0.75rem 1.5rem;         /* More compact padding */
+  font-size: 0.9rem;               /* Slightly smaller font */
+}
+
+/**
+ * Secondary Link Arrow Icon
+ * 
+ * Smaller arrow icon for the compact link variant.
+ * Maintains consistent animation behavior.
+ */
+.epsilon-link--secondary .link-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+/**
+ * Secondary Link Hover State
+ * 
+ * Same hover effects as primary link but for secondary variant.
+ * Maintains consistency across link types.
+ */
+.epsilon-link--secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 50, 78, 0.4);
+}
+
+/**
+ * Secondary Link Arrow Hover Animation
+ * 
+ * Consistent arrow movement animation for secondary variant.
+ */
+.epsilon-link--secondary:hover .link-arrow {
+  transform: translateX(4px);
+}
+
+/**
+ * Responsive Design Breakpoints
+ * 
+ * Progressive enhancement for different screen sizes.
+ * Maintains usability and visual hierarchy across devices.
+ */
+
+/* Large tablet and small desktop (1024px and below) */
+@media (max-width: 1024px) {
+  .epsilon-graphics {
+    gap: 3rem;                     /* Reduced gap for tighter layout */
+  }
+  
+  .toucan-backdrop {
+    width: 280px;                  /* Smaller backdrop for reduced space */
+    height: 280px;
+  }
+}
+
+/* Tablet and mobile (768px and below) */
+@media (max-width: 768px) {
+  .epsilon-title {
+    margin: 4rem auto;             /* Reduced vertical spacing */
+  }
+  
+  .epsilon-graphics {
+    grid-template-columns: 1fr;    /* Single column layout */
+    gap: 4rem;
+  }
+  
+  .epsilon-main-title {
+    margin-bottom: 3rem;           /* Reduced spacing below title */
+  }
+  
+  .stats-header {
+    flex-direction: column;        /* Stack header elements vertically */
+    gap: 1.5rem;
+  }
+  
+  .floating-circle {
+    display: none;                 /* Hide decorative elements on mobile */
+  }
+}
+
+/* Mobile phones (480px and below) */
+@media (max-width: 480px) {
+  .epsilon-title {
+    padding: 0 1rem;               /* Reduced horizontal padding */
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;    /* Single column stats */
+  }
+  
+  .epsilon-link {
+    padding: 0.875rem 1.5rem;      /* Adjusted padding for mobile */
+    font-size: 0.9rem;             /* Slightly smaller font */
+  }
+}
+
+.toucan-backdrop {
+  width: 280px;
+  height: 280px;
+}
+
+
+@media (max-width: 768px) {
+  .epsilon-title {
+    margin: 4rem auto;
+  }
+  
+  .epsilon-graphics {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  
+  .epsilon-main-title {
+    margin-bottom: 3rem;
+  }
+  
+  .stats-header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .floating-circle {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .epsilon-title {
+    padding: 0 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .epsilon-link {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* Íconos sociales bajo “Discover” */
+/**
+ * Social Icons Container
+ * 
+ * Horizontal flexbox layout for social media icons.
+ * Positioned below the "Discover" section in the left column
+ * of the EpsilonTitle component.
+ * 
+ * Features:
+ * - Centered horizontal alignment
+ * - Consistent spacing using design system variables
+ * - Responsive gap that adapts to screen size
+ */
+.social-icons {
+  display: flex;                   /* Horizontal layout for icons */
+  justify-content: center;         /* Center icons horizontally */
+  gap: var(--gap-md);              /* Medium spacing between icons (16px) */
+  margin-top: var(--gap-md);       /* Space above social icons section */
+}
+
+/**
+ * Individual Social Icon Button
+ * 
+ * Circular button container for social media icons.
+ * Provides consistent sizing, hover effects, and accessibility features.
+ * 
+ * Design Features:
+ * - Perfect circle shape with 36px diameter
+ * - Dark background for contrast with white icons
+ * - Smooth transitions for interactive states
+ * - Centered icon positioning using flexbox
+ */
+.social-icon {
+  display: inline-flex;            /* Inline flex for icon centering */
+  align-items: center;             /* Vertically center icon */
+  justify-content: center;         /* Horizontally center icon */
+  width: 36px;                     /* Fixed width for consistent sizing */
+  height: 36px;                    /* Fixed height to maintain circle */
+  background: var(--text-dark);    /* Dark background (#2c3e50) */
+  border-radius: 50%;              /* Perfect circle shape */
+  transition: background var(--transition-fast),
+              transform var(--transition-fast); /* Smooth hover animations */
+}
+
+/**
+ * Social Icon Image Styling
+ * 
+ * Styling for the actual icon images within the circular containers.
+ * Uses CSS filter to ensure proper contrast and visibility.
+ * 
+ * Features:
+ * - Consistent 18px sizing for all icons
+ * - White color achieved through invert filter
+ * - Maintains aspect ratio and sharpness
+ */
+.social-icon img {
+  width: 18px;                     /* Standard icon width */
+  height: 18px;                    /* Standard icon height */
+  filter: invert(1);               /* Convert to white color for contrast on dark background */
+}
+
+/**
+ * Social Icon Hover State
+ * 
+ * Interactive feedback when users hover over social icons.
+ * Provides visual response and indicates clickable elements.
+ * 
+ * Effects:
+ * - Background changes to brand primary color
+ * - Subtle upward movement for lift effect
+ * - Maintains white icon color for continued contrast
+ */
+.social-icon:hover {
+  background: var(--primary);      /* Brand purple background (#5419ff) */
+  transform: translateY(-2px);     /* Lift effect on hover */
+}
+
+/**
+ * Social Icon Focus State
+ * 
+ * Accessibility-focused styling for keyboard navigation.
+ * Provides clear visual indication when icons receive focus.
+ * 
+ * Features:
+ * - Semi-transparent purple outline for visibility
+ * - Offset outline to avoid overlapping with icon
+ * - Complies with accessibility contrast requirements
+ */
+.social-icon:focus {
+  outline: 2px solid rgba(84, 25, 255, 0.4); /* Semi-transparent brand color outline */
+  outline-offset: 2px;             /* Space between icon and outline */
+}
