@@ -5,6 +5,10 @@ type MemberProps = {
   role: string;
   image: string;
   isActive: boolean;
+  whatsAppLink: string;
+  instagramLink: string;
+  facebookLink: string;
+  linkedinLink: string;
 };
 
 export default function MemberCard({
@@ -12,6 +16,10 @@ export default function MemberCard({
   role,
   isActive,
   image,
+  whatsAppLink,
+  instagramLink,
+  facebookLink,
+  linkedinLink,
 }: MemberProps) {
   return (
     <div
@@ -26,23 +34,35 @@ export default function MemberCard({
       <h3 className="font-bold mt-2">{name}</h3>
       <p className="text-sm text-gray-500">{role}</p>
 
-      {/* Íconos sociales */}
       <div className="flex justify-center gap-4 mt-3">
-        <img
-          src="/images/Whatsapp.png"
-          className="w-8 h-8 rounded-20px  flex items-center justify-center text-white text-sm hover:opacity-80"
-          alt=""
-        />
-        <img
-          src="/images/Facebook.png"
-          className="w-8 h-8 rounded-20px  flex items-center justify-center text-white text-sm hover:opacity-80"
-          alt=""
-        />
-        <img
-          src="/images/Instagram.png"
-          className="w-8 h-8 rounded-20px  flex items-center justify-center text-white text-sm hover:opacity-80"
-          alt=""
-        />
+        <a href={whatsAppLink} target="_blank" rel="noopener noreferrer">
+          <img
+            src="/images/Whatsapp.png"
+            className="w-8 h-8 rounded-20px  flex items-center justify-center text-white text-sm hover:opacity-80"
+            alt=""
+          />
+        </a>
+        <a href={facebookLink} target="_blank" rel="noopener noreferrer">
+          <img
+            src="/images/Facebook.png"
+            className="w-8 h-8 rounded-20px  flex items-center justify-center text-white text-sm hover:opacity-80"
+            alt=""
+          />
+        </a>
+        <a href={instagramLink} target="_blank" rel="noopener noreferrer">
+          <img
+            src="/images/Instagram.png"
+            className="w-8 h-8 rounded-20px  flex items-center justify-center text-white text-sm hover:opacity-80"
+            alt=""
+          />
+        </a>
+        <a href={linkedinLink} target="_blank" rel="noopener noreferrer">
+          <img
+            src="/images/Linkedin.png"
+            className="w-8 h-8 rounded-20px  flex items-center justify-center text-white text-sm hover:opacity-80"
+            alt=""
+          />
+        </a>
       </div>
     </div>
   );

@@ -83,6 +83,10 @@ export default function TeamCarousel() {
                   role={member.role}
                   image={member.image}
                   isActive={isActive}
+                  whatsAppLink={member.whatsAppLink}
+                  instagramLink={member.instagramLink}
+                  facebookLink={member.facebookLink}
+                  linkedinLink={member.linkedInLink}
                 />
               </div>
             );
