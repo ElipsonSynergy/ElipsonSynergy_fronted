@@ -146,5 +146,27 @@
     "primary_button": "Ver Nuestros Proyectos",
     "secondary_button": "Contáctanos",
     "notification": "Te notificaremos cuando publiquemos nuestro primer artículo"
+  },
+  "product_filter": {
+    "all_projects": "Todos los proyectos",
+    "categories": {
+      "agro": "Agro",
+      "jovenes": "Jóvenes por Colombia", 
+      "store": "Store",
+      "makers": "For Makers",
+      "software": "Software & Hardware"
+    }
+  },
+  "project_card": {
+    "featured_badge": "Destacado",
+    "status_active": "ACTIVO",
+    "explore_button": "Explorar",
+    "category_labels": {
+      "agro": "Agro",
+      "jovenes": "Jóvenes",
+      "store": "Store", 
+      "makers": "Makers",
+      "software": "Software"
+    }
   }
 }

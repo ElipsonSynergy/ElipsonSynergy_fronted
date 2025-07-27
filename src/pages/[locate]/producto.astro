@@ -115,13 +115,13 @@ const t = useTranslations(lang);
       
       <!-- Enhanced Product Filter -->
       <div class="mb-16">
-        <ProductFilter />
+        <ProductFilter translations={t} />
       </div>
       
       <!-- Revolutionary Projects Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-20" id="projects-grid">
         {projects.map((project, index) => (
-          <ProjectCard project={project} />
+          <ProjectCard project={project} translations={t} />
         ))}
       </div>
       
