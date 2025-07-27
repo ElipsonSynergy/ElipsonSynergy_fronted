@@ -217,15 +217,15 @@
 .tag {
   padding: 0.5rem 1rem;
   border: 1px solid var(--border-light);
-  border-radius: 4px;              /* Slightly rounded corners */
-  text-decoration: none;           /* Remove link underline */
+  border-radius: 4px;
+  text-decoration: none;
   font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 500;
   background: #fff;
-  text-transform: uppercase;       /* All caps for consistency */
-  letter-spacing: 0.5px;           /* Slight letter spacing for readability */
-  white-space: nowrap;             /* Prevent text wrapping within tag */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;      /* Prevent internal wrapping */
   display: inline-block;
 }
 
@@ -236,7 +236,7 @@
 .tag:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(84, 25, 255, 0.05); /* Very light brand color background */
+  background: rgba(84, 25, 255, 0.05);
 }
 
 /**
@@ -787,6 +787,8 @@
     grid-row: auto;                 /* Auto row placement */
     justify-content: center;        /* Center tags horizontally */
   }
+
+  
   
   /**
    * Single column grid for cards
@@ -2709,4 +2711,24 @@ body {
   color: #198754;
   font-size: 0.85rem;
   margin-top: 0.25rem;
+}
+
+.selected-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.selected-tag .remove {
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  opacity: 0.8;
+}
+.selected-tag .remove:hover {
+  opacity: 1;
 }
