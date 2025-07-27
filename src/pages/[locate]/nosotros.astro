@@ -2,20 +2,26 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TeamCarousel from '@/components/MemberSwiper';
 import TeamCarouselDetailed from '@/components/MemberSwiperDetailed';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
 import MembersInfoDetailed from '@/components/MembersInfoDetailed'
 import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-export async function getStaticPaths() {
-  return Object.keys(languages).map((loc) => ({
-    params: { locate: loc },
-  }));
-}
-
 ---
 
 <BaseLayout 
+  title={t('about_page_meta.title')}
+  description={t('about_page_meta.description')}
+  keywords={t('about_page_meta.keywords')}
   title={t('about.title')}
   description={t('about.description')}
   keywords={t('about.keywords')}
@@ -32,6 +38,7 @@ export async function getStaticPaths() {
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
+          {t('about_hero_section.badge')}
           {t('about.Elipson.title')}
         </div>
         <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
@@ -40,7 +47,7 @@ export async function getStaticPaths() {
             {t('about.Elipson.tagline')}
           </span>
         </h1>
-        <p class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed">
+          <p class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed">
           {t('about.Elipson.description')}
           {t('about.Elipson.description2')} <strong>{t('about.Elipson.description3')}</strong> {t('about.Elipson.description4')}
         </p>
@@ -76,6 +83,9 @@ export async function getStaticPaths() {
     <div class="bg-purple-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
       <h3 class="text-2xl font-bold text-purple-700 mb-3">{t('about.values.title')}</h3>
       <ul class="text-gray-700 leading-relaxed list-disc list-inside">
+        {JSON.parse(JSON.stringify(t('about_essence_section.values.list'))).map((value: string) => (
+          <li>{value}</li>
+        ))}
         <li>{t('about.values.innovation.title')}</li>
         <li>{t('about.values.collaboration.title')}</li>
         <li>{t('about.values.socialEmpathy.title')}</li>
@@ -89,7 +99,7 @@ export async function getStaticPaths() {
     <div class="max-w-7xl mx-auto text-center mb-16">
     <h2 class="text-4xl font-extrabold text-gray-900 mb-4">{t('about.teamSection.title')}</h2>    
   </div>
-<TeamCarouselDetailed client:load />
+<TeamCarouselDetailed client:load lang={lang} />
 
 </section>
 

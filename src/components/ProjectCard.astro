@@ -9,9 +9,12 @@ export interface Props {
     category: string;
     featured?: boolean;
   };
+  translations?: (key: string) => string;
+
 }
 
-const { project } = Astro.props;
+const { project, translations} = Astro.props;
+const t = translations || ((key: string) => key);
 
 // Generate thematic image URLs based on category
 const getThematicImage = (category: string) => {
@@ -25,15 +28,6 @@ const getThematicImage = (category: string) => {
   return images[category as keyof typeof images] || images.software;
 };
 
-import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-
-export async function getStaticPaths() {
-  return Object.keys(languages).map((loc) => ({
-    params: { locate: loc },
-  }));
-}
 ---
 
 <article 

@@ -4,13 +4,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductFilter from '../../components/ProductFilter.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { projects } from '../../data/projects';
+import { useTranslations } from '../../utils/i18n';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
+const { locate } = Astro.params;
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const t = useTranslations(lang);
 
 ---
 
 <BaseLayout 
-  title="Productos Innovadores - Elipson Synergy" 
-  description="Explora nuestros desarrollos de vanguardia. Proyectos que transforman sectores enteros con tecnología de última generación."
-  keywords="productos, innovación, desarrollos, tecnología, agro, jóvenes, store, makers, software, hardware"
+  title={t('products_page_meta.title')}
+  description={t('products_page_meta.description')}
+  keywords={t('products_page_meta.keywords')}
 >
   <!-- Revolutionary Hero Section -->
   <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -41,33 +54,31 @@ import { projects } from '../../data/projects';
       
       <!-- Revolutionary Title -->
       <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight">
-        <span class="block text-slate-900 mb-2">Desarrollos</span>
-        <span class="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Recientes</span>
+        <span class="block text-slate-900 mb-2">{t('products_hero_section.title_line1')}</span>
+        <span class="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{t('products_hero_section.title_line2')}</span>
       </h1>
       
       <!-- Inspiring Subtitle -->
-      <p class="max-w-5xl mx-auto text-xl md:text-2xl lg:text-3xl text-slate-600 leading-relaxed font-medium mb-12">
-        En elipson nos mantenemos activos desarrollando <span class="text-blue-600 font-bold">proyectos de alto impacto,</span>
-          que ayuden a innovar y desarrollar diversos sectores de la industria Colombiana.
+      <p class="max-w-5xl mx-auto text-xl md:text-2xl lg:text-3xl text-slate-600 leading-relaxed font-medium mb-12" set:html={t('products_hero_section.description').replace('<strong>', '<span class="text-blue-600 font-bold">').replace('</strong>', '</span>')}>
       </p>
       
       <!-- Interactive Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-16">
         <div class="text-center group">
           <div class="text-3xl md:text-4xl font-black text-blue-600 mb-2 group-hover:scale-110 transition-transform duration-300">{projects.length}+</div>
-          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">Proyectos</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.projects')}</div>
         </div>
         <div class="text-center group">
           <div class="text-3xl md:text-4xl font-black text-indigo-600 mb-2 group-hover:scale-110 transition-transform duration-300">5</div>
-          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">Sectores</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.sectors')}</div>
         </div>
         <div class="text-center group">
           <div class="text-3xl md:text-4xl font-black text-purple-600 mb-2 group-hover:scale-110 transition-transform duration-300">100%</div>
-          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">Innovación</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.innovation')}</div>
         </div>
         <div class="text-center group">
           <div class="text-3xl md:text-4xl font-black text-blue-700 mb-2 group-hover:scale-110 transition-transform duration-300">∞</div>
-          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">Impacto</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.impact')}</div>
         </div>
       </div>
       
@@ -95,22 +106,22 @@ import { projects } from '../../data/projects';
       <!-- Section Header -->
       <div class="text-center mb-20">
         <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
-          Portfolio <span class="text-blue-600">Interactivo</span>
+          {t('products_portfolio_section.title')} <span class="text-blue-600">{t('products_portfolio_section.title_highlight')}</span>
         </h2>
         <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-          Filtra por categoría y descubre cómo estamos revolucionando cada sector con soluciones tecnológicas únicas
+          {t('products_portfolio_section.description')}
         </p>
       </div>
       
       <!-- Enhanced Product Filter -->
       <div class="mb-16">
-        <ProductFilter />
+        <ProductFilter translations={t} />
       </div>
       
       <!-- Revolutionary Projects Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-20" id="projects-grid">
         {projects.map((project, index) => (
-          <ProjectCard project={project} />
+          <ProjectCard project={project} translations={t} />
         ))}
       </div>
       
@@ -119,18 +130,18 @@ import { projects } from '../../data/projects';
         <div class="bg-gradient-to-r from-slate-50 to-blue-50 rounded-3xl p-12 border border-slate-200/50 shadow-xl backdrop-blur-sm">
           <div class="max-w-3xl mx-auto">
             <h3 class="text-2xl md:text-4xl font-black text-slate-900 mb-6">
-              ¿Listo para <span class="text-blue-600">Innovar Juntos</span>?
+              {t('products_cta_section.title')} <span class="text-blue-600">{t('products_cta_section.title_highlight')}</span>{t('products_cta_section.title_question')}
             </h3>
             <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-              Cada proyecto comienza con una conversación. Hablemos sobre cómo podemos transformar tu visión en realidad.
+              {t('products_cta_section.description')}
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
-                href="/contactanos" 
+                href={lang === 'es' ? '/contactanos' : `/${lang}/contactanos`}
                 class="group inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
-                <span>Conversemos tu Proyecto</span>
+                <span>{t('products_cta_section.button_text')}</span>
                 <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
@@ -139,7 +150,7 @@ import { projects } from '../../data/projects';
               <div class="flex items-center space-x-4 text-slate-500">
                 <div class="flex items-center space-x-2">
                   <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span class="text-sm font-medium">Disponibles para nuevos proyectos</span>
+                  <span class="text-sm font-medium">{t('products_cta_section.status_text')}</span>
                 </div>
               </div>
             </div>
@@ -167,46 +178,45 @@ import { projects } from '../../data/projects';
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="mb-16">
         <h2 class="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
-          Tecnología que <span class="text-blue-400">Impulsa el Futuro</span>
+          {t('products_features_section.title')} <span class="text-blue-400">{t('products_features_section.title_highlight')}</span>
         </h2>
         <p class="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-          Metodologías ágiles, stack tecnológico de vanguardia y equipos multidisciplinarios 
-          para crear soluciones que marcan la diferencia.
+          {t('products_features_section.description')}
         </p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Innovation Feature -->
+        <!-- Agile Development Feature -->
         <div class="group p-8 bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-500 hover:-translate-y-2">
           <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-white mb-4">Desarrollo Ágil</h3>
-          <p class="text-blue-100 leading-relaxed">Metodologías que garantizan entregas rápidas y adaptación continua a las necesidades del mercado.</p>
+          <h3 class="text-xl font-bold text-white mb-4">{t('products_features_section.agile_development.title')}</h3>
+          <p class="text-blue-100 leading-relaxed">{t('products_features_section.agile_development.description')}</p>
         </div>
         
-        <!-- Quality Feature -->
+        <!-- Premium Quality Feature -->
         <div class="group p-8 bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-500 hover:-translate-y-2">
           <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-white mb-4">Calidad Premium</h3>
-          <p class="text-blue-100 leading-relaxed">Estándares de calidad empresarial con testing automatizado y código mantenible a largo plazo.</p>
+          <h3 class="text-xl font-bold text-white mb-4">{t('products_features_section.premium_quality.title')}</h3>
+          <p class="text-blue-100 leading-relaxed">{t('products_features_section.premium_quality.description')}</p>
         </div>
         
-        <!-- Innovation Feature -->
+        <!-- Continuous Innovation Feature -->
         <div class="group p-8 bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-500 hover:-translate-y-2">
           <div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-white mb-4">Innovación Continua</h3>
-          <p class="text-blue-100 leading-relaxed">Investigación constante en nuevas tecnologías para mantener nuestros proyectos en la vanguardia.</p>
+          <h3 class="text-xl font-bold text-white mb-4">{t('products_features_section.continuous_innovation.title')}</h3>
+          <p class="text-blue-100 leading-relaxed">{t('products_features_section.continuous_innovation.description')}</p>
         </div>
       </div>
     </div>

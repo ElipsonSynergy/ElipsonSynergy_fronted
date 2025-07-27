@@ -2,7 +2,19 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ContactModel from '@/components/ContactModel.astro';
 import infoData from '@/data/info';
+import { useTranslations } from '@/utils/i18n';
 
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
+const { locate } = Astro.params;
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const t = useTranslations(lang);
 
 // Logic for determining the backend URL
 function getBackendUrl() {
@@ -18,8 +30,8 @@ const backendUrl = getBackendUrl();
 ---
 
 <BaseLayout 
-  title="Contacto - Elipson Synergy" 
-  description="Ponte en contacto con Elipson Synergy. Estamos listos para ayudarte a transformar tus ideas en realidad digital."
+  title={t('contact_page_meta.title')}
+  description={t('contact_page_meta.description')}
 >
   
   <section class="relative z-10 overflow-hidden bg-white py-8 sm:py-12 md:py-16 lg:py-20" id="contact">
@@ -30,13 +42,13 @@ const backendUrl = getBackendUrl();
         <div class="w-full lg:w-1/2 xl:w-6/12">
           <div class="max-w-full lg:max-w-[570px]">
             <span class="mb-3 block text-base font-semibold text-blue-600 sm:mb-4">
-              Contáctanos
+              {t('contact_page_header.badge')}
             </span>
             <h1 class="mb-4 text-2xl sm:text-3xl font-bold uppercase text-gray-900 lg:text-[36px] xl:text-[40px] leading-tight">
-              PONTE EN CONTACTO CON NOSOTROS
+              {t('contact_page_header.title')}
             </h1>
             <p class="mb-6 sm:mb-8 text-base leading-relaxed text-gray-600">
-              Agradecemos tu mensaje y nos comprometemos a brindarte la mejor atención. Revisaremos tu solicitud y nos comunicaremos contigo pronto. Valoramos tu tiempo y apreciamos la oportunidad de ayudarte.
+              {t('contact_page_header.description')}
             </p>
             
             <div class="space-y-4 sm:space-y-6">
@@ -49,7 +61,7 @@ const backendUrl = getBackendUrl();
                   </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <h3 class="font-bold text-gray-800 text-sm sm:text-base lg:text-lg">Nuestra Ubicación</h3>
+                  <h3 class="font-bold text-gray-800 text-sm sm:text-base lg:text-lg">{t('contact_page_info.location_title')}</h3>
                   <p class="text-gray-600 text-sm sm:text-base break-words">{infoData.location}</p>
                 </div>
               </div>
@@ -62,7 +74,7 @@ const backendUrl = getBackendUrl();
                   </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <h3 class="font-bold text-gray-800 text-sm sm:text-base lg:text-lg">Número de Teléfono</h3>
+                  <h3 class="font-bold text-gray-800 text-sm sm:text-base lg:text-lg">{t('contact_page_info.phone_title')}</h3>
                   <p class="text-gray-600 text-sm sm:text-base">{infoData.tel}</p>
                 </div>
               </div>
@@ -75,7 +87,7 @@ const backendUrl = getBackendUrl();
                   </svg>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <h3 class="font-bold text-gray-800 text-sm sm:text-base lg:text-lg">Correo Electrónico</h3>
+                  <h3 class="font-bold text-gray-800 text-sm sm:text-base lg:text-lg">{t('contact_page_info.email_title')}</h3>
                   <p class="text-gray-600 text-sm sm:text-base break-all">{infoData.mail}</p>
                 </div>
               </div>
@@ -92,7 +104,7 @@ const backendUrl = getBackendUrl();
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="Tu nombre"
+                  placeholder={t('contact_form_fields.name_placeholder')}
                   class="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                   required
                   maxlength="50"
@@ -105,7 +117,7 @@ const backendUrl = getBackendUrl();
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="Tu correo"
+                  placeholder={t('contact_form_fields.email_placeholder')}
                   class="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                   required
                   maxlength="100"
@@ -118,7 +130,7 @@ const backendUrl = getBackendUrl();
                   type="tel"
                   id="phone"
                   name="phone"
-                  placeholder="Tu teléfono"
+                  placeholder={t('contact_form_fields.phone_placeholder')}
                   class="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                   maxlength="20"
                 />
@@ -130,14 +142,14 @@ const backendUrl = getBackendUrl();
                   rows="4"
                   id="message"
                   name="message"
-                  placeholder="Déjanos tu mensaje"
+                  placeholder={t('contact_form_fields.message_placeholder')}
                   class="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 resize-none min-h-[100px]"
                   required
                   maxlength="1000"
                 ></textarea>
                 <div class="flex justify-between items-center mt-1">
                   <p id="message-error" class="text-xs sm:text-sm text-red-600 hidden"></p>
-                  <span id="message-counter" class="text-xs text-gray-500 ml-auto">0/1000</span>
+                  <span id="message-counter" class="text-xs text-gray-500 ml-auto">{t('contact_form_fields.character_counter')}</span>
                 </div>
               </div>
               
@@ -147,7 +159,7 @@ const backendUrl = getBackendUrl();
                   id="submit-btn"
                   class="w-full rounded-lg border border-blue-600 bg-blue-600 px-4 py-3 sm:py-3.5 text-white font-medium text-sm sm:text-base lg:text-lg transition-all duration-200 hover:bg-blue-700 hover:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed active:scale-[0.98]"
                 >
-                  Enviar Mensaje
+                  {t('contact_form_fields.submit_button')}
                 </button>
               </div>
             </form>
@@ -194,7 +206,7 @@ const backendUrl = getBackendUrl();
     </div>
   </section>
   
-  <ContactModel backendUrl={backendUrl} />
+  <ContactModel backendUrl={backendUrl} translations={t} />
   
   <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {

@@ -1,5 +1,11 @@
 ---
 // ProductFilter.astro
+interface Props {
+  translations?: (key: string) => string;
+}
+
+const { translations } = Astro.props;
+const t = translations || ((key: string) => key);
 ---
 <div class="flex justify-center items-center mb-12 px-4">
     <div class="relative inline-flex bg-gray-100 rounded-full p-1 shadow border border-gray-200 overflow-hidden">
@@ -11,32 +17,32 @@
       <button class="filter-btn relative z-10 px-5 py-2 text-sm font-medium rounded-full
          text-gray-600 hover:text-gray-800 transition-all duration-300 whitespace-nowrap
          border-0 focus:outline-none focus:ring-0 focus:border-0" data-category="all">
-        Todos los proyectos
+        {t('product_filter.all_projects')}
       </button>
       <button class="filter-btn relative z-10 px-5 py-2 text-sm font-medium rounded-full
          text-gray-600 hover:text-gray-800 transition-all duration-300 whitespace-nowrap
          border-0 focus:outline-none focus:ring-0 focus:border-0" data-category="agro">
-        Agro
+        {t('product_filter.categories.agro')}
       </button>
       <button class="filter-btn relative z-10 px-5 py-2 text-sm font-medium rounded-full
          text-gray-600 hover:text-gray-800 transition-all duration-300 whitespace-nowrap
          border-0 focus:outline-none focus:ring-0 focus:border-0" data-category="jovenes">
-        Jóvenes por Colombia
+        {t('product_filter.categories.jovenes')}
       </button>
       <button class="filter-btn relative z-10 px-5 py-2 text-sm font-medium rounded-full
          text-gray-600 hover:text-gray-800 transition-all duration-300 whitespace-nowrap
          border-0 focus:outline-none focus:ring-0 focus:border-0" data-category="store">
-        Store
+        {t('product_filter.categories.store')}
       </button>
       <button class="filter-btn relative z-10 px-5 py-2 text-sm font-medium rounded-full
          text-gray-600 hover:text-gray-800 transition-all duration-300 whitespace-nowrap
          border-0 focus:outline-none focus:ring-0 focus:border-0" data-category="makers">
-        For Makers
+        {t('product_filter.categories.makers')}
       </button>
       <button class="filter-btn relative z-10 px-5 py-2 text-sm font-medium rounded-full
          text-gray-600 hover:text-gray-800 transition-all duration-300 whitespace-nowrap
          border-0 focus:outline-none focus:ring-0 focus:border-0" data-category="software">
-        Software & Hardware
+        {t('product_filter.categories.software')}
       </button>
     </div>
   </div>

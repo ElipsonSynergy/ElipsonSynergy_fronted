@@ -14,6 +14,12 @@ export function getLangFromUrl(url: URL) {
   return 'es';
 }
 
+export function getLangFromParams(params: Record<string, string | undefined>) {
+  const { locate } = params;
+  if (locate && locate in translations) return locate as keyof typeof translations;
+  return 'es';
+}
+
 export function useTranslations(lang: keyof typeof translations) {
   return function t(key: string) {
     const keys = key.split('.');
