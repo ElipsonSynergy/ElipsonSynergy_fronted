@@ -1,0 +1,10 @@
+---
+// nosotros.astro - Default Spanish page for about us
+// Redirects to the dynamic route with 'es' locale
+import { getLocalizedPath } from '../utils/i18n';
+
+// Redirect to the Spanish version of the dynamic route
+// This ensures that /nosotros correctly maps to /es/nosotros internally
+// while maintaining the clean URL for the default language.
+return Astro.redirect(getLocalizedPath('/nosotros', 'es'));
+--- 

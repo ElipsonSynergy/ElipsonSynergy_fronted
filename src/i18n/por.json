@@ -168,5 +168,67 @@
       "makers": "Criadores",
       "software": "Software"
     }
+  },
+  "team_members": {
+    "mateo_chilito": {
+      "name": "Mateo Chilito",
+      "role": "CEO",
+      "role_detailed": "Chief Executive Officer",
+      "description": "Lidera a visão global da Elipson Synergy, garantindo o crescimento sustentável da empresa e o alinhamento estratégico de todas as áreas. Seu foco está centrado no impacto tecnológico positivo na América Latina e na consolidação de uma equipe de alto desempenho."
+    },
+    "laura_hurtado": {
+      "name": "Laura Hurtado",
+      "role": "CMO", 
+      "role_detailed": "Chief Marketing Officer",
+      "description": "Encarregada de construir a identidade da marca Elipson Synergy e liderar as estratégias de comunicação e expansão no mercado latino-americano. Impulsiona campanhas focadas na conexão emocional com os usuários e na promoção de soluções transformadoras."
+    },
+    "camilo_herrera": {
+      "name": "Camilo Herrera",
+      "role": "CTO",
+      "role_detailed": "Chief Technology Officer", 
+      "description": "Responsável pela arquitetura tecnológica da Elipson Synergy, lidera o desenvolvimento de soluções digitais inovadoras com foco em escalabilidade, segurança e eficiência. Supervisiona as equipes de engenharia para garantir produtos sólidos e alinhados ao futuro."
+    },
+    "franklin_romero": {
+      "name": "Franklin Romero",
+      "role": "CFO",
+      "role_detailed": "Chief Financial Officer",
+      "description": "Gerencia a saúde financeira da organização com visão estratégica. Supervisiona orçamentos, investimentos e projeções de crescimento econômico, garantindo o equilíbrio entre inovação e sustentabilidade financeira."
+    }
+  },
+  "about_page_meta": {
+    "title": "Sobre Nós - Elipson Synergy",
+    "description": "Conheça mais sobre a Elipson Synergy, nossa equipe especializada, nossa missão e como transformamos ideias em soluções tecnológicas inovadoras.",
+    "keywords": "equipe, empresa, história, missão, visão, especialistas em tecnologia"
+  },
+  "about_hero_section": {
+    "badge": "Elipson Synergy · Conectando Tecnologia e Futuro",
+    "title_line1": "Conheça a",
+    "title_line2": "Elipson Synergy", 
+    "description": "Mais do que uma equipe, somos uma sinfonia de talentos que acredita no poder da tecnologia como agente de mudança. Nosso propósito é claro: <strong>transformar realidades na América Latina</strong> com soluções nascidas da engenhosidade, empatia e inovação."
+  },
+  "about_essence_section": {
+    "title": "Nossa Essência",
+    "subtitle": "O que acreditamos, o que buscamos e os valores que nos guiam em cada passo.",
+    "mission": {
+      "title": "Missão",
+      "description": "Desenvolver soluções tecnológicas inovadoras que resolvam os desafios sociais e empresariais da América Latina, empoderando comunidades e gerando impacto positivo sustentável."
+    },
+    "vision": {
+      "title": "Visão", 
+      "description": "Ser a referência líder em tecnologia transformadora na América Latina, destacando-se pela excelência, empatia e compromisso com um futuro mais conectado e justo."
+    },
+    "values": {
+      "title": "Valores",
+      "list": [
+        "Inovação com propósito",
+        "Colaboração e respeito", 
+        "Empatia social",
+        "Transparência e ética",
+        "Excelência contínua"
+      ]
+    }
+  },
+  "about_team_section": {
+    "title": "Nossos Membros"
   }
 }

@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TeamCarousel from '@/components/MemberSwiper';
 import TeamCarouselDetailed from '@/components/MemberSwiperDetailed';
-import MembersInfoDetailed from '@/components/MembersInfoDetailed'
+import MembersInfoDetailed from '@/components/MembersInfoDetailed';
+import { useTranslations } from '../../utils/i18n';
 
 export async function getStaticPaths() {
   return [
@@ -14,13 +15,14 @@ export async function getStaticPaths() {
 
 const { locate } = Astro.params;
 const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const t = useTranslations(lang);
 
 ---
 
 <BaseLayout 
-  title="Nosotros - Elipson Synergy" 
-  description="Conoce más sobre Elipson Synergy, nuestro equipo experto, nuestra misión y cómo transformamos ideas en soluciones tecnológicas innovadoras."
-  keywords="equipo, empresa, historia, misión, visión, expertos tecnología"
+  title={t('about_page_meta.title')}
+  description={t('about_page_meta.description')}
+  keywords={t('about_page_meta.keywords')}
 >
   <section class="relative py-28 overflow-hidden">
     <div class="absolute top-20 left-10 w-20 h-20 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
@@ -34,17 +36,15 @@ const lang = (locate as 'es' | 'en' | 'por') || 'es';
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          Elipson Synergy · Conectando Tecnología y Futuro
+          {t('about_hero_section.badge')}
         </div>
         <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
-          <span class="block text-gray-900">Conoce a</span>
+          <span class="block text-gray-900">{t('about_hero_section.title_line1')}</span>
           <span class="block text-gradient bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent mt-2">
-            Elipson Synergy
+            {t('about_hero_section.title_line2')}
           </span>
         </h1>
-        <p class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed">
-          Más que un equipo, somos una sinfonía de talentos que cree en el poder de la tecnología como agente de cambio.  
-          Nuestro propósito es claro: <strong>transformar realidades en Latinoamérica</strong> con soluciones que nacen del ingenio, la empatía y la innovación.
+        <p class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed" set:html={t('about_hero_section.description')}>
         </p>
       </div>
     </div>
@@ -53,45 +53,43 @@ const lang = (locate as 'es' | 'en' | 'por') || 'es';
 
   <section class="bg-white py-24 px-6 sm:px-10 lg:px-20">
   <div class="max-w-7xl mx-auto text-center mb-16">
-    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Nuestra Esencia</h2>
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">{t('about_essence_section.title')}</h2>
     <p class="text-lg text-gray-600">
-      Lo que creemos, lo que buscamos y los valores que nos guían en cada paso.
+      {t('about_essence_section.subtitle')}
     </p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
     <div class="bg-blue-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
-      <h3 class="text-2xl font-bold text-blue-700 mb-3">Misión</h3>
+      <h3 class="text-2xl font-bold text-blue-700 mb-3">{t('about_essence_section.mission.title')}</h3>
       <p class="text-gray-700 leading-relaxed">
-        Desarrollar soluciones tecnológicas innovadoras que resuelvan los retos sociales y empresariales de Latinoamérica, empoderando comunidades y generando impacto positivo sostenible.
+        {t('about_essence_section.mission.description')}
       </p>
     </div>
 
     <div class="bg-indigo-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
-      <h3 class="text-2xl font-bold text-indigo-700 mb-3">Visión</h3>
+      <h3 class="text-2xl font-bold text-indigo-700 mb-3">{t('about_essence_section.vision.title')}</h3>
       <p class="text-gray-700 leading-relaxed">
-        Ser la referencia líder en tecnología transformadora en América Latina, destacando por la excelencia, la empatía y el compromiso con un futuro más conectado y justo.
+        {t('about_essence_section.vision.description')}
       </p>
     </div>
 
     <div class="bg-purple-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
-      <h3 class="text-2xl font-bold text-purple-700 mb-3">Valores</h3>
+      <h3 class="text-2xl font-bold text-purple-700 mb-3">{t('about_essence_section.values.title')}</h3>
       <ul class="text-gray-700 leading-relaxed list-disc list-inside">
-        <li>Innovación con propósito</li>
-        <li>Colaboración y respeto</li>
-        <li>Empatía social</li>
-        <li>Transparencia y ética</li>
-        <li>Excelencia continua</li>
+        {JSON.parse(JSON.stringify(t('about_essence_section.values.list'))).map((value: string) => (
+          <li>{value}</li>
+        ))}
       </ul>
     </div>
   </div>
 </section>
 <section class="bg-white py-24 px-6 sm:px-10 lg:px-20">
     <div class="max-w-7xl mx-auto text-center mb-16">
-    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Nuestros Miembros</h2>    
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">{t('about_team_section.title')}</h2>    
   </div>
-<TeamCarouselDetailed client:load />
+<TeamCarouselDetailed client:load lang={lang} />
 
 </section>
 
