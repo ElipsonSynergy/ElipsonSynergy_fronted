@@ -958,76 +958,139 @@
   outline-offset: -2px;            /* Keep outline inside element */
 }
 
-/* Contenedor principal */
+/* =====================================
+   Future Banner Component Styles
+   ===================================== */
+
+/**
+ * Main Future Banner Container
+ * 
+ * A distinctive banner component featuring a protruding circular element
+ * and dark blue background. Used to showcase future-oriented content.
+ * 
+ * Features:
+ * - Dark blue background (#10324e)
+ * - Rounded corners with large radius
+ * - Visible overflow to allow circle protrusion
+ * - Centered white text content
+ * - Top margin to accommodate protruding circle
+ */
 .futuro-banner {
-  position: relative;
-  background: #10324e;             /* Azul exacto */
-  border-radius: var(--radius-lg);
-  overflow: visible;               /* Permitir que el círculo sobresalga */
-  padding-top: 6rem;               /* Reducido porque el círculo ahora está parcialmente dentro */
-  text-align: center;
-  color: #fff;
-  margin-top: 6rem;                /* Espacio superior para el círculo que sobresale */
+  position: relative;              /* Enable absolute positioning for circle */
+  background: #10324e;             /* Specific dark blue brand color */
+  border-radius: var(--radius-lg); /* Large rounded corners */
+  overflow: visible;               /* Allow circle to extend beyond container */
+  padding-top: 6rem;               /* Top padding reduced due to partial circle overlap */
+  text-align: center;              /* Center all content horizontally */
+  color: #fff;                     /* White text for contrast */
+  margin-top: 6rem;                /* Top margin to accommodate protruding circle */
 }
 
-/* Círculo blanco que emerge desde el banner */
+/**
+ * Protruding White Circle Element
+ * 
+ * A decorative circular element that emerges from the top of the banner.
+ * Contains an image (typically a planet or globe) and acts as a focal point.
+ * 
+ * Positioning:
+ * - Half the circle extends above the banner (top: -6rem)
+ * - Centered horizontally using transform
+ * - High z-index to appear above other content
+ */
 .banner-circle {
   position: absolute;
-  top: -6rem;                      /* La mitad del círculo sobresale */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12rem;
-  height: 12rem;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
+  top: -6rem;                      /* Half the circle protrudes above banner */
+  left: 50%;                       /* Position at horizontal center */
+  transform: translateX(-50%);     /* Perfect horizontal centering */
+  width: 12rem;                    /* Large circle size (192px) */
+  height: 12rem;                   /* Maintains perfect circle aspect ratio */
+  background: #fff;                /* White background for contrast */
+  border-radius: 50%;              /* Perfect circle shape */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+  display: flex;                   /* Flexbox for centering inner content */
+  align-items: center;             /* Vertically center image */
+  justify-content: center;         /* Horizontally center image */
+  z-index: 2;                      /* Appear above banner background */
 }
 
-/* Imagen del planeta dentro del círculo blanco */
+/**
+ * Image Inside Circle
+ * 
+ * The main visual element within the white circle.
+ * Smaller than the circle to create a white border effect.
+ * Typically contains a planet, globe, or similar thematic image.
+ */
 .banner-circle img {
-  width: 10rem;                    /* Más pequeña para dejar borde blanco */
-  height: 10rem;
-  object-fit: cover;
-  border-radius: 50%;
+  width: 10rem;                    /* Smaller than circle to create white border */
+  height: 10rem;                   /* Maintain square aspect ratio */
+  object-fit: cover;               /* Crop image to fit while maintaining aspect ratio */
+  border-radius: 50%;              /* Circular image shape */
 }
 
-/* Contenido interno */
+/**
+ * Banner Content Container
+ * 
+ * Contains all text content and call-to-action elements.
+ * Positioned below the protruding circle with proper spacing.
+ */
 .banner-content {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 2rem 4rem;
-  position: relative;
-  z-index: 1;
-}
-.banner-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 1rem;
-  line-height: 1.2;
-}
-.banner-subtitle {
-  font-size: 1rem;
-  margin: 0 auto 2rem;
-  max-width: 600px;
-  color: #f0f0f0;
-  line-height: 1.5;
+  max-width: 800px;                /* Limit content width for readability */
+  margin: 0 auto;                  /* Center container horizontally */
+  padding: 0 2rem 4rem;            /* Horizontal padding and bottom padding */
+  position: relative;              /* Enable z-index stacking */
+  z-index: 1;                      /* Below the circle but above background */
 }
 
-/* Botón "Descubre" */
-.banner-button {
-  display: inline-block;
-  padding: 0.75rem 2rem;
-  border: 2px solid #fff;
-  border-radius: 4rem;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  transition: background var(--transition-fast), color var(--transition-fast);
+/**
+ * Main Banner Title
+ * 
+ * Large, bold heading that serves as the primary message.
+ * Uses high contrast white text for maximum readability.
+ */
+.banner-title {
+  font-size: 2.5rem;               /* Large font size for impact */
+  font-weight: 700;                /* Bold font weight */
+  margin: 0 0 1rem;                /* Bottom margin only */
+  line-height: 1.2;                /* Tight line height for impact */
 }
+
+/**
+ * Banner Subtitle/Description
+ * 
+ * Supporting text that provides additional context or details.
+ * Slightly muted white color for visual hierarchy.
+ */
+.banner-subtitle {
+  font-size: 1rem;                 /* Standard reading size */
+  margin: 0 auto 2rem;             /* Auto horizontal margins for centering */
+  max-width: 600px;                /* Narrower than container for readability */
+  color: #f0f0f0;                  /* Slightly muted white for hierarchy */
+  line-height: 1.5;                /* Comfortable reading line height */
+}
+
+/**
+ * Call-to-Action Button
+ * 
+ * A prominent button that encourages user interaction.
+ * Features pill-shaped design with white border and hover effects.
+ */
+.banner-button {
+  display: inline-block;           /* Allow padding while maintaining inline behavior */
+  padding: 0.75rem 2rem;           /* Generous padding for touch targets */
+  border: 2px solid #fff;          /* White border for contrast */
+  border-radius: 4rem;             /* Pill-shaped button (high border radius) */
+  text-decoration: none;           /* Remove link underline */
+  color: #fff;                     /* White text for contrast */
+  font-weight: 500;                /* Medium font weight */
+  transition: background var(--transition-fast), color var(--transition-fast); /* Smooth hover effects */
+}
+
+/**
+ * Button Hover State
+ * 
+ * Subtle background change on hover for interactive feedback.
+ * Uses semi-transparent white to maintain readability.
+ */
 .banner-button:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.1); /* Very light white overlay */
 }
