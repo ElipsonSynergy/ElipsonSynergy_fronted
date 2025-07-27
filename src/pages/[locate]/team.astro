@@ -14,8 +14,9 @@ export async function getStaticPaths() {
 
 ---
 <BaseLayout 
-  title={t('teamSection.title')} 
-  description={t('teamSection.description')}
+  title={t('team.title')} 
+  description={t('team.description')}
 >
+  <!-- @ts-ignore -->
   <TeamSection />
 </BaseLayout>
