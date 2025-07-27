@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import TeamCarousel from '@/components/MemberSwiper.jsx';
+import { useTranslations } from '../../utils/i18n';
 
 export async function getStaticPaths() {
   return [
@@ -16,7 +17,8 @@ export async function getStaticPaths() {
 }
 
 const { locate } = Astro.params;
-const lang = locate || 'es';
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const t = useTranslations(lang);
 
 ---
 
@@ -297,7 +299,7 @@ const lang = locate || 'es';
   </p>
 </div>
 
-<TeamCarousel client:load />
+<TeamCarousel client:load lang={lang} />
 <br>
 <br>
 <div class="flex justify-center mt-4">

@@ -230,5 +230,18 @@
   },
   "about_team_section": {
     "title": "Nuestros Miembros"
+  },
+  "member_card": {
+    "photo_alt": "Foto de {name}",
+    "social_icons": {
+      "whatsapp": "WhatsApp de {name}",
+      "facebook": "Facebook de {name}",
+      "instagram": "Instagram de {name}"
+    },
+    "social_tooltips": {
+      "whatsapp": "Contactar por WhatsApp",
+      "facebook": "Ver perfil de Facebook", 
+      "instagram": "Ver perfil de Instagram"
+    }
   }
 }

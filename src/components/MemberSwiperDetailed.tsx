@@ -125,6 +125,7 @@ export default function TeamCarouselDetailed({
                     role={member.roleDetailed}
                     image={member.image}
                     isActive={isActive}
+                    translations={translations}
                   />
                 </div>
               );

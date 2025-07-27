@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from "react";
 import MemberCard from "./MembersCard";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import members from "@/data/members";
+import { getLocalizedMembers } from "@/data/members-i18n";
 
-export default function TeamCarousel() {
+interface TeamCarouselProps {
+  lang?: 'es' | 'en' | 'por';
+  translations?: (key: string) => string;
+}
+
+export default function TeamCarousel({ 
+  lang = 'es', 
+  translations 
+}: TeamCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(300);
   const [gap, setGap] = useState(200);
+  
+  // Get localized members based on current language
+  const members = getLocalizedMembers(lang);
+  const t = translations || ((key: string) => key);
 
   useEffect(() => {
     const handleResize = () => {
@@ -83,6 +95,7 @@ export default function TeamCarousel() {
                   role={member.role}
                   image={member.image}
                   isActive={isActive}
+                  translations={translations}
                 />
               </div>
             );
