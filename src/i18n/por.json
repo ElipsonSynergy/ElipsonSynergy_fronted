@@ -110,5 +110,41 @@
       "title": "Inovação Contínua", 
       "description": "Pesquisa constante em novas tecnologias para manter nossos projetos na vanguarda."
     }
+  },
+  "blog_page_meta": {
+    "title": "Blog - Elipson Synergy",
+    "description": "Leia nossos últimos artigos, notícias e atualizações no blog da Elipson Synergy."
+  },
+  "blog_hero_section": {
+    "title_line1": "Nosso",
+    "title_line2": "Blog",
+    "subtitle": "Conhecimento, Inovação e Tendências",
+    "description": "Explore artigos sobre tecnologia, desenvolvimento, inovação e as últimas tendências no mundo digital. Compartilhamos nosso conhecimento e experiências para impulsionar o crescimento da comunidade."
+  },
+  "blog_coming_soon": {
+    "badge": "Em Breve",
+    "title": "Conteúdo Incrível a Caminho",
+    "description": "Estamos preparando artigos fascinantes sobre desenvolvimento, tecnologia, estudos de caso e muito mais. Enquanto isso, convidamos você a conhecer nossos projetos.",
+    "features": {
+      "tutorials": {
+        "title": "Tutoriais Técnicos",
+        "description": "Guias passo a passo sobre as últimas tecnologias e melhores práticas de desenvolvimento."
+      },
+      "case_studies": {
+        "title": "Estudos de Caso",
+        "description": "Análise aprofundada de nossos projetos e os desafios que superamos."
+      },
+      "industry_insights": {
+        "title": "Insights da Indústria",
+        "description": "Tendências, previsões e análise do panorama tecnológico atual."
+      }
+    }
+  },
+  "blog_cta_section": {
+    "title": "Quer ficar atualizado?",
+    "description": "Seja o primeiro a conhecer nossos novos artigos e atualizações. Enquanto preparamos nosso blog, você pode explorar nossos projetos atuais.",
+    "primary_button": "Ver Nossos Projetos",
+    "secondary_button": "Entre em Contato",
+    "notification": "Te notificaremos quando publicarmos nosso primeiro artigo"
   }
 }

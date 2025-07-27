@@ -110,5 +110,41 @@
       "title": "Continuous Innovation", 
       "description": "Constant research in new technologies to keep our projects at the forefront."
     }
+  },
+  "blog_page_meta": {
+    "title": "Blog - Elipson Synergy",
+    "description": "Read our latest articles, news and updates on the Elipson Synergy blog."
+  },
+  "blog_hero_section": {
+    "title_line1": "Our",
+    "title_line2": "Blog",
+    "subtitle": "Knowledge, Innovation and Trends",
+    "description": "Explore articles about technology, development, innovation and the latest trends in the digital world. We share our knowledge and experiences to drive community growth."
+  },
+  "blog_coming_soon": {
+    "badge": "Coming Soon",
+    "title": "Amazing Content on the Way",
+    "description": "We are preparing fascinating articles about development, technology, case studies and much more. In the meantime, we invite you to discover our projects.",
+    "features": {
+      "tutorials": {
+        "title": "Technical Tutorials",
+        "description": "Step-by-step guides on the latest technologies and development best practices."
+      },
+      "case_studies": {
+        "title": "Case Studies",
+        "description": "In-depth analysis of our projects and the challenges we have overcome."
+      },
+      "industry_insights": {
+        "title": "Industry Insights",
+        "description": "Trends, predictions and analysis of the current technology landscape."
+      }
+    }
+  },
+  "blog_cta_section": {
+    "title": "Want to stay up to date?",
+    "description": "Be the first to know about our new articles and updates. While we prepare our blog, you can explore our current projects.",
+    "primary_button": "View Our Projects",
+    "secondary_button": "Contact Us",
+    "notification": "We'll notify you when we publish our first article"
   }
 }

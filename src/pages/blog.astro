@@ -1,18 +1,9 @@
 ---
-// blog.astro - Blog page
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { useTranslations } from '../../utils/i18n';
+// blog.astro - Blog page (default Spanish)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../utils/i18n';
 
-export async function getStaticPaths() {
-  return [
-    { params: { locate: 'es' } },
-    { params: { locate: 'en' } },
-    { params: { locate: 'por' } }
-  ];
-}
-
-const { locate } = Astro.params;
-const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const lang = 'es';
 const t = useTranslations(lang);
 
 ---
@@ -141,7 +132,7 @@ const t = useTranslations(lang);
       
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
         <a 
-          href={lang === 'es' ? '/producto' : `/${lang}/produto`}
+          href="/producto"
           class="group inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
         >
           <span>{t('blog_cta_section.primary_button')}</span>
@@ -151,7 +142,7 @@ const t = useTranslations(lang);
         </a>
         
         <a 
-          href={lang === 'es' ? '/contactanos' : `/${lang}/contactanos`}
+          href="/contactanos"
           class="group inline-flex items-center space-x-3 bg-transparent border-2 border-white/30 hover:border-white text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:bg-white/10"
         >
           <span>{t('blog_cta_section.secondary_button')}</span>
