@@ -243,5 +243,50 @@
       "facebook": "Ver perfil de Facebook", 
       "instagram": "Ver perfil de Instagram"
     }
+  },
+  "ideas_solutions_cards": {
+    "icon_alt": "Ícono decorativo",
+    "default_title": "Tarjeta de prueba",
+    "default_content": "Esto es un texto de prueba para el componente de la tarjeta",
+    "active_listening": {
+      "title": "Escucha activa",
+      "content": "Entendemos necesidades reales desde el territorio y con las comunidades."
+    },
+    "human_centered_design": {
+      "title": "Diseño centrado en el ser humano",
+      "content": "Creamos soluciones útiles, accesibles y pensadas para quienes más las necesitan."
+    },
+    "impact_co_creation": {
+      "title": "Co-creación con impacto",
+      "content": "Trabajamos junto a líderes locales, empresas y expertos para que la innovación no se quede en una idea."
+    },
+    "responsible_innovation": {
+      "title": "Innovación responsable",
+      "content": "Buscamos soluciones creativas que no solo sean viables y efectivas, sino también sostenibles y éticas para el entorno y la sociedad."
+    },
+    "purposeful_technology": {
+      "title": "Tecnología con propósito",
+      "content": "No usamos lo más nuevo, usamos lo que sirve. Cada herramienta responde a un \"para qué\"."
+    },
+    "conscious_scalability": {
+      "title": "Escalabilidad consciente",
+      "content": "Diseñamos para crecer, pero sin perder la esencia: impacto antes que volumen."
+    },
+    "continuous_improvement": {
+      "title": "Cultura de mejora continua",
+      "content": "Iteramos, aprendemos y evolucionamos en cada proyecto."
+    },
+    "genuine_commitment": {
+      "title": "Compromiso genuino",
+      "content": "Trabajamos con integridad y dedicación para generar valor real en cada proyecto, siempre alineados con nuestros principios y propósito."
+    }
+  },
+  "member_info_detailed": {
+    "member_photo_alt": "Foto profesional de {name}",
+    "role_label": "Cargo:",
+    "description_label": "Descripción:",
+    "profile_card_title": "Perfil de {name}",
+    "read_more": "Leer más",
+    "read_less": "Leer menos"
   }
 }

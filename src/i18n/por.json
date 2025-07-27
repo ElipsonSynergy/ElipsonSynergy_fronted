@@ -243,5 +243,50 @@
       "facebook": "Ver perfil do Facebook", 
       "instagram": "Ver perfil do Instagram"
     }
+  },
+  "ideas_solutions_cards": {
+    "icon_alt": "Ícone decorativo",
+    "default_title": "Cartão de teste",
+    "default_content": "Este é um texto de teste para o componente do cartão",
+    "active_listening": {
+      "title": "Escuta Ativa",
+      "content": "Entendemos necessidades reais desde o território e com as comunidades."
+    },
+    "human_centered_design": {
+      "title": "Design Centrado no Ser Humano",
+      "content": "Criamos soluções úteis, acessíveis e pensadas para quem mais precisa delas."
+    },
+    "impact_co_creation": {
+      "title": "Co-criação com Impacto",
+      "content": "Trabalhamos junto a líderes locais, empresas e especialistas para que a inovação não fique apenas numa ideia."
+    },
+    "responsible_innovation": {
+      "title": "Inovação Responsável",
+      "content": "Buscamos soluções criativas que não sejam apenas viáveis e eficazes, mas também sustentáveis e éticas para o meio ambiente e a sociedade."
+    },
+    "purposeful_technology": {
+      "title": "Tecnologia com Propósito",
+      "content": "Não usamos o mais novo, usamos o que funciona. Cada ferramenta responde a um 'para quê'."
+    },
+    "conscious_scalability": {
+      "title": "Escalabilidade Consciente",
+      "content": "Projetamos para crescer, mas sem perder a essência: impacto antes do volume."
+    },
+    "continuous_improvement": {
+      "title": "Cultura de Melhoria Contínua",
+      "content": "Iteramos, aprendemos e evoluímos em cada projeto."
+    },
+    "genuine_commitment": {
+      "title": "Compromisso Genuíno",
+      "content": "Trabalhamos com integridade e dedicação para gerar valor real em cada projeto, sempre alinhados com nossos princípios e propósito."
+    }
+  },
+  "member_info_detailed": {
+    "member_photo_alt": "Foto profissional de {name}",
+    "role_label": "Cargo:",
+    "description_label": "Descrição:",
+    "profile_card_title": "Perfil de {name}",
+    "read_more": "Ler mais",
+    "read_less": "Ler menos"
   }
 }

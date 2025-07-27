@@ -67,6 +67,7 @@ export default function TeamCarouselDetailed({
         roleDetailed={roleDetailed}
         description={description}
         image={image}
+        translations={translations}
       />
     );
   };

@@ -243,5 +243,50 @@
       "facebook": "View Facebook profile", 
       "instagram": "View Instagram profile"
     }
+  },
+  "ideas_solutions_cards": {
+    "icon_alt": "Decorative icon",
+    "default_title": "Test card",
+    "default_content": "This is test text for the card component",
+    "active_listening": {
+      "title": "Active Listening",
+      "content": "We understand real needs from the territory and with the communities."
+    },
+    "human_centered_design": {
+      "title": "Human-Centered Design",
+      "content": "We create useful, accessible solutions designed for those who need them most."
+    },
+    "impact_co_creation": {
+      "title": "Co-creation with Impact",
+      "content": "We work alongside local leaders, companies and experts so that innovation doesn't remain just an idea."
+    },
+    "responsible_innovation": {
+      "title": "Responsible Innovation",
+      "content": "We seek creative solutions that are not only viable and effective, but also sustainable and ethical for the environment and society."
+    },
+    "purposeful_technology": {
+      "title": "Technology with Purpose",
+      "content": "We don't use the newest, we use what works. Every tool answers a 'what for'."
+    },
+    "conscious_scalability": {
+      "title": "Conscious Scalability",
+      "content": "We design to grow, but without losing the essence: impact before volume."
+    },
+    "continuous_improvement": {
+      "title": "Continuous Improvement Culture",
+      "content": "We iterate, learn and evolve with each project."
+    },
+    "genuine_commitment": {
+      "title": "Genuine Commitment",
+      "content": "We work with integrity and dedication to generate real value in every project, always aligned with our principles and purpose."
+    }
+  },
+  "member_info_detailed": {
+    "member_photo_alt": "Professional photo of {name}",
+    "role_label": "Position:",
+    "description_label": "Description:",
+    "profile_card_title": "{name}'s Profile",
+    "read_more": "Read more",
+    "read_less": "Read less"
   }
 }
