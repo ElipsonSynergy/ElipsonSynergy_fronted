@@ -739,20 +739,20 @@
    Pagination - Enhanced Modern Style
    ===================================== */
 /**
- * Enhanced pagination controls for navigating through blog posts
+ * Compact pagination controls for navigating through blog posts
  * 
  * Features:
- * - Modern card-based design with subtle shadows
- * - Improved hover animations and interactions
- * - Better accessibility and touch targets
- * - Consistent with overall page design language
+ * - Smaller, more subtle design that doesn't overwhelm
+ * - Simpler hover animations and interactions
+ * - Better integration with overall page design
+ * - Maintained accessibility standards
  */
 .pagination {
   display: flex;
   justify-content: center;         /* Center pagination controls */
   align-items: center;             /* Vertically align items */
-  gap: var(--space-sm);            /* Consistent spacing using variables */
-  margin: 4rem 0;                  /* Increased vertical spacing */
+  gap: var(--space-xs);            /* Smaller spacing between items */
+  margin: 3rem 0;                  /* Reduced vertical spacing */
   padding: 0 var(--space-md);      /* Horizontal padding for mobile */
   
   /* Smooth entry animation */
@@ -760,55 +760,51 @@
 }
 
 /**
- * Enhanced page number or navigation link
+ * Compact page number or navigation link
  * 
- * Modern card-style design with hover effects and better usability
+ * Smaller, more subtle design that doesn't overwhelm the interface
  */
 .page {
-  padding: var(--space-md) var(--space-lg); /* Better padding using variables */
-  border: 2px solid var(--border-light); /* Subtle border for definition */
-  border-radius: var(--radius-md);  /* Consistent border radius */
+  padding: var(--space-sm) var(--space-md); /* Reduced padding for smaller size */
+  border: 1px solid var(--border-light); /* Thinner border */
+  border-radius: var(--radius-sm);  /* Smaller border radius */
   text-decoration: none;           /* Remove link underline */
   color: var(--text-muted);
   font-weight: 500;                /* Medium font weight */
   background: white;               /* Clean white background */
-  font-size: var(--font-md);       /* Consistent font sizing */
-  min-width: 44px;                 /* Better minimum width for touch targets */
-  min-height: 44px;                /* Minimum height for accessibility */
+  font-size: var(--font-sm);       /* Smaller font size */
+  min-width: 36px;                 /* Smaller minimum width */
+  min-height: 36px;                /* Smaller minimum height */
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth custom easing */
+  transition: all 0.3s ease;       /* Simpler transition */
   display: flex;                   /* Flexbox for centering */
   align-items: center;             /* Vertically center content */
   justify-content: center;         /* Horizontally center content */
   position: relative;
   
-  /* Subtle shadow for depth */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06),
-              0 1px 2px rgba(0,0,0,0.04);
+  /* Very subtle shadow */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 /**
- * Enhanced page link hover effect
+ * Subtle page link hover effect
  */
 .page:hover {
   color: var(--primary);           /* Brand color on hover */
-  border-color: rgba(84, 25, 255, 0.3); /* Subtle brand color border */
-  transform: translateY(-2px);     /* Subtle lift effect */
-  box-shadow: 0 4px 12px rgba(84, 25, 255, 0.15),
-              0 2px 6px rgba(0,0,0,0.08); /* Enhanced shadows */
+  border-color: var(--primary);    /* Brand color border */
+  transform: translateY(-1px);     /* Subtle lift effect */
+  box-shadow: 0 2px 6px rgba(84, 25, 255, 0.15); /* Light brand shadow */
 }
 
 /**
- * Enhanced active/current page styling
+ * Compact active/current page styling
  */
 .page.active {
   background: var(--primary);      /* Brand color background */
   color: white;                    /* White text for contrast */
   border-color: var(--primary);    /* Matching border */
   font-weight: 600;                /* Bold font for emphasis */
-  transform: translateY(-1px);     /* Slight lift for active state */
-  box-shadow: 0 6px 16px rgba(84, 25, 255, 0.25),
-              0 2px 8px rgba(84, 25, 255, 0.15); /* Strong brand-colored shadows */
+  box-shadow: 0 2px 6px rgba(84, 25, 255, 0.25); /* Moderate brand shadow */
 }
 
 /**
@@ -816,32 +812,32 @@
  */
 .page.active:hover {
   background: var(--primary-hover); /* Darker brand color on hover */
-  transform: translateY(-2px);      /* Slightly more lift */
+  transform: translateY(-1px);      /* Light lift effect */
 }
 
 /**
- * Enhanced arrow navigation (previous/next) styling
+ * Compact arrow navigation (previous/next) styling
  */
 .page.arrow {
-  font-size: 1.2rem;               /* Larger font for arrows */
-  padding: var(--space-md);        /* Square padding for arrows */
+  font-size: 1rem;                 /* Standard font for arrows */
+  padding: var(--space-sm);        /* Compact square padding for arrows */
   font-weight: 600;                /* Bolder arrows */
-  min-width: 48px;                 /* Larger touch target for arrows */
-  min-height: 48px;
+  min-width: 36px;                 /* Same size as regular pages */
+  min-height: 36px;
   
-  /* Special styling for arrow buttons */
+  /* Subtle styling for arrow buttons */
   background: var(--background-light);
   border-color: var(--border-light);
 }
 
 /**
- * Enhanced arrow navigation hover effect
+ * Compact arrow navigation hover effect
  */
 .page.arrow:hover {
   background: var(--primary);      /* Brand color background */
   color: white;                    /* White arrow on brand background */
   border-color: var(--primary);
-  transform: translateY(-3px);     /* More pronounced lift for arrows */
+  transform: translateY(-1px);     /* Light lift for arrows */
 }
 
 /**
@@ -852,7 +848,7 @@
   cursor: not-allowed;             /* Not-allowed cursor */
   pointer-events: none;            /* Disable interactions */
   transform: none !important;      /* No hover effects */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important; /* Default shadow only */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important; /* Default shadow only */
 }
 
 /**
@@ -865,15 +861,15 @@
   }
   
   .page {
-    padding: var(--space-sm) var(--space-md); /* Smaller padding on mobile */
-    min-width: 40px;                /* Smaller minimum width */
-    min-height: 40px;               /* Smaller minimum height */
-    font-size: var(--font-sm);      /* Smaller font on mobile */
+    padding: calc(var(--space-xs) + 2px) var(--space-sm); /* Even smaller padding on mobile */
+    min-width: 32px;                /* Smaller minimum width */
+    min-height: 32px;               /* Smaller minimum height */
+    font-size: var(--font-xs);      /* Extra small font on mobile */
   }
   
   .page.arrow {
-    min-width: 44px;                /* Maintain larger arrows on mobile */
-    min-height: 44px;
+    min-width: 36px;                /* Slightly larger arrows on mobile */
+    min-height: 36px;
   }
 }
 
