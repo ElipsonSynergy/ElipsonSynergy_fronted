@@ -1,8 +1,29 @@
 ---
-// Navbar.astro - Premium navigation component
-import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+// Navbar.astro - Premium navigation component with language switcher
+import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Get the current path without language prefix
+const currentPath = Astro.url.pathname;
+const pathWithoutLang = lang === 'es' ? currentPath : currentPath.replace(`/${lang}`, '') || '/';
+
+// Function to generate navigation links based on the current language
+function getNavLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
+
+// Function to generate language switch links
+function getLanguageSwitchLink(targetLang: string) {
+  if (targetLang === 'es') {
+    // for Spanish, return path without language prefix
+    return pathWithoutLang;
+  } else {
+    // for other languages, add the prefix
+    return `/${targetLang}${pathWithoutLang}`;
+  }
+}
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -17,7 +38,7 @@ export async function getStaticPaths() {
       
       <!-- Premium Logo -->
       <div class="flex-shrink-0 flex items-center group">
-        <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
+        <a href={getNavLink('/')} class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
           <div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center shadow-lg">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -34,21 +55,21 @@ export async function getStaticPaths() {
       <div class="hidden md:block">
         <div class="flex items-center space-x-1">
           <a 
-            href="/nosotros" 
+            href={getNavLink('/nosotros')} 
             class="relative group px-4 py-2 text-gray-700 hover:text-blue-600 font-medium text-sm transition-all duration-200 rounded-lg hover:bg-blue-50"
           >
             {t('Navbar.about')}
             <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
           </a>
           <a 
-            href="/producto" 
+            href={getNavLink('/producto')} 
             class="relative group px-4 py-2 text-gray-700 hover:text-blue-600 font-medium text-sm transition-all duration-200 rounded-lg hover:bg-blue-50"
           >
             {t('Navbar.product')}
             <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
           </a>
           <a 
-            href="/blog" 
+            href={getNavLink('/blog')} 
             class="relative group px-4 py-2 text-gray-700 hover:text-blue-600 font-medium text-sm transition-all duration-200 rounded-lg hover:bg-blue-50"
           >
             {t('Navbar.blog')}
@@ -57,10 +78,53 @@ export async function getStaticPaths() {
         </div>
       </div>
 
-      <!-- Premium CTA Button -->
-      <div class="hidden md:block">
+      <!-- Language Switcher + CTA Button -->
+      <div class="hidden md:flex items-center space-x-4">
+        
+        <!-- Language Switcher -->
+        <div class="relative group">
+          <button 
+            type="button" 
+            class="flex items-center space-x-2 px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="language-switcher"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+            </svg>
+            <span class="text-sm font-medium uppercase">{lang}</span>
+            <svg class="w-3 h-3 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div class="py-2">
+              {Object.entries(languages).map(([code, name]) => (
+                <a 
+                  href={getLanguageSwitchLink(code)}
+                  class={`flex items-center px-4 py-3 text-sm hover:bg-blue-50 transition-colors duration-200 ${
+                    lang === code ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+                  }`}
+                >
+                  <span class="w-8 h-5 rounded-sm mr-3 flex items-center justify-center text-xs font-bold bg-gray-100">
+                    {code.toUpperCase()}
+                  </span>
+                  <span>{name}</span>
+                  {lang === code && (
+                    <svg class="w-4 h-4 ml-auto text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  )}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Premium CTA Button -->
         <a 
-          href="/contactanos" 
+          href={getNavLink('/contactanos')} 
           class="btn-primary inline-flex items-center space-x-2 group"
         >
           <span>{t('Navbar.cta.text')}</span>
@@ -71,7 +135,35 @@ export async function getStaticPaths() {
       </div>
 
       <!-- Enhanced mobile menu -->
-      <div class="md:hidden">
+      <div class="md:hidden flex items-center space-x-2">
+        <!-- Mobile Language Switcher -->
+        <div class="relative">
+          <button 
+            type="button" 
+            class="p-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="mobile-language-switcher"
+          >
+            <span class="text-xs font-bold uppercase">{lang}</span>
+          </button>
+          
+          <!-- Mobile Language Dropdown -->
+          <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-100 hidden" id="mobile-language-menu">
+            <div class="py-1">
+              {Object.entries(languages).map(([code, name]) => (
+                <a 
+                  href={getLanguageSwitchLink(code)}
+                  class={`block px-3 py-2 text-xs hover:bg-blue-50 transition-colors duration-200 ${
+                    lang === code ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+                  }`}
+                >
+                  {code.toUpperCase()} - {name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Button -->
         <button 
           type="button" 
           class="p-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -88,7 +180,7 @@ export async function getStaticPaths() {
     <div class="md:hidden hidden transform transition-all duration-300 ease-in-out" id="mobile-menu">
       <div class="px-2 pt-4 pb-6 space-y-2 bg-white border-t border-blue-100 shadow-lg rounded-b-xl">
         <a 
-          href="/nosotros" 
+          href={getNavLink('/nosotros')} 
           class="flex items-center px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-all duration-200"
         >
           <svg class="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +189,7 @@ export async function getStaticPaths() {
           {t('Navbar.about')}
         </a>
         <a 
-          href="/producto" 
+          href={getNavLink('/producto')} 
           class="flex items-center px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-all duration-200"
         >
           <svg class="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,7 +198,7 @@ export async function getStaticPaths() {
           {t('Navbar.product')}
         </a>
         <a 
-          href="/blog" 
+          href={getNavLink('/blog')} 
           class="flex items-center px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-all duration-200"
         >
           <svg class="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +207,7 @@ export async function getStaticPaths() {
           {t('Navbar.blog')}
         </a>
         <a 
-          href="/contactanos" 
+          href={getNavLink('/contactanos')} 
           class="flex items-center justify-center mt-4 px-4 py-3 gradient-bg text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,12 +221,16 @@ export async function getStaticPaths() {
 </nav>
 
 <script>
-  // Enhanced mobile menu script with animations
+  // Enhanced mobile menu script with animations and language switcher
   document.addEventListener('DOMContentLoaded', function() {
     const button = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
     const icon = document.getElementById('menu-icon');
     const navbar = document.getElementById('navbar');
+    
+    // Mobile language switcher
+    const mobileLangButton = document.getElementById('mobile-language-switcher');
+    const mobileLangMenu = document.getElementById('mobile-language-menu');
     
     // Mobile menu toggle
     if (button && menu && icon) {
@@ -155,6 +251,21 @@ export async function getStaticPaths() {
       });
     }
     
+    // Mobile language switcher toggle
+    if (mobileLangButton && mobileLangMenu) {
+      mobileLangButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        mobileLangMenu.classList.toggle('hidden');
+      });
+      
+      // Close mobile language menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!mobileLangButton.contains(e.target as Node) && !mobileLangMenu.contains(e.target as Node)) {
+          mobileLangMenu.classList.add('hidden');
+        }
+      });
+    }
+    
     // Navbar scroll effect
     if (navbar) {
       window.addEventListener('scroll', function() {
@@ -166,4 +277,4 @@ export async function getStaticPaths() {
       });
     }
   });
-</script> 
+</script>
