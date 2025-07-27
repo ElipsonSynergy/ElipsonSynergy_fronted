@@ -63,5 +63,52 @@
     "form_not_found": "Formulario no encontrado",
     "modal_not_found": "Modal no encontrado",
     "elements_found": "Elementos encontrados correctamente"
+  },
+  "products_page_meta": {
+    "title": "Productos Innovadores - Elipson Synergy",
+    "description": "Explora nuestros desarrollos de vanguardia. Proyectos que transforman sectores enteros con tecnología de última generación.",
+    "keywords": "productos, innovación, desarrollos, tecnología, agro, jóvenes, store, makers, software, hardware"
+  },
+  "products_hero_section": {
+    "title_line1": "Desarrollos",
+    "title_line2": "Recientes",
+    "description": "En elipson nos mantenemos activos desarrollando <strong>proyectos de alto impacto,</strong> que ayuden a innovar y desarrollar diversos sectores de la industria Colombiana.",
+    "description_highlight": "proyectos de alto impacto,"
+  },
+  "products_stats": {
+    "projects": "Proyectos",
+    "sectors": "Sectores",
+    "innovation": "Innovación", 
+    "impact": "Impacto"
+  },
+  "products_portfolio_section": {
+    "title": "Portfolio",
+    "title_highlight": "Interactivo",
+    "description": "Filtra por categoría y descubre cómo estamos revolucionando cada sector con soluciones tecnológicas únicas"
+  },
+  "products_cta_section": {
+    "title": "¿Listo para",
+    "title_highlight": "Innovar Juntos",
+    "title_question": "?",
+    "description": "Cada proyecto comienza con una conversación. Hablemos sobre cómo podemos transformar tu visión en realidad.",
+    "button_text": "Conversemos tu Proyecto",
+    "status_text": "Disponibles para nuevos proyectos"
+  },
+  "products_features_section": {
+    "title": "Tecnología que",
+    "title_highlight": "Impulsa el Futuro",
+    "description": "Metodologías ágiles, stack tecnológico de vanguardia y equipos multidisciplinarios para crear soluciones que marcan la diferencia.",
+    "agile_development": {
+      "title": "Desarrollo Ágil",
+      "description": "Metodologías que garantizan entregas rápidas y adaptación continua a las necesidades del mercado."
+    },
+    "premium_quality": {
+      "title": "Calidad Premium",
+      "description": "Estándares de calidad empresarial con testing automatizado y código mantenible a largo plazo."
+    },
+    "continuous_innovation": {
+      "title": "Innovación Continua", 
+      "description": "Investigación constante en nuevas tecnologías para mantener nuestros proyectos en la vanguardia."
+    }
   }
 }

@@ -1,21 +1,12 @@
 ---
-// producto.astro - Innovative product showcase page
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProductFilter from '../../components/ProductFilter.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import { projects } from '../../data/projects';
-import { useTranslations } from '../../utils/i18n';
+// producto.astro - Innovative product showcase page (default Spanish)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductFilter from '../components/ProductFilter.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
+import { useTranslations } from '../utils/i18n';
 
-export async function getStaticPaths() {
-  return [
-    { params: { locate: 'es' } },
-    { params: { locate: 'en' } },
-    { params: { locate: 'por' } }
-  ];
-}
-
-const { locate } = Astro.params;
-const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const lang = 'es';
 const t = useTranslations(lang);
 
 ---
@@ -138,7 +129,7 @@ const t = useTranslations(lang);
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
-                href={lang === 'es' ? '/contactanos' : `/${lang}/contactanos`}
+                href="/contactanos"
                 class="group inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 <span>{t('products_cta_section.button_text')}</span>

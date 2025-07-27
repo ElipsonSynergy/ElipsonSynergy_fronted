@@ -63,5 +63,52 @@
     "form_not_found": "Form not found",
     "modal_not_found": "Modal not found",
     "elements_found": "Elements found correctly"
+  },
+  "products_page_meta": {
+    "title": "Innovative Products - Elipson Synergy",
+    "description": "Explore our cutting-edge developments. Projects that transform entire sectors with next-generation technology.",
+    "keywords": "products, innovation, developments, technology, agro, youth, store, makers, software, hardware"
+  },
+  "products_hero_section": {
+    "title_line1": "Recent",
+    "title_line2": "Developments",
+    "description": "At Elipson we stay active developing <strong>high-impact projects,</strong> that help innovate and develop various sectors of the Colombian industry.",
+    "description_highlight": "high-impact projects,"
+  },
+  "products_stats": {
+    "projects": "Projects",
+    "sectors": "Sectors",
+    "innovation": "Innovation", 
+    "impact": "Impact"
+  },
+  "products_portfolio_section": {
+    "title": "Interactive",
+    "title_highlight": "Portfolio",
+    "description": "Filter by category and discover how we are revolutionizing each sector with unique technological solutions"
+  },
+  "products_cta_section": {
+    "title": "Ready to",
+    "title_highlight": "Innovate Together",
+    "title_question": "?",
+    "description": "Every project starts with a conversation. Let's talk about how we can transform your vision into reality.",
+    "button_text": "Let's Discuss Your Project",
+    "status_text": "Available for new projects"
+  },
+  "products_features_section": {
+    "title": "Technology that",
+    "title_highlight": "Drives the Future",
+    "description": "Agile methodologies, cutting-edge technology stack and multidisciplinary teams to create solutions that make a difference.",
+    "agile_development": {
+      "title": "Agile Development",
+      "description": "Methodologies that guarantee fast deliveries and continuous adaptation to market needs."
+    },
+    "premium_quality": {
+      "title": "Premium Quality",
+      "description": "Enterprise quality standards with automated testing and long-term maintainable code."
+    },
+    "continuous_innovation": {
+      "title": "Continuous Innovation", 
+      "description": "Constant research in new technologies to keep our projects at the forefront."
+    }
   }
 }
