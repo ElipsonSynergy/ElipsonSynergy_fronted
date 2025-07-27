@@ -957,3 +957,77 @@
   outline: 2px solid rgba(84, 25, 255, 0.2); /* Semi-transparent brand color */
   outline-offset: -2px;            /* Keep outline inside element */
 }
+
+/* Contenedor principal */
+.futuro-banner {
+  position: relative;
+  background: #10324e;             /* Azul exacto */
+  border-radius: var(--radius-lg);
+  overflow: visible;               /* Permitir que el círculo sobresalga */
+  padding-top: 6rem;               /* Reducido porque el círculo ahora está parcialmente dentro */
+  text-align: center;
+  color: #fff;
+  margin-top: 6rem;                /* Espacio superior para el círculo que sobresale */
+}
+
+/* Círculo blanco que emerge desde el banner */
+.banner-circle {
+  position: absolute;
+  top: -6rem;                      /* La mitad del círculo sobresale */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12rem;
+  height: 12rem;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Imagen del planeta dentro del círculo blanco */
+.banner-circle img {
+  width: 10rem;                    /* Más pequeña para dejar borde blanco */
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Contenido interno */
+.banner-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+.banner-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  line-height: 1.2;
+}
+.banner-subtitle {
+  font-size: 1rem;
+  margin: 0 auto 2rem;
+  max-width: 600px;
+  color: #f0f0f0;
+  line-height: 1.5;
+}
+
+/* Botón "Descubre" */
+.banner-button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border: 2px solid #fff;
+  border-radius: 4rem;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.banner-button:hover {
+  background: rgba(255,255,255,0.1);
+}
