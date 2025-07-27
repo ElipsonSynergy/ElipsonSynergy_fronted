@@ -16,7 +16,15 @@
   --text-dark: #2c3e50;            /* Primary text color for headings and content */
   --text-muted: #6c757d;           /* Secondary text color for meta information */
   
+  /* Background Colors */
+  --background-light: #f8f9fa;     /* Light background color */
+  
   /* Spacing System */
+  --space-sm: 0.5rem;              /* Small spacing - 8px */
+  --space-md: 1rem;                /* Medium spacing - 16px */
+  --space-lg: 1.5rem;              /* Large spacing - 24px */
+  --space-xl: 2rem;                /* Extra large spacing - 32px */
+  
   --gap-sm: 0.5rem;                /* Small spacing - 8px */
   --gap-md: 1rem;                  /* Medium spacing - 16px */
   --gap-lg: 1.5rem;                /* Large spacing - 24px */
@@ -25,9 +33,21 @@
   --radius-sm: 0.25rem;            /* Small border radius - 4px */
   --radius-md: 0.5rem;             /* Medium border radius - 8px */
   --radius-lg: 1rem;               /* Large border radius - 16px */
+  --radius-xl: 2rem;               /* Extra large border radius - 32px */
+  
+  /* Typography */
+  --font-xs: 0.75rem;              /* Extra small font size - 12px */
+  --font-sm: 0.875rem;             /* Small font size - 14px */
+  --font-md: 1rem;                 /* Medium font size - 16px */
+  --font-lg: 1.125rem;             /* Large font size - 18px */
   
   /* Animation */
   --transition-fast: 0.3s ease;    /* Fast transition for hover effects */
+  --transition-normal: 0.3s ease;  /* Normal transition timing */
+  
+  /* Z-index System */
+  --z-dropdown: 10;                /* Dropdown elements */
+  --z-modal: 100;                  /* Modal overlays */
 }
 
 /* =====================================
@@ -207,10 +227,10 @@
   grid-row: 1 / 3;                 /* Span both rows */
   display: flex;
   flex-wrap: wrap;                 /* Allow tags to wrap to new lines */
-  gap: 0.75rem;                    /* Increased spacing between tags */
+  gap: var(--space-md);            /* Use consistent spacing variable */
   align-content: flex-start;       /* Align wrapped content to top */
   justify-content: flex-start;     /* Align tags to the left */
-  padding: 0.5rem;                 /* Inner padding for better visual containment */
+  padding: var(--space-sm);        /* Inner padding for better visual containment */
 }
 
 /**
@@ -226,20 +246,20 @@
  */
 .tags .tag {
   display: inline-block;
-  padding: 0.75rem 1.25rem;                  /* Increased padding for better proportions */
+  padding: var(--space-md) var(--space-lg);     /* Use consistent spacing variables */
   background: white;
   color: var(--text-muted);
   border: 1px solid var(--border-light);
-  border-radius: 6px;                        /* Slightly larger radius for modern look */
+  border-radius: 6px;                           /* Slightly larger radius for modern look */
   text-decoration: none;
-  font-size: 0.875rem;                       /* Larger font size for better readability */
-  font-weight: 600;                          /* Bolder weight for better contrast */
+  font-size: var(--font-sm);                    /* Use font size variable */
+  font-weight: 600;                             /* Bolder weight for better contrast */
   text-transform: uppercase;
-  letter-spacing: 0.75px;                    /* Increased letter spacing */
+  letter-spacing: 0.75px;                       /* Increased letter spacing */
   white-space: nowrap;
   cursor: pointer;
-  transition: all 0.3s ease;                 /* Smooth transitions */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: all var(--transition-fast);       /* Use transition variable */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);    /* Subtle shadow for depth */
 }
 
 /**
@@ -869,18 +889,18 @@
    * Maintains good readability while adapting to smaller screens
    */
   .tags .tag {
-    padding: 0.6rem 1rem;           /* Better proportions for mobile */
-    font-size: 0.8rem;              /* Slightly larger than before */
-    font-weight: 600;               /* Maintain bold weight */
+    padding: var(--space-sm) var(--space-md);   /* Better proportions for mobile using variables */
+    font-size: var(--font-xs);                  /* Use font size variable */
+    font-weight: 600;                           /* Maintain bold weight */
   }
   
   /**
    * Adjust tag container spacing for mobile
    */
   .tags {
-    gap: 0.6rem;                    /* Slightly reduced gap for mobile */
-    justify-content: center;        /* Center tags on mobile */
-    padding: 0.25rem;               /* Reduced padding for mobile */
+    gap: var(--space-sm);                       /* Use spacing variable */
+    justify-content: center;                    /* Center tags on mobile */
+    padding: calc(var(--space-sm) / 2);         /* Reduced padding for mobile using calc */
   }
 }
 
@@ -1939,51 +1959,6 @@
   }
 }
 
-.toucan-backdrop {
-  width: 280px;
-  height: 280px;
-}
-
-
-@media (max-width: 768px) {
-  .epsilon-title {
-    margin: 4rem auto;
-  }
-  
-  .epsilon-graphics {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-  }
-  
-  .epsilon-main-title {
-    margin-bottom: 3rem;
-  }
-  
-  .stats-header {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .floating-circle {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .epsilon-title {
-    padding: 0 1rem;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .epsilon-link {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.9rem;
-  }
-}
-
 
 /* Íconos sociales bajo “Discover” */
 /**
@@ -2079,102 +2054,35 @@
 }
 
 /* =====================================
-   Admin Create Post Page Styles
+   Admin Create Post Form Styles
    ===================================== */
-
 /**
- * Admin Create Post Page Styles
+ * Comprehensive styling for the blog post creation interface (create-post.astro)
  * 
- * Comprehensive styling for the blog post creation interface.
- * Provides a modern, user-friendly administrative experience with:
- * - Clean form layouts with proper spacing
- * - Rich text editor integration (CKEditor)
+ * Features:
+ * - Modern form layout with consistent spacing
+ * - Enhanced input styling with focus states
+ * - Rich text editor integration
  * - Advanced tag management system
- * - Responsive design for various screen sizes
- * - Consistent styling with brand guidelines
- * 
- * This section includes:
- * - CSS Custom Properties (repeated for scoped usage)
- * - Base styles and typography
- * - Form components and controls
- * - Button variations and states
- * - CKEditor customizations
- * - Tag management interface
- * - Responsive breakpoints
- * - Loading and error states
+ * - Responsive design for all screen sizes
+ * - Accessibility-focused interactions
  */
-
-/**
- * CSS Custom Properties for Admin Interface
- * 
- * Scoped variables for the admin interface, ensuring consistency
- * with the main design system while allowing for admin-specific
- * customizations if needed.
- */
-:root {
-  --primary: #5419ff;              /* Main brand color - purple */
-  --primary-hover: #4015cc;        /* Darker shade for hover states */
-  --border-light: #e1e8ed;         /* Light border color for inputs */
-  --text-dark: #2c3e50;            /* Primary text color */
-  --text-muted: #6c757d;           /* Secondary text color */
-  --gap-sm: 0.5rem;                /* Small spacing - 8px */
-  --gap-md: 1rem;                  /* Medium spacing - 16px */
-  --gap-lg: 1.5rem;                /* Large spacing - 24px */
-  --radius-sm: 0.25rem;            /* Small border radius - 4px */
-  --radius-md: 0.5rem;             /* Medium border radius - 8px */
-  --radius-lg: 1rem;               /* Large border radius - 16px */
-  --transition-fast: 0.3s ease;    /* Fast transition for interactions */
-}
-
-/**
- * Global Font and Box Model Settings
- * 
- * Ensures consistent typography and box model behavior
- * across all admin interface elements.
- */
-* {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-               "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
-  box-sizing: border-box;          /* Include padding and border in element width */
-}
-
-/**
- * Body Base Styles
- * 
- * Sets up the foundation for the admin page layout with:
- * - Reset margins and padding
- * - Light gray background for contrast
- * - Minimum height to fill viewport
- */
-body {
-  margin: 0;
-  padding: 0;
-  background: #f8f9fa;             /* Light gray background */
-  min-height: 100vh;               /* Full viewport height minimum */
-}
 
 /**
  * Main Container for Create Post Form
  * 
- * Centers the form on the page with responsive spacing:
- * - Maximum width for optimal readability
- * - Auto margins for horizontal centering
- * - Responsive padding for mobile devices
+ * Centers the form on the page with responsive spacing and optimal readability width.
  */
 .create-post-container {
   max-width: 800px;                /* Optimal width for form readability */
-  margin: 2rem auto;               /* Center horizontally with top margin */
-  padding: 0 1rem;                 /* Horizontal padding for mobile */
+  margin: var(--space-xl) auto;    /* Center horizontally with top margin */
+  padding: 0 var(--space-md);      /* Horizontal padding for mobile */
 }
 
 /**
  * Form Card Container
  * 
- * Card-style wrapper for the entire form with:
- * - White background for content focus
- * - Rounded corners for modern appearance
- * - Subtle shadow for depth perception
- * - Hidden overflow for clean edges
+ * Card-style wrapper for the entire form with modern appearance and subtle elevation.
  */
 .form-card {
   background: white;
@@ -2186,15 +2094,11 @@ body {
 /**
  * Form Header Section
  * 
- * Prominent header with gradient background featuring:
- * - Brand color gradient for visual appeal
- * - Generous padding for breathing room
- * - Centered text alignment
- * - White text for contrast against gradient
+ * Prominent header with gradient background featuring brand colors and centered content.
  */
 .form-header {
   background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-  padding: 2rem;
+  padding: var(--space-xl);
   text-align: center;
   color: white;
 }
@@ -2202,10 +2106,7 @@ body {
 /**
  * Form Header Title
  * 
- * Main heading for the create post interface:
- * - Reset margin for clean layout
- * - Large but readable font size
- * - Medium font weight for hierarchy
+ * Main heading for the create post interface with clean typography.
  */
 .form-header h1 {
   margin: 0;
@@ -2216,59 +2117,45 @@ body {
 /**
  * Form Body Container
  * 
- * Main content area containing all form fields:
- * - Generous padding for comfortable interaction
- * - White background inherited from parent
+ * Main content area containing all form fields with generous padding.
  */
 .form-body {
-  padding: 2rem;
+  padding: var(--space-xl);
 }
 
 /**
  * Form Group Container
  * 
- * Wrapper for each form field providing consistent spacing:
- * - Bottom margin creates visual separation between fields
- * - Standardized spacing throughout the form
+ * Wrapper for each form field providing consistent spacing throughout the form.
  */
 .form-group {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-xl);
 }
 
 /**
  * Form Field Labels
  * 
- * Styling for all form field labels with:
- * - Block display for full width
- * - Spacing below label before input
- * - Bold font weight for emphasis
- * - Dark color for readability
- * - Slightly smaller font size for hierarchy
+ * Styling for all form field labels with proper hierarchy and accessibility.
  */
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-sm);
   font-weight: 600;
   color: var(--text-dark);
-  font-size: 0.9rem;
+  font-size: var(--font-sm);
 }
 
 /**
  * Base Form Input Styling
  * 
- * Universal styling for all form inputs including:
- * - Full width for consistent layout
- * - Generous padding for touch targets
- * - Light border with brand color focus state
- * - Rounded corners for modern appearance
- * - Smooth transitions for interactive feedback
+ * Universal styling for all form inputs with consistent appearance and smooth interactions.
  */
 .form-input {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 0.875rem var(--space-md);
   border: 2px solid var(--border-light);
   border-radius: var(--radius-md);
-  font-size: 1rem;
+  font-size: var(--font-md);
   color: var(--text-dark);
   background: white;
   transition: border-color var(--transition-fast),
@@ -2278,10 +2165,7 @@ body {
 /**
  * Form Input Focus State
  * 
- * Enhanced styling when inputs receive focus:
- * - Remove default browser outline
- * - Brand color border for visual feedback
- * - Subtle shadow with brand color tint
+ * Enhanced styling when inputs receive focus with brand color accent.
  */
 .form-input:focus {
   outline: none;
@@ -2292,8 +2176,7 @@ body {
 /**
  * Form Input Placeholder Styling
  * 
- * Muted color for placeholder text to distinguish
- * from actual user input while maintaining readability.
+ * Muted color for placeholder text to distinguish from actual user input.
  */
 .form-input::placeholder {
   color: var(--text-muted);
@@ -2302,9 +2185,7 @@ body {
 /**
  * Textarea Specific Styling
  * 
- * Additional properties for textarea elements:
- * - Minimum height for adequate content area
- * - Vertical resize only for better UX
+ * Additional properties for textarea elements with adequate content area.
  */
 .form-textarea {
   min-height: 80px;
@@ -2314,23 +2195,16 @@ body {
 /**
  * Base Button Styling
  * 
- * Universal button styles with flexbox for content alignment:
- * - Inline flex for proper content alignment
- * - Center alignment for text and icons
- * - Generous padding for touch targets
- * - Rounded corners for modern appearance
- * - Medium font weight for readability
- * - Smooth transitions for interactions
- * - Consistent minimum height for alignment
+ * Universal button styles with flexbox for proper content alignment and touch targets.
  */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.875rem 2rem;
+  padding: 0.875rem var(--space-xl);
   border: none;
   border-radius: var(--radius-md);
-  font-size: 1rem;
+  font-size: var(--font-md);
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
@@ -2341,10 +2215,7 @@ body {
 /**
  * Primary Button Styling
  * 
- * Main action button with brand colors:
- * - Brand purple background
- * - White text for contrast
- * - Shadow with brand color tint for depth
+ * Main action button with brand colors and prominent shadow.
  */
 .btn-primary {
   background: var(--primary);
@@ -2355,10 +2226,7 @@ body {
 /**
  * Primary Button Hover State
  * 
- * Enhanced interaction feedback for primary buttons:
- * - Darker background color
- * - Lift effect with transform
- * - Enhanced shadow for depth perception
+ * Enhanced interaction feedback with lift effect and enhanced shadow.
  */
 .btn-primary:hover {
   background: var(--primary-hover);
@@ -2366,19 +2234,13 @@ body {
   box-shadow: 0 6px 20px rgba(84, 25, 255, 0.4);
 }
 
-  box-shadow: 0 6px 20px rgba(84, 25, 255, 0.4);
-}
-
 /**
  * Secondary Button Styling
  * 
- * Alternative button style for secondary actions:
- * - Light gray background for subtle appearance
- * - Dark text for readability
- * - Light border for definition
+ * Alternative button style for secondary actions with subtle appearance.
  */
 .btn-secondary {
-  background: #f8f9fa;
+  background: var(--background-light);
   color: var(--text-dark);
   border: 2px solid var(--border-light);
 }
@@ -2386,9 +2248,7 @@ body {
 /**
  * Secondary Button Hover State
  * 
- * Subtle interaction feedback for secondary buttons:
- * - Slightly darker gray background
- * - Brand color border for emphasis
+ * Subtle interaction feedback with brand color accent.
  */
 .btn-secondary:hover {
   background: #e9ecef;
@@ -2398,8 +2258,7 @@ body {
 /**
  * Full Width Button Modifier
  * 
- * Makes buttons span the full width of their container.
- * Useful for mobile layouts and primary actions.
+ * Makes buttons span the full width of their container for mobile layouts.
  */
 .btn-full {
   width: 100%;
@@ -2412,22 +2271,16 @@ body {
 /**
  * Editor Container
  * 
- * Wrapper for the rich text editor with proper spacing:
- * - Bottom margin for separation from other elements
- * - Consistent with form group spacing
+ * Wrapper for the rich text editor with proper spacing and integration.
  */
 .editor-container {
-  margin-bottom: var(--gap-lg);
+  margin-bottom: var(--space-lg);
 }
 
 /**
  * Base Editor Styling
  * 
- * Initial styling for the editor container:
- * - Minimum height for adequate content area
- * - White background for content focus
- * - Light border matching form inputs
- * - Rounded corners for consistency
+ * Initial styling for the editor container with adequate content area.
  */
 #editor {
   min-height: 300px;
@@ -2439,11 +2292,7 @@ body {
 /**
  * CKEditor Editable Area Customization
  * 
- * Override CKEditor default styles for consistency:
- * - Minimum height matching container
- * - Remove default borders
- * - Apply custom border radius
- * - Important declarations to override CKEditor specificity
+ * Override CKEditor default styles for consistency with form design.
  */
 .ck-editor__editable {
   min-height: 300px !important;
@@ -2454,9 +2303,7 @@ body {
 /**
  * CKEditor Focus State
  * 
- * Custom focus styling for the editable area:
- * - Brand color shadow matching form inputs
- * - Important declaration to override CKEditor styles
+ * Custom focus styling matching form inputs for design consistency.
  */
 .ck-editor__editable:focus {
   box-shadow: 0 0 0 3px rgba(84, 25, 255, 0.1) !important;
@@ -2469,70 +2316,97 @@ body {
 /**
  * Tags Container
  * 
- * Wrapper for the entire tag management interface:
- * - Top margin for separation from previous elements
+ * Wrapper for the entire tag management interface with proper spacing.
  */
 .tags-container {
-  margin-top: 1rem;
+  margin-top: var(--space-md);
 }
 
 /**
  * Selected Tags Display Area
  * 
- * Container showing currently selected tags:
- * - Flexbox layout for tag arrangement
- * - Wrap tags to multiple lines as needed
- * - Consistent gap between tags
- * - Minimum height to prevent layout shift
- * - Light background to distinguish from input
- * - Border and padding for visual definition
+ * Container showing currently selected tags with flexible layout and visual definition.
  */
 .selected-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
   min-height: 40px;                /* Prevent layout shift when empty */
-  padding: 0.5rem;
+  padding: var(--space-sm);
   border: 2px solid var(--border-light);
   border-radius: var(--radius-md);
-  background: #f8f9fa;             /* Light gray background */
+  background: var(--background-light);
 }
 
 /**
- * REMOVED: Generic .tag definition that was causing conflicts
+ * Selected Tag Pills (Admin Interface)
  * 
- * This section previously contained a generic .tag definition
- * that was applying pill-shaped styling to ALL tags, including
- * blog filter tags which should remain rectangular.
- * 
- * Now we have proper separation:
- * - Blog tags: .tags .tag (rectangular style in blog section)
- * - Admin tags: .selected-tag (pill style below)
+ * Pill-shaped tags used in the admin interface with remove functionality.
+ * These maintain their distinct styling separate from blog filter tags.
  */
+.selected-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-xl);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+/**
+ * Tag Remove Button
+ * 
+ * Interactive remove button within selected tags.
+ */
+.selected-tag .remove {
+  margin-left: var(--space-sm);
+  cursor: pointer;
+  font-weight: bold;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+/**
+ * Tag Remove Button Hover State
+ * 
+ * Enhanced visibility on hover for better user feedback.
+ */
+.selected-tag .remove:hover {
+  opacity: 1;
+}
 
 /**
  * Tag Input Field
  * 
- * Input field for entering new tags:
- * - Standard border styling matching form inputs
- * - Rounded corners for consistency
+ * Input field for entering new tags with consistent styling.
  */
 .tag-input {
   border: 2px solid var(--border-light);
   border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-sm);
+  width: 100%;
+}
+
+/**
+ * Tag Input Focus State
+ * 
+ * Focus styling consistent with other form inputs.
+ */
+.tag-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(84, 25, 255, 0.1);
 }
 
 /**
  * Tag Suggestions Dropdown
  * 
- * Dropdown container for tag suggestions:
- * - White background for content visibility
- * - Border matching input field
- * - No top border to connect with input
- * - Rounded bottom corners only
- * - Maximum height with scroll for long lists
- * - High z-index to appear above other content
+ * Dropdown container for tag suggestions with proper positioning and scrolling.
  */
 .suggestions-list {
   background: white;
@@ -2542,42 +2416,37 @@ body {
   max-height: 200px;
   overflow-y: auto;
   position: relative;
-  z-index: 10;
+  z-index: var(--z-dropdown);
 }
 
 /**
  * Individual Suggestion Item
  * 
- * Styling for each suggestion in the dropdown:
- * - Adequate padding for touch targets
- * - Pointer cursor for interactivity
- * - Light border between items
- * - Dark text color for readability
+ * Styling for each suggestion in the dropdown with proper touch targets.
  */
 .suggestion-item {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem var(--space-md);
   cursor: pointer;
   border-bottom: 1px solid #f0f0f0;
   color: var(--text-dark);
+  transition: background var(--transition-fast),
+              color var(--transition-fast);
 }
 
 /**
  * Suggestion Item Hover State
  * 
- * Visual feedback when hovering over suggestions:
- * - Light gray background
- * - Brand color text for emphasis
+ * Visual feedback when hovering over suggestions.
  */
 .suggestion-item:hover {
-  background: #f8f9fa;
+  background: var(--background-light);
   color: var(--primary);
 }
 
 /**
  * Last Suggestion Item
  * 
- * Remove bottom border from the last suggestion item
- * for a cleaner appearance.
+ * Remove bottom border from the last suggestion item for clean appearance.
  */
 .suggestion-item:last-child {
   border-bottom: none;
@@ -2590,67 +2459,15 @@ body {
 /**
  * Custom Select Styling
  * 
- * Enhanced styling for select elements:
- * - Remove default browser appearance
- * - Custom dropdown arrow using SVG data URI
- * - Proper positioning and sizing of arrow
- * - Right padding to accommodate arrow
- * - Arrow color matches muted text
+ * Enhanced styling for select elements with custom dropdown arrow.
  */
 .form-select {
   appearance: none;                /* Remove default browser styling */
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%236c757d' viewBox='0 0 16 16'%3e%3cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 1rem center;
+  background-position: right var(--space-md) center;
   background-size: 16px 12px;
   padding-right: 3rem;             /* Space for custom arrow */
-}
-
-/* =====================================
-   Loading and State Indicators
-   ===================================== */
-
-/**
- * Loading State Styling
- * 
- * Visual indicator for loading states:
- * - Muted color to indicate inactive state
- * - Italic font style for distinction
- */
-.loading {
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-/* =====================================
-   Responsive Design for Admin Interface
-   ===================================== */
-
-/**
- * Tablet and Mobile Responsive Styles
- * 
- * Adjustments for screens 768px and smaller:
- * - Reduced margins and padding for mobile
- * - Smaller font sizes for limited space
- * - Optimized layout for touch interaction
- */
-@media (max-width: 768px) {
-  .create-post-container {
-    margin: 1rem auto;             /* Reduced top margin */
-    padding: 0 0.5rem;             /* Reduced horizontal padding */
-  }
-
-  .form-body {
-    padding: 1.5rem;               /* Reduced padding for mobile */
-  }
-
-  .form-header {
-    padding: 1.5rem;               /* Reduced header padding */
-  }
-
-  .form-header h1 {
-    font-size: 1.5rem;             /* Smaller heading for mobile */
-  }
 }
 
 /* =====================================
@@ -2660,9 +2477,7 @@ body {
 /**
  * Error State Styling
  * 
- * Visual indicators for form validation errors:
- * - Red border color for error indication
- * - Consistent with standard error conventions
+ * Visual indicators for form validation errors with standard error colors.
  */
 .form-group.error .form-input {
   border-color: #dc3545;           /* Bootstrap-style red */
@@ -2671,9 +2486,7 @@ body {
 /**
  * Success State Styling
  * 
- * Visual indicators for successful form validation:
- * - Green border color for success indication
- * - Consistent with standard success conventions
+ * Visual indicators for successful form validation with standard success colors.
  */
 .form-group.success .form-input {
   border-color: #198754;           /* Bootstrap-style green */
@@ -2682,47 +2495,67 @@ body {
 /**
  * Error Message Text
  * 
- * Styling for error message text below form fields:
- * - Red color matching error border
- * - Smaller font size for secondary hierarchy
- * - Small top margin for spacing from input
+ * Styling for error message text below form fields.
  */
 .error-message {
   color: #dc3545;
-  font-size: 0.85rem;
+  font-size: var(--font-xs);
   margin-top: 0.25rem;
 }
 
 /**
  * Success Message Text
  * 
- * Styling for success message text below form fields:
- * - Green color matching success border
- * - Smaller font size for secondary hierarchy
- * - Small top margin for spacing from input
+ * Styling for success message text below form fields.
  */
 .success-message {
   color: #198754;
-  font-size: 0.85rem;
+  font-size: var(--font-xs);
   margin-top: 0.25rem;
 }
 
-.selected-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background: var(--primary);
-  color: white;
-  border-radius: 2rem;
-  font-size: 0.85rem;
-  font-weight: 500;
+/* =====================================
+   Loading and State Indicators
+   ===================================== */
+
+/**
+ * Loading State Styling
+ * 
+ * Visual indicator for loading states with muted styling.
+ */
+.loading {
+  color: var(--text-muted);
+  font-style: italic;
 }
-.selected-tag .remove {
-  margin-left: 0.5rem;
-  cursor: pointer;
-  font-weight: bold;
-  opacity: 0.8;
-}
-.selected-tag .remove:hover {
-  opacity: 1;
+
+/* =====================================
+   Admin Form Responsive Design
+   ===================================== */
+
+/**
+ * Tablet and Mobile Responsive Styles
+ * 
+ * Adjustments for screens 768px and smaller with optimized layout for touch interaction.
+ */
+@media (max-width: 768px) {
+  .create-post-container {
+    margin: var(--space-md) auto;   /* Reduced top margin */
+    padding: 0 var(--space-sm);     /* Reduced horizontal padding */
+  }
+
+  .form-body {
+    padding: var(--space-lg);       /* Reduced padding for mobile */
+  }
+
+  .form-header {
+    padding: var(--space-lg);       /* Reduced header padding */
+  }
+
+  .form-header h1 {
+    font-size: 1.5rem;             /* Smaller heading for mobile */
+  }
+
+  .form-group {
+    margin-bottom: var(--space-lg); /* Adjusted spacing for mobile */
+  }
 }
