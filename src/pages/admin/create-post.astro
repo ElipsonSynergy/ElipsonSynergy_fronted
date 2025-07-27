@@ -467,6 +467,7 @@
          * - "Create new" option for non-existing tags
          * - Click handlers for tag selection
          * - Dynamic dropdown visibility
+         * - Tags displayed in uppercase
          */
         function showSuggestions(q = "") {
             sugg.innerHTML = ""; // Clear previous suggestions
@@ -478,11 +479,11 @@
                 .slice(0, 5); // Limit to 5 suggestions
 
             if (matches.length) {
-                // Show existing tag matches
+                // Show existing tag matches in uppercase
                 matches.forEach((t) => {
                     const li = document.createElement("li");
                     li.className = "suggestion-item";
-                    li.textContent = t.name;
+                    li.textContent = t.name.toUpperCase(); // Display in uppercase
                     li.onclick = () => addTag(t); // Add existing tag
                     sugg.append(li);
                 });
@@ -490,7 +491,7 @@
                 // Show "create new" option when no matches found
                 const li = document.createElement("li");
                 li.className = "suggestion-item";
-                li.textContent = `Crear "${q}"`;
+                li.textContent = `Crear "${q.toUpperCase()}"`; // Show in uppercase
                 li.onclick = async () => {
                     // Create new tag via API
                     const res = await fetch("/api/tags", {
@@ -526,17 +527,18 @@
          * - Visual tag representation with × remove button
          * - Hidden form inputs for backend processing
          * - Cleanup of input state
+         * - Tags displayed in uppercase
          */
         function addTag(tag) {
             // Prevent duplicate tag addition
             if ([...selTags.children].some((s) => s.dataset.id == tag.id))
                 return;
                 
-            // Create visual tag element
+            // Create visual tag element with uppercase display
             const span = document.createElement("span");
             span.className = "selected-tag";
             span.dataset.id = tag.id; // Store tag ID for reference
-            span.innerHTML = `${tag.name} <span class="remove">×</span>`;
+            span.innerHTML = `${tag.name.toUpperCase()} <span class="remove">×</span>`; // Display in uppercase
             
             // Add remove functionality
             span.querySelector(".remove").onclick = () => {
@@ -607,6 +609,67 @@
         });
 
         /**
+         * Show Success Message
+         * 
+         * Displays a custom success modal instead of browser alert.
+         * Provides better user experience with modern design.
+         */
+        function showSuccessMessage() {
+            // Create success overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'success-overlay';
+            
+            // Create success card content
+            overlay.innerHTML = `
+                <div class="success-card">
+                    <div class="success-icon"></div>
+                    <h3 class="success-title">¡Blog Publicado!</h3>
+                    <p class="success-description">
+                        Tu blog ha sido publicado exitosamente y ya está disponible para todos los lectores.
+                    </p>
+                    <div class="success-actions">
+                        <button class="success-btn" onclick="closeSuccessMessage()">
+                            Crear Otro Post
+                        </button>
+                        <a href="/blog" class="success-btn success-btn--secondary">
+                            Ver Blog
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            // Add to body
+            document.body.appendChild(overlay);
+            
+            // Show with animation
+            setTimeout(() => {
+                overlay.classList.add('show');
+            }, 100);
+            
+            // Store reference for closing
+            window.currentSuccessOverlay = overlay;
+        }
+
+        /**
+         * Close Success Message
+         * 
+         * Removes the success modal from the DOM.
+         */
+        function closeSuccessMessage() {
+            const overlay = window.currentSuccessOverlay;
+            if (overlay) {
+                overlay.classList.remove('show');
+                setTimeout(() => {
+                    overlay.remove();
+                    window.currentSuccessOverlay = null;
+                }, 300);
+            }
+        }
+
+        // Make closeSuccessMessage globally available
+        window.closeSuccessMessage = closeSuccessMessage; 
+
+        /**
          * Form Submission Handler
          * 
          * Handles the blog post creation form submission with comprehensive
@@ -624,6 +687,7 @@
          * Features:
          * - Client-side validation
          * - Loading state management
+         * - Custom success message instead of alert
          * - Error handling with user feedback
          * - Form reset on successful submission
          * - Button state management (disabled during submission)
@@ -657,8 +721,8 @@
                     throw new Error(err.message || resp.statusText);
                 }
                 
-                // Success feedback and form reset
-                alert("¡Blog publicado con éxito!");
+                // Success: Show custom success message instead of alert
+                showSuccessMessage();
                 form.reset();              // Clear all form fields
                 selTags.innerHTML = "";    // Clear selected tags display
                 editor.setData("");        // Clear editor content
