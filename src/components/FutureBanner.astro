@@ -1,19 +1,124 @@
 ---
-// src/components/FuturoBanner.astro
+/**
+ * Future Banner Component
+ *
+ * A distinctive hero banner component that communicates Elipson's environmental values
+ * and commitment to sustainable technology. Features a protruding circular element
+ * with Earth imagery and compelling messaging about caring for our planet.
+ *
+ * Features:
+ * - Protruding white circle with Earth image as focal point
+ * - Dark blue background for strong contrast and environmental theming
+ * - Centered content layout with clear hierarchy
+ * - Call-to-action button linking to discovery section
+ * - Responsive design that adapts to different screen sizes
+ * - Semantic HTML structure for accessibility
+ *
+ * Design Philosophy:
+ * - Represents Earth emerging from technology/innovation
+ * - Blue background evokes trust, stability, and environmental consciousness
+ * - White circle creates visual separation and draws attention to Earth imagery
+ * - Typography emphasizes environmental responsibility and future thinking
+ *
+ * @component FutureBanner
+ * @requires styles.css - Future Banner Component Styles section
+ * @since 1.0.0
+ * 
+ * @example
+ * // Used in homepage to showcase environmental commitment
+ * <FutureBanner />
+ * 
+ * @accessibility
+ * - Uses semantic section element for proper document structure
+ * - Alt text provided for Earth image
+ * - High contrast text (white on dark blue) for readability
+ * - Keyboard accessible call-to-action button
+ * 
+ * @performance
+ * - Uses local image assets for faster loading
+ * - CSS-based styling for smooth animations
+ * - Optimized for Core Web Vitals
+ */
+
+/**
+ * No server-side logic required for this static component
+ * All styling and behavior is handled through CSS classes
+ * defined in the Future Banner Component Styles section
+ */
 ---
-<section class="futuro-banner">
-  <div class="banner-circle">
-    <img src="/earth.png" alt="Planeta Tierra" />
+
+<!-- 
+  Future Banner Section
+  
+  Main banner component that serves as a hero section emphasizing
+  environmental consciousness and sustainable technology values.
+  
+  Structure:
+  1. Protruding circular element with Earth image
+  2. Centered content container with title, subtitle, and CTA
+  3. Responsive layout adapting to different screen sizes
+-->
+<section class="futuro-banner" role="banner" aria-label="Environmental commitment banner">
+  <!-- 
+    Protruding Circle Element
+    
+    Decorative circular element that extends above the banner container.
+    Contains Earth imagery to reinforce environmental messaging.
+    Acts as a visual focal point and conversation starter.
+  -->
+  <div class="banner-circle" aria-hidden="true">
+    <img 
+      src="/earth.png" 
+      alt="Planet Earth representing our environmental commitment" 
+      loading="eager"
+    />
   </div>
+  
+  <!-- 
+    Banner Content Container
+    
+    Contains all textual content and call-to-action elements.
+    Positioned to work harmoniously with the protruding circle above.
+    Uses semantic heading hierarchy for accessibility and SEO.
+  -->
   <div class="banner-content">
+    <!-- 
+      Main Banner Heading
+      
+      Primary message emphasizing belief in environmental responsibility.
+      Split across two lines for visual impact and emphasis.
+      Uses Spanish text to match brand voice and target audience.
+    -->
     <h1 class="banner-title">
       CREEMOS EN UN<br />
       FUTURO QUE CUIDA LO NUESTRO
     </h1>
+    
+    <!-- 
+      Supporting Description
+      
+      Elaborates on the main message with specific values and commitments.
+      Explains how technology and environmental responsibility intersect
+      in Elipson's mission and approach to development.
+    -->
     <p class="banner-subtitle">
       Creemos en una tecnología que respeta, que regenera, que siembra futuro. Cada línea de código, cada solución, cada idea en Elipson nace pensando en el planeta que queremos dejar.
     </p>
-    <a href="/#descubre" class="banner-button">Descubre →</a>
+    
+    <!-- 
+      Call-to-Action Button
+      
+      Encourages user engagement and discovery of more content.
+      Links to a discovery section (likely elsewhere on the page).
+      Uses arrow indicator to suggest forward movement/progress.
+    -->
+    <a 
+      href="/#descubre" 
+      class="banner-button"
+      aria-label="Discover more about our environmental commitment"
+    >
+      Descubre →
+    </a>
   </div>
 </section>
 
