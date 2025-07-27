@@ -2,11 +2,20 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import TeamSection from '@/components/TeamSection.astro';
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
 
 ---
 <BaseLayout 
-  title="Nuestro Equipo - Elipson Synergy" 
-  description="Conoce al equipo detrás de Elipson Synergy. Profesionales apasionados creando soluciones tecnológicas innovadoras."
+  title={t('teamSection.title')} 
+  description={t('teamSection.description')}
 >
   <TeamSection />
 </BaseLayout>

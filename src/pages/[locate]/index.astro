@@ -1,19 +1,25 @@
 ---
 // index.astro - Premium main page
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
 import IdeasSolutionsCard from '@/components/IdeasSolutions.astro';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import TeamCarousel from '@/components/MemberSwiper.jsx';
 
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
-
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
 ---
 
 <BaseLayout 
-  title="Elipson Synergy - Soluciones Tecnológicas Innovadoras" 
+  title={t('index.meta.title')} 
   description="Descubre las soluciones tecnológicas más innovadoras con Elipson Synergy. Transformamos ideas en realidad digital con tecnología de vanguardia."
   keywords="tecnología, innovación, desarrollo software, soluciones digitales, transformación digital"
 >
@@ -40,19 +46,18 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
           </svg>
-          Innovación Tecnológica 2024
+          {t('index.hero.badge')}
         </div>
         
         <!-- Main title -->
         <h1 class="hero-title text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-          <span class="block text-gray-900">Transformamos</span>
-          <span class="block text-gradient mt-2">Ideas en Realidad</span>
+          <span class="block text-gray-900">{t('index.hero.title1')}</span>
+          <span class="block text-gradient mt-2">{t('index.hero.title2')}</span>
         </h1>
         
         <!-- Subtitle -->
         <p class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed">
-          Soluciones tecnológicas innovadoras que impulsan el crecimiento de tu negocio 
-          con tecnología de vanguardia y diseño excepcional.
+          {t('index.hero.subtitle')}
         </p>
         
         <!-- CTA Buttons -->
@@ -61,7 +66,7 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
             href="/contactanos" 
             class="btn-primary text-lg px-8 py-4 group min-w-[200px]"
           >
-            <span>Comenzar Proyecto</span>
+            <span>{t('index.hero.cta1')}</span>
             <svg class="w-5 h-5 ml-2 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
             </svg>
@@ -70,7 +75,7 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
             href="/producto" 
             class="btn-secondary text-lg px-8 py-4 group min-w-[200px]"
           >
-            <span>Ver Soluciones</span>
+            <span>{t('index.hero.cta2')}</span>
             <svg class="w-5 h-5 ml-2 transition-transform duration-200 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -82,15 +87,15 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
           <div class="text-center">
             <div class="text-4xl font-bold text-blue-600 mb-2">100+</div>
-            <div class="text-gray-600 font-medium">Proyectos Exitosos</div>
+            <div class="text-gray-600 font-medium">{t('index.hero.stats.projects')}</div>
           </div>
           <div class="text-center">
             <div class="text-4xl font-bold text-blue-600 mb-2">50+</div>
-            <div class="text-gray-600 font-medium">Clientes Satisfechos</div>
+            <div class="text-gray-600 font-medium">{t('index.hero.stats.clients')}</div>
           </div>
           <div class="text-center">
             <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
-            <div class="text-gray-600 font-medium">Soporte Técnico</div>
+            <div class="text-gray-600 font-medium">{t('index.hero.stats.support')}</div>
           </div>
         </div>
       </div>
@@ -105,13 +110,11 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-20 animate-on-scroll">
         <h2 class="text-5xl font-bold text-gray-900 mb-6">
-          ASÍ TRANSFORMAMOS IDEAS EN<br>
-          <span class="text-gradient">SOLUCIONES</span>
+          {t('index.features.title')}<br>
+          <span class="text-gradient">{t('index.features.subtitle')}</span>
         </h2>
         <p class="max-w-4xl mx-auto text-xl text-gray-600 leading-relaxed">
-          Desde la escucha profunda hasta la implementación consciente, 
-          cada paso en Elipson está diseñado para generar impacto real, 
-          sostenible y humano.
+          {t('index.features.description')}
         </p>
       </div>
 
@@ -123,9 +126,9 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M5.686 15.536a5 5 0 010-7.072m-2.829 9.9a9 9 0 010-14.142"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Escucha activa</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.listen.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            Entendemos necesidades reales desde el territorio y con las comunidades.
+            {t('index.features.listen.description')}
           </p>
         </div>
 
@@ -136,9 +139,9 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Diseño centrado en el ser humano</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.design.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            Creamos soluciones útiles, accesibles y pensadas para quienes más las necesitan.
+            {t('index.features.design.description')}
           </p>
         </div>
 
@@ -149,9 +152,10 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Co-creación con impacto</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.develop.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            Trabajamos junto a líderes locales, empresas y expertos para que la innovación no se quede en una idea.
+            {t('index.features.develop.description')}
+            
           </p>
         </div>
 
@@ -162,9 +166,9 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Innovación responsable</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.inovation.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            Buscamos soluciones creativas que no solo sean viables y efectivas, sino también sostenibles y éticas para el entorno y la sociedad.
+            {t('index.features.inovation.description')}
           </p>
         </div>
 
@@ -175,9 +179,9 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Tecnología con propósito</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.tecnologies.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            No usamos lo más nuevo, usamos lo que sirve. Cada herramienta responde a un "para qué".
+            {t('index.features.tecnologies.description')}
           </p>
         </div>
 
@@ -188,9 +192,9 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Escalabilidad consciente</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.scalability.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            Diseñamos para crecer, pero sin perder la esencia: impacto antes que volumen.
+            {t('index.features.scalability.description')}
           </p>
         </div>
 
@@ -201,9 +205,9 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Cultura de mejora continua</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.culture.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            Iteramos, aprendemos y evolucionamos en cada proyecto.
+            {t('index.features.culture.description')}
           </p>
         </div>
 
@@ -214,9 +218,9 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Compromiso genuino</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">{t('index.features.Commitment.title')}</h3>
           <p class="text-gray-600 leading-relaxed">
-            Trabajamos con integridad y dedicación para generar valor real en cada proyecto, siempre alineados con nuestros principios y propósito.
+            {t('index.features.Commitment.description')}
           </p>
         </div>
       </div>
@@ -229,24 +233,23 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-black leading-tight">
-          ASÍ TRANSFORMAMOS IDEAS EN SOLUCIONES
+          {t('index.features.transform.title')}
         </h2>
         <p class="text-base sm:text-lg text-gray-800">
-          Desde la escucha profunda hasta la implementación consciente, cada paso en Elipson
-          está diseñado para generar impacto real, sostenible y humano.
+          {t('index.features.transform.description')}
         </p>
       </div>
     </div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
-      <IdeasSolutionsCard title="Escucha activa" content="Entendemos necesidades reales desde el territorio y con las comunidades." imageSrc="/images/ActiveListen.png"/>
-      <IdeasSolutionsCard title="Diseño centrado en el ser humano" content="Creamos soluciones útiles, accesibles y pensadas para quienes más las necesitan." imageSrc="/images/SelfCentered.png"/>
-      <IdeasSolutionsCard title="Co-creación con impacto" content="Trabajamos junto a líderes locales, empresas y expertos para que la innovación no se quede en una idea." imageSrc="/images/Impact.png"/>
-      <IdeasSolutionsCard title="Innovación responsable" content="Buscamos soluciones creativas que no solo sean viables y efectivas, sino también sostenibles y éticas para el entorno y la sociedad." imageSrc="/images/Innovation.png"/>
-      <IdeasSolutionsCard title="Tecnología con propósito" content='No usamos lo más nuevo, usamos lo que sirve. Cada herramienta responde a un "para qué".' imageSrc="/images/Technology.png"/>
-      <IdeasSolutionsCard title="Escalabilidad consciente" content="Diseñamos para crecer, pero sin perder la esencia: impacto antes que volumen." imageSrc="/images/Scalability.png"/>
-      <IdeasSolutionsCard title="Cultura de mejora continua" content="Iteramos, aprendemos y evolucionamos en cada proyecto." imageSrc="/images/Culture.png"/>
-      <IdeasSolutionsCard title="Compromiso genuino" content="Trabajamos con integridad y dedicación para generar valor real en cada proyecto, siempre alineados con nuestros principios y propósito." imageSrc="/images/Compromise.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.listen.title')} content={t('index.features.solutionsCards.listen.description')} imageSrc="/images/ActiveListen.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.humanCentered.title')} content={t('index.features.solutionsCards.humanCentered.description')} imageSrc="/images/SelfCentered.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.coCreation.title')} content={t('index.features.solutionsCards.coCreation.description')} imageSrc="/images/Impact.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.responsibleInnovation.title')} content={t('index.features.solutionsCards.responsibleInnovation.description')} imageSrc="/images/Innovation.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.purposeTech.title')} content={t('index.features.solutionsCards.purposeTech.description')} imageSrc="/images/Technology.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.scalability.title')} content={t('index.features.solutionsCards.scalability.description')} imageSrc="/images/Scalability.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.improvementCulture.title')} content={t('index.features.solutionsCards.improvementCulture.description')} imageSrc="/images/Culture.png"/>
+      <IdeasSolutionsCard title={t('index.features.solutionsCards.genuineCommitment.title')} content={t('index.features.solutionsCards.genuineCommitment.description')} imageSrc="/images/Compromise.png"/>
     </div>
   </div>
 
@@ -258,11 +261,10 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
   <div class="w-full lg:w-1/2 h-full bg-white flex items-center justify-center px-10">
     <div class="max-w-md text-center lg:text-left">
       <h1 class="text-4xl font-extrabold text-black mb-4">
-        INNOVAR ES EL NUEVO LATIR<br />DE LATINOAMÉRICA
+        {t('index.latinAmerica.title')}<br />{t('index.latinAmerica.subtitle')}
       </h1>
       <p class="text-lg text-gray-700">
-        Desde el corazón de los Andes hasta la selva amazónica,
-        Elipson lleva inteligencia a cada rincón de Latinoamérica. 
+        {t('index.latinAmerica.description')}
       </p>
     </div>
   </div>
@@ -278,14 +280,13 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
 <section class="mb-0 pb-0">
 <div class="flex justify-center items-center px-4 sm:px-8 lg:px-20">
   <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-black mb-4 text-center">
-    CONOCE A NUESTRO EQUIPO
+    {t('index.team.title')}
   </h1>
 </div>
 
 <div class="flex justify-center items-center px-4 sm:px-8 lg:px-20">
   <p class="text-base sm:text-lg md:text-xl text-gray-700 text-center max-w-3xl">
-    Nuestro equipo está conformado por mentes apasionadas, comprometidas con transformar realidades a través de la tecnología. 
-    Cada uno de nosotros aporta desde su experiencia para llevar soluciones inteligentes a los desafíos de Latinoamérica.
+    {t('index.team.description')}
   </p>
 </div>
 
@@ -297,7 +298,7 @@ import TeamCarousel from '@/components/MemberSwiper.jsx';
     href="/nosotros"
     class="inline-block no-underline px-6 py-3 text-white text-base sm:text-lg font-semibold rounded-full bg-blue-600 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg focus:outline-none focus:ring-0"
   >
-    Conoce más acerca de nosotros
+    {t('index.team.cta')}
   </a>
 </div>
 </section>

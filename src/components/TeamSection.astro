@@ -1,3 +1,4 @@
+
 ---
 const team = [
   {
@@ -25,20 +26,29 @@ const team = [
     description: "Experto en experiencia de usuario y desarrollo de productos"
   }
 ];
+
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
 ---
 
 <section class="py-20 bg-gray-50">
   <div class="container mx-auto px-4">
     <div class="text-center mb-16">
       <span class="inline-block px-4 py-2 bg-blue-100 text-blue-600 font-semibold rounded-full text-sm mb-4">
-        Nuestro Equipo
+        {t('teamSection.title')}
       </span>
       <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-6">
-        Conoce a Nuestro <span class="text-gradient">Fantástico Equipo</span>
+        {t('teamSection.subtitle')} <span class="text-gradient">{t('teamSection.subtitle2')}</span>
       </h2>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-        Detrás de cada gran desarrollo hay personas con iniciativa, pasión e impacto. 
-        Conoce a los profesionales que hacen posible la transformación digital.
+        {t('teamSection.description')}
       </p>
     </div>
 

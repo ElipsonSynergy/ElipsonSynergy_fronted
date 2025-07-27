@@ -8,43 +8,49 @@ export interface Props {
   keywords?: string;
 }
 
-const { 
-  title, 
-  description = "Elipson Synergy - Soluciones tecnológicas innovadoras que transforman ideas en realidad digital", 
-  keywords = "tecnología, innovación, desarrollo, software, soluciones digitales"
-} = Astro.props;
+
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
 ---
 
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
+    <meta name="description" content={t('BaseLayout.meta.description')} />
+    <meta name="keywords" content={t('BaseLayout.meta.keywords')} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    
+    <title>{t('BaseLayout.meta.title')}</title>
+
     <!-- Optimization preconnections -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+
+    <meta property="og:title" content={t('BaseLayout.meta.title')} />
+    <meta property="og:description" content={t('BaseLayout.meta.description')} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={t('BaseLayout.meta.title')} />
+    <meta name="twitter:description" content={t('BaseLayout.meta.description')} />
   </head>
   
   <body class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-sans antialiased">
     <Navbar />
+    
     
     <!-- Main content -->
     <main class="flex-1 relative">
@@ -69,30 +75,29 @@ const {
                 </svg>
               </div>
               <div>
-                <h3 class="text-xl font-bold text-white">Elipson Synergy</h3>
-                <p class="text-xs text-gray-400 tracking-wide">INNOVATION & TECHNOLOGY</p>
+                <h3 class="text-xl font-bold text-white">{t('BaseLayout.hero.title')}</h3>
+                <p class="text-xs text-gray-400 tracking-wide">{t('BaseLayout.hero.subtitle')}</p>
               </div>
             </div>
             <p class="text-gray-300 leading-relaxed max-w-md">
-              Transformamos ideas en soluciones tecnológicas innovadoras que impulsan el crecimiento de tu negocio. 
-              Nuestra pasión es crear el futuro digital.
+              {t('BaseLayout.hero.description')}
             </p>
           </div>
           
           <!-- Quick links -->
           <div>
-            <h4 class="text-white font-semibold mb-4">Enlaces</h4>
+            <h4 class="text-white font-semibold mb-4">{t('BaseLayout.QuickLinks.title')}</h4>
             <ul class="space-y-2">
-              <li><a href="/nosotros" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Nosotros</a></li>
-              <li><a href="/producto" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Producto</a></li>
-              <li><a href="/blog" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Blog</a></li>
-              <li><a href="/contactanos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Contacto</a></li>
+              <li><a href="/nosotros" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.about')}</a></li>
+              <li><a href="/producto" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.product')}</a></li>
+              <li><a href="/blog" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.blog')}</a></li>
+              <li><a href="/contactanos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.contact')}</a></li>
             </ul>
           </div>
           
           <!-- Contact information -->
           <div>
-            <h4 class="text-white font-semibold mb-4">Contacto</h4>
+            <h4 class="text-white font-semibold mb-4">{t('BaseLayout.QuickLinks.contact')}</h4>
             <div class="space-y-2">
               <p class="text-gray-300 text-sm">
                 <span class="block">Email: info@elipsonsynergy.com</span>
@@ -106,7 +111,7 @@ const {
         <div class="border-t border-gray-700 mt-8 pt-8">
           <div class="flex flex-col md:flex-row justify-between items-center">
             <p class="text-gray-400 text-sm">
-              © 2024 Elipson Synergy. Todos los derechos reservados.
+              {t('BaseLayout.lawyer.copyright')}
             </p>
             <div class="flex space-x-6 mt-4 md:mt-0">
               <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-200">

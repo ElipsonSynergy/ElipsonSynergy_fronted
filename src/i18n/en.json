@@ -1,0 +1,215 @@
+{
+  "index": {
+    "meta": {
+      "title": "Elipson Synergy - Innovative Technological Solutions",
+      "description": "Discover the most innovative technological solutions with Elipson Synergy. We transform ideas into digital reality with cutting-edge technology.",
+      "keywords": "technology, innovation, software development, digital solutions, digital transformation"
+    },
+    "hero": {
+      "badge": "Technology Innovation 2024",
+      "title1": "We Transform",
+      "title2": "Ideas Into Reality",
+      "subtitle": "Innovative technological solutions that drive your business growth with cutting-edge technology and exceptional design.",
+      "cta1": "Start Project",
+      "cta2": "View Solutions",
+      "stats": {
+        "projects": "Successful Projects",
+        "clients": "Satisfied Clients",
+        "support": "Technical Support"
+      }
+    },
+    "features": {
+      "title": "HOW WE TRANSFORM IDEAS INTO",
+      "subtitle": "SOLUTIONS",
+      "description": "From deep listening to conscious implementation, every step is designed to maximize impact and customer satisfaction.",
+      "listen": {
+        "title": "Active Listening",
+        "description": "We understand real needs from the ground and with communities."
+      },
+      "design": {
+        "title": "Human-centered Design",
+        "description": "We create useful, accessible solutions designed for those who need them most."
+      },
+      "develop": {
+        "title": "Impact Co-creation",
+        "description": "We work with local leaders, companies and experts to ensure innovation doesn't remain just an idea."
+      },
+      "inovation": {
+        "title": "Responsible Innovation",
+        "description": "We seek creative solutions that are not only viable and effective but also sustainable and ethical for the environment and society."
+      },
+      "tecnologies": {
+        "title": "Purpose-driven Technology",
+        "description": "We don't use the newest, we use what works. Every tool serves a clear purpose."
+      },
+      "scalability": {
+        "title": "Conscious Scalability",
+        "description": "We design for growth, but without losing the essence: impact over volume."
+      },
+      "culture": {
+        "title": "Continuous Improvement Culture",
+        "description": "We iterate, learn and evolve with every project."
+      },
+      "Commitment": {
+        "title": "Genuine Commitment",
+        "description": "We work with integrity and dedication to generate real value in every project, always aligned with our principles and purpose."
+      },
+      "transform": {
+        "title": "HOW WE TRANSFORM IDEAS INTO SOLUTIONS",
+        "description": "From deep listening to conscious implementation, every step at Elipson is designed to generate real, sustainable and human impact."
+      },
+      "solutionsCards": {
+        "listen": {
+          "title": "Active Listening",
+          "description": "We understand real needs from the ground and with communities."
+        },
+        "humanCentered": {
+          "title": "Human-centered Design",
+          "description": "We create useful, accessible solutions designed for those who need them most."
+        },
+        "coCreation": {
+          "title": "Impact Co-creation",
+          "description": "We work with local leaders, companies and experts to ensure innovation doesn't remain just an idea."
+        },
+        "responsibleInnovation": {
+          "title": "Responsible Innovation",
+          "description": "We seek creative solutions that are sustainable and ethical for the environment and society."
+        },
+        "purposeTech": {
+          "title": "Purpose-driven Technology",
+          "description": "We don't use the newest, we use what works. Every tool serves a clear purpose."
+        },
+        "scalability": {
+          "title": "Conscious Scalability",
+          "description": "We design for growth, but without losing the essence: impact over volume."
+        },
+        "improvementCulture": {
+          "title": "Continuous Improvement Culture",
+          "description": "We iterate, learn and evolve with every project."
+        },
+        "genuineCommitment": {
+          "title": "Genuine Commitment",
+          "description": "We work with integrity and dedication to generate real value in every project."
+        }
+      }
+    },
+    "latinAmerica": {
+      "title": "TO INNOVATE IS THE NEW HEARTBEAT",
+      "subtitle": "OF LATIN AMERICA",
+      "description": "From the heart of the Andes to the Amazon rainforest, Elipson brings intelligence to every corner of Latin America."
+    },
+    "team": {
+      "title": "MEET OUR TEAM",
+      "description": "Our team consists of passionate minds committed to transforming realities through technology. Each of us contributes from our experience to bring intelligent solutions to challenges.",
+      "cta": "Learn more about us"
+    }
+  },
+  "about": {
+    "title": "About Us - Elipson Synergy",
+    "description": "Learn more about Elipson Synergy, our expert team, our mission and how we transform ideas into innovative technological solutions.",
+    "keywords": "team, company, history, mission, vision, technology experts",
+    "Elipson": {
+      "title": "Elipson Synergy · Connecting Technology and Future",
+      "subtitle": "Meet",
+      "tagline": "Elipson Synergy",
+      "description": "More than a team, we're a symphony of talents who believe in technology's power as an agent of change.",
+      "description2": "Our purpose is clear:",
+      "description3": "transform realities in Latin America",
+      "description4": "with solutions born from ingenuity, empathy and innovation."
+    },
+    "essence": {
+      "title": "Our Essence",
+      "description": "What we believe, what we seek and the values that guide us every step."
+    },
+    "Mission": {
+      "title": "Mission",
+      "description": "Develop innovative technological solutions that address social and business challenges in Latin America, empowering communities and generating sustainable positive impact."
+    },
+    "Vision": {
+      "title": "Vision",
+      "description": "To be the leading reference in transformative technology in Latin America, recognized for excellence, empathy and commitment to a more connected and fair future."
+    },
+    "values": {
+      "title": "Values",
+      "innovation": {
+        "title": "Purpose-driven innovation"
+      },
+      "collaboration": {
+        "title": "Collaboration and respect"
+      },
+      "socialEmpathy": {
+        "title": "Social empathy"
+      },
+      "transparency": {
+        "title": "Transparency and ethics"
+      },
+      "excellence": {
+        "title": "Continuous excellence"
+      }
+    },
+    "teamSection": {
+      "title": "Our Members"
+    }
+  },
+  "teamSection": {
+    "title": "Our Team - Elipson Synergy",
+    "subtitle": "Fantastic",
+    "subtitle2": "Team",
+    "description": "Meet the team behind Elipson Synergy. Passionate professionals creating innovative technological solutions."
+  },
+  "Navbar": {
+    "title": "Elipson Synergy",
+    "subtitle": "INNOVATION & TECHNOLOGY",
+    "home": "Home",
+    "about": "About",
+    "product": "Product",
+    "blog": "Blog",
+    "team": "Team",
+    "contact": "Contact",
+    "cta": {
+      "text": "Contact Us",
+      "link": "/contact"
+    }
+  },
+  "TeamSection": {
+    "title": "Our Team",
+    "subtitle": "Fantastic Team",
+    "subtitle2": "A diverse and passionate team, committed to transforming realities through technology. Each member brings unique experience to create smart and effective solutions.",
+    "description": "Behind every great development there are people with initiative, passion and impact. Meet the professionals who make digital transformation possible."
+  },
+  "ProjectCard": {
+    "Outstanding": "Featured",
+    "Agro": "Agro",
+    "Youngs": "Youth",
+    "Store": "Store",
+    "Makers": "Makers",
+    "Software": "Software",
+    "Active": "ACTIVE",
+    "Explore": "Explore"
+  },
+  "BaseLayout": {
+    "meta": {
+      "title": "Elipson Synergy - Innovative Technological Solutions",
+      "description": "Elipson Synergy - Innovative technological solutions that transform ideas into digital reality",
+      "keywords": "technology, innovation, development, software, digital solutions"
+    },
+    "hero": {
+      "title": "Elipson Synergy",
+      "subtitle": "INNOVATION & TECHNOLOGY",
+      "description": "We transform ideas into innovative technological solutions that drive your business growth. Our passion is creating the digital future."
+    },
+    "QuickLinks": {
+      "title": "Links",
+      "home": "Home",
+      "about": "About",
+      "product": "Product",
+      "blog": "Blog",
+      "team": "Team",
+      "contact": "Contact"
+    },
+    "lawyer": {
+      "title": "All Rights Reserved",
+      "description": "© 2024 Elipson Synergy. All rights reserved."
+    }
+  }
+}
