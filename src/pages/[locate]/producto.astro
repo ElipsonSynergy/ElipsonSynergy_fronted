@@ -4,6 +4,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductFilter from '../../components/ProductFilter.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { projects } from '../../data/projects';
+import { useTranslations } from '../../utils/i18n';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
+const { locate } = Astro.params;
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const t = useTranslations(lang);
 
 ---
 

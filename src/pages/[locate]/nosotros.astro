@@ -4,6 +4,17 @@ import TeamCarousel from '@/components/MemberSwiper';
 import TeamCarouselDetailed from '@/components/MemberSwiperDetailed';
 import MembersInfoDetailed from '@/components/MembersInfoDetailed'
 
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
+const { locate } = Astro.params;
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+
 ---
 
 <BaseLayout 

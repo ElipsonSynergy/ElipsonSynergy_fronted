@@ -1,0 +1,67 @@
+{
+  "contact_page_meta": {
+    "title": "Contact - Elipson Synergy",
+    "description": "Get in touch with Elipson Synergy. We are ready to help you transform your ideas into digital reality."
+  },
+  "contact_page_header": {
+    "badge": "Contact Us",
+    "title": "GET IN TOUCH WITH US",
+    "description": "We appreciate your message and are committed to providing you with the best attention. We will review your request and get back to you soon. We value your time and appreciate the opportunity to help you."
+  },
+  "contact_page_info": {
+    "location_title": "Our Location",
+    "phone_title": "Phone Number", 
+    "email_title": "Email Address"
+  },
+  "contact_form_fields": {
+    "name_placeholder": "Your name",
+    "email_placeholder": "Your email",
+    "phone_placeholder": "Your phone",
+    "message_placeholder": "Leave us your message",
+    "submit_button": "Send Message",
+    "submit_sending": "Sending...",
+    "character_counter": "0/1000"
+  },
+  "contact_validation_errors": {
+    "name_too_short": "The name is too short.",
+    "name_too_long": "The name cannot exceed 50 characters",
+    "name_invalid_chars": "The name can only contain letters, spaces, hyphens and apostrophes",
+    "name_required": "The name must have at least 2 characters",
+    "email_invalid": "Please enter a valid email.",
+    "email_required": "Email address is required",
+    "email_too_long": "The email address is too long",
+    "message_too_short": "The message must have at least 10 characters.",
+    "message_too_long": "The message cannot exceed 1000 characters.",
+    "message_required": "The message must have at least 10 characters"
+  },
+  "contact_modal_success": {
+    "title": "Message Sent!",
+    "message": "Thank you for contacting us. We will respond as soon as possible.",
+    "close_label": "Close modal",
+    "ok_button": "Understood"
+  },
+  "contact_modal_error": {
+    "title": "Error",
+    "default_message": "There was a problem sending your message. Please try again later.",
+    "timeout_message": "The request took too long. Check your connection and try again.",
+    "network_message": "Could not connect to the server. Check your internet connection.",
+    "server_error": "Internal server error. Try again later.",
+    "invalid_data": "The data sent is not valid. Check the form.",
+    "connection_error": "Connection error. Please try again."
+  },
+  "contact_modal_loading": {
+    "title": "Sending message",
+    "subtitle": "Please wait a moment..."
+  },
+  "contact_messages_js": {
+    "already_sending": "A message is already being sent",
+    "form_invalid": "Form is not valid",
+    "sending_to": "Sending to:",
+    "server_response": "Server response:",
+    "success_sent": "Message sent successfully",
+    "request_error": "Request error:",
+    "form_not_found": "Form not found",
+    "modal_not_found": "Modal not found",
+    "elements_found": "Elements found correctly"
+  }
+}

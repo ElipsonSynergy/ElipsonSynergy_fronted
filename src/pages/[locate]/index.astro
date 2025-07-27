@@ -1,14 +1,22 @@
 ---
 // index.astro - Premium main page
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
 import IdeasSolutionsCard from '@/components/IdeasSolutions.astro';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import TeamCarousel from '@/components/MemberSwiper.jsx';
 
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
 
+const { locate } = Astro.params;
+const lang = locate || 'es';
 
 ---
 

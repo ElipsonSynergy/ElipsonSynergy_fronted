@@ -2,6 +2,17 @@
 // blog.astro - Blog page
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
+const { locate } = Astro.params;
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+
 ---
 
 <BaseLayout 

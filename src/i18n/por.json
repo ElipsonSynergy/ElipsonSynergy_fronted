@@ -1,0 +1,67 @@
+{
+  "contact_page_meta": {
+    "title": "Contato - Elipson Synergy",
+    "description": "Entre em contato com a Elipson Synergy. Estamos prontos para ajudá-lo a transformar suas ideias em realidade digital."
+  },
+  "contact_page_header": {
+    "badge": "Fale Conosco",
+    "title": "ENTRE EM CONTATO CONOSCO",
+    "description": "Agradecemos sua mensagem e nos comprometemos a fornecer a melhor atenção. Revisaremos sua solicitação e entraremos em contato em breve. Valorizamos seu tempo e apreciamos a oportunidade de ajudá-lo."
+  },
+  "contact_page_info": {
+    "location_title": "Nossa Localização",
+    "phone_title": "Número de Telefone", 
+    "email_title": "Endereço de Email"
+  },
+  "contact_form_fields": {
+    "name_placeholder": "Seu nome",
+    "email_placeholder": "Seu email",
+    "phone_placeholder": "Seu telefone",
+    "message_placeholder": "Deixe-nos sua mensagem",
+    "submit_button": "Enviar Mensagem",
+    "submit_sending": "Enviando...",
+    "character_counter": "0/1000"
+  },
+  "contact_validation_errors": {
+    "name_too_short": "O nome é muito curto.",
+    "name_too_long": "O nome não pode exceder 50 caracteres",
+    "name_invalid_chars": "O nome só pode conter letras, espaços, hífens e apostrofes",
+    "name_required": "O nome deve ter pelo menos 2 caracteres",
+    "email_invalid": "Por favor, digite um email válido.",
+    "email_required": "O endereço de email é obrigatório",
+    "email_too_long": "O endereço de email é muito longo",
+    "message_too_short": "A mensagem deve ter pelo menos 10 caracteres.",
+    "message_too_long": "A mensagem não pode exceder 1000 caracteres.",
+    "message_required": "A mensagem deve ter pelo menos 10 caracteres"
+  },
+  "contact_modal_success": {
+    "title": "Mensagem Enviada!",
+    "message": "Obrigado por entrar em contato conosco. Responderemos o mais breve possível.",
+    "close_label": "Fechar modal",
+    "ok_button": "Entendido"
+  },
+  "contact_modal_error": {
+    "title": "Erro",
+    "default_message": "Houve um problema ao enviar sua mensagem. Tente novamente mais tarde.",
+    "timeout_message": "A solicitação demorou muito. Verifique sua conexão e tente novamente.",
+    "network_message": "Não foi possível conectar ao servidor. Verifique sua conexão com a internet.",
+    "server_error": "Erro interno do servidor. Tente novamente mais tarde.",
+    "invalid_data": "Os dados enviados não são válidos. Verifique o formulário.",
+    "connection_error": "Erro de conexão. Tente novamente."
+  },
+  "contact_modal_loading": {
+    "title": "Enviando mensagem",
+    "subtitle": "Por favor, aguarde um momento..."
+  },
+  "contact_messages_js": {
+    "already_sending": "Uma mensagem já está sendo enviada",
+    "form_invalid": "Formulário não é válido",
+    "sending_to": "Enviando para:",
+    "server_response": "Resposta do servidor:",
+    "success_sent": "Mensagem enviada com sucesso",
+    "request_error": "Erro na solicitação:",
+    "form_not_found": "Formulário não encontrado",
+    "modal_not_found": "Modal não encontrado",
+    "elements_found": "Elementos encontrados corretamente"
+  }
+}

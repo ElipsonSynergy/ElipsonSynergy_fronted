@@ -1,9 +1,11 @@
 ---
 interface Props {
   backendUrl?: string;
+  translations?: (key: string) => string;
 }
 
-const { backendUrl = 'http://localhost:8000' } = Astro.props;
+const { backendUrl = 'http://localhost:8000', translations } = Astro.props;
+const t = translations || ((key: string) => key);
 
 ---
 
@@ -19,7 +21,7 @@ const { backendUrl = 'http://localhost:8000' } = Astro.props;
         id="modal-close"
         class="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all duration-200 group"
         type="button"
-        aria-label="Cerrar modal"
+        aria-label={t('contact_modal_success.close_label')}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="group-hover:rotate-90 transition-transform duration-200">
           <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -43,14 +45,14 @@ const { backendUrl = 'http://localhost:8000' } = Astro.props;
 
     <!-- Content -->
     <div class="px-8 pb-8 text-center">
-      <h3 id="modal-title" class="text-2xl font-bold mb-3 text-gray-900">Título</h3>
-      <p id="modal-message" class="text-gray-600 mb-8 leading-relaxed">Mensaje</p>
+      <h3 id="modal-title" class="text-2xl font-bold mb-3 text-gray-900">{t('contact_modal_success.title')}</h3>
+      <p id="modal-message" class="text-gray-600 mb-8 leading-relaxed">{t('contact_modal_success.message')}</p>
       
       <button 
         id="modal-ok-btn"
         class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2"
       >
-        <span>Entendido</span>
+        <span>{t('contact_modal_success.ok_button')}</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 18l6-6-6-6"/>
         </svg>
@@ -69,8 +71,8 @@ const { backendUrl = 'http://localhost:8000' } = Astro.props;
         <div class="absolute inset-0 w-12 h-12 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"></div>
       </div>
       <div class="text-center">
-        <div class="text-gray-900 font-semibold text-lg">Enviando mensaje</div>
-        <div class="text-gray-500 text-sm">Por favor espera un momento...</div>
+        <div class="text-gray-900 font-semibold text-lg">{t('contact_modal_loading.title')}</div>
+        <div class="text-gray-500 text-sm">{t('contact_modal_loading.subtitle')}</div>
       </div>
     </div>
   </div>
@@ -78,6 +80,53 @@ const { backendUrl = 'http://localhost:8000' } = Astro.props;
 
 <!-- Hidden element for passing data -->
 <div id="contact-component" data-backend-url={backendUrl} style="display: none;"></div>
+
+<!-- Translations for JavaScript -->
+<script is:inline define:vars={{ 
+  translations: {
+    validation: {
+      name_too_short: t('contact_validation_errors.name_too_short'),
+      name_too_long: t('contact_validation_errors.name_too_long'), 
+      name_invalid_chars: t('contact_validation_errors.name_invalid_chars'),
+      name_required: t('contact_validation_errors.name_required'),
+      email_invalid: t('contact_validation_errors.email_invalid'),
+      email_required: t('contact_validation_errors.email_required'),
+      email_too_long: t('contact_validation_errors.email_too_long'),
+      message_too_short: t('contact_validation_errors.message_too_short'),
+      message_too_long: t('contact_validation_errors.message_too_long'),
+      message_required: t('contact_validation_errors.message_required')
+    },
+    modal: {
+      success_title: t('contact_modal_success.title'),
+      success_message: t('contact_modal_success.message'),
+      error_title: t('contact_modal_error.title'),
+      default_error: t('contact_modal_error.default_message'),
+      timeout_error: t('contact_modal_error.timeout_message'),
+      network_error: t('contact_modal_error.network_message'),
+      server_error: t('contact_modal_error.server_error'),
+      invalid_data: t('contact_modal_error.invalid_data'),
+      connection_error: t('contact_modal_error.connection_error')
+    },
+    form: {
+      submit_sending: t('contact_form_fields.submit_sending'),
+      character_counter: t('contact_form_fields.character_counter')
+    },
+    messages: {
+      already_sending: t('contact_messages_js.already_sending'),
+      form_invalid: t('contact_messages_js.form_invalid'),
+      sending_to: t('contact_messages_js.sending_to'),
+      server_response: t('contact_messages_js.server_response'),
+      success_sent: t('contact_messages_js.success_sent'),
+      request_error: t('contact_messages_js.request_error'),
+      form_not_found: t('contact_messages_js.form_not_found'),
+      modal_not_found: t('contact_messages_js.modal_not_found'),
+      elements_found: t('contact_messages_js.elements_found')
+    }
+  }
+}}>
+// Store translations in global variable for use in main script
+window.contactTranslations = translations;
+</script>
 
 <script is:inline>
 document.addEventListener('DOMContentLoaded', () => {
@@ -112,16 +161,16 @@ function initContactForm(backendUrl) {
       this.retryCount = 0;
       
       if (!this.form) {
-        console.error('❌ Formulario no encontrado');
+        console.error('❌', window.contactTranslations?.messages?.form_not_found || 'Formulario no encontrado');
         return;
       }
       
       if (!this.modal) {
-        console.error('❌ Modal no encontrado');
+        console.error('❌', window.contactTranslations?.messages?.modal_not_found || 'Modal no encontrado');
         return;
       }
       
-      console.log('✅ Elementos encontrados correctamente');
+      console.log('✅', window.contactTranslations?.messages?.elements_found || 'Elementos encontrados correctamente');
       this.setupEvents();
       this.setupMessageCounter();
     }
@@ -195,7 +244,7 @@ function initContactForm(backendUrl) {
         submitBtn.innerHTML = `
           <div class="flex items-center justify-center space-x-2">
             <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-            <span>Enviando...</span>
+            <span>${window.contactTranslations?.form?.submit_sending || 'Enviando...'}</span>
           </div>
         `;
         this.showLoading(true);
