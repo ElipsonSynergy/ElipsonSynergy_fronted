@@ -6,6 +6,9 @@ type MemberProps = {
   image: string;
   roleDetailed: string;
   description: string;
+  readMore: string;
+  readLess: string;
+  translations?: (key: string) => string;
 };
 
 export default function MembersInfoDetailed({
@@ -13,9 +16,12 @@ export default function MembersInfoDetailed({
   image,
   roleDetailed,
   description,
+  readMore,
+  readLess,
+  translations,
 }: MemberProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { t } = useTranslation(); // <--- aquí cargas el namespace
+  const t = translations || ((key: string) => key);
 
   const replaceTranslation = (
     template: string,
@@ -58,9 +64,7 @@ export default function MembersInfoDetailed({
             className="inline-block mt-1 px-4 py-1 text-sm font-semibold text-indigo-600 border border-indigo-600 rounded-full hover:bg-indigo-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             aria-expanded={isExpanded}
           >
-            {isExpanded
-              ? t("member_info_detailed.read_less")
-              : t("member_info_detailed.read_more")}
+            {isExpanded ? readMore : readLess}
           </button>
         )}
       </div>

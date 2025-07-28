@@ -59,7 +59,9 @@ export default function TeamCarouselDetailed({
     name: string,
     roleDetailed: string,
     description: string,
-    image: string
+    image: string,
+    readMore: string,
+    readLess: string
   ) => {
     return (
       <MembersInfoDetailed
@@ -68,6 +70,8 @@ export default function TeamCarouselDetailed({
         description={description}
         image={image}
         translations={translations}
+        readMore={readMore}
+        readLess={readLess}
       />
     );
   };
@@ -105,7 +109,9 @@ export default function TeamCarouselDetailed({
                   member.name,
                   member.roleDetailed,
                   member.description,
-                  member.image
+                  member.image,
+                  member.readMore,
+                  member.readLess
                 );
               }
 

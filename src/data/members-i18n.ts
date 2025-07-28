@@ -18,6 +18,16 @@ export interface MemberI18n {
     en: string;
     por: string;
   };
+  readMore: {
+    es: string;
+    en: string;
+    por: string;
+  };
+  readLess: {
+    es: string;
+    en: string;
+    por: string;
+  };
   image: string;
   whatsAppLink: string;
   instagramLink: string;
@@ -44,6 +54,16 @@ export const membersI18n: MemberI18n[] = [
       en: "Leads the global vision of Elipson Synergy, ensuring sustainable company growth and strategic alignment across all areas. His focus is centered on positive technological impact in Latin America and building a high-performance team.",
       por: "Lidera a visão global da Elipson Synergy, garantindo o crescimento sustentável da empresa e o alinhamento estratégico de todas as áreas. Seu foco está centrado no impacto tecnológico positivo na América Latina e na consolidação de uma equipe de alto desempenho.",
     },
+    readMore: {
+      es: "Leer más",
+      en: "Read more",
+      por: "Ler mais",
+    },
+    readLess: {
+      es: "Leer menos",
+      en: "Read less",
+      por: "Ler menos",
+    },
     image: "/images/mateo.webp",
     whatsAppLink: "https://wa.me/573053456789",
     instagramLink: "https://instagram.com/pruebaTestElipsonSinergy",
@@ -67,6 +87,16 @@ export const membersI18n: MemberI18n[] = [
       es: "Encargada de construir la identidad de marca de Elipson Synergy y liderar las estrategias de comunicación y expansión en el mercado latinoamericano. Impulsa campañas centradas en la conexión emocional con los usuarios y la promoción de soluciones transformadoras.",
       en: "Responsible for building Elipson Synergy's brand identity and leading communication and expansion strategies in the Latin American market. She drives campaigns focused on emotional connection with users and promoting transformative solutions.",
       por: "Encarregada de construir a identidade da marca Elipson Synergy e liderar as estratégias de comunicação e expansão no mercado latino-americano. Impulsiona campanhas focadas na conexão emocional com os usuários e na promoção de soluções transformadoras.",
+    },
+    readMore: {
+      es: "Leer más",
+      en: "Read more",
+      por: "Ler mais",
+    },
+    readLess: {
+      es: "Leer menos",
+      en: "Read less",
+      por: "Ler menos",
     },
     image: "/images/laura.webp",
     whatsAppLink: "https://wa.me/573053456789",
@@ -92,6 +122,16 @@ export const membersI18n: MemberI18n[] = [
       en: "Responsible for Elipson Synergy's technological architecture, leads the development of innovative digital solutions with a focus on scalability, security and efficiency. Supervises engineering teams to ensure solid and future-aligned products.",
       por: "Responsável pela arquitetura tecnológica da Elipson Synergy, lidera o desenvolvimento de soluções digitais inovadoras com foco em escalabilidade, segurança e eficiência. Supervisiona as equipes de engenharia para garantir produtos sólidos e alinhados ao futuro.",
     },
+    readMore: {
+      es: "Leer más",
+      en: "Read more",
+      por: "Ler mais",
+    },
+    readLess: {
+      es: "Leer menos",
+      en: "Read less",
+      por: "Ler menos",
+    },
     image: "/images/brayan.webp",
     whatsAppLink: "https://wa.me/573053456789",
     instagramLink: "https://instagram.com/pruebaTestElipsonSinergy",
@@ -116,6 +156,16 @@ export const membersI18n: MemberI18n[] = [
       en: "Manages the organization's financial health with strategic vision. Oversees budgets, investments and economic growth projections, ensuring the balance between innovation and financial sustainability.",
       por: "Gerencia a saúde financeira da organização com visão estratégica. Supervisiona orçamentos, investimentos e projeções de crescimento econômico, garantindo o equilíbrio entre inovação e sustentabilidade financeira.",
     },
+    readMore: {
+      es: "Leer más",
+      en: "Read more",
+      por: "Ler mais",
+    },
+    readLess: {
+      es: "Leer menos",
+      en: "Read less",
+      por: "Ler menos",
+    },
     image: "/images/frank.webp",
     whatsAppLink: "https://wa.me/573053456789",
     instagramLink: "https://instagram.com/pruebaTestElipsonSinergy",
@@ -137,6 +187,8 @@ export const getLocalizedMembers = (lang: "es" | "en" | "por") => {
     facebookLink: member.facebookLink,
     instagramLink: member.instagramLink,
     linkedInLink: member.linkedInLink,
+    readMore: member.readMore[lang],
+    readLess: member.readLess[lang],
   }));
 };
 
@@ -159,5 +211,7 @@ export const getLocalizedMember = (
     facebookLink: member.facebookLink,
     instagramLink: member.instagramLink,
     linkedInLink: member.linkedInLink,
+    readMore: member.readMore[lang],
+    readLess: member.readLess[lang],
   };
 };
