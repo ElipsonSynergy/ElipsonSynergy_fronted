@@ -14,7 +14,10 @@ export interface Props {
 }
 
 const { project, translations} = Astro.props;
-const t = translations || ((key: string) => key);
+
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 // Generate thematic image URLs based on category
 const getThematicImage = (category: string) => {

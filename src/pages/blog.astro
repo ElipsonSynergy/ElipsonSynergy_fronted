@@ -1,21 +1,170 @@
 ---
 // blog.astro - Blog page
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../utils/i18n';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
+const { locate } = Astro.params;
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const t = useTranslations(lang);
 
 ---
 
 <BaseLayout 
-  title="Blog - Elipson Synergy" 
-  description="Lee nuestros últimos artículos, noticias y actualizaciones en el blog de Elipson Synergy."
+  title={t('blog_page_meta.title')}
+  description={t('blog_page_meta.description')}
 >
-  <div class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-          <span class="block">Nuestro</span>
-          <span class="block text-blue-600 mt-2">Blog</span>
-        </h1>
+  <!-- Hero Section -->
+  <section class="relative py-24 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute inset-0">
+      <!-- Animated Grid -->
+      <div class="absolute inset-0 opacity-5">
+        <div class="grid grid-cols-8 grid-rows-6 gap-1 h-full w-full">
+          {Array.from({length: 48}).map((_, i) => (
+            <div class="bg-blue-500 rounded-sm animate-pulse" style={`animation-delay: ${i * 100}ms`}></div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Floating Elements -->
+      <div class="absolute top-20 left-20 w-4 h-4 bg-blue-500/20 rounded-full animate-bounce"></div>
+      <div class="absolute top-40 right-40 w-6 h-6 bg-indigo-500/30 rotate-45 animate-pulse delay-500"></div>
+      <div class="absolute bottom-32 left-1/4 w-3 h-3 bg-purple-500/25 rounded-full animate-ping delay-1000"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
+        <span class="block text-slate-900 mb-2">{t('blog_hero_section.title_line1')}</span>
+        <span class="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{t('blog_hero_section.title_line2')}</span>
+      </h1>
+      
+      <p class="text-xl md:text-2xl font-semibold text-blue-600 mb-6">
+        {t('blog_hero_section.subtitle')}
+      </p>
+      
+      <p class="max-w-4xl mx-auto text-lg md:text-xl text-slate-600 leading-relaxed">
+        {t('blog_hero_section.description')}
+      </p>
+    </div>
+  </section>
+
+  <!-- Coming Soon Section -->
+  <section class="relative py-24 bg-white overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div style="background-image: radial-gradient(circle at 1px 1px, rgba(59,130,246,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-blue-100 text-blue-800 mb-6">
+          {t('blog_coming_soon.badge')}
+        </span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tight">
+          {t('blog_coming_soon.title')}
+        </h2>
+        <p class="max-w-3xl mx-auto text-lg text-slate-600 leading-relaxed">
+          {t('blog_coming_soon.description')}
+        </p>
+      </div>
+      
+      <!-- Features Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-20">
+        <!-- Tutorials Feature -->
+        <div class="group text-center">
+          <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">{t('blog_coming_soon.features.tutorials.title')}</h3>
+          <p class="text-slate-600 leading-relaxed">{t('blog_coming_soon.features.tutorials.description')}</p>
+        </div>
+        
+        <!-- Case Studies Feature -->
+        <div class="group text-center">
+          <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">{t('blog_coming_soon.features.case_studies.title')}</h3>
+          <p class="text-slate-600 leading-relaxed">{t('blog_coming_soon.features.case_studies.description')}</p>
+        </div>
+        
+        <!-- Industry Insights Feature -->
+        <div class="group text-center">
+          <div class="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">{t('blog_coming_soon.features.industry_insights.title')}</h3>
+          <p class="text-slate-600 leading-relaxed">{t('blog_coming_soon.features.industry_insights.description')}</p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="relative py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
+    <!-- Background Effects -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+      <div class="absolute top-0 left-0 w-full h-full opacity-10">
+        {Array.from({length: 30}).map((_, i) => (
+          <div 
+            class="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={`top: ${Math.random() * 100}%; left: ${Math.random() * 100}%; animation-delay: ${Math.random() * 3}s`}
+          ></div>
+        ))}
+      </div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 tracking-tight">
+        {t('blog_cta_section.title')}
+      </h2>
+      
+      <p class="max-w-3xl mx-auto text-xl text-blue-100 mb-12 leading-relaxed">
+        {t('blog_cta_section.description')}
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
+        <a 
+          href={lang === 'es' ? '/producto' : `/${lang}/producto`}
+          class="group inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+        >
+          <span>{t('blog_cta_section.primary_button')}</span>
+          <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+        
+        <a 
+          href={lang === 'es' ? '/contactanos' : `/${lang}/contactanos`}
+          class="group inline-flex items-center space-x-3 bg-transparent border-2 border-white/30 hover:border-white text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:bg-white/10"
+        >
+          <span>{t('blog_cta_section.secondary_button')}</span>
+          <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+        </a>
+      </div>
+      
+      <div class="flex items-center justify-center space-x-3 text-blue-200">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <span class="text-sm font-medium">{t('blog_cta_section.notification')}</span>
+      </div>
+    </div>
+  </section>
 </BaseLayout> 

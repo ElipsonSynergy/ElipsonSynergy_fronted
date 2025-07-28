@@ -4,8 +4,9 @@ interface Props {
   translations?: (key: string) => string;
 }
 
-const { translations } = Astro.props;
-const t = translations || ((key: string) => key);
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <div class="flex justify-center items-center mb-12 px-4">
     <div class="relative inline-flex bg-gray-100 rounded-full p-1 shadow border border-gray-200 overflow-hidden">
