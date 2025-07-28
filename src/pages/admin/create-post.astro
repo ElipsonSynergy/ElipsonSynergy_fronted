@@ -1,0 +1,758 @@
+---
+/**
+ * Create Post Admin Page
+ * 
+ * Administrative interface for creating new blog posts with:
+ * - Rich text editor (CKEditor 5) for content creation
+ * - Dynamic tag management with autocomplete and creation
+ * - Author selection from database
+ * - Image upload for banner
+ * - Form validation and submission handling
+ * 
+ * Features:
+ * - Real-time tag suggestions and creation
+ * - Client-side form validation
+ * - File upload handling with proper encoding
+ * - Error handling and user feedback
+ * - Responsive design for admin use
+ * 
+ * Dependencies:
+ * - CKEditor 5 Classic Build (CDN)
+ * - Backend API endpoints: /api/authors, /api/tags, /api/posts
+ * - CSS styles from /styles.css
+ * 
+ * Security Note:
+ * This page should be protected by authentication middleware
+ * in a production environment.
+ * 
+ * @page /admin/create-post
+ */
+
+---
+
+<!-- 
+  Document Head Configuration
+  
+  Sets up the page with required meta tags, title, and external dependencies:
+  - Responsive viewport configuration
+  - CKEditor 5 Classic Build from CDN
+  - Global stylesheet inclusion
+-->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Blog</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- 
+      CKEditor 5 Classic Build
+      
+      Rich text editor for blog content creation with features:
+      - WYSIWYG editing interface
+      - Toolbar with formatting options
+      - Table insertion capability
+      - Link management
+      - List formatting (bulleted and numbered)
+    -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"
+    ></script>
+</head>
+
+<!-- 
+  Main Page Body
+  
+  Contains the complete blog post creation interface with:
+  - Centered form layout
+  - Card-style design for better UX
+  - Form validation and submission handling
+-->
+<body>
+    <!-- 
+      Create Post Container
+      
+      Main wrapper providing centered layout and proper spacing
+      for the blog creation form interface.
+    -->
+    <div class="create-post-container">
+        <!-- 
+          Form Card
+          
+          Card-style container for the blog creation form with:
+          - Header section with page title
+          - Body section containing all form fields
+          - Consistent styling and spacing
+        -->
+        <div class="form-card">
+            <!-- 
+              Form Header
+              
+              Contains the main page heading to clearly identify
+              the purpose of this administrative interface.
+            -->
+            <div class="form-header">
+                <h1>Crear Nuevo Blog</h1>
+            </div>
+
+            <!-- 
+              Form Body
+              
+              Contains all form fields and controls for blog creation:
+              - Basic blog information (title, description)
+              - Rich text content editor
+              - Author selection
+              - Tag management system
+              - Banner image upload
+              - Submit button
+            -->
+            <div class="form-body">
+                <!-- 
+                  Blog Post Creation Form
+                  
+                  Main form for creating blog posts with multipart encoding
+                  to support file uploads. Includes client-side validation
+                  and API integration for submission.
+                  
+                  Form Data Includes:
+                  - title: Blog post title
+                  - summary: Brief description
+                  - content: Rich HTML content from editor
+                  - authorId: Selected author ID
+                  - tagIds: Array of associated tag IDs
+                  - banner: Uploaded image file
+                -->
+                <form id="form-post" enctype="multipart/form-data">
+                    <!-- 
+                      Title Input Field
+                      
+                      Primary blog post title with:
+                      - Required validation
+                      - Placeholder guidance
+                      - Standard text input styling
+                    -->
+                    <div class="form-group">
+                        <label for="title">Título</label>
+                        <input
+                            id="title"
+                            name="title"
+                            type="text"
+                            class="form-input"
+                            placeholder="Ingresa el título de tu blog"
+                            required
+                        />
+                    </div>
+
+                    <!-- 
+                      Description/Summary Field
+                      
+                      Brief blog post description with:
+                      - Multi-line textarea input
+                      - Required validation
+                      - Placeholder guidance for content
+                      - Limited rows for concise descriptions
+                    -->
+                    <div class="form-group">
+                        <label for="summary">Descripción</label>
+                        <textarea
+                            id="summary"
+                            name="summary"
+                            rows="3"
+                            class="form-input form-textarea"
+                            placeholder="Breve descripción de tu blog"
+                            required></textarea>
+                    </div>
+
+                    <!-- 
+                      Content Editor Field
+                      
+                      Rich text editor container for main blog content:
+                      - CKEditor 5 integration
+                      - WYSIWYG editing capabilities
+                      - Toolbar with formatting options
+                      - Content validation on form submission
+                    -->
+                    <div class="form-group">
+                        <label for="editor">Contenido</label>
+                        <div class="editor-container">
+                            <!-- CKEditor will be initialized in this div -->
+                            <div id="editor"></div>
+                        </div>
+                    </div>
+
+                    <!-- 
+                      Author Selection Field
+                      
+                      Dropdown for selecting blog post author:
+                      - Dynamically populated from API
+                      - Required validation
+                      - Loading state while fetching authors
+                      - Error handling for API failures
+                    -->
+                    <div class="form-group">
+                        <label for="author">Autor</label>
+                        <select
+                            id="author"
+                            name="authorId"
+                            class="form-input form-select"
+                            required
+                        >
+                            <!-- Placeholder option shown while loading -->
+                            <option value="">Cargando autores…</option>
+                        </select>
+                    </div>
+
+                    <!-- 
+                      Tag Management System
+                      
+                      Advanced tag input with autocomplete and creation features:
+                      - Real-time search through existing tags
+                      - Dynamic tag creation for new entries
+                      - Visual tag selection with removal capability
+                      - API integration for tag persistence
+                      
+                      Components:
+                      - Selected tags display area
+                      - Search input with autocomplete
+                      - Suggestions dropdown
+                      - Hidden inputs for form submission
+                    -->
+                    <div class="form-group">
+                        <label for="tag-input">Tags</label>
+                        <!-- 
+                          Selected Tags Display
+                          
+                          Shows currently selected tags with:
+                          - Visual tag indicators
+                          - Remove functionality (× button)
+                          - Dynamic addition and removal
+                        -->
+                        <div class="selected-tags" id="selected-tags"></div>
+                        <!-- 
+                          Tags Input Container
+                          
+                          Houses the search input and suggestions dropdown:
+                          - Input field for typing/searching tags
+                          - Dropdown list for suggestions
+                          - Click-outside handling for dropdown closure
+                        -->
+                        <div class="tags-container">
+                            <!-- 
+                              Tag Search Input
+                              
+                              Text input for tag search and creation with:
+                              - Real-time filtering of existing tags
+                              - Enter key handling for quick tag creation
+                              - Placeholder guidance for users
+                            -->
+                            <input
+                                id="tag-input"
+                                type="text"
+                                class="form-input tag-input"
+                                placeholder="Escribe para buscar o crear tags..."
+                            />
+                            <!-- 
+                              Suggestions Dropdown
+                              
+                              Dynamic list showing:
+                              - Filtered existing tags matching search
+                              - "Create new" option for non-existing tags
+                              - Click handlers for tag selection
+                              - Hidden by default, shown during search
+                            -->
+                            <ul
+                                id="suggestions"
+                                class="suggestions-list"
+                                style="display: none;"
+                            >
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 
+                      Banner Image Upload
+                      
+                      File input for blog post banner image with:
+                      - Image file type restriction (accept="image/*")
+                      - Required validation to ensure banner is provided
+                      - Proper form encoding support for file upload
+                      - Integration with multipart/form-data submission
+                    -->
+                    <div class="form-group">
+                        <label for="image">Imagen de Banner</label>
+                        <input
+                            id="image"
+                            name="image"
+                            type="file"
+                            accept="image/*"
+                            class="form-input"
+                            required
+                        />
+                    </div>
+
+                    <!-- 
+                      Submit Button
+                      
+                      Primary action button for form submission with:
+                      - Full-width styling for prominence
+                      - Primary button styling (brand colors)
+                      - Disabled state during submission
+                      - Loading text feedback during processing
+                    -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-full">
+                            Publicar Blog
+                        </button>
+                    </div>
+
+                    <!-- 
+                      Hidden Content Field
+                      
+                      Hidden input to store the rich HTML content from CKEditor:
+                      - Populated automatically before form submission
+                      - Contains the processed HTML from the editor
+                      - Required for backend processing of blog content
+                    -->
+                    <input type="hidden" name="content" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+      Client-Side JavaScript Module
+      
+      Handles all interactive functionality for the blog creation interface:
+      - CKEditor initialization and configuration
+      - Author loading from API
+      - Tag management system with autocomplete
+      - Form validation and submission
+      - Error handling and user feedback
+      
+      Module Features:
+      - Async/await for API calls
+      - Event listeners for user interactions
+      - Dynamic DOM manipulation
+      - Form data handling and validation
+    -->
+    <script type="module">
+        // Global editor instance for access across functions
+        let editor;
+
+        /**
+         * Initialize CKEditor Classic Build
+         * 
+         * Creates a rich text editor with custom toolbar configuration
+         * including essential formatting tools for blog content creation.
+         * 
+         * Toolbar Features:
+         * - Heading styles for content structure
+         * - Basic formatting (bold, italic)
+         * - Link insertion and management
+         * - List formatting (bulleted and numbered)
+         * - Indentation controls
+         * - Block quotes for emphasis
+         * - Table insertion for data presentation
+         * - Undo/redo functionality
+         */
+        ClassicEditor.create(document.querySelector("#editor"), {
+            placeholder: "Escribe o pega tu contenido aquí...",
+            toolbar: [
+                "heading",        // H1, H2, H3 heading options
+                "|",             // Toolbar separator
+                "bold",          // Bold text formatting
+                "italic",        // Italic text formatting
+                "link",          // Link insertion and editing
+                "|",
+                "bulletedList",  // Unordered list creation
+                "numberedList",  // Ordered list creation
+                "|",
+                "outdent",       // Decrease indentation
+                "indent",        // Increase indentation
+                "|",
+                "blockQuote",    // Quote block formatting
+                "insertTable",   // Table insertion tool
+                "|",
+                "undo",          // Undo last action
+                "redo",          // Redo last undone action
+            ],
+        })
+            .then((ed) => (editor = ed))  // Store editor instance globally
+            .catch(console.error);        // Log any initialization errors
+
+        /**
+         * Load Authors from API
+         * 
+         * Fetches the list of available authors from the backend API
+         * and populates the author selection dropdown.
+         * 
+         * Process:
+         * 1. Make GET request to /api/authors endpoint
+         * 2. Parse JSON response containing author data
+         * 3. Clear loading placeholder in select element
+         * 4. Create option elements for each author
+         * 5. Handle errors gracefully with user feedback
+         * 
+         * Error Handling:
+         * - Network failures
+         * - Invalid JSON responses
+         * - Server errors
+         */
+        async function loadAuthors() {
+            const sel = document.querySelector("#author");
+            try {
+                // Fetch authors from API endpoint
+                const res = await fetch("/api/authors");
+                const list = await res.json();
+                
+                // Clear loading state and add default option
+                sel.innerHTML =
+                    '<option value="">— Selecciona autor —</option>';
+                    
+                // Create option element for each author
+                list.forEach((a) => {
+                    const o = document.createElement("option");
+                    o.value = a.id;        // Author ID for form submission
+                    o.textContent = a.name; // Author name for display
+                    sel.append(o);
+                });
+            } catch {
+                // Display error message if loading fails
+                sel.innerHTML =
+                    '<option value="">Error al cargar autores</option>';
+            }
+        }
+
+        /**
+         * Load Tags from API
+         * 
+         * Fetches all available tags from the backend for autocomplete
+         * functionality in the tag input system.
+         * 
+         * The tags are stored globally for use in the autocomplete
+         * and filtering functions without repeated API calls.
+         */
+        let allTags = []; // Global array to store all available tags
+        async function loadTags() {
+            try {
+                const res = await fetch("/api/tags");
+                allTags = await res.json(); // Store tags globally
+            } catch {
+                allTags = []; // Reset to empty array on error
+            }
+        }
+
+        /**
+         * Tag Management System Variables
+         * 
+         * DOM elements and references for the tag autocomplete system:
+         * - selTags: Container for displaying selected tags
+         * - inpTag: Input field for tag search/creation
+         * - sugg: Dropdown list for tag suggestions
+         * - form: Main form element for hidden input management
+         */
+        const selTags = document.querySelector("#selected-tags");
+        const inpTag = document.querySelector("#tag-input");
+        const sugg = document.querySelector("#suggestions");
+        const form = document.querySelector("#form-post");
+
+        /**
+         * Show Tag Suggestions
+         * 
+         * Displays filtered tag suggestions based on user input.
+         * Provides both existing tag matches and option to create new tags.
+         * 
+         * @param {string} q - Search query from user input
+         * 
+         * Features:
+         * - Case-insensitive filtering of existing tags
+         * - Limit to 5 suggestions for performance
+         * - "Create new" option for non-existing tags
+         * - Click handlers for tag selection
+         * - Dynamic dropdown visibility
+         * - Tags displayed in uppercase
+         */
+        function showSuggestions(q = "") {
+            sugg.innerHTML = ""; // Clear previous suggestions
+            if (!q.trim()) return (sugg.style.display = "none");
+
+            // Filter existing tags by query (case-insensitive)
+            const matches = allTags
+                .filter((t) => t.name.toLowerCase().includes(q.toLowerCase()))
+                .slice(0, 5); // Limit to 5 suggestions
+
+            if (matches.length) {
+                // Show existing tag matches in uppercase
+                matches.forEach((t) => {
+                    const li = document.createElement("li");
+                    li.className = "suggestion-item";
+                    li.textContent = t.name.toUpperCase(); // Display in uppercase
+                    li.onclick = () => addTag(t); // Add existing tag
+                    sugg.append(li);
+                });
+            } else {
+                // Show "create new" option when no matches found
+                const li = document.createElement("li");
+                li.className = "suggestion-item";
+                li.textContent = `Crear "${q.toUpperCase()}"`; // Show in uppercase
+                li.onclick = async () => {
+                    // Create new tag via API
+                    const res = await fetch("/api/tags", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name: q }),
+                    });
+                    const newTag = await res.json();
+                    allTags.push(newTag); // Add to local cache
+                    addTag(newTag);       // Add to selected tags
+                };
+                sugg.append(li);
+            }
+            sugg.style.display = "block"; // Show suggestions dropdown
+        }
+
+        /**
+         * Add Tag to Selection
+         * 
+         * Adds a tag to the selected tags display and creates corresponding
+         * hidden form inputs for submission.
+         * 
+         * @param {Object} tag - Tag object with id and name properties
+         * 
+         * Process:
+         * 1. Check for duplicate tags (prevent re-adding)
+         * 2. Create visual tag element with remove button
+         * 3. Create hidden input for form submission
+         * 4. Clear input field and hide suggestions
+         * 
+         * Features:
+         * - Duplicate prevention
+         * - Visual tag representation with × remove button
+         * - Hidden form inputs for backend processing
+         * - Cleanup of input state
+         * - Tags displayed in uppercase
+         */
+        function addTag(tag) {
+            // Prevent duplicate tag addition
+            if ([...selTags.children].some((s) => s.dataset.id == tag.id))
+                return;
+                
+            // Create visual tag element with uppercase display
+            const span = document.createElement("span");
+            span.className = "selected-tag";
+            span.dataset.id = tag.id; // Store tag ID for reference
+            span.innerHTML = `${tag.name.toUpperCase()} <span class="remove">×</span>`; // Display in uppercase
+            
+            // Add remove functionality
+            span.querySelector(".remove").onclick = () => {
+                span.remove(); // Remove visual element
+                // Remove corresponding hidden input
+                form.querySelector(`input[data-for="${tag.id}"]`)?.remove();
+            };
+            selTags.append(span);
+
+            // Create hidden input for form submission
+            const hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = "tagIds";     // Form field name for tag IDs
+            hidden.value = tag.id;      // Tag ID value
+            hidden.dataset.for = tag.id; // Reference for removal
+            form.append(hidden);
+
+            // Clear input and hide suggestions
+            inpTag.value = "";
+            sugg.style.display = "none";
+        }
+
+        /**
+         * Tag Input Event Listeners
+         * 
+         * Sets up interactive behavior for the tag input system:
+         * - Real-time suggestions on input
+         * - Enter key handling for quick tag creation
+         * - Click-outside handling for dropdown closure
+         */
+        
+        // Real-time suggestions as user types
+        inpTag.addEventListener("input", (e) =>
+            showSuggestions(e.target.value),
+        );
+        
+        // Handle Enter key for quick tag creation
+        inpTag.addEventListener("keydown", async (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault(); // Prevent form submission
+                const val = inpTag.value.trim();
+                if (!val) return; // Ignore empty input
+                
+                // Check if tag already exists
+                const existing = allTags.find(
+                    (t) => t.name.toLowerCase() === val.toLowerCase(),
+                );
+                if (existing) {
+                    addTag(existing); // Add existing tag
+                } else {
+                    // Create new tag via API
+                    const res = await fetch("/api/tags", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name: val }),
+                    });
+                    const nt = await res.json();
+                    allTags.push(nt); // Add to local cache
+                    addTag(nt);       // Add to selection
+                }
+            }
+        });
+        
+        // Hide suggestions when clicking outside tag container
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".tags-container"))
+                sugg.style.display = "none";
+        });
+
+        /**
+         * Show Success Message
+         * 
+         * Displays a custom success modal instead of browser alert.
+         * Provides better user experience with modern design.
+         */
+        function showSuccessMessage() {
+            // Create success overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'success-overlay';
+            
+            // Create success card content
+            overlay.innerHTML = `
+                <div class="success-card">
+                    <div class="success-icon"></div>
+                    <h3 class="success-title">¡Blog Publicado!</h3>
+                    <p class="success-description">
+                        Tu blog ha sido publicado exitosamente y ya está disponible para todos los lectores.
+                    </p>
+                    <div class="success-actions">
+                        <button class="success-btn" onclick="closeSuccessMessage()">
+                            Crear Otro Post
+                        </button>
+                        <a href="/blog" class="success-btn success-btn--secondary">
+                            Ver Blog
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            // Add to body
+            document.body.appendChild(overlay);
+            
+            // Show with animation
+            setTimeout(() => {
+                overlay.classList.add('show');
+            }, 100);
+            
+            // Store reference for closing
+            window.currentSuccessOverlay = overlay;
+        }
+
+        /**
+         * Close Success Message
+         * 
+         * Removes the success modal from the DOM.
+         */
+        function closeSuccessMessage() {
+            const overlay = window.currentSuccessOverlay;
+            if (overlay) {
+                overlay.classList.remove('show');
+                setTimeout(() => {
+                    overlay.remove();
+                    window.currentSuccessOverlay = null;
+                }, 300);
+            }
+        }
+
+        // Make closeSuccessMessage globally available
+        window.closeSuccessMessage = closeSuccessMessage; 
+
+        /**
+         * Form Submission Handler
+         * 
+         * Handles the blog post creation form submission with comprehensive
+         * validation, data preparation, and error handling.
+         * 
+         * Submission Process:
+         * 1. Prevent default form submission
+         * 2. Validate editor content exists
+         * 3. Extract HTML content from CKEditor
+         * 4. Update UI to show loading state
+         * 5. Submit form data via API
+         * 6. Handle success/error responses
+         * 7. Reset form and UI state
+         * 
+         * Features:
+         * - Client-side validation
+         * - Loading state management
+         * - Custom success message instead of alert
+         * - Error handling with user feedback
+         * - Form reset on successful submission
+         * - Button state management (disabled during submission)
+         */
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Validate that editor has content
+            if (!editor?.getData().trim()) {
+                return alert("Agrega contenido antes de publicar");
+            }
+            
+            // Extract HTML content from CKEditor and populate hidden field
+            form.querySelector("input[name=content]").value = editor.getData();
+
+            // Get submit button and update to loading state
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;           // Disable to prevent double submission
+            btn.textContent = "Publicando..."; // Show loading text
+
+            try {
+                // Submit form data to API endpoint
+                const resp = await fetch("/api/posts", {
+                    method: "POST",
+                    body: new FormData(form), // Use FormData for file upload support
+                });
+                
+                // Check for HTTP errors
+                if (!resp.ok) {
+                    const err = await resp.json().catch(() => ({}));
+                    throw new Error(err.message || resp.statusText);
+                }
+                
+                // Success: Show custom success message instead of alert
+                showSuccessMessage();
+                form.reset();              // Clear all form fields
+                selTags.innerHTML = "";    // Clear selected tags display
+                editor.setData("");        // Clear editor content
+                
+            } catch (error) {
+                // Error handling with user feedback
+                console.error(error);
+                alert("Error: " + error.message);
+            } finally {
+                // Always restore button state regardless of outcome
+                btn.disabled = false;
+                btn.textContent = "Publicar Blog";
+            }
+        });
+
+        /**
+         * Application Initialization
+         * 
+         * Initializes the blog creation interface by loading required data
+         * from the backend APIs. This ensures the interface is fully
+         * functional when the user begins creating content.
+         * 
+         * Initialization Steps:
+         * 1. Load authors for the author selection dropdown
+         * 2. Load tags for the autocomplete system
+         * 
+         * Both operations run concurrently using await for efficiency.
+         * The page will be functional once both API calls complete.
+         */
+        await loadAuthors(); // Populate author dropdown
+        await loadTags();    // Cache tags for autocomplete
+    </script>
+</body>

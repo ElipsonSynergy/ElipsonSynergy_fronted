@@ -1,0 +1,68 @@
+---
+/**
+ * Blog List Banner Component
+ * 
+ * Displays a hero banner with background image and title overlay for blog listing pages.
+ * Creates an attractive header section with customizable background image and title text.
+ * 
+ * Features:
+ * - Full-width hero banner with background image
+ * - Dark overlay for improved text readability
+ * - Customizable title and background image
+ * - Responsive design suitable for various screen sizes
+ * - CSS background-image implementation for better performance
+ * 
+ * @component BlogsListBanner
+ * @param {string} title - Banner title text to display
+ * @param {string} image - Background image URL or path
+ * @since 1.0.0
+ * 
+ * @example
+ * <BlogsListBanner 
+ *   title="My Blog" 
+ *   image="/hero-banner.jpg" 
+ * />
+ * 
+ * @example
+ * <BlogsListBanner 
+ *   title="Technology Articles" 
+ *   image="https://example.com/tech-bg.jpg" 
+ * />
+ */
+
+/**
+ * Component props interface
+ * Defines the required properties for the banner component
+ * 
+ * @interface BannerProps
+ * @property {string} title - The main title text to display in the banner
+ * @property {string} image - URL or path to the background image
+ */
+interface BannerProps {
+  title: string;
+  image: string;
+}
+
+/**
+ * Extract props from Astro component properties
+ * Destructures title and image from the passed props
+ */
+const { title, image } = Astro.props as BannerProps;
+---
+<!-- 
+  Hero Banner Section
+  
+  Main banner component with background image and title overlay.
+  Uses CSS background-image for better performance and responsive behavior.
+  Includes dark overlay for improved text contrast and readability.
+-->
+<section
+  class="banner"
+  style={`background-image: url('${image}');`}
+>
+  <!-- Dark overlay container for improved text readability -->
+  <div class="overlay">
+    <!-- Main banner title -->
+    <h1>{title}</h1>
+  </div>
+</section>

@@ -1,0 +1,3527 @@
+/* =====================================
+   Global Variables (CSS Custom Properties)
+   ===================================== */
+/**
+ * CSS Custom Properties (CSS Variables) for consistent theming
+ * These variables provide a centralized way to manage colors, spacing,
+ * border radius values, and transitions throughout the application
+ */
+:root {
+  /* Brand Colors */
+  --primary: #5419ff;              /* Main brand color - purple */
+  --primary-hover: #4015cc;        /* Darker shade for hover states */
+  
+  /* Border and Text Colors */
+  --border-light: #e1e8ed;         /* Light border color for cards and inputs */
+  --text-dark: #2c3e50;            /* Primary text color for headings and content */
+  --text-muted: #6c757d;           /* Secondary text color for meta information */
+  
+  /* Background Colors */
+  --background-light: #f8f9fa;     /* Light background color */
+  
+  /* Spacing System */
+  --space-sm: 0.5rem;              /* Small spacing - 8px */
+  --space-md: 1rem;                /* Medium spacing - 16px */
+  --space-lg: 1.5rem;              /* Large spacing - 24px */
+  --space-xl: 2rem;                /* Extra large spacing - 32px */
+  
+  --gap-sm: 0.5rem;                /* Small spacing - 8px */
+  --gap-md: 1rem;                  /* Medium spacing - 16px */
+  --gap-lg: 1.5rem;                /* Large spacing - 24px */
+  
+  /* Border Radius System */
+  --radius-sm: 0.25rem;            /* Small border radius - 4px */
+  --radius-md: 0.5rem;             /* Medium border radius - 8px */
+  --radius-lg: 1rem;               /* Large border radius - 16px */
+  --radius-xl: 2rem;               /* Extra large border radius - 32px */
+  
+  /* Typography */
+  --font-xs: 0.75rem;              /* Extra small font size - 12px */
+  --font-sm: 0.875rem;             /* Small font size - 14px */
+  --font-md: 1rem;                 /* Medium font size - 16px */
+  --font-lg: 1.125rem;             /* Large font size - 18px */
+  
+  /* Animation */
+  --transition-fast: 0.3s ease;    /* Fast transition for hover effects */
+  --transition-normal: 0.3s ease;  /* Normal transition timing */
+  
+  /* Z-index System */
+  --z-dropdown: 10;                /* Dropdown elements */
+  --z-modal: 100;                  /* Modal overlays */
+}
+
+/* =====================================
+   Global Font Family
+   ===================================== */
+/**
+ * Apply system font stack to all elements
+ * Uses the operating system's default font for better performance
+ * and native appearance across different platforms
+ */
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/* =====================================
+   Shared Transitions
+   ===================================== */
+/**
+ * Define consistent transition effects for interactive elements
+ * These transitions provide smooth hover and focus states
+ * for cards, tags, buttons, and links
+ */
+.card,
+.tag,
+.page,
+.search-form button,
+.card-title a {
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background var(--transition-fast),
+              color var(--transition-fast);
+}
+
+/* =====================================
+   Top Banner Section
+   ===================================== */
+/**
+ * Hero banner with background image and overlay
+ * Features a semi-transparent purple overlay for better text readability
+ */
+.banner {
+  height: 300px;                   /* Fixed height for consistent layout */
+  background-size: cover;          /* Scale image to cover entire container */
+  background-position: center;     /* Center the background image */
+  position: relative;              /* Enable absolute positioning for overlay */
+}
+
+/**
+ * Dark overlay on top of banner image
+ * Provides better contrast for white text
+ */
+.banner .overlay {
+  position: absolute;
+  inset: 0;                        /* Cover entire banner area */
+  background: rgba(85, 33, 245, 0.7); /* Semi-transparent brand color */
+  display: flex;
+  align-items: center;             /* Vertically center content */
+  padding-left: 3rem;              /* Left padding for text positioning */
+}
+
+/**
+ * Main banner heading
+ * Large, bold text with shadow for better readability
+ */
+.banner h1 {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Subtle shadow for depth */
+}
+
+/* =====================================
+   Search and Filter Section - Enhanced
+   ===================================== */
+/**
+ * Enhanced layout container for search functionality and filter tags
+ * 
+ * Features:
+ * - Improved responsive grid layout with better proportions
+ * - Enhanced spacing and visual hierarchy
+ * - Better integration with overall page design
+ * - Smooth animations and transitions
+ */
+.search-filter {
+  max-width: 1400px;               /* Increased max width to match posts grid */
+  margin: 4rem auto;               /* Increased vertical spacing */
+  padding: 0 var(--space-xl);      /* Better horizontal padding using variables */
+  display: grid;
+  grid-template-columns: 1fr 2fr;  /* Left column smaller than right */
+  grid-template-rows: auto auto;   /* Two rows: title and search form */
+  gap: var(--space-xl) 4rem;       /* Enhanced spacing using variables */
+  
+  /* Smooth entry animation */
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+/**
+ * Enhanced section heading for search area
+ */
+.search-filter h2 {
+  font-size: 2rem;                 /* Larger, more impactful heading */
+  color: var(--text-dark);
+  margin: 0;
+  font-weight: 700;                /* Bolder weight for hierarchy */
+  grid-column: 1 / 2;              /* First column only */
+  grid-row: 1 / 2;                 /* First row only */
+  line-height: 1.2;                /* Tighter line height for impact */
+  
+  /* Subtle text shadow for depth */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/**
+ * Enhanced search form container with improved styling
+ */
+.search-form {
+  grid-column: 1 / 2;              /* First column only */
+  grid-row: 2 / 3;                 /* Second row only */
+  display: flex;
+  gap: 0;                          /* No gap between input and button */
+  margin: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 
+              0 1px 3px rgba(0,0,0,0.06); /* Enhanced layered shadows */
+  border-radius: var(--radius-md); /* Consistent border radius */
+  overflow: hidden;                /* Ensure border radius applies to children */
+  background: #fff;
+  align-self: start;               /* Align to top of grid cell */
+  height: fit-content;
+  border: 2px solid var(--border-light);
+  transition: all 0.3s ease;       /* Smooth hover effects */
+  position: relative;
+}
+
+/**
+ * Enhanced search form hover and focus states
+ */
+.search-form:hover {
+  border-color: rgba(84, 25, 255, 0.3);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.12),
+              0 2px 6px rgba(0,0,0,0.08);
+}
+
+.search-form:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 6px 25px rgba(84, 25, 255, 0.15),
+              0 0 0 3px rgba(84, 25, 255, 0.1);
+}
+
+/**
+ * Enhanced search input field with better styling
+ */
+.search-form input[type="text"] {
+  flex: 1;                         /* Take remaining space */
+  padding: 1rem var(--space-lg);   /* Increased padding for better touch targets */
+  border: none;                    /* Remove default border */
+  font-size: var(--font-md);       /* Consistent font sizing */
+  outline: none;                   /* Remove default focus outline */
+  background: transparent;
+  color: var(--text-dark);
+  font-weight: 500;                /* Medium font weight */
+  
+  /* Enhanced placeholder transition */
+  transition: all 0.3s ease;
+}
+
+/**
+ * Enhanced placeholder text styling
+ */
+.search-form input[type="text"]::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+  transition: opacity 0.3s ease;
+}
+
+.search-form input[type="text"]:focus::placeholder {
+  opacity: 0.7;                    /* Fade placeholder on focus */
+}
+
+/**
+ * Enhanced search button with improved styling and interactions
+ */
+.search-form button {
+  padding: 1rem var(--space-lg);   /* Consistent padding with input */
+  border: none;
+  background: var(--background-light); /* Light background */
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;               /* Slightly larger icon */
+  border-left: 1px solid var(--border-light); /* Separator line */
+  transition: all 0.3s ease;       /* Smooth transitions */
+  position: relative;
+  min-width: 60px;                 /* Minimum width for touch targets */
+  
+  /* Center the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * Enhanced search button hover state
+ */
+.search-form button:hover {
+  background: var(--primary);      /* Brand color background */
+  color: white;                    /* White icon on brand background */
+  border-left-color: var(--primary);
+  
+  /* Scale icon slightly on hover */
+  svg {
+    transform: scale(1.1);
+  }
+}
+
+/**
+ * Enhanced search button focus state
+ */
+.search-form button:focus {
+  outline: 2px solid rgba(84, 25, 255, 0.4);
+  outline-offset: -2px;
+}
+
+/**
+ * Enhanced search button icon styling
+ */
+.search-form button svg {
+  transition: transform 0.3s ease;
+  width: 18px;
+  height: 18px;
+}
+
+/* =====================================
+   BLOG FILTER TAGS (Original Style)
+   ===================================== */
+/**
+ * Container for blog filter tags
+ * 
+ * Used in blog.astro for category filtering.
+ * Spans both rows of the search-filter grid on the right side.
+ * Features responsive tag wrapping with improved spacing.
+ */
+.tags {
+  grid-column: 2 / 3;              /* Second column only */
+  grid-row: 1 / 3;                 /* Span both rows */
+  display: flex;
+  flex-wrap: wrap;                 /* Allow tags to wrap to new lines */
+  gap: var(--space-md);            /* Use consistent spacing variable */
+  align-content: flex-start;       /* Align wrapped content to top */
+  justify-content: flex-start;     /* Align tags to the left */
+  padding: var(--space-sm);        /* Inner padding for better visual containment */
+}
+
+/**
+ * Blog Filter Tag (Improved Rectangle Style)
+ * 
+ * Enhanced rectangular tags for blog category filtering.
+ * Features:
+ * - Better padding and sizing for improved readability
+ * - Clean white background with subtle border
+ * - Purple hover effect with smooth transitions
+ * - Uppercase text with optimized letter spacing
+ * - Improved visual hierarchy and spacing
+ */
+.tags .tag {
+  display: inline-block;
+  padding: var(--space-md) var(--space-lg);     /* Use consistent spacing variables */
+  background: white;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;                           /* Slightly larger radius for modern look */
+  text-decoration: none;
+  font-size: var(--font-sm);                    /* Use font size variable */
+  font-weight: 600;                             /* Bolder weight for better contrast */
+  text-transform: uppercase;
+  letter-spacing: 0.75px;                       /* Increased letter spacing */
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all var(--transition-fast);       /* Use transition variable */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);    /* Subtle shadow for depth */
+}
+
+/**
+ * Blog Tag Hover State
+ * 
+ * Enhanced purple hover effect with smooth animations.
+ */
+.tags .tag:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(84, 25, 255, 0.08);        /* Slightly more opaque background */
+  transform: translateY(-2px);                /* More pronounced lift effect */
+  box-shadow: 0 4px 12px rgba(84, 25, 255, 0.2); /* Purple-tinted shadow */
+}
+
+/**
+ * Active Blog Tag State
+ * 
+ * Full purple styling for currently selected filter tag.
+ */
+.tags .tag.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(84, 25, 255, 0.3); /* Enhanced shadow for active state */
+  transform: translateY(-1px);                /* Slight lift for active state */
+}
+
+/* =====================================
+   Cards Grid Layout - Enhanced
+   ===================================== */
+/**
+ * Enhanced responsive grid container for blog post cards
+ * 
+ * Features:
+ * - Improved auto-fit sizing with flexible minimum width
+ * - Better spacing and alignment for visual consistency
+ * - Optimized for both content display and user experience
+ * - Smooth loading animations and transitions
+ */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Increased min width for better proportions */
+  gap: var(--space-xl);             /* Larger gap for better breathing room */
+  justify-content: center;
+  justify-items: center;
+  margin: 4rem auto;                /* Increased vertical spacing */
+  padding: 0 var(--space-xl);       /* Better horizontal padding */
+  max-width: 1400px;                /* Maximum container width */
+  
+  /* Smooth entry animation for the grid */
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/**
+ * Fade-in animation for smooth content loading
+ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================
+   Blog Card - Enhanced Design
+   ===================================== */
+/**
+ * Enhanced individual blog post card component
+ * 
+ * Features:
+ * - Improved hover animations and micro-interactions
+ * - Better proportions and visual hierarchy
+ * - Enhanced shadows and depth perception
+ * - Optimized for readability and engagement
+ */
+.card {
+  border-radius: var(--radius-lg);  /* Larger border radius for modern look */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 
+              0 1px 3px rgba(0,0,0,0.06); /* Layered shadows for depth */
+  border: 1px solid var(--border-light);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth custom easing */
+  position: relative;
+  
+  /* Enhanced card proportions */
+  width: 100%;
+  max-width: 380px;                 /* Optimal card width */
+  min-height: 480px;                /* Consistent card height */
+}
+
+/**
+ * Enhanced card hover effect with multiple animations
+ */
+.card:hover {
+  transform: translateY(-8px) scale(1.02); /* Combined lift and scale effect */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15),
+              0 8px 16px rgba(0,0,0,0.1); /* Enhanced layered shadows */
+  border-color: rgba(84, 25, 255, 0.2); /* Subtle brand color border */
+}
+
+/**
+ * Card loading state animation
+ */
+.card.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/**
+ * Enhanced card featured image with better aspect ratio
+ */
+.card-image {
+  width: 100%;
+  height: 240px;                    /* Increased height for better proportion */
+  object-fit: cover;
+  transition: transform 0.4s ease;  /* Smooth image scaling */
+  position: relative;
+}
+
+/**
+ * Image hover effect for enhanced interactivity
+ */
+.card:hover .card-image {
+  transform: scale(1.05);           /* Subtle zoom effect on hover */
+}
+
+/**
+ * Image overlay for better text readability (if needed)
+ */
+.card-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 60%,
+    rgba(0,0,0,0.02) 100%
+  );
+  pointer-events: none;
+}
+
+/**
+ * Enhanced card content container with better spacing
+ */
+.card-content {
+  padding: var(--space-xl);         /* Increased padding for better spacing */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);             /* Consistent spacing between elements */
+}
+
+/**
+ * Enhanced card title with better typography
+ */
+.card-title {
+  font-size: 1.3rem;                /* Slightly larger for better hierarchy */
+  margin-bottom: var(--space-md);
+  color: var(--text-dark);
+  font-weight: 700;                 /* Bolder weight for impact */
+  line-height: 1.3;                 /* Tighter line height for titles */
+  cursor: pointer;
+  
+  /* Text clipping for consistent card heights */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;            /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/**
+ * Enhanced title link styling with smooth transitions
+ */
+.card-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/**
+ * Enhanced title link hover effect
+ */
+.card-title a:hover {
+  color: var(--primary);
+  text-shadow: 0 1px 2px rgba(84, 25, 255, 0.1); /* Subtle text shadow */
+}
+
+/**
+ * Enhanced card metadata container with better spacing
+ */
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);             /* Consistent spacing */
+  font-size: var(--font-sm);
+  margin-bottom: var(--space-sm);
+  color: var(--text-muted);
+  padding: var(--space-sm) 0;       /* Vertical padding for better touch targets */
+}
+
+/**
+ * Enhanced publication date display
+ */
+.card-date {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  font-weight: 500;
+  
+  /* Add calendar icon before date */
+  &::before {
+    content: "📅";
+    margin-right: var(--space-sm);
+    font-size: 0.9em;
+  }
+}
+
+/**
+ * Enhanced post card sizing
+ */
+.card.post-card {
+  width: 100%;
+  max-width: 380px;                 /* Consistent with .card max-width */
+}
+
+/**
+ * Enhanced author avatar with better styling
+ */
+.author-avatar {
+  width: 32px;                      /* Slightly larger avatar */
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-light);
+  transition: border-color 0.3s ease; /* Smooth border transition */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+/**
+ * Author avatar hover effect
+ */
+.card:hover .author-avatar {
+  border-color: var(--primary);     /* Brand color border on card hover */
+}
+
+/**
+ * Enhanced author name styling
+ */
+.author-name {
+  font-weight: 600;                 /* Bolder weight */
+  color: var(--text-dark);          /* Darker color for better contrast */
+  transition: color 0.3s ease;
+}
+
+/**
+ * Enhanced card summary with better typography
+ */
+.card-summary {
+  flex: 1;
+  margin-bottom: var(--space-lg);
+  color: var(--text-muted);
+  line-height: 1.6;                 /* Better line height for readability */
+  font-size: var(--font-sm);
+  
+  /* Text clipping for consistent card heights */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;            /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/**
+ * Enhanced read more link with better styling
+ */
+.read-more {
+  font-size: var(--font-sm);
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--border-light);
+  margin-top: auto;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  /* Add arrow indicator */
+  &::after {
+    content: "→";
+    margin-left: var(--space-sm);
+    transition: transform 0.3s ease;
+  }
+}
+
+/**
+ * Enhanced read more link hover effect
+ */
+.read-more:hover {
+  color: var(--primary-hover);
+  background: rgba(84, 25, 255, 0.05); /* Subtle background highlight */
+  
+  &::after {
+    transform: translateX(4px);     /* Arrow movement on hover */
+  }
+}
+
+/* =====================================
+   Enhanced No Results & Loading States
+   ===================================== */
+/**
+ * Enhanced empty state styling with better visual feedback
+ */
+.no-results {
+  grid-column: 1 / -1;              /* Span all columns */
+  text-align: center;
+  padding: 4rem var(--space-xl);   /* Generous padding */
+  color: var(--text-muted);
+  font-size: var(--font-lg);
+  background: var(--background-light);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border-light);
+  max-width: 600px;
+  margin: 0 auto;
+  
+  /* Subtle animation for attention */
+  animation: fadeIn 0.5s ease-out;
+}
+
+/**
+ * Enhanced no results heading
+ */
+.no-results h3 {
+  margin-bottom: var(--space-md);
+  color: var(--text-dark);
+  font-size: 1.8rem;
+  font-weight: 600;
+  
+  /* Add icon before text */
+  &::before {
+    content: "🔍";
+    display: block;
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    opacity: 0.5;
+  }
+}
+
+/**
+ * Enhanced no results description
+ */
+.no-results p {
+  font-size: var(--font-md);
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/**
+ * Enhanced loading state indicator
+ */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-size: var(--font-lg);
+  
+  /* Loading animation */
+  &::before {
+    content: "⟳";
+    display: inline-block;
+    margin-right: var(--space-sm);
+    animation: spin 1s linear infinite;
+  }
+}
+
+/**
+ * Spinning animation for loading indicator
+ */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/**
+ * Fade in animation for content loading
+ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =====================================
+   Pagination - Enhanced Modern Style
+   ===================================== */
+/**
+ * Compact pagination controls for navigating through blog posts
+ * 
+ * Features:
+ * - Smaller, more subtle design that doesn't overwhelm
+ * - Simpler hover animations and interactions
+ * - Better integration with overall page design
+ * - Maintained accessibility standards
+ */
+.pagination {
+  display: flex;
+  justify-content: center;         /* Center pagination controls */
+  align-items: center;             /* Vertically align items */
+  gap: var(--space-xs);            /* Smaller spacing between items */
+  margin: 3rem 0;                  /* Reduced vertical spacing */
+  padding: 0 var(--space-md);      /* Horizontal padding for mobile */
+  
+  /* Smooth entry animation */
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+/**
+ * Compact page number or navigation link
+ * 
+ * Smaller, more subtle design that doesn't overwhelm the interface
+ */
+.page {
+  padding: var(--space-sm) var(--space-md); /* Reduced padding for smaller size */
+  border: 1px solid var(--border-light); /* Thinner border */
+  border-radius: var(--radius-sm);  /* Smaller border radius */
+  text-decoration: none;           /* Remove link underline */
+  color: var(--text-muted);
+  font-weight: 500;                /* Medium font weight */
+  background: white;               /* Clean white background */
+  font-size: var(--font-sm);       /* Smaller font size */
+  min-width: 36px;                 /* Smaller minimum width */
+  min-height: 36px;                /* Smaller minimum height */
+  text-align: center;
+  transition: all 0.3s ease;       /* Simpler transition */
+  display: flex;                   /* Flexbox for centering */
+  align-items: center;             /* Vertically center content */
+  justify-content: center;         /* Horizontally center content */
+  position: relative;
+  
+  /* Very subtle shadow */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/**
+ * Subtle page link hover effect
+ */
+.page:hover {
+  color: var(--primary);           /* Brand color on hover */
+  border-color: var(--primary);    /* Brand color border */
+  transform: translateY(-1px);     /* Subtle lift effect */
+  box-shadow: 0 2px 6px rgba(84, 25, 255, 0.15); /* Light brand shadow */
+}
+
+/**
+ * Compact active/current page styling
+ */
+.page.active {
+  background: var(--primary);      /* Brand color background */
+  color: white;                    /* White text for contrast */
+  border-color: var(--primary);    /* Matching border */
+  font-weight: 600;                /* Bold font for emphasis */
+  box-shadow: 0 2px 6px rgba(84, 25, 255, 0.25); /* Moderate brand shadow */
+}
+
+/**
+ * Active page hover effect (maintains active state)
+ */
+.page.active:hover {
+  background: var(--primary-hover); /* Darker brand color on hover */
+  transform: translateY(-1px);      /* Light lift effect */
+}
+
+/**
+ * Compact arrow navigation (previous/next) styling
+ */
+.page.arrow {
+  font-size: 1rem;                 /* Standard font for arrows */
+  padding: var(--space-sm);        /* Compact square padding for arrows */
+  font-weight: 600;                /* Bolder arrows */
+  min-width: 36px;                 /* Same size as regular pages */
+  min-height: 36px;
+  
+  /* Subtle styling for arrow buttons */
+  background: var(--background-light);
+  border-color: var(--border-light);
+}
+
+/**
+ * Compact arrow navigation hover effect
+ */
+.page.arrow:hover {
+  background: var(--primary);      /* Brand color background */
+  color: white;                    /* White arrow on brand background */
+  border-color: var(--primary);
+  transform: translateY(-1px);     /* Light lift for arrows */
+}
+
+/**
+ * Disabled state for pagination (when at first/last page)
+ */
+.page.disabled {
+  opacity: 0.4;                    /* Visually disabled */
+  cursor: not-allowed;             /* Not-allowed cursor */
+  pointer-events: none;            /* Disable interactions */
+  transform: none !important;      /* No hover effects */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important; /* Default shadow only */
+}
+
+/**
+ * Pagination container responsive behavior
+ */
+@media (max-width: 480px) {
+  .pagination {
+    gap: var(--space-xs);           /* Smaller gap on mobile */
+    margin: var(--space-xl) 0;      /* Reduced vertical spacing */
+  }
+  
+  .page {
+    padding: calc(var(--space-xs) + 2px) var(--space-sm); /* Even smaller padding on mobile */
+    min-width: 32px;                /* Smaller minimum width */
+    min-height: 32px;               /* Smaller minimum height */
+    font-size: var(--font-xs);      /* Extra small font on mobile */
+  }
+  
+  .page.arrow {
+    min-width: 36px;                /* Slightly larger arrows on mobile */
+    min-height: 36px;
+  }
+}
+
+/* El “no-results” ocupa todas las columnas activas y queda centrado */
+.posts-grid .no-results {
+  grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
+}
+
+/* =====================================
+   Post Detail Page Styles
+   ===================================== */
+
+/* Banner Meta Information Overlay */
+.banner-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.banner-meta .author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.banner-meta .author-name {
+  font-weight: 500;
+}
+
+.banner-meta .icon {
+  width: 16px;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.banner-meta .banner-date,
+.banner-meta .banner-views {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+/* Main Container for Post Detail */
+.post-detail.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* Post Content Column */
+.post-content {
+  max-width: none;
+}
+
+.detail-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.detail-body {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+}
+
+.detail-body h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+  color: var(--text-dark);
+}
+
+.detail-body h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem 0;
+  color: var(--text-dark);
+}
+
+.detail-body p {
+  margin-bottom: 1.5rem;
+}
+
+.detail-body ul,
+.detail-body ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.detail-body li {
+  margin-bottom: 0.5rem;
+}
+
+.detail-body blockquote {
+  border-left: 4px solid var(--primary);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.detail-body code {
+  background: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+}
+
+.detail-body pre {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.detail-body pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Post Tags */
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.detail-tags .tag {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  background: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+/* Sidebar Styles */
+.post-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.post-sidebar h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary);
+}
+
+.popular-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popular-list li {
+  margin-bottom: 1.5rem;
+}
+
+.popular-list li:last-child hr {
+  display: none;
+}
+
+.popular-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast);
+}
+
+.popular-item:hover {
+  transform: translateX(4px);
+}
+
+.popular-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.popular-info {
+  flex: 1;
+}
+
+.popular-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.popular-author {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.popular-item:hover .popular-title {
+  color: var(--primary);
+}
+
+.popular-list hr {
+  border: none;
+  height: 1px;
+  background: var(--border-light);
+  margin: 1rem 0 0 0;
+}
+
+/* =====================================
+   Responsive Design
+   ===================================== */
+/**
+ * Tablet and small desktop breakpoint
+ * Adjusts layout for screens 768px and smaller
+ */
+@media (max-width: 768px) {
+  /**
+   * Reduce banner heading size for smaller screens
+   */
+  .banner h1 {
+    font-size: 2rem;
+  }
+  
+  /**
+   * Adjust banner overlay padding for mobile
+   */
+  .banner .overlay {
+    padding-left: 1.5rem;
+  }
+  
+  /**
+   * Convert search-filter to single column layout
+   * Stack search and tags vertically
+   */
+  .search-filter {
+    padding: 0 var(--space-md);     /* Use consistent spacing variables */
+    grid-template-columns: 1fr;     /* Single column layout */
+    gap: var(--space-xl);           /* Larger gap for better spacing */
+  }
+  
+  /**
+   * Center and resize section heading
+   */
+  .search-filter h2 {
+    font-size: 1.5rem;
+    grid-column: 1 / -1;            /* Span full width */
+    text-align: center;             /* Center align text */
+  }
+  
+  /**
+   * Full width search form
+   */
+  .search-form {
+    grid-column: 1 / -1;            /* Span full width */
+    grid-row: auto;                 /* Auto row placement */
+  }
+  
+  /**
+   * Center tags and make them full width
+   */
+  .tags {
+    grid-column: 1 / -1;            /* Span full width */
+    grid-row: auto;                 /* Auto row placement */
+    justify-content: center;        /* Center tags horizontally */
+  }
+  
+  /**
+   * Enhanced mobile grid layout for blog cards
+   */
+  .posts-grid {
+    grid-template-columns: 1fr;     /* Single column on mobile */
+    gap: var(--space-lg);           /* Consistent spacing */
+    padding: 0 var(--space-md);     /* Better mobile padding */
+    margin: var(--space-xl) auto;   /* Consistent margin */
+  }
+
+  /**
+   * Enhanced mobile card styling
+   */
+  .card.post-card {
+    max-width: 100%;                /* Full width on mobile */
+    min-height: auto;               /* Allow flexible height */
+  }
+
+  /**
+   * Enhanced mobile card content
+   */
+  .card-content {
+    padding: var(--space-lg);       /* Consistent mobile padding */
+  }
+
+  /**
+   * Enhanced mobile card image
+   */
+  .card-image {
+    height: 200px;                  /* Slightly smaller on mobile */
+  }
+
+  /**
+   * Enhanced mobile card title
+   */
+  .card-title {
+    font-size: 1.2rem;              /* Slightly smaller on mobile */
+    -webkit-line-clamp: 3;          /* Allow more lines on mobile */
+  }
+
+  /**
+   * Enhanced mobile no results styling
+   */
+  .posts-grid .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    justify-self: center;
+    padding: var(--space-xl);       /* Consistent padding */
+    margin: 0;                      /* Remove margin on mobile */
+  }
+
+  /**
+   * Enhanced mobile meta information for banner
+   */
+  .banner-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding-left: 1.5rem;
+  }
+  
+  .banner-meta > div {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  
+  /**
+   * Enhanced mobile post detail layout
+   */
+  .post-detail.container {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    padding: var(--space-xl) var(--space-md);
+  }
+  
+  .detail-title {
+    font-size: 2rem;
+  }
+  
+  .detail-body {
+    font-size: 1rem;
+  }
+  
+  .post-sidebar {
+    order: -1;
+    position: static;
+  }
+  
+  .post-sidebar h2 {
+    font-size: 1.3rem;
+  }
+  
+  /**
+   * Enhanced mobile tag sizing for blog tags only
+   * Maintains excellent readability while adapting to smaller screens
+   */
+  .tags .tag {
+    padding: var(--space-sm) var(--space-md);   /* Better proportions using variables */
+    font-size: var(--font-xs);                  /* Consistent font size variable */
+    font-weight: 600;                           /* Maintain bold weight */
+    min-width: 60px;                            /* Ensure minimum touch target */
+    text-align: center;                         /* Center text in smaller tags */
+  }
+  
+  /**
+   * Enhanced mobile tag container spacing
+   */
+  .tags {
+    gap: var(--space-sm);                       /* Consistent spacing variable */
+    justify-content: center;                    /* Center tags on mobile */
+    padding: var(--space-sm);                   /* Better padding using variables */
+    flex-wrap: wrap;                            /* Ensure proper wrapping */
+  }
+}
+
+/**
+ * Mobile phone breakpoint
+ * Additional adjustments for very small screens (480px and smaller)
+ */
+@media (max-width: 480px) {
+  /**
+   * Maintain consistent border radius on small screens
+   */
+  .search-form {
+    border-radius: 4px;
+  }
+  
+  /**
+   * Slightly reduce card border radius for mobile
+   */
+  .card {
+    border-radius: 6px;
+  }
+  
+  /**
+   * Reduce card content padding for smaller screens
+   */
+  .card-content {
+    padding: 1rem;                  /* Reduced from 1.5rem */
+  }
+
+  .banner-meta {
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+  
+  .detail-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .popular-item {
+    gap: 0.75rem;
+  }
+  
+  .popular-thumb {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .popular-title {
+    font-size: 0.9rem;
+  }
+}
+
+/* =====================================
+   No Results & Loading States
+   ===================================== */
+/**
+ * Empty state when no blog posts match search/filter criteria
+ * Provides user feedback when search returns no results
+ */
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;              /* Generous padding for visual separation */
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/**
+ * No results heading
+ * Slightly larger and darker than body text
+ */
+.no-results h3 {
+  margin-bottom: 1rem;
+  color: #495057;                  /* Darker than muted text */
+  font-size: 1.5rem;
+}
+
+/**
+ * Loading state indicator
+ * Shown while content is being fetched
+ */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+}
+
+/* =====================================
+   Accessibility Improvements
+   ===================================== */
+/**
+ * Custom focus outline for search input
+ * Provides clear visual feedback when input is focused
+ * Uses brand color with transparency for consistency
+ */
+.search-form input[type="text"]:focus {
+  outline: 2px solid rgba(84, 25, 255, 0.2); /* Semi-transparent brand color */
+  outline-offset: -2px;            /* Keep outline inside element */
+}
+
+/**
+ * Custom focus outline for search button
+ * Matches the input focus styling for consistency
+ */
+.search-form button:focus {
+  outline: 2px solid rgba(84, 25, 255, 0.2); /* Semi-transparent brand color */
+  outline-offset: -2px;            /* Keep outline inside element */
+}
+
+/* =====================================
+   Future Banner Component Styles
+   ===================================== */
+
+/**
+ * Main Future Banner Container
+ * 
+ * A distinctive banner component featuring a protruding circular element
+ * and dark blue background. Used to showcase future-oriented content.
+ * 
+ * Features:
+ * - Dark blue background (#10324e)
+ * - Rounded corners with large radius
+ * - Visible overflow to allow circle protrusion
+ * - Centered white text content
+ * - Top margin to accommodate protruding circle
+ */
+.futuro-banner {
+  position: relative;              /* Enable absolute positioning for circle */
+  background: #10324e;             /* Specific dark blue brand color */
+  border-radius: var(--radius-lg); /* Large rounded corners */
+  overflow: visible;               /* Allow circle to extend beyond container */
+  padding-top: 6rem;               /* Top padding reduced due to partial circle overlap */
+  text-align: center;              /* Center all content horizontally */
+  color: #fff;                     /* White text for contrast */
+  margin-top: 6rem;                /* Top margin to accommodate protruding circle */
+}
+
+/**
+ * Protruding White Circle Element
+ * 
+ * A decorative circular element that emerges from the top of the banner.
+ * Contains an image (typically a planet or globe) and acts as a focal point.
+ * 
+ * Positioning:
+ * - Half the circle extends above the banner (top: -6rem)
+ * - Centered horizontally using transform
+ * - High z-index to appear above other content
+ */
+.banner-circle {
+  position: absolute;
+  top: -6rem;                      /* Half the circle protrudes above banner */
+  left: 50%;                       /* Position at horizontal center */
+  transform: translateX(-50%);     /* Perfect horizontal centering */
+  width: 12rem;                    /* Large circle size (192px) */
+  height: 12rem;                   /* Maintains perfect circle aspect ratio */
+  background: #fff;                /* White background for contrast */
+  border-radius: 50%;              /* Perfect circle shape */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+  display: flex;                   /* Flexbox for centering inner content */
+  align-items: center;             /* Vertically center image */
+  justify-content: center;         /* Horizontally center image */
+  z-index: 2;                      /* Appear above banner background */
+}
+
+/**
+ * Image Inside Circle
+ * 
+ * The main visual element within the white circle.
+ * Smaller than the circle to create a white border effect.
+ * Typically contains a planet, globe, or similar thematic image.
+ */
+.banner-circle img {
+  width: 10rem;                    /* Smaller than circle to create white border */
+  height: 10rem;                   /* Maintain square aspect ratio */
+  object-fit: cover;               /* Crop image to fit while maintaining aspect ratio */
+  border-radius: 50%;              /* Circular image shape */
+}
+
+/**
+ * Banner Content Container
+ * 
+ * Contains all text content and call-to-action elements.
+ * Positioned below the protruding circle with proper spacing.
+ */
+.banner-content {
+  max-width: 800px;                /* Limit content width for readability */
+  margin: 0 auto;                  /* Center container horizontally */
+  padding: 0 2rem 4rem;            /* Horizontal padding and bottom padding */
+  position: relative;              /* Enable z-index stacking */
+  z-index: 1;                      /* Below the circle but above background */
+}
+
+/**
+ * Main Banner Title
+ * 
+ * Large, bold heading that serves as the primary message.
+ * Uses high contrast white text for maximum readability.
+ */
+.banner-title {
+  font-size: 2.5rem;               /* Large font size for impact */
+  font-weight: 700;                /* Bold font weight */
+  margin: 0 0 1rem;                /* Bottom margin only */
+  line-height: 1.2;                /* Tight line height for impact */
+}
+
+/**
+ * Banner Subtitle/Description
+ * 
+ * Supporting text that provides additional context or details.
+ * Slightly muted white color for visual hierarchy.
+ */
+.banner-subtitle {
+  font-size: 1rem;                 /* Standard reading size */
+  margin: 0 auto 2rem;             /* Auto horizontal margins for centering */
+  max-width: 600px;                /* Narrower than container for readability */
+  color: #f0f0f0;                  /* Slightly muted white for hierarchy */
+  line-height: 1.5;                /* Comfortable reading line height */
+}
+
+/**
+ * Call-to-Action Button
+ * 
+ * A prominent button that encourages user interaction.
+ * Features pill-shaped design with white border and hover effects.
+ */
+.banner-button {
+  display: inline-block;           /* Allow padding while maintaining inline behavior */
+  padding: 0.75rem 2rem;           /* Generous padding for touch targets */
+  border: 2px solid #fff;          /* White border for contrast */
+  border-radius: 4rem;             /* Pill-shaped button (high border radius) */
+  text-decoration: none;           /* Remove link underline */
+  color: #fff;                     /* White text for contrast */
+  font-weight: 500;                /* Medium font weight */
+  transition: background var(--transition-fast), color var(--transition-fast); /* Smooth hover effects */
+}
+
+/**
+ * Button Hover State
+ * 
+ * Subtle background change on hover for interactive feedback.
+ * Uses semi-transparent white to maintain readability.
+ */
+.banner-button:hover {
+  background: rgba(255,255,255,0.1); /* Very light white overlay */
+}
+
+/* =====================================
+   EpsilonTitle Component Styles
+   ===================================== */
+
+/**
+ * Main EpsilonTitle Component Container
+ * 
+ * A sophisticated component featuring animated graphics, floating elements,
+ * and a three-column layout showcasing different aspects of the brand.
+ * 
+ * Features:
+ * - Large centered title with gradient text effects
+ * - Floating circular background animations
+ * - Three-column responsive grid layout
+ * - Interactive hover effects and transitions
+ * - Orbital animations and visual flourishes
+ */
+.epsilon-title {
+  position: relative;              /* Enable absolute positioning for decorative elements */
+  max-width: 1400px;               /* Large container for expansive layout */
+  margin: 6rem auto;               /* Generous vertical spacing */
+  padding: 0 2rem;                 /* Horizontal padding for mobile */
+  overflow: hidden;                /* Hide floating elements that extend beyond bounds */
+}
+
+/**
+ * Background Decorative Elements Container
+ * 
+ * Contains floating circular animations that provide visual interest
+ * without interfering with user interactions or content accessibility.
+ */
+.epsilon-bg-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;            /* Prevent interaction interference */
+  z-index: 0;                      /* Behind main content */
+}
+
+/**
+ * Floating Circle Animation Elements
+ * 
+ * Decorative circles that float and rotate with staggered timing.
+ * Uses subtle gradients and transparency for non-intrusive design.
+ */
+.floating-circle {
+  position: absolute;
+  border-radius: 50%;              /* Perfect circles */
+  background: linear-gradient(135deg, rgba(16, 50, 78, 0.12), rgba(16, 50, 78, 0.06));
+  animation: float 6s ease-in-out infinite; /* Smooth floating animation */
+}
+
+/**
+ * Individual Circle Positioning and Timing
+ * 
+ * Three circles with different sizes, positions, and animation delays
+ * to create a dynamic, non-repetitive background effect.
+ */
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;                        /* Upper left area */
+  left: 5%;
+  animation-delay: 0s;             /* Starts immediately */
+}
+
+.circle-2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;                        /* Lower right area */
+  right: 10%;
+  animation-delay: 2s;             /* Starts after 2 seconds */
+}
+
+.circle-3 {
+  width: 100px;
+  height: 100px;
+  top: 30%;                        /* Upper right area */
+  right: 25%;
+  animation-delay: 4s;             /* Starts after 4 seconds */
+}
+
+/**
+ * Floating Animation Keyframes
+ * 
+ * Creates a smooth floating effect with gentle rotation.
+ * Three phases: up movement, down movement, return to origin.
+ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(10px) rotate(240deg); }
+}
+
+/**
+ * Main Content Container
+ * 
+ * Positioned above background decorations with higher z-index.
+ * Contains all interactive and textual content.
+ */
+.epsilon-container {
+  position: relative;
+  z-index: 1;                      /* Above background decorations */
+}
+
+/**
+ * Main Title Element
+ * 
+ * Large, responsive heading with gradient text effects.
+ * Uses clamp() for fluid typography across screen sizes.
+ */
+.epsilon-main-title {
+  font-size: clamp(3rem, 8vw, 5rem); /* Fluid responsive sizing */
+  font-weight: 800;                /* Extra bold for impact */
+  text-align: center;
+  margin-bottom: 4rem;             /* Space before content grid */
+  letter-spacing: 0.1em;           /* Expanded letter spacing */
+  position: relative;
+}
+
+/**
+ * Title Highlight Text Effect
+ * 
+ * Creates gradient text using background-clip technique.
+ * Provides visual hierarchy and brand color integration.
+ */
+.title-highlight {
+  background: linear-gradient(135deg, #10324e, #1e4a6b);
+  -webkit-background-clip: text;   /* Webkit prefix for compatibility */
+  -webkit-text-fill-color: transparent;
+  background-clip: text;           /* Standard property */
+  color: transparent;              /* Fallback for unsupported browsers */
+}
+
+/**
+ * Title Accent Animation
+ * 
+ * Animated text element with pulsing effect.
+ * Draws attention to key words or phrases.
+ */
+.title-accent {
+  color: #10324e;                  /* Brand color */
+  position: relative;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite; /* Continuous pulse animation */
+}
+
+/**
+ * Pulse Animation Keyframes
+ * 
+ * Subtle scaling animation that creates a breathing effect.
+ * Emphasizes important text without being distracting.
+ */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }   /* 10% scale increase at peak */
+}
+
+/**
+ * Three-Column Graphics Grid
+ * 
+ * Responsive grid layout for the main content sections.
+ * Each column contains different interactive elements and information.
+ */
+.epsilon-graphics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Equal width columns */
+  gap: 4rem;                       /* Large gaps for breathing room */
+  align-items: start;              /* Align to top of grid cells */
+  margin-top: 2rem;                /* Space below title */
+}
+
+/**
+ * Left Column - Planet Section
+ * 
+ * Contains animated planet element with orbital ring and caption.
+ * Represents environmental or global themes.
+ */
+.epsilon-graphic-left {
+  text-align: center;
+}
+
+/**
+ * Planet Container with Orbital Effects
+ * 
+ * Houses the planet image and animated orbital ring.
+ * Creates a space-like aesthetic with rotating elements.
+ */
+.planet-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Animated Orbital Ring
+ * 
+ * Dashed circle that rotates around the planet.
+ * Creates dynamic visual interest and reinforces space theme.
+ */
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border: 2px dashed rgba(84, 25, 255, 0.3); /* Semi-transparent dashed border */
+  border-radius: 50%;
+  animation: rotate 20s linear infinite; /* Slow, continuous rotation */
+}
+
+/**
+ * Rotation Animation Keyframes
+ * 
+ * Simple 360-degree rotation for orbital ring effect.
+ * Uses transform to maintain centered positioning during rotation.
+ */
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/**
+ * Planet Image Element
+ * 
+ * Central visual element with hover effects and shadow.
+ * Positioned above orbital ring with higher z-index.
+ */
+.epsilon-planet {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;              /* Circular planet shape */
+  position: relative;
+  z-index: 2;                      /* Above orbital ring */
+  box-shadow: 0 8px 32px rgba(84, 25, 255, 0.2); /* Purple-tinted shadow */
+  transition: transform 0.3s ease; /* Smooth hover scaling */
+}
+
+/**
+ * Planet Hover Effect
+ * 
+ * Subtle scale increase on hover for interactivity feedback.
+ */
+.epsilon-planet:hover {
+  transform: scale(1.05);          /* 5% scale increase */
+}
+
+/**
+ * Planet Glow Effect
+ * 
+ * Radial gradient background that creates a glowing aura.
+ * Positioned behind planet for atmospheric effect.
+ */
+.planet-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(84, 25, 255, 0.1), transparent);
+  border-radius: 50%;
+  z-index: 1;                      /* Behind planet, above orbital ring */
+}
+
+/**
+ * Caption Content Container
+ * 
+ * Constrains width of descriptive text for optimal readability.
+ * Centers content below the planet visualization.
+ */
+.caption-container {
+  max-width: 280px;                /* Optimal reading width */
+  margin: 0 auto;                  /* Center horizontally */
+}
+
+/**
+ * Caption Title Styling
+ * 
+ * Bold heading for section descriptions.
+ * Uses consistent typography hierarchy.
+ */
+.caption-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+/**
+ * Caption Body Text
+ * 
+ * Supporting descriptive text with improved readability.
+ * Uses muted color for visual hierarchy.
+ */
+.epsilon-caption {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;                /* Comfortable reading line height */
+}
+
+/**
+ * Discover Section Styling
+ * 
+ * Additional content area with separator and interactive elements.
+ * Provides call-to-action or discovery mechanisms.
+ */
+.discover-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(16, 50, 78, 0.1); /* Subtle separator line */
+}
+
+/**
+ * Discover Text Styling
+ * 
+ * Highlighted text that draws attention to discovery content.
+ * Uses brand color for consistency.
+ */
+.discover-text {
+  font-size: 0.9rem;
+  color: #10324e;                  /* Brand color */
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/**
+ * Dot Navigation Container
+ * 
+ * Houses interactive dot indicators for content navigation.
+ * Typically used for carousel or multi-step interfaces.
+ */
+.discover-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/**
+ * Individual Dot Indicator
+ * 
+ * Small circular indicators with active/inactive states.
+ * Provides visual feedback for current position or selection.
+ */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(16, 50, 78, 0.3); /* Muted default state */
+  transition: all 0.3s ease;       /* Smooth state transitions */
+}
+
+/**
+ * Active Dot State
+ * 
+ * Highlighted state for current or selected dot indicator.
+ * Uses brand color and scale transform for emphasis.
+ */
+.dot.active {
+  background: #10324e;             /* Full brand color */
+  transform: scale(1.2);           /* 20% scale increase */
+}
+
+/**
+ * Center Column - Toucan Section
+ * 
+ * Main focal point with large imagery and primary call-to-action.
+ * Contains brand mascot and central messaging.
+ */
+.epsilon-graphic-center {
+  text-align: center;
+  position: relative;
+}
+
+/**
+ * Toucan Image Container
+ * 
+ * Houses the main brand mascot image with backdrop effects.
+ * Provides visual prominence as the central element.
+ */
+.toucan-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Toucan Backdrop Circle
+ * 
+ * Large circular background element that frames the toucan image.
+ * Uses subtle gradients for depth without overwhelming the main image.
+ */
+.toucan-backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  background: linear-gradient(135deg, rgba(16, 50, 78, 0.05), rgba(30, 74, 107, 0.05));
+  border-radius: 50%;
+  z-index: 1;                      /* Behind toucan image */
+}
+
+/**
+ * Toucan Image Element
+ * 
+ * Main brand mascot image with responsive sizing and shadow effects.
+ * Positioned above backdrop with higher z-index.
+ */
+.epsilon-toucan {
+  width: 100%;
+  max-width: 280px;                /* Maximum size constraint */
+  height: auto;                    /* Maintain aspect ratio */
+  position: relative;
+  z-index: 2;                      /* Above backdrop */
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1)); /* Realistic shadow */
+}
+
+/**
+ * Center Content Container
+ * 
+ * Groups subtitle and call-to-action elements.
+ * Positioned above backdrop elements.
+ */
+.center-content {
+  position: relative;
+  z-index: 2;
+}
+
+/**
+ * Center Section Subtitle
+ * 
+ * Two-line subtitle with different styling for each line.
+ * Creates visual hierarchy and emphasizes key messaging.
+ */
+.epsilon-subtitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+/**
+ * Subtitle First Line
+ * 
+ * Standard text color for the opening line.
+ * Provides setup for the emphasized second line.
+ */
+.subtitle-line1 {
+  display: block;
+  color: var(--text-dark);
+}
+
+/**
+ * Subtitle Second Line with Gradient
+ * 
+ * Gradient text effect for emphasis and brand integration.
+ * Uses same technique as main title highlight.
+ */
+.subtitle-line2 {
+  display: block;
+  background: linear-gradient(135deg, #10324e, #2a5a82);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/**
+ * Primary Call-to-Action Link
+ * 
+ * Prominent button-style link with gradient background.
+ * Features icon, hover effects, and brand styling.
+ */
+.epsilon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;                     /* Space between text and arrow */
+  padding: 1rem 2rem;              /* Generous touch target */
+  background: linear-gradient(135deg, #10324e, #1e4a6b);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;             /* Pill-shaped button */
+  font-weight: 600;
+  transition: all 0.3s ease;       /* Smooth hover transitions */
+  box-shadow: 0 4px 15px rgba(16, 50, 78, 0.3);
+}
+
+/**
+ * Primary Link Hover State
+ * 
+ * Lift effect with enhanced shadow for interactive feedback.
+ * Provides clear visual response to user interaction.
+ */
+.epsilon-link:hover {
+  transform: translateY(-2px);     /* Subtle lift effect */
+  box-shadow: 0 8px 25px rgba(16, 50, 78, 0.4); /* Enhanced shadow */
+}
+
+/**
+ * Link Arrow Icon
+ * 
+ * SVG arrow icon with smooth animation.
+ * Provides directional cue and interactive feedback.
+ */
+.link-arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+/**
+ * Arrow Hover Animation
+ * 
+ * Horizontal movement on hover to reinforce forward action.
+ * Complements the lift effect of the parent link.
+ */
+.epsilon-link:hover .link-arrow {
+  transform: translateX(4px);      /* Move arrow right */
+}
+
+/**
+ * Right Column - Statistics Section
+ * 
+ * Contains company stats, metrics, and secondary call-to-action.
+ * Provides credibility and additional engagement opportunities.
+ */
+.epsilon-graphic-right {
+  text-align: center;
+}
+
+/**
+ * Statistics Header Section
+ * 
+ * Combines brand image with numerical badge.
+ * Creates visual interest and introduces the stats section.
+ */
+.stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Brand Cow Image
+ * 
+ * Circular brand image representing agricultural or sustainable themes.
+ * Uses consistent sizing with other circular elements.
+ */
+.epsilon-cow {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Industries Badge Element
+ * 
+ * Highlighted numerical indicator with descriptive text.
+ * Uses subtle gradient and border for prominence.
+ */
+.industries-badge {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  border: 2px solid var(--border-light);
+}
+
+/**
+ * Badge Primary Text
+ * 
+ * Large numerical or key text within the badge.
+ * Uses brand color for emphasis.
+ */
+.badge-text {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/**
+ * Badge Secondary Text
+ * 
+ * Descriptive subtext with uppercase styling.
+ * Provides context for the primary badge text.
+ */
+.badge-subtext {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/**
+ * Statistics Grid Layout
+ * 
+ * Two-column grid for displaying key metrics.
+ * Responsive design adapts to single column on mobile.
+ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* Equal width columns */
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Individual Statistic Item
+ * 
+ * Card-style container for each metric.
+ * Features hover effects and consistent styling.
+ */
+.stat-item {
+  background: white;
+  padding: 1.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-light);
+  transition: transform 0.3s ease;
+}
+
+/**
+ * Stat Item Hover Effect
+ * 
+ * Subtle lift animation for interactive feedback.
+ * Maintains consistency with other hover effects.
+ */
+.stat-item:hover {
+  transform: translateY(-2px);
+}
+
+/**
+ * Statistic Number Display
+ * 
+ * Large, bold numerical display.
+ * Uses brand color for emphasis and impact.
+ */
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+/**
+ * Statistic Label Text
+ * 
+ * Descriptive text explaining the statistic.
+ * Uses muted color for visual hierarchy.
+ */
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/**
+ * Statistics Section Link
+ * 
+ * Secondary call-to-action with outline style.
+ * Provides additional engagement without competing with primary CTA.
+ */
+.stats-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--primary);
+  border-radius: 25px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/**
+ * Stats Link Hover State
+ * 
+ * Fill effect that inverts colors on hover.
+ * Provides clear interactive feedback.
+ */
+.stats-link:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/**
+ * Stats Link Icon
+ * 
+ * Small icon within the secondary link.
+ * Maintains consistent sizing across components.
+ */
+.stats-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/**
+ * Secondary Epsilon Link Variant
+ * 
+ * Compact version of the primary epsilon link.
+ * Inherits base styles with modified sizing and spacing.
+ */
+.epsilon-link--secondary {
+  /* Inherits properties from .epsilon-link */
+  background: linear-gradient(135deg, #10324e, #1e4a6b);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(16, 50, 78, 0.3);
+  padding: 0.75rem 1.5rem;         /* More compact padding */
+  font-size: 0.9rem;               /* Slightly smaller font */
+}
+
+/**
+ * Secondary Link Arrow Icon
+ * 
+ * Smaller arrow icon for the compact link variant.
+ * Maintains consistent animation behavior.
+ */
+.epsilon-link--secondary .link-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+/**
+ * Secondary Link Hover State
+ * 
+ * Same hover effects as primary link but for secondary variant.
+ * Maintains consistency across link types.
+ */
+.epsilon-link--secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 50, 78, 0.4);
+}
+
+/**
+ * Secondary Link Arrow Hover Animation
+ * 
+ * Consistent arrow movement animation for secondary variant.
+ */
+.epsilon-link--secondary:hover .link-arrow {
+  transform: translateX(4px);
+}
+
+/**
+ * Responsive Design Breakpoints
+ * 
+ * Progressive enhancement for different screen sizes.
+ * Maintains usability and visual hierarchy across devices.
+ */
+
+/* Large tablet and small desktop (1024px and below) */
+@media (max-width: 1024px) {
+  .epsilon-graphics {
+    gap: 3rem;                     /* Reduced gap for tighter layout */
+  }
+  
+  .toucan-backdrop {
+    width: 280px;                  /* Smaller backdrop for reduced space */
+    height: 280px;
+  }
+}
+
+/* Tablet and mobile (768px and below) */
+@media (max-width: 768px) {
+  .epsilon-title {
+    margin: 4rem auto;             /* Reduced vertical spacing */
+  }
+  
+  .epsilon-graphics {
+    grid-template-columns: 1fr;    /* Single column layout */
+    gap: 4rem;
+  }
+  
+  .epsilon-main-title {
+    margin-bottom: 3rem;           /* Reduced spacing below title */
+  }
+  
+  .stats-header {
+    flex-direction: column;        /* Stack header elements vertically */
+    gap: 1.5rem;
+  }
+  
+  .floating-circle {
+    display: none;                 /* Hide decorative elements on mobile */
+  }
+}
+
+/* Mobile phones (480px and below) */
+@media (max-width: 480px) {
+  .epsilon-title {
+    padding: 0 1rem;               /* Reduced horizontal padding */
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;    /* Single column stats */
+  }
+  
+  .epsilon-link {
+    padding: 0.875rem 1.5rem;      /* Adjusted padding for mobile */
+    font-size: 0.9rem;             /* Slightly smaller font */
+  }
+}
+
+
+/* Íconos sociales bajo “Discover” */
+/**
+ * Social Icons Container
+ * 
+ * Horizontal flexbox layout for social media icons.
+ * Positioned below the "Discover" section in the left column
+ * of the EpsilonTitle component.
+ * 
+ * Features:
+ * - Centered horizontal alignment
+ * - Consistent spacing using design system variables
+ * - Responsive gap that adapts to screen size
+ */
+.social-icons {
+  display: flex;                   /* Horizontal layout for icons */
+  justify-content: center;         /* Center icons horizontally */
+  gap: var(--gap-md);              /* Medium spacing between icons (16px) */
+  margin-top: var(--gap-md);       /* Space above social icons section */
+}
+
+/**
+ * Individual Social Icon Button
+ * 
+ * Circular button container for social media icons.
+ * Provides consistent sizing, hover effects, and accessibility features.
+ * 
+ * Design Features:
+ * - Perfect circle shape with 36px diameter
+ * - Dark background for contrast with white icons
+ * - Smooth transitions for interactive states
+ * - Centered icon positioning using flexbox
+ */
+.social-icon {
+  display: inline-flex;            /* Inline flex for icon centering */
+  align-items: center;             /* Vertically center icon */
+  justify-content: center;         /* Horizontally center icon */
+  width: 36px;                     /* Fixed width for consistent sizing */
+  height: 36px;                    /* Fixed height to maintain circle */
+  background: var(--text-dark);    /* Dark background (#2c3e50) */
+  border-radius: 50%;              /* Perfect circle shape */
+  transition: background var(--transition-fast),
+              transform var(--transition-fast); /* Smooth hover animations */
+}
+
+/**
+ * Social Icon Image Styling
+ * 
+ * Styling for the actual icon images within the circular containers.
+ * Uses CSS filter to ensure proper contrast and visibility.
+ * 
+ * Features:
+ * - Consistent 18px sizing for all icons
+ * - White color achieved through invert filter
+ * - Maintains aspect ratio and sharpness
+ */
+.social-icon img {
+  width: 18px;                     /* Standard icon width */
+  height: 18px;                    /* Standard icon height */
+  filter: invert(1);               /* Convert to white color for contrast on dark background */
+}
+
+/**
+ * Social Icon Hover State
+ * 
+ * Interactive feedback when users hover over social icons.
+ * Provides visual response and indicates clickable elements.
+ * 
+ * Effects:
+ * - Background changes to brand primary color
+ * - Subtle upward movement for lift effect
+ * - Maintains white icon color for continued contrast
+ */
+.social-icon:hover {
+  background: var(--primary);      /* Brand purple background (#5419ff) */
+  transform: translateY(-2px);     /* Lift effect on hover */
+}
+
+/**
+ * Social Icon Focus State
+ * 
+ * Accessibility-focused styling for keyboard navigation.
+ * Provides clear visual indication when icons receive focus.
+ * 
+ * Features:
+ * - Semi-transparent purple outline for visibility
+ * - Offset outline to avoid overlapping with icon
+ * - Complies with accessibility contrast requirements
+ */
+.social-icon:focus {
+  outline: 2px solid rgba(84, 25, 255, 0.4); /* Semi-transparent brand color outline */
+  outline-offset: 2px;             /* Space between icon and outline */
+}
+
+/* =====================================
+   Admin Create Post Form Styles
+   ===================================== */
+/**
+ * Comprehensive styling for the blog post creation interface (create-post.astro)
+ * 
+ * Features:
+ * - Modern form layout with consistent spacing
+ * - Enhanced input styling with focus states
+ * - Rich text editor integration
+ * - Advanced tag management system
+ * - Responsive design for all screen sizes
+ * - Accessibility-focused interactions
+ */
+
+/**
+ * Enhanced Create Post Form Styles
+ * Modern, friendly, and attractive design without being overwhelming
+ */
+
+/**
+ * Enhanced Main Container for Create Post Form
+ * 
+ * Modern layout with better visual hierarchy and breathing room.
+ */
+.create-post-container {
+  max-width: 900px;                /* Slightly wider for better content flow */
+  margin: 3rem auto;               /* Balanced vertical spacing */
+  padding: 0 var(--space-lg);      /* Better horizontal padding */
+  
+  /* Smooth entry animation */
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/**
+ * Enhanced Form Card Container
+ * 
+ * Modern card design with subtle gradients and improved shadows.
+ */
+.form-card {
+  background: white;
+  border-radius: var(--radius-xl);  /* Larger radius for modern appeal */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 
+              0 2px 8px rgba(0, 0, 0, 0.04); /* Layered shadows for depth */
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.04); /* Subtle border for definition */
+  
+  /* Smooth hover effect */
+  transition: all 0.3s ease;
+}
+
+/**
+ * Subtle card hover effect for enhanced interactivity
+ */
+.form-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08),
+              0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+/**
+ * Enhanced Form Header Section
+ * 
+ * Modern gradient with better color harmony and visual appeal.
+ */
+.form-header {
+  background: linear-gradient(135deg, 
+    var(--primary) 0%, 
+    var(--primary-hover) 50%,
+    #3d14b8 100%);                 /* Enhanced gradient with third color */
+  padding: 2.5rem var(--space-xl);
+  text-align: center;
+  color: white;
+  position: relative;
+  
+  /* Add subtle pattern overlay */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+/**
+ * Enhanced Form Header Title
+ * 
+ * Modern typography with better visual impact and subtle animation.
+ */
+.form-header h1 {
+  margin: 0;
+  font-size: 2.2rem;               /* Larger, more impactful */
+  font-weight: 700;                /* Bolder for hierarchy */
+  letter-spacing: -0.02em;         /* Tighter letter spacing for modern look */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+  position: relative;
+  z-index: 1;
+  
+  /* Subtle text glow effect */
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+}
+
+/**
+ * Enhanced Form Body Container
+ * 
+ * Better spacing and improved visual flow.
+ */
+.form-body {
+  padding: 3rem var(--space-xl);   /* More generous padding */
+  background: linear-gradient(to bottom, 
+    #ffffff 0%, 
+    #fafbfc 100%);                 /* Subtle background gradient */
+}
+
+/**
+ * Enhanced Form Group Container
+ * 
+ * Modern spacing with subtle visual enhancements for better form flow.
+ */
+.form-group {
+  margin-bottom: 2rem;             /* Increased spacing for better breathing room */
+  position: relative;              /* Enable absolute positioning for enhancements */
+}
+
+/**
+ * Enhanced Form Field Labels
+ * 
+ * Modern typography with better visual hierarchy and friendly appearance.
+ */
+.form-group label {
+  display: block;
+  margin-bottom: 0.75rem;          /* Slightly increased spacing */
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.95rem;              /* Slightly larger for better readability */
+  letter-spacing: 0.02em;          /* Subtle letter spacing for elegance */
+  
+  /* Add subtle icon indicators for required fields */
+  position: relative;
+}
+
+/**
+ * Required field indicator (optional enhancement)
+ */
+.form-group label[for="title"]::after,
+.form-group label[for="summary"]::after,
+.form-group label[for="author"]::after,
+.form-group label[for="image"]::after {
+  content: "*";
+  color: #e74c3c;                  /* Subtle red for required indicator */
+  margin-left: 0.25rem;
+  font-size: 0.9em;
+}
+
+/**
+ * Enhanced Base Form Input Styling
+ * 
+ * Modern input design with improved visual appeal and better user experience.
+ */
+.form-input {
+  width: 100%;
+  padding: 1rem var(--space-lg);   /* More generous padding */
+  border: 2px solid #e8eef3;       /* Softer border color */
+  border-radius: 12px;             /* More rounded for modern appeal */
+  font-size: max(16px, var(--font-md)); /* Prevent zoom on iOS while maintaining design */
+  color: var(--text-dark);
+  background: white;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth custom easing */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* Very subtle inner shadow */
+  
+  /* Subtle background pattern on focus */
+  background-image: linear-gradient(to right, transparent 0%, rgba(84, 25, 255, 0.01) 50%, transparent 100%);
+}
+
+/**
+ * Enhanced Form Input Focus State
+ * 
+ * Modern focus effect with gentle glow and brand color integration.
+ */
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(84, 25, 255, 0.08), /* Soft outer glow */
+              0 4px 12px rgba(84, 25, 255, 0.1);   /* Enhanced shadow */
+  transform: translateY(-1px);     /* Subtle lift effect */
+  background: white;
+}
+
+/**
+ * Enhanced Form Input Hover State
+ * 
+ * Subtle interaction feedback when hovering over inputs.
+ */
+.form-input:hover:not(:focus) {
+  border-color: #d1d9e0;           /* Slightly darker border on hover */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04); /* Gentle shadow increase */
+}
+
+/**
+ * Enhanced Form Input Placeholder Styling
+ * 
+ * Friendly and approachable placeholder text with smooth transitions.
+ */
+.form-input::placeholder {
+  color: #94a3b8;                  /* Softer muted color */
+  font-style: italic;              /* Italics for distinction */
+  transition: all 0.3s ease;
+}
+
+/**
+ * Placeholder fade effect on focus
+ */
+.form-input:focus::placeholder {
+  opacity: 0.6;
+  transform: translateY(-2px);     /* Subtle upward movement */
+}
+
+/**
+ * Enhanced Textarea Specific Styling
+ * 
+ * Better proportions and improved resize behavior for content areas.
+ */
+.form-textarea {
+  min-height: 120px;               /* More generous height */
+  resize: vertical;
+  font-family: inherit;            /* Ensure consistent font family */
+  line-height: 1.6;                /* Better line height for readability */
+}
+
+/**
+ * Enhanced Base Button Styling
+ * 
+ * Modern button design with improved visual appeal and better interactions.
+ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;              /* More generous padding */
+  border: none;
+  border-radius: 12px;             /* Consistent with input border radius */
+  font-size: var(--font-md);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth custom easing */
+  min-height: 52px;                /* Larger touch target */
+  position: relative;
+  overflow: hidden;                /* For potential animation effects */
+  
+  /* Subtle text shadow for depth */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Enhanced Primary Button Styling
+ * 
+ * Modern gradient design with enhanced visual appeal and better shadows.
+ */
+.btn-primary {
+  background: linear-gradient(135deg, 
+    var(--primary) 0%, 
+    var(--primary-hover) 100%);    /* Gradient background */
+  color: white;
+  box-shadow: 0 6px 20px rgba(84, 25, 255, 0.25), /* Primary shadow */
+              0 2px 8px rgba(84, 25, 255, 0.15);   /* Secondary shadow */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for definition */
+  
+  /* Add subtle shine effect */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+}
+
+/**
+ * Enhanced Primary Button Hover State
+ * 
+ * Dramatic interaction feedback with multiple visual enhancements.
+ */
+.btn-primary:hover {
+  background: linear-gradient(135deg, 
+    var(--primary-hover) 0%, 
+    #3d14b8 100%);                 /* Darker gradient on hover */
+  transform: translateY(-3px);     /* More pronounced lift */
+  box-shadow: 0 8px 25px rgba(84, 25, 255, 0.35),
+              0 4px 12px rgba(84, 25, 255, 0.2);
+  
+  /* Trigger shine effect */
+  &::before {
+    left: 100%;
+  }
+}
+
+/**
+ * Primary Button Active State
+ */
+.btn-primary:active {
+  transform: translateY(-1px);     /* Reduced lift when pressed */
+  box-shadow: 0 4px 15px rgba(84, 25, 255, 0.3);
+}
+
+/**
+ * Enhanced Secondary Button Styling
+ * 
+ * Modern alternative button design with subtle elegance.
+ */
+.btn-secondary {
+  background: white;
+  color: var(--text-dark);
+  border: 2px solid #e8eef3;       /* Consistent with input styling */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/**
+ * Enhanced Secondary Button Hover State
+ * 
+ * Subtle but effective interaction feedback.
+ */
+.btn-secondary:hover {
+  background: #f8fafc;
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/**
+ * Enhanced Full Width Button Modifier
+ * 
+ * Improved full-width button with better proportions.
+ */
+.btn-full {
+  width: 100%;
+  margin-top: 1rem;                /* Extra spacing from form content */
+}
+
+/* =====================================
+   Enhanced Rich Text Editor (CKEditor) Styles
+   ===================================== */
+
+/**
+ * Enhanced Editor Container
+ * 
+ * Modern wrapper with improved visual integration and spacing.
+ */
+.editor-container {
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+/**
+ * Enhanced Base Editor Styling
+ * 
+ * Modern editor container with consistent design language.
+ */
+#editor {
+  min-height: 350px;               /* Increased height for better content creation */
+  background: white;
+  border: 2px solid #e8eef3;       /* Consistent with input styling */
+  border-radius: 12px;             /* Consistent with other form elements */
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* Subtle shadow */
+  transition: all 0.3s ease;
+}
+
+/**
+ * Editor hover effect for better interaction feedback
+ */
+#editor:hover {
+  border-color: #d1d9e0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+}
+
+/**
+ * Enhanced CKEditor Editable Area Customization
+ * 
+ * Better integration with form design and improved user experience.
+ */
+.ck-editor__editable {
+  min-height: 350px !important;
+  border: none !important;
+  border-radius: 12px !important;
+  font-family: inherit !important; /* Use consistent font family */
+  font-size: 1rem !important;      /* Consistent font size */
+  line-height: 1.6 !important;     /* Better line height for readability */
+  padding: 1.5rem !important;      /* More generous padding */
+}
+
+/**
+ * Enhanced CKEditor Focus State
+ * 
+ * Modern focus styling that matches form inputs perfectly.
+ */
+.ck-editor__editable:focus {
+  box-shadow: 0 0 0 4px rgba(84, 25, 255, 0.08) !important;
+  outline: none !important;
+}
+
+/**
+ * CKEditor Toolbar Customization
+ * 
+ * Better integration with form design language.
+ */
+.ck-toolbar {
+  border-color: #e8eef3 !important;
+  background: #f8fafc !important;  /* Subtle background */
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/**
+ * CKEditor Toolbar Button Customization
+ */
+.ck-toolbar .ck-button {
+  border-radius: 6px !important;
+}
+
+.ck-toolbar .ck-button:hover {
+  background: rgba(84, 25, 255, 0.08) !important;
+}
+
+/* =====================================
+   Enhanced Tag Management System Styles
+   ===================================== */
+
+/**
+ * Enhanced Tags Container
+ * 
+ * Modern wrapper with improved spacing and visual hierarchy.
+ */
+.tags-container {
+  margin-top: var(--space-md);
+  position: relative;
+}
+
+/**
+ * Enhanced Selected Tags Display Area
+ * 
+ * Modern container with improved visual design and better user experience.
+ */
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;                    /* Slightly increased gap */
+  margin-bottom: var(--space-md);
+  min-height: 60px;                /* Increased min height for better proportions */
+  padding: 1rem;                   /* More generous padding */
+  border: 2px solid #e8eef3;       /* Consistent border color */
+  border-radius: 12px;             /* Consistent border radius */
+  background: linear-gradient(to bottom, #fafbfc, #f8fafc); /* Subtle gradient */
+  transition: all 0.3s ease;
+  
+  /* Empty state styling */
+  &:empty::before {
+    content: "Los tags seleccionados aparecerán aquí...";
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    opacity: 0.7;
+  }
+}
+
+/**
+ * Selected tags container hover effect
+ */
+.selected-tags:hover {
+  border-color: #d1d9e0;
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+}
+
+/**
+ * Enhanced Selected Tag Pills (Admin Interface)
+ * 
+ * Modern pill design with improved visual appeal and better interactions.
+ */
+.selected-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1rem;           /* More generous padding */
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+  border-radius: 25px;             /* More rounded for modern appeal */
+  font-size: 0.9rem;               /* Slightly larger font */
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 2px 8px rgba(84, 25, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for definition */
+  
+  /* Subtle text shadow for depth */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Enhanced tag hover effect
+ */
+.selected-tag:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(84, 25, 255, 0.3);
+  background: linear-gradient(135deg, var(--primary-hover), #3d14b8);
+}
+
+/**
+ * Enhanced Tag Remove Button
+ * 
+ * Better visual design and improved interaction feedback.
+ */
+.selected-tag .remove {
+  margin-left: 0.75rem;            /* Increased spacing */
+  cursor: pointer;
+  font-weight: bold;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;               /* Slightly larger for better touch target */
+  width: 20px;                     /* Fixed width for consistency */
+  height: 20px;                    /* Fixed height for consistency */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/**
+ * Enhanced Tag Remove Button Hover State
+ * 
+ * Clear visual feedback for better user experience.
+ */
+.selected-tag .remove:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/**
+ * Enhanced Tag Input Field
+ * 
+ * Modern input design that integrates perfectly with the form.
+ */
+.tag-input {
+  border: 2px solid #e8eef3;       /* Consistent border color */
+  border-radius: 12px;             /* Consistent border radius */
+  padding: 1rem var(--space-lg);   /* Consistent padding */
+  font-size: var(--font-md);       /* Consistent font size */
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  background: white;
+}
+
+/**
+ * Enhanced Tag Input Focus State
+ * 
+ * Consistent focus styling with other form elements.
+ */
+.tag-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(84, 25, 255, 0.08),
+              0 4px 12px rgba(84, 25, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/**
+ * Enhanced Tag Input Hover State
+ */
+.tag-input:hover:not(:focus) {
+  border-color: #d1d9e0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+}
+
+/**
+ * Enhanced Tag Suggestions Dropdown
+ * 
+ * Modern dropdown with improved visual design and better usability.
+ */
+.suggestions-list {
+  background: white;
+  border: 2px solid #e8eef3;       /* Consistent border color */
+  border-top: none;
+  border-radius: 0 0 12px 12px;    /* Consistent border radius */
+  max-height: 240px;               /* Increased height for better usability */
+  overflow-y: auto;
+  position: relative;
+  z-index: var(--z-dropdown);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  backdrop-filter: blur(10px);     /* Modern backdrop effect */
+  
+  /* Remove default list styling */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Enhanced Individual Suggestion Item
+ * 
+ * Better visual design and improved interaction feedback.
+ */
+.suggestion-item {
+  padding: 1rem var(--space-lg);   /* More generous padding */
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  position: relative;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: uppercase;       /* Always show tags in uppercase */
+  letter-spacing: 0.5px;           /* Better letter spacing for uppercase */
+  display: flex;
+  align-items: center;
+  min-height: 48px;                /* Better touch target */
+  
+  /* Add subtle tag-like styling */
+  &::before {
+    content: "#";
+    color: var(--primary);
+    font-weight: 600;
+    margin-right: 0.5rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Add subtle icon for "create new" items */
+  &:last-child:not(:only-child) {
+    color: var(--primary);
+    font-weight: 600;
+    
+    &::before {
+      content: "+ ";
+      color: var(--primary);
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+/**
+ * Enhanced Suggestion Item Hover State
+ * 
+ * Modern hover effect with subtle animation.
+ */
+.suggestion-item:hover {
+  background: linear-gradient(to right, #f8fafc, #f1f5f9);
+  color: var(--primary);
+  transform: translateX(4px);      /* Subtle slide effect */
+  border-left: 3px solid var(--primary); /* Left border accent */
+  
+  &::before {
+    opacity: 1;
+    color: var(--primary);
+  }
+}
+
+/**
+ * Enhanced Last Suggestion Item
+ * 
+ * Clean appearance without bottom border.
+ */
+.suggestion-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 12px 12px;    /* Rounded bottom corners */
+}
+
+/* =====================================
+   Enhanced Custom Select Dropdown Styles
+   ===================================== */
+
+/**
+ * Enhanced Custom Select Styling
+ * 
+ * Modern select dropdown with improved visual design and custom arrow.
+ */
+.form-select {
+  appearance: none;                /* Remove default browser styling */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%2394a3b8' viewBox='0 0 16 16'%3e%3cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  background-size: 16px 12px;
+  padding-right: 3.5rem;           /* More space for custom arrow */
+  cursor: pointer;
+  
+  /* Enhanced styling to match other inputs */
+  font-weight: 500;
+}
+
+/**
+ * Select hover effect
+ */
+.form-select:hover:not(:focus) {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%235419ff' viewBox='0 0 16 16'%3e%3cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3e%3c/svg%3e");
+}
+
+/* =====================================
+   Enhanced Form Validation States
+   ===================================== */
+
+/**
+ * Enhanced Error State Styling
+ * 
+ * Modern error indicators with better visual feedback.
+ */
+.form-group.error .form-input {
+  border-color: #ef4444;           /* Modern red */
+  background: #fef2f2;             /* Light red background */
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+/**
+ * Enhanced Success State Styling
+ * 
+ * Modern success indicators with positive visual feedback.
+ */
+.form-group.success .form-input {
+  border-color: #10b981;           /* Modern green */
+  background: #f0fdf4;             /* Light green background */
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/**
+ * Enhanced Error Message Text
+ * 
+ * Modern error message styling with better visual hierarchy.
+ */
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  
+  /* Add error icon */
+  &::before {
+    content: "⚠";
+    margin-right: 0.5rem;
+    font-size: 0.9em;
+  }
+}
+
+/**
+ * Enhanced Success Message Text
+ * 
+ * Modern success message styling with positive feedback.
+ */
+.success-message {
+  color: #10b981;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  
+  /* Add success icon */
+  &::before {
+    content: "✓";
+    margin-right: 0.5rem;
+    font-size: 0.9em;
+  }
+}
+
+/* =====================================
+   Enhanced Loading and State Indicators
+   ===================================== */
+
+/**
+ * Enhanced Loading State Styling
+ * 
+ * Modern loading indicator with better visual feedback.
+ */
+.loading {
+  color: #94a3b8;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  
+  /* Add loading animation */
+  &::before {
+    content: "⟳";
+    margin-right: 0.5rem;
+    animation: spin 1s linear infinite;
+  }
+}
+
+/**
+ * Loading spin animation
+ */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* =====================================
+   Success Message Modal Styles
+   ===================================== */
+
+/**
+ * Success Message Overlay
+ * 
+ * Full-screen overlay for success notifications with backdrop blur.
+ */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  
+  /* Show state */
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/**
+ * Success Message Card
+ * 
+ * Main success notification card with modern design.
+ */
+.success-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  max-width: 420px;
+  width: 90%;                       /* Responsive width */
+  max-height: 90vh;                 /* Prevent overflow on small screens */
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: scale(0.8) translateY(20px);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow-y: auto;                 /* Allow scrolling if content is too tall */
+  
+  /* Animation states */
+  .success-overlay.show & {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/**
+ * Success Icon Container
+ * 
+ * Animated checkmark icon with circular background.
+ */
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: successPulse 0.6s ease-out;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+/**
+ * Success Icon SVG/Text
+ */
+.success-icon::before {
+  content: "✓";
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/**
+ * Success pulse animation
+ */
+@keyframes successPulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/**
+ * Success Message Title
+ */
+.success-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+/**
+ * Success Message Description
+ */
+.success-description {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Success Action Buttons
+ */
+.success-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/**
+ * Success Close Button
+ */
+.success-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--primary);
+  background: var(--primary);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.success-btn:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/**
+ * Secondary success button (outline style)
+ */
+.success-btn--secondary {
+  background: transparent;
+  color: var(--primary);
+}
+
+.success-btn--secondary:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* =====================================
+   Enhanced Admin Form Responsive Design
+   ===================================== */
+
+/**
+ * Enhanced Tablet and Mobile Responsive Styles
+ * 
+ * Better responsive behavior for touch devices and small screens.
+ */
+@media (max-width: 768px) {
+  .create-post-container {
+    margin: 1.5rem auto;            /* Reduced top margin */
+    padding: 0 var(--space-md);     /* Consistent horizontal padding */
+  }
+
+  .form-body {
+    padding: 2rem var(--space-lg);  /* Adjusted padding for mobile */
+  }
+
+  .form-header {
+    padding: 2rem var(--space-lg);  /* Consistent header padding */
+  }
+
+  .form-header h1 {
+    font-size: 1.8rem;             /* Slightly smaller for mobile */
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;          /* Adjusted spacing for mobile */
+  }
+  
+  .form-input {
+    padding: 0.875rem 1rem;        /* Slightly reduced padding */
+    font-size: 16px;               /* Prevent zoom on iOS */
+  }
+  
+  .btn {
+    padding: 1rem 1.5rem;          /* Adjusted button padding */
+    font-size: 1rem;               /* Consistent button text size */
+  }
+  
+  .selected-tag {
+    padding: 0.625rem 0.875rem;    /* Smaller tags on mobile */
+    font-size: 0.85rem;
+  }
+  
+  /* Better touch targets for mobile */
+  .suggestion-item {
+    padding: 1.25rem var(--space-lg);
+    font-size: 1rem;               /* Larger font for mobile */
+  }
+  
+  /* Enhanced success modal for tablets */
+  .success-card {
+    max-width: 500px;
+    padding: 2.25rem;
+  }
+  
+  .success-icon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .success-icon::before {
+    font-size: 2.2rem;
+  }
+}
+
+/**
+ * Enhanced Very Small Screen Adjustments
+ */
+@media (max-width: 480px) {
+  .form-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .form-body {
+    padding: 1.5rem var(--space-md);
+  }
+  
+  .form-header {
+    padding: 1.5rem var(--space-md);
+  }
+  
+  /* Enhanced success modal for mobile */
+  .success-card {
+    padding: 2rem 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .success-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .success-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Better tag input responsiveness */
+  .tag-input {
+    font-size: 16px;               /* Prevent zoom on iOS */
+  }
+  
+  /* Enhanced editor for mobile */
+  #editor {
+    min-height: 250px;             /* Smaller height on mobile */
+  }
+  
+  .ck-editor__editable {
+    min-height: 250px !important;
+    padding: 1rem !important;      /* Reduced padding for mobile */
+  }
+}
