@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type MemberProps = {
   name: string;
   image: string;
   roleDetailed: string;
   description: string;
-  translations?: (key: string) => string;
 };
 
 export default function MembersInfoDetailed({
@@ -13,10 +13,9 @@ export default function MembersInfoDetailed({
   image,
   roleDetailed,
   description,
-  translations,
 }: MemberProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const t = translations || ((key: string) => key);
+  const { t } = useTranslation(); // <--- aquí cargas el namespace
 
   const replaceTranslation = (
     template: string,
@@ -40,9 +39,7 @@ export default function MembersInfoDetailed({
       <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
         <img
           src={image}
-          alt={replaceTranslation(t("member_info_detailed.member_photo_alt"), {
-            name,
-          })}
+          alt={replaceTranslation(t("member_photo_alt"), { name })}
           className="w-full h-auto sm:h-full object-cover rounded-xl"
           loading="lazy"
         />
