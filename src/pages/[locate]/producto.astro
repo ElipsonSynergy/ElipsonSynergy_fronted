@@ -1,0 +1,258 @@
+---
+// producto.astro - Innovative product showcase page
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductFilter from '../../components/ProductFilter.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
+import { useTranslations } from '../../utils/i18n';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locate: 'es' } },
+    { params: { locate: 'en' } },
+    { params: { locate: 'por' } }
+  ];
+}
+
+const { locate } = Astro.params;
+const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const t = useTranslations(lang);
+
+---
+
+<BaseLayout 
+  title={t('products_page_meta.title')}
+  description={t('products_page_meta.description')}
+  keywords={t('products_page_meta.keywords')}
+>
+  <!-- Revolutionary Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- Dynamic Background Effects -->
+    <div class="absolute inset-0">
+      <!-- Animated Grid -->
+      <div class="absolute inset-0 opacity-5">
+        <div class="grid grid-cols-12 grid-rows-8 gap-1 h-full w-full">
+          {Array.from({length: 96}).map((_, i) => (
+            <div class={`bg-blue-500 rounded-sm animate-pulse`} style={`animation-delay: ${i * 50}ms`}></div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Floating Geometric Elements -->
+      <div class="absolute top-20 left-20 w-6 h-6 bg-blue-500/20 rotate-45 animate-bounce"></div>
+      <div class="absolute top-32 right-32 w-4 h-4 bg-indigo-500/30 rounded-full animate-pulse delay-300"></div>
+      <div class="absolute bottom-40 left-40 w-8 h-8 bg-purple-500/20 rotate-12 animate-spin slow-spin"></div>
+      <div class="absolute top-1/2 right-20 w-5 h-5 bg-blue-600/25 rounded-full animate-ping delay-1000"></div>
+      
+      <!-- Gradient Orbs -->
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-indigo-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-purple-400/10 to-blue-500/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+      
+      
+      <!-- Revolutionary Title -->
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight">
+        <span class="block text-slate-900 mb-2">{t('products_hero_section.title_line1')}</span>
+        <span class="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{t('products_hero_section.title_line2')}</span>
+      </h1>
+      
+      <!-- Inspiring Subtitle -->
+      <p class="max-w-5xl mx-auto text-xl md:text-2xl lg:text-3xl text-slate-600 leading-relaxed font-medium mb-12" set:html={t('products_hero_section.description').replace('<strong>', '<span class="text-blue-600 font-bold">').replace('</strong>', '</span>')}>
+      </p>
+      
+      <!-- Interactive Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-16">
+        <div class="text-center group">
+          <div class="text-3xl md:text-4xl font-black text-blue-600 mb-2 group-hover:scale-110 transition-transform duration-300">{projects.length}+</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.projects')}</div>
+        </div>
+        <div class="text-center group">
+          <div class="text-3xl md:text-4xl font-black text-indigo-600 mb-2 group-hover:scale-110 transition-transform duration-300">5</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.sectors')}</div>
+        </div>
+        <div class="text-center group">
+          <div class="text-3xl md:text-4xl font-black text-purple-600 mb-2 group-hover:scale-110 transition-transform duration-300">100%</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.innovation')}</div>
+        </div>
+        <div class="text-center group">
+          <div class="text-3xl md:text-4xl font-black text-blue-700 mb-2 group-hover:scale-110 transition-transform duration-300">∞</div>
+          <div class="text-sm font-medium text-slate-500 uppercase tracking-wider">{t('products_stats.impact')}</div>
+        </div>
+      </div>
+      
+      <!-- Scroll Indicator -->
+      <div class="animate-bounce">
+        <svg class="w-6 h-6 mx-auto text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium Projects Showcase -->
+  <section class="relative py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
+    <!-- Sophisticated Background -->
+    <div class="absolute inset-0">
+      <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-100/50 to-transparent rounded-full -translate-x-48 -translate-y-48 blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-indigo-100/50 to-transparent rounded-full translate-x-48 translate-y-48 blur-3xl"></div>
+      
+      <!-- Subtle Pattern -->
+      <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, rgba(59,130,246,0.15) 1px, transparent 0); background-size: 20px 20px;"></div>
+    </div>
+    
+    <div class="relative max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-20">
+        <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
+          {t('products_portfolio_section.title')} <span class="text-blue-600">{t('products_portfolio_section.title_highlight')}</span>
+        </h2>
+        <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          {t('products_portfolio_section.description')}
+        </p>
+      </div>
+      
+      <!-- Enhanced Product Filter -->
+      <div class="mb-16">
+        <ProductFilter translations={t} />
+      </div>
+      
+      <!-- Revolutionary Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-20" id="projects-grid">
+        {projects.map((project, index) => (
+          <ProjectCard project={project} translations={t} />
+        ))}
+      </div>
+      
+      <!-- Premium CTA Section -->
+      <div class="text-center">
+        <div class="bg-gradient-to-r from-slate-50 to-blue-50 rounded-3xl p-12 border border-slate-200/50 shadow-xl backdrop-blur-sm">
+          <div class="max-w-3xl mx-auto">
+            <h3 class="text-2xl md:text-4xl font-black text-slate-900 mb-6">
+              {t('products_cta_section.title')} <span class="text-blue-600">{t('products_cta_section.title_highlight')}</span>{t('products_cta_section.title_question')}
+            </h3>
+            <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+              {t('products_cta_section.description')}
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a 
+                href={lang === 'es' ? '/contactanos' : `/${lang}/contactanos`}
+                class="group inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              >
+                <span>{t('products_cta_section.button_text')}</span>
+                <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </a>
+              
+              <div class="flex items-center space-x-4 text-slate-500">
+                <div class="flex items-center space-x-2">
+                  <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span class="text-sm font-medium">{t('products_cta_section.status_text')}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Innovative Features Section -->
+  <section class="relative py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
+    <!-- Dynamic Background -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+      <div class="absolute top-0 left-0 w-full h-full opacity-10">
+        {Array.from({length: 50}).map((_, i) => (
+          <div 
+            class="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={`top: ${Math.random() * 100}%; left: ${Math.random() * 100}%; animation-delay: ${Math.random() * 2}s`}
+          ></div>
+        ))}
+      </div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="mb-16">
+        <h2 class="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
+          {t('products_features_section.title')} <span class="text-blue-400">{t('products_features_section.title_highlight')}</span>
+        </h2>
+        <p class="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+          {t('products_features_section.description')}
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Agile Development Feature -->
+        <div class="group p-8 bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-500 hover:-translate-y-2">
+          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-4">{t('products_features_section.agile_development.title')}</h3>
+          <p class="text-blue-100 leading-relaxed">{t('products_features_section.agile_development.description')}</p>
+        </div>
+        
+        <!-- Premium Quality Feature -->
+        <div class="group p-8 bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-500 hover:-translate-y-2">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-4">{t('products_features_section.premium_quality.title')}</h3>
+          <p class="text-blue-100 leading-relaxed">{t('products_features_section.premium_quality.description')}</p>
+        </div>
+        
+        <!-- Continuous Innovation Feature -->
+        <div class="group p-8 bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-500 hover:-translate-y-2">
+          <div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-4">{t('products_features_section.continuous_innovation.title')}</h3>
+          <p class="text-blue-100 leading-relaxed">{t('products_features_section.continuous_innovation.description')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .slow-spin {
+    animation: spin 8s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #3b82f6, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Enhanced animations */
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style> 
