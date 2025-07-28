@@ -4,18 +4,18 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { getLocalizedMembers } from "@/data/members-i18n";
 
 interface TeamCarouselProps {
-  lang?: 'es' | 'en' | 'por';
+  lang?: "es" | "en" | "por";
   translations?: (key: string) => string;
 }
 
-export default function TeamCarousel({ 
-  lang = 'es', 
-  translations 
+export default function TeamCarousel({
+  lang = "es",
+  translations,
 }: TeamCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(300);
   const [gap, setGap] = useState(200);
-  
+
   // Get localized members based on current language
   const members = getLocalizedMembers(lang);
   const t = translations || ((key: string) => key);
@@ -96,6 +96,10 @@ export default function TeamCarousel({
                   image={member.image}
                   isActive={isActive}
                   translations={translations}
+                  whatsAppLink={member.whatsAppLink}
+                  instagramLink={member.instagramLink}
+                  facebookLink={member.facebookLink}
+                  linkedinLink={member.linkedInLink}
                 />
               </div>
             );

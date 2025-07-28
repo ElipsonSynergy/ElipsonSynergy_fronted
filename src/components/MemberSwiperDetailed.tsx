@@ -5,18 +5,18 @@ import { getLocalizedMembers } from "@/data/members-i18n";
 import MembersInfoDetailed from "./MembersInfoDetailed";
 
 interface TeamCarouselDetailedProps {
-  lang?: 'es' | 'en' | 'por';
+  lang?: "es" | "en" | "por";
   translations?: (key: string) => string;
 }
 
-export default function TeamCarouselDetailed({ 
-  lang = 'es', 
-  translations 
+export default function TeamCarouselDetailed({
+  lang = "es",
+  translations,
 }: TeamCarouselDetailedProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(300);
   const [gap, setGap] = useState(200);
-  
+
   // Get localized members based on current language
   const members = getLocalizedMembers(lang);
   const t = translations || ((key: string) => key);
@@ -37,7 +37,7 @@ export default function TeamCarouselDetailed({
       }
     };
 
-    handleResize(); // Inicial
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -127,6 +127,10 @@ export default function TeamCarouselDetailed({
                     image={member.image}
                     isActive={isActive}
                     translations={translations}
+                    whatsAppLink={member.whatsAppLink}
+                    instagramLink={member.instagramLink}
+                    facebookLink={member.facebookLink}
+                    linkedinLink={member.linkedInLink}
                   />
                 </div>
               );
