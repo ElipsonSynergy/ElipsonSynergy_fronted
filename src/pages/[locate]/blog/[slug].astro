@@ -3,9 +3,9 @@ export const prerender = false;
 
 import { Image } from "astro:assets";
 import { format } from "date-fns";
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { useTranslations } from '../../utils/i18n';
-import type { PostType } from "../../types";
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../utils/i18n';
+import type { PostType } from "../../../types";
 
 // 1. Extraemos el slug de la URL
 const { slug } = Astro.params as { slug: string };

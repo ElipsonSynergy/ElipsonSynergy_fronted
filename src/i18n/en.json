@@ -502,5 +502,43 @@
     "profile_card_title": "{name}'s Profile",
     "read_more": "Read more",
     "read_less": "Read less"
+  },
+  "blogPage": {
+    "hero": {
+      "title": "Our Blog",
+      "subtitle": "Knowledge, Innovation, and Trends",
+      "description": "Discover more about what matters to you",
+      "description2": "Explore our articles, tutorials, and resources on technology and innovation"
+    },
+    "noResults": {
+      "title": "No results found",
+      "description": "Try adjusting your search or filters"
+    }
+  },
+  "createPost": {
+    "title": "Create New Post",
+    "subtitle": "Admin Panel",
+    "description": "Create amazing content for our readers",
+    "form": {
+      "title": "Blog Editor",
+      "description": "Fill out all fields to publish your article",
+      "title_label": "Post Title",
+      "title_description": "Short Description",
+      "content_label": "Article Content",
+      "author": "Author",
+      "loading": "Loading authors...",
+      "image_label": "Cover Image",
+      "tags_label": "Article Tags",
+      "submit_button": "Publish Blog Post"
+    },
+    "success_message": "Post created successfully.",
+    "error_message": "Error creating post. Please try again."
+  },
+  "blogDetail": {
+    "popular": "Popular Articles",
+    "read_more": "Did you like this article?",
+    "read_more_description": "Discover more interesting content on our blog.",
+    "explore": "Explore More Articles",
+    "contact": "Contact Us"
   }
 }

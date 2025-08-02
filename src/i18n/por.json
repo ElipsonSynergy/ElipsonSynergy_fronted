@@ -501,5 +501,43 @@
       "title": "Todos os Direitos Reservados",
       "description": "© 2024 Elipson Synergy. Todos os direitos reservados."
     }
+  },
+  "blogPage": {
+    "hero": {
+      "title": "Nosso Blog",
+      "subtitle": "Conhecimento, Inovação e Tendências",
+      "description": "Descubra mais sobre o que é importante para você",
+      "description2": "Explore nossos artigos, tutoriais e recursos sobre tecnologia e inovação"
+    },
+    "noResults": {
+      "title": "Nenhum resultado encontrado",
+      "description": "Tente ajustar sua busca ou os filtros"
+    }
+  },
+  "createPost": {
+    "title": "Criar Novo Post",
+    "subtitle": "Painel de Administração",
+    "description": "Crie conteúdo incrível para nossos leitores",
+    "form": {
+      "title": "Editor de Blog",
+      "description": "Preencha todos os campos para publicar seu artigo",
+      "title_label": "Título do Post",
+      "title_description": "Descrição Breve",
+      "content_label": "Conteúdo do Artigo",
+      "author": "Autor",
+      "loading": "Carregando autores...",
+      "image_label": "Imagem de Capa",
+      "tags_label": "Tags do Artigo",
+      "submit_button": "Publicar Post no Blog"
+    },
+    "success_message": "Post criado com sucesso.",
+    "error_message": "Erro ao criar o post. Por favor, tente novamente."
+  },
+  "blogDetail": {
+    "popular": "Artigos Populares",
+    "read_more": "Gostou deste artigo?",
+    "read_more_description": "Descubra mais conteúdos interessantes em nosso blog.",
+    "explore": "Explorar Mais Artigos",
+    "contact": "Fale Conosco"
   }
 }
