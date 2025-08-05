@@ -16,17 +16,13 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     server: {
-            proxy: {
-                '/api': {
-                    target: 'http://localhost:3000',
-                    changeOrigin: true,
-                },
-                '/uploads': {
-                    target: 'http://localhost:3000',
-                    changeOrigin: true,
-
-                }
-            }
+      proxy: {
+        // solo proxy para /uploads si realmente lo necesitas:
+        '/uploads': {
+          target: 'http://localhost:3000',
+          changeOrigin: true
         }
+      }
+    }
   },
 });
