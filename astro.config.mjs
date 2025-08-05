@@ -17,7 +17,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
     server: {
       proxy: {
-        // solo proxy para /uploads si realmente lo necesitas:
         '/uploads': {
           target: 'http://localhost:3000',
           changeOrigin: true
