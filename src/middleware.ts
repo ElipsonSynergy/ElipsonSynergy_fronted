@@ -1,7 +1,7 @@
 import { defineMiddleware } from "astro/middleware";
 
 export const onRequest = defineMiddleware((context, next) => {
-  const supportedLocales = ["es", "en", "pt"];
+  const supportedLocales = ["es", "en", "por"];
   const defaultLocale = "es";
 
   const [, maybeLocale] = context.url.pathname.split("/");
