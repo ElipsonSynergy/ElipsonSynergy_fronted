@@ -8,7 +8,7 @@ const monserrat = Montserrat({ subsets: ["latin"] });
 
 async function getBlog(id) {
   const blogs = [...blogData];
-  const blog = blogs[parseInt(id) - 1]; 
+  const blog = blogs.find((blog) => blog.id === parseInt(id));
   return blog;
   
 }
