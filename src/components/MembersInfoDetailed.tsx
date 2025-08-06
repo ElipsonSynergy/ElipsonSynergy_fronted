@@ -59,11 +59,11 @@ export default function MembersInfoDetailed({
             aria-expanded={isExpanded}
           >
             {isExpanded
-              ? t("member_info_detailed.read_less")
-              : t("member_info_detailed.read_more")}
+              ? t("member_info_detailed.read_less", { name })
+              : t("member_info_detailed.read_more", { name })}
           </button>
         )}
-      </div>
+      </div>  
     </div>
   );
 }

@@ -21,19 +21,20 @@
 import BlogsListBanner from "../../components/BlogsListBanner.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { useTranslations } from '../../utils/i18n';
+import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
+import { initI18n } from "../../i18n/confg";
 
 export async function getStaticPaths() {
-  return [
-    { params: { locate: 'es' } },
-    { params: { locate: 'en' } },
-    { params: { locate: 'por' } }
-  ];
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
 }
 
-const { locate } = Astro.params;
-const lang = (locate as 'es' | 'en' | 'por') || 'es';
+let lang = getLangFromUrl(Astro.url);
+
 const t = useTranslations(lang);
+
+
 
 /**
  * Tag interface matching TagDto from backend

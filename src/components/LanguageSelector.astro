@@ -1,8 +1,15 @@
 ---
-import { getLangFromUrl, languages, getLocalizedPath } from '../utils/i18n';
+import { getLangFromUrl, languages, getLocalizedPath, cleanPathFromLanguage } from '../utils/i18n';
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
 
-const lang = getLangFromUrl(Astro.url);
-const currentPath = Astro.url.pathname.replace(/^\/[a-z]{2,3}/, '') || '/';
+let lang = getLangFromUrl(Astro.url);
+
+// Clean the path by removing any language prefix
+const currentPath = cleanPathFromLanguage(Astro.url.pathname);
 ---
 
 <div class="relative group">
