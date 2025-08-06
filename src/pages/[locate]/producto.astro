@@ -3,9 +3,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductFilter from '../../components/ProductFilter.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import { projects } from '../../data/projects';
-import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
-import { initI18n } from '../../i18n/confg';
+import { projectsI18n, getLocalizedProjects } from '../../data/projects-i18n';
+import { useTranslations, languages, getLangFromUrl, getLocalizedPath } from '../../utils/i18n';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -14,8 +13,15 @@ export async function getStaticPaths() {
 }
 
 let lang = getLangFromUrl(Astro.url);
-
 const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
+
+// Get localized projects based on current language
+const projects = getLocalizedProjects(lang as 'es' | 'en' | 'por');
 
 ---
 
@@ -120,7 +126,7 @@ const t = useTranslations(lang);
       <!-- Revolutionary Projects Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-20" id="projects-grid">
         {projects.map((project, index) => (
-          <ProjectCard project={project} translations={t} />
+          <ProjectCard project={project} />
         ))}
       </div>
       
@@ -137,7 +143,7 @@ const t = useTranslations(lang);
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
-                href={lang === 'es' ? '/contactanos' : `/${lang}/contactanos`}
+                href={getLocalizedLink('/contactanos')}
                 class="group inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 <span>{t('products_cta_section.button_text')}</span>
