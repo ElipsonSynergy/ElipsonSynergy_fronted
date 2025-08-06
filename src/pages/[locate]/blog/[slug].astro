@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { useTranslations, languages, getLangFromUrl } from '../../../utils/i18n';
 import type { PostType } from "../../../types";
-import { initI18n } from "../../../i18n/confg";
+
 
 // 1. Extraemos el slug de la URL
 const { slug } = Astro.params as { slug: string };

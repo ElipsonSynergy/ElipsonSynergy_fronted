@@ -22,7 +22,7 @@ import BlogsListBanner from "../../components/BlogsListBanner.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
-import { initI18n } from "../../i18n/confg";
+
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
