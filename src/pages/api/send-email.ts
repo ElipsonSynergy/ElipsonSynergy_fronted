@@ -1,6 +1,8 @@
 // src/pages/api/send-email.ts
 export const prerender = false;
 import type { APIRoute } from 'astro';
+import { adminDb } from '../../lib/firebaseAdmin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 interface ContactData {
   name: string;
@@ -172,11 +174,23 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error(`SendGrid API error: ${response.status}`);
     }
 
+    try {
+      await adminDb.collection('contacts').add({
+        name: contactData.name,
+        email: contactData.email,
+        message: contactData.message,
+        phone: contactData.phone || null,
+        createdAt: FieldValue.serverTimestamp()
+      });
+    } catch (e) {
+      console.error('Error saving contact to Firestore:', e);
+    }
+
     console.log(`Email sent successfully to ${MAIL_TO_ADDRESS}`);
     
     return new Response(JSON.stringify({
       success: true,
-      message: 'Email sent successfully'
+      message: 'Email sent and contact saved successfully'
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
