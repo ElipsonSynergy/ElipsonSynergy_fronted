@@ -32,7 +32,7 @@
  */
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { useTranslations, languages, getLangFromUrl } from '../../../utils/i18n';
+import { useTranslations, languages, getLangFromUrl, getLocalizedPath } from '../../../utils/i18n';
 
 
 export async function getStaticPaths() {
@@ -46,6 +46,11 @@ let lang = getLangFromUrl(Astro.url);
 
 
 const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
 
 ---
 
@@ -663,7 +668,7 @@ const t = useTranslations(lang);
             <button class="success-btn" onclick="closeSuccessMessage()">
               Crear Otro Post
             </button>
-            <a href="/blog" class="success-btn success-btn--secondary">
+            <a href={getLocalizedLink('/blog')} class="success-btn success-btn--secondary">
               Ver Blog
             </a>
           </div>

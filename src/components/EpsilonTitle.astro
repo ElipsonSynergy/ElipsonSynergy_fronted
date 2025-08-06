@@ -1,37 +1,13 @@
 ---
-/**
- * EpsilonTitle Component
- * 
- * A sophisticated landing page hero section featuring the ELIPSON brand title
- * with animated decorative elements and a three-column layout showcasing
- * different aspects of the company.
- * 
- * Features:
- * - Animated floating background circles
- * - Large responsive title with gradient text effects
- * - Three-column responsive grid layout:
- *   - Left: Planet with orbital animation and social icons
- *   - Center: Toucan mascot with main call-to-action
- *   - Right: Statistics and secondary call-to-action
- * - Interactive hover effects throughout
- * - Fully responsive design adapting to mobile devices
- * 
- * Dependencies:
- * - CSS styles defined in styles.css (.epsilon-title section)
- * - Image assets: earth-sm.png, toucan-full.png, cow-sm.png
- * - Icon assets: globe.png, info.png (in /icons/ directory)
- * - Parent page must include: <link rel="stylesheet" href="/styles.css" slot="head" />
- * 
- * @component
- * @example
- * ```astro
- * ---
- * import EpsilonTitle from '../components/EpsilonTitle.astro';
- * ---
- * <EpsilonTitle />
- * ```
- */
-// src/components/EpsilonTitle.astro
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
 ---
 <!-- 
   Main EpsilonTitle Section
@@ -389,7 +365,7 @@
             - Enhanced shadow on interaction
             - Brand color scheme maintained
           -->
-          <a href="/blog" class="epsilon-link epsilon-link--secondary">
+          <a href={getLocalizedLink('/blog')} class="epsilon-link epsilon-link--secondary">
             Blog
             <!-- 
               Secondary Arrow Icon
