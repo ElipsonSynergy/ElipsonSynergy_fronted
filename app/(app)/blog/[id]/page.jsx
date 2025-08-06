@@ -8,9 +8,29 @@ const monserrat = Montserrat({ subsets: ["latin"] });
 
 async function getBlog(id) {
   const blogs = [...blogData];
-  const blog = blogs[parseInt(id) - 1]; 
+  const blog = blogs.find((blog) => blog.id === parseInt(id));
   return blog;
   
+}
+
+function reactJsonToHtmlString(node) {
+  if (!node) return '';
+  if (typeof node === 'string') return node;
+
+  const { type, props = {} } = node;
+  if (!type) return ''; 
+
+  const { children, ...rest } = props;
+
+  const attrs = Object.entries(rest)
+    .map(([key, value]) => `${key}="${value}"`)
+    .join(' ');
+
+  const childrenHtml = Array.isArray(children)
+    ? children.map(reactJsonToHtmlString).join('')
+    : reactJsonToHtmlString(children);
+
+  return `<${type}${attrs ? ' ' + attrs : ''}>${childrenHtml}</${type}>`;
 }
 
 
@@ -22,7 +42,7 @@ export default async function page({params}) {
 
   const blog =  await  getBlog(id);
 
-
+  const htmlcontent = reactJsonToHtmlString(blog.content);
 
   return (
     <section className="pb-10 pt-20 lg:pb-20 lg:pt-[120px]">
@@ -147,8 +167,8 @@ export default async function page({params}) {
                     {blog.title}
                   </h2>
 
-                  <div className="prose text-body-color text-base min-w-full" dangerouslySetInnerHTML={{ __html: blog.content }} />
-                  
+                  <div className="prose text-body-color text-base min-w-full" dangerouslySetInnerHTML={{ __html: htmlcontent }} />
+
 
                   <div className="flex flex-wrap items-center mb-12 -mx-4">
                     <div className="w-full px-4 md:w-1/2">
