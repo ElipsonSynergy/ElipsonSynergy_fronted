@@ -4,6 +4,11 @@ import type { APIRoute } from 'astro';
 import { adminDb } from '../../lib/firebaseAdmin';
 import { FieldValue } from 'firebase-admin/firestore';
 
+const WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 5;
+
+const rateMap = new Map<string, { count: number; first: number }>();
+
 interface ContactData {
   name: string;
   email: string;
@@ -13,12 +18,8 @@ interface ContactData {
 
 function generateEmailTemplate(name: string, email: string, userMessage: string, phone = '') {
   const now = new Date();
-  const formattedDate = `${now.getDate().toString().padStart(2, '0')}/${
-    (now.getMonth() + 1).toString().padStart(2, '0')}/${
-    now.getFullYear()} ${
-    now.getHours().toString().padStart(2, '0')}:${
-    now.getMinutes().toString().padStart(2, '0')}`;
-  
+  const formattedDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
   return `
 <!DOCTYPE html>
 <html>
@@ -106,9 +107,39 @@ function generateEmailTemplate(name: string, email: string, userMessage: string,
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ||
+    request.headers.get('x-real-ip') ||
+    request.headers.get('cf-connecting-ip') ||
+    'unknown';
+
+  const now = Date.now();
+  const entry = rateMap.get(ip)
+
+  if (entry) {
+    if (now - entry.first < WINDOW_MS) {
+      entry.count++;
+      if (entry.count > MAX_REQUESTS) {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: 'Too many requests, please try again later'
+          }), {
+          status: 429,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+    } else {
+      // Reset the count if the time window has passed
+      rateMap.delete(ip);
+      rateMap.set(ip, { count: 1, first: now });
+    }
+  } else {
+    rateMap.set(ip, { count: 1, first: now });
+  }
+
   try {
     const contactData: ContactData = await request.json();
-    
+
     // Validation
     if (!contactData.name || !contactData.email || !contactData.message) {
       return new Response(JSON.stringify({
@@ -138,9 +169,9 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const html = generateEmailTemplate(
-      contactData.name, 
-      contactData.email, 
-      contactData.message, 
+      contactData.name,
+      contactData.email,
+      contactData.message,
       contactData.phone
     );
 
@@ -187,7 +218,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     console.log(`Email sent successfully to ${MAIL_TO_ADDRESS}`);
-    
+
     return new Response(JSON.stringify({
       success: true,
       message: 'Email sent and contact saved successfully'
