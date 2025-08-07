@@ -6,7 +6,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import TeamCarousel from '@/components/MemberSwiper.jsx';
+import { getAllMembersServer, localizeMembers } from '../../lib/membersFirebase';
 import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
+import type { SupportedLanguage } from '../../types/firebase';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -22,6 +24,10 @@ const t = useTranslations(lang);
 function getLocalizedLink(path: string) {
   return getLocalizedPath(path, lang);
 }
+
+// Get members from Firebase
+const firebaseMembers = await getAllMembersServer();
+const members = localizeMembers(firebaseMembers, lang as SupportedLanguage);
 ---
 
 <BaseLayout 
@@ -329,7 +335,7 @@ function getLocalizedLink(path: string) {
   </p>
 </div>
 
-<!-- <TeamCarousel client:load lang={lang} /> -->
+<TeamCarousel client:load lang={lang} members={members} />
 <br>
 <br>
 <div class="flex justify-center mt-4">

@@ -1,15 +1,19 @@
 ---
 // proyecto/[id].astro - Project detail page
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { projectsI18n, getLocalizedProjects } from '../../../data/projects-i18n';
+import { getAllProjectsServer, getProjectByIdServer, localizeProjects, localizeProject } from '../../../lib/projectsFirebase';
 import { useTranslations, languages, getLangFromUrl, getLocalizedPath } from '../../../utils/i18n';
+import type { SupportedLanguage } from '../../../types/firebase';
 
 export async function getStaticPaths() {
   const paths: any[] = [];
   
+  // Get projects from Firebase
+  const firebaseProjects = await getAllProjectsServer();
+  
   // Generate paths for each language and each project
   Object.keys(languages).forEach((lang) => {
-    projectsI18n.forEach((project) => {
+    firebaseProjects.forEach((project) => {
       paths.push({
         params: { 
           locate: lang,
@@ -32,8 +36,8 @@ const langFromUrl = locate || getLangFromUrl(Astro.url);
 const lang = (langFromUrl in languages) ? langFromUrl as keyof typeof languages : 'es';
 const t = useTranslations(lang);
 
-// Find the project by ID
-const project = projectsI18n.find(p => p.id === id);
+// Find the project by ID from Firebase
+const project = await getProjectByIdServer(id as string);
 
 if (!project) {
   return Astro.redirect('/404');
@@ -45,15 +49,7 @@ function getLocalizedLink(path: string) {
 }
 
 // Get localized project data
-const localizedProject = {
-  id: project.id,
-  title: project.title[lang],
-  description: project.description[lang],
-  image: project.image,
-  category: project.category,
-  tags: project.tags[lang],
-  featured: project.featured
-};
+const localizedProject = localizeProject(project, lang as SupportedLanguage);
 
 // Generate thematic image URLs based on category
 const getThematicImage = (category: string) => {
@@ -68,7 +64,8 @@ const getThematicImage = (category: string) => {
 };
 
 // Get other projects in the same category
-const allLocalizedProjects = getLocalizedProjects(lang);
+const allFirebaseProjects = await getAllProjectsServer();
+const allLocalizedProjects = localizeProjects(allFirebaseProjects, lang as SupportedLanguage);
 const relatedProjects = allLocalizedProjects
   .filter(p => p.category === localizedProject.category && p.id !== localizedProject.id)
   .slice(0, 3);
@@ -360,7 +357,7 @@ const relatedProjects = allLocalizedProjects
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {relatedProjects.map((relatedProject) => (
+          {relatedProjects.map((relatedProject: any) => (
             <a 
               href={getLocalizedLink(`/proyecto/${relatedProject.id}`)}
               class="group block bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden border border-gray-100"
