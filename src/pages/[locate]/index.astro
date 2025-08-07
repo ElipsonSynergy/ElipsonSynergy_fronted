@@ -277,22 +277,41 @@ function getLocalizedLink(path: string) {
   <br>
   <br>
 
-<section class="relative w-full h-[500px] flex flex-col lg:flex-row overflow-hidden">
-  <div class="w-full lg:w-1/2 h-full bg-white flex items-center justify-center px-10">
-    <div class="max-w-md text-center lg:text-left">
-      <h1 class="text-4xl font-extrabold text-black mb-4">
-        {t('index.latinAmerica.title')}<br />{t('index.latinAmerica.subtitle')}
+<!-- Latin-America section -->
+<section class="relative w-full flex flex-col lg:flex-row overflow-hidden
+                lg:h-[500px]">     <!-- altura fija solo en desktop -->
+
+  <!-- Bloque de texto -->
+  <div
+    class="flex-1 flex items-center justify-center
+           px-4 sm:px-6 lg:px-10       
+           py-12 lg:py-0">       
+    <div class="w-full max-w-full md:max-w-md text-center lg:text-left">
+      <h1
+        class="font-extrabold leading-tight
+               text-3xl sm:text-4xl lg:text-5xl xl:text-6xl
+               text-black mb-4">
+        {t('index.latinAmerica.title')}<br />
+        {t('index.latinAmerica.subtitle')}
       </h1>
-      <p class="text-lg text-gray-700">
+
+      <p class="text-base sm:text-lg text-gray-700">
         {t('index.latinAmerica.description')}
       </p>
     </div>
   </div>
-  <div class="hidden lg:block w-1/2 h-full relative">
-    <img src="/images/LatinAmerica.png" alt="Latinoamérica" class="absolute inset-0 w-full h-full object-cover" />
+
+  <!-- Imagen: sólo aparece ≥ lg -->
+  <div class="hidden lg:block flex-1 relative">
+    <img
+      src="/images/LatinAmerica.png"
+      alt="Latinoamérica"
+      class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-gradient-to-l from-white to-transparent"></div>
   </div>
+
 </section>
+
 <br>
 <br>
 <br>
@@ -310,7 +329,7 @@ function getLocalizedLink(path: string) {
   </p>
 </div>
 
-<TeamCarousel client:load lang={lang} />
+<!-- <TeamCarousel client:load lang={lang} /> -->
 <br>
 <br>
 <div class="flex justify-center mt-4">
@@ -319,6 +338,7 @@ function getLocalizedLink(path: string) {
     class="inline-block no-underline px-6 py-3 text-white text-base sm:text-lg font-semibold rounded-full bg-blue-600 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg focus:outline-none focus:ring-0"
   >
     {t('index.team.cta')}
+    
   </a>
 </div>
 </section>
@@ -326,8 +346,8 @@ function getLocalizedLink(path: string) {
 
 
   
-  <!-- CTA Section -->
-  <section class="relative  overflow-hidden">
+
+  <!-- <section class="relative  overflow-hidden">
     <div class="absolute inset-0 gradient-bg"></div>
     <div class="absolute inset-0 opacity-10">
       <div class="absolute top-10 left-10 w-3 h-3 bg-white rounded-full animate-pulse"></div>
@@ -339,7 +359,7 @@ function getLocalizedLink(path: string) {
     <div class="absolute bottom-10 right-10 w-24 h-24 bg-white/10 rounded-full"></div>
   </section>
 
-  <!-- CTA Section -->
+
   <section class="relative py-24 overflow-hidden">
     <div class="absolute inset-0 gradient-bg"></div>
     <div class="absolute inset-0 opacity-10">
@@ -352,5 +372,5 @@ function getLocalizedLink(path: string) {
     <div class="absolute bottom-10 right-10 w-24 h-24 bg-white/10 rounded-full"></div>
     
     </div>
-  </section>
+  </section> -->
 </BaseLayout>
