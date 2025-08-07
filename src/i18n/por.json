@@ -540,5 +540,59 @@
     "read_more_description": "Descubra mais conteúdos interessantes em nosso blog.",
     "explore": "Explorar Mais Artigos",
     "contact": "Fale Conosco"
+  },
+  "project_detail": {
+    "meta": {
+      "title_suffix": "Elipson Synergy",
+      "keywords": "projeto, tecnologia, inovação, desenvolvimento, solução"
+    },
+    "navigation": {
+      "back_to_projects": "Voltar aos Projetos"
+    },
+    "sections": {
+      "about_title": "Sobre Este Projeto",
+      "features_title": "Características Principais"
+    },
+    "extended_descriptions": {
+      "agro": "Este projeto utiliza tecnologia IoT avançada para revolucionar a agricultura moderna, integrando sensores inteligentes, análise de dados em tempo real e algoritmos de machine learning para otimizar recursos e maximizar a produtividade agrícola de forma sustentável.",
+      "jovenes": "Uma iniciativa transformadora que empodera os jovens colombianos através da tecnologia, fornecendo ferramentas digitais inovadoras, treinamento especializado e oportunidades de crescimento que conectam o talento local com as demandas do mercado global.",
+      "store": "Solução abrangente de comércio eletrônico que reimagina a experiência de compra, combinando tecnologias emergentes com design centrado no usuário para criar um ecossistema comercial robusto, escalável e altamente personalizado.",
+      "makers": "Plataforma colaborativa que democratiza o acesso a ferramentas de fabricação digital, fomentando a inovação, criatividade e empreendedorismo tecnológico na comunidade maker latino-americana.",
+      "software": "Desenvolvimento de software empresarial de próxima geração que integra inteligência artificial, arquiteturas cloud-native e metodologias ágeis para resolver desafios complexos do mundo real com soluções escaláveis e sustentáveis."
+    },
+    "features": {
+      "feature_1": {
+        "title": "Tecnologia Avançada",
+        "description": "Implementação das mais recentes tecnologias e frameworks para garantir performance otimizada."
+      },
+      "feature_2": {
+        "title": "Escalabilidade",
+        "description": "Arquitetura projetada para crescer com as necessidades do negócio sem comprometer a qualidade."
+      },
+      "feature_3": {
+        "title": "Segurança",
+        "description": "Protocolos de segurança robustos que protegem dados e privacidade dos usuários."
+      },
+      "feature_4": {
+        "title": "Experiência do Usuário",
+        "description": "Interfaces intuitivas e acessíveis projetadas com o usuário como centro da experiência."
+      }
+    },
+    "sidebar": {
+      "project_info": "Informações do Projeto",
+      "category": "Categoria",
+      "status": "Status",
+      "technologies": "Tecnologias",
+      "cta": {
+        "title": "Interessado neste Projeto?",
+        "description": "Vamos conversar sobre como podemos adaptar esta solução às suas necessidades específicas.",
+        "button": "Entrar em Contato"
+      }
+    },
+    "related_projects": {
+      "title": "Projetos Relacionados",
+      "description": "Explore outros projetos inovadores na mesma categoria",
+      "view_all": "Ver Todos os Projetos"
+    }
   }
 }

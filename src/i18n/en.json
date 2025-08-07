@@ -541,5 +541,59 @@
     "read_more_description": "Discover more interesting content on our blog.",
     "explore": "Explore More Articles",
     "contact": "Contact Us"
+  },
+  "project_detail": {
+    "meta": {
+      "title_suffix": "Elipson Synergy",
+      "keywords": "project, technology, innovation, development, solution"
+    },
+    "navigation": {
+      "back_to_projects": "Back to Projects"
+    },
+    "sections": {
+      "about_title": "About This Project",
+      "features_title": "Key Features"
+    },
+    "extended_descriptions": {
+      "agro": "This project uses advanced IoT technology to revolutionize modern agriculture, integrating smart sensors, real-time data analysis and machine learning algorithms to optimize resources and maximize agricultural productivity sustainably.",
+      "jovenes": "A transformative initiative that empowers Colombian youth through technology, providing innovative digital tools, specialized training and growth opportunities that connect local talent with global market demands.",
+      "store": "Comprehensive e-commerce solution that reimagines the shopping experience, combining emerging technologies with user-centered design to create a robust, scalable and highly personalized commercial ecosystem.",
+      "makers": "Collaborative platform that democratizes access to digital manufacturing tools, fostering innovation, creativity and technological entrepreneurship in the Latin American maker community.",
+      "software": "Next-generation enterprise software development that integrates artificial intelligence, cloud-native architectures and agile methodologies to solve complex real-world challenges with scalable and sustainable solutions."
+    },
+    "features": {
+      "feature_1": {
+        "title": "Advanced Technology",
+        "description": "Implementation of the latest technologies and frameworks to ensure optimal performance."
+      },
+      "feature_2": {
+        "title": "Scalability",
+        "description": "Architecture designed to grow with business needs without compromising quality."
+      },
+      "feature_3": {
+        "title": "Security",
+        "description": "Robust security protocols that protect user data and privacy."
+      },
+      "feature_4": {
+        "title": "User Experience",
+        "description": "Intuitive and accessible interfaces designed with the user as the center of the experience."
+      }
+    },
+    "sidebar": {
+      "project_info": "Project Information",
+      "category": "Category",
+      "status": "Status",
+      "technologies": "Technologies",
+      "cta": {
+        "title": "Interested in this Project?",
+        "description": "Let's talk about how we can adapt this solution to your specific needs.",
+        "button": "Contact Now"
+      }
+    },
+    "related_projects": {
+      "title": "Related Projects",
+      "description": "Explore other innovative projects in the same category",
+      "view_all": "View All Projects"
+    }
   }
 }

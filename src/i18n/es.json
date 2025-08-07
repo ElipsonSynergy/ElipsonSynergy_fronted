@@ -534,11 +534,65 @@
       "success_message": "Publicación creada exitosamente.",
       "error_message": "Error al crear la publicación. Por favor, inténtalo de nuevo."
     },
-    "blogDetail": {
-      "popular": "Artículos Populares",
-      "read_more": "¿Te gustó este artículo?",
-      "read_more_description": "Descubre más contenido interesante en nuestro blog.",
-      "explore": "Explorar Más Artículos",
-      "contact": "Contáctanos"
+      "blogDetail": {
+    "popular": "Artículos Populares",
+    "read_more": "¿Te gustó este artículo?",
+    "read_more_description": "Descubre más contenido interesante en nuestro blog.",
+    "explore": "Explorar Más Artículos",
+    "contact": "Contáctanos"
+  },
+  "project_detail": {
+    "meta": {
+      "title_suffix": "Elipson Synergy",
+      "keywords": "proyecto, tecnología, innovación, desarrollo, solución"
+    },
+    "navigation": {
+      "back_to_projects": "Volver a Proyectos"
+    },
+    "sections": {
+      "about_title": "Acerca de este Proyecto",
+      "features_title": "Características Principales"
+    },
+    "extended_descriptions": {
+      "agro": "Este proyecto utiliza tecnología IoT avanzada para revolucionar la agricultura moderna, integrando sensores inteligentes, análisis de datos en tiempo real y algoritmos de machine learning para optimizar los recursos y maximizar la productividad agrícola de manera sostenible.",
+      "jovenes": "Una iniciativa transformadora que empodera a los jóvenes colombianos a través de la tecnología, proporcionando herramientas digitales innovadoras, capacitación especializada y oportunidades de crecimiento que conectan el talento local con las demandas del mercado global.",
+      "store": "Solución integral de comercio electrónico que reimagina la experiencia de compra, combinando tecnologías emergentes con diseño centrado en el usuario para crear un ecosistema comercial robusto, escalable y altamente personalizado.",
+      "makers": "Plataforma colaborativa que democratiza el acceso a herramientas de fabricación digital, fomentando la innovación, la creatividad y el emprendimiento tecnológico en la comunidad maker latinoamericana.",
+      "software": "Desarrollo de software empresarial de última generación que integra inteligencia artificial, arquitecturas cloud-native y metodologías ágiles para resolver desafíos complejos del mundo real con soluciones escalables y sostenibles."
+    },
+    "features": {
+      "feature_1": {
+        "title": "Tecnología Avanzada",
+        "description": "Implementación de las últimas tecnologías y frameworks para garantizar rendimiento óptimo."
+      },
+      "feature_2": {
+        "title": "Escalabilidad",
+        "description": "Arquitectura diseñada para crecer con las necesidades del negocio sin comprometer la calidad."
+      },
+      "feature_3": {
+        "title": "Seguridad",
+        "description": "Protocolos de seguridad robustos que protegen los datos y la privacidad de los usuarios."
+      },
+      "feature_4": {
+        "title": "Experiencia de Usuario",
+        "description": "Interfaces intuitivas y accesibles diseñadas con el usuario como centro de la experiencia."
+      }
+    },
+    "sidebar": {
+      "project_info": "Información del Proyecto",
+      "category": "Categoría",
+      "status": "Estado",
+      "technologies": "Tecnologías",
+      "cta": {
+        "title": "¿Interesado en este Proyecto?",
+        "description": "Hablemos sobre cómo podemos adaptar esta solución a tus necesidades específicas.",
+        "button": "Contactar Ahora"
+      }
+    },
+    "related_projects": {
+      "title": "Proyectos Relacionados",
+      "description": "Explora otros proyectos innovadores en la misma categoría",
+      "view_all": "Ver Todos los Proyectos"
     }
+  }
 }

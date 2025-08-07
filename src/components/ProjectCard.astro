@@ -13,7 +13,7 @@ export interface Props {
 
 const { project } = Astro.props;
 
-import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -23,6 +23,11 @@ export async function getStaticPaths() {
 
 let lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
 
 // Generate thematic image URLs based on category
 const getThematicImage = (category: string) => {
@@ -38,8 +43,9 @@ const getThematicImage = (category: string) => {
 
 ---
 
-<article 
-  class="project-card group cursor-pointer bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 hover:border-blue-200/50 hover:-translate-y-2 relative"
+<a 
+  href={getLocalizedLink(`/proyecto/${project.id}`)}
+  class="project-card group cursor-pointer bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 hover:border-blue-200/50 hover:-translate-y-2 relative block"
   data-category={project.category}
   style="opacity: 1; transform: translateY(0); transition: opacity 0.3s ease, transform 0.3s ease;"
 >
@@ -135,18 +141,18 @@ const getThematicImage = (category: string) => {
       </div>
       
       <!-- Premium CTA -->
-      <button class="group/btn flex items-center space-x-2 bg-gradient-to-r from-blue-50 to-blue-100/50 hover:from-blue-100 hover:to-blue-150 text-blue-700 hover:text-blue-800 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 border border-blue-200/50 hover:border-blue-300/50 shadow-sm hover:shadow-md">
+      <div class="flex items-center space-x-2 bg-gradient-to-r from-blue-50 to-blue-100/50 group-hover:from-blue-100 group-hover:to-blue-150 text-blue-700 group-hover:text-blue-800 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 border border-blue-200/50 group-hover:border-blue-300/50 shadow-sm group-hover:shadow-md">
         <span class="tracking-wide">{t('ProjectCard.Explore')}</span>
-        <svg class="w-4 h-4 transition-all duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-4 h-4 transition-all duration-300 group-hover:translate-x-0.5 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>
-      </button>
+      </div>
     </div>
   </div>
   
   <!-- Subtle decorative element -->
   <div class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-50/50 to-transparent rounded-tl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-</article>
+</a>
 
 <style>
   .line-clamp-2 {
