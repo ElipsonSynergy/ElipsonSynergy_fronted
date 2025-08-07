@@ -236,11 +236,16 @@ const backendUrl = getBackendUrl();
       
       // --- Email Validation Service (Now using local API) ---
       class MailValidationService {
+        static async getApiUrl(endpoint) {
+          const locale = window.location.pathname.split('/')[1] || 'es';
+          return `/${locale}/api/${endpoint}`;
+        }
         static async validateEmailAddress(email) {
+          const url = await this.getApiUrl('validate-email');
           console.log(`Starting email validation for: ${email}`);
           
           try {
-            const response = await fetch('/api/validate-email', {
+            const response = await fetch(url, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -287,8 +292,9 @@ const backendUrl = getBackendUrl();
       // --- Mail Service (Now using local API) ---
       class MailService {
         static async sendContactEmail(contact) {
+          const url = await MailValidationService.getApiUrl('send-email');
           try {
-            const response = await fetch('/api/send-email', {
+            const response = await fetch(url, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

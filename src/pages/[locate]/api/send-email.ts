@@ -1,7 +1,7 @@
 // src/pages/api/send-email.ts
 export const prerender = false;
 import type { APIRoute } from 'astro';
-import { adminDb } from '../../lib/firebaseAdmin';
+import { adminDb } from '../../../lib/firebaseAdmin';
 import { FieldValue } from 'firebase-admin/firestore';
 
 const WINDOW_MS = 60 * 1000; // 1 minute
