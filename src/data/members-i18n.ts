@@ -48,7 +48,7 @@ export const membersI18n: MemberI18n[] = [
     whatsAppLink: "https://wa.me/573053456789",
     instagramLink: "https://instagram.com/pruebaTestElipsonSinergy",
     facebookLink: "https://facebook.com/pruebaTestElipsonSinergy",
-    linkedInLink: "https://linkedin.com/in/pruebaTestElipsonSinergy",
+    linkedInLink: "https://www.linkedin.com/in/elipson-synergy-a09624357/?originalSubdomain=co",
   },
   {
     id: "laura_hurtado",
@@ -72,7 +72,7 @@ export const membersI18n: MemberI18n[] = [
     whatsAppLink: "https://wa.me/573053456789",
     instagramLink: "https://instagram.com/pruebaTestElipsonSinergy",
     facebookLink: "https://facebook.com/pruebaTestElipsonSinergy",
-    linkedInLink: "https://linkedin.com/in/pruebaTestElipsonSinergy",
+    linkedInLink: "https://www.linkedin.com/in/elipson-synergy-a09624357/?originalSubdomain=co",
   },
   {
     id: "camilo_herrera",
@@ -96,7 +96,7 @@ export const membersI18n: MemberI18n[] = [
     whatsAppLink: "https://wa.me/573053456789",
     instagramLink: "https://instagram.com/pruebaTestElipsonSinergy",
     facebookLink: "https://facebook.com/pruebaTestElipsonSinergy",
-    linkedInLink: "https://linkedin.com/in/pruebaTestElipsonSinergy",
+    linkedInLink: "https://www.linkedin.com/in/elipson-synergy-a09624357/?originalSubdomain=co",
   },
   {
     id: "franklin_romero",
@@ -120,7 +120,7 @@ export const membersI18n: MemberI18n[] = [
     whatsAppLink: "https://wa.me/573053456789",
     instagramLink: "https://instagram.com/pruebaTestElipsonSinergy",
     facebookLink: "https://facebook.com/pruebaTestElipsonSinergy",
-    linkedInLink: "https://linkedin.com/in/pruebaTestElipsonSinergy",
+    linkedInLink: "https://www.linkedin.com/in/elipson-synergy-a09624357/?originalSubdomain=co",
   },
 ];
 
