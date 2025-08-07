@@ -1414,7 +1414,7 @@
   padding-top: 6rem;               /* Top padding reduced due to partial circle overlap */
   text-align: center;              /* Center all content horizontally */
   color: #fff;                     /* White text for contrast */
-  margin-top: 6rem;                /* Top margin to accommodate protruding circle */
+  margin-top: 7rem;                /* Increased top margin for better spacing */
 }
 
 /**
