@@ -9,9 +9,14 @@ export interface Props {
 }
 
 
-import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -89,10 +94,10 @@ export async function getStaticPaths() {
           <div>
             <h4 class="text-white font-semibold mb-4">{t('BaseLayout.QuickLinks.title')}</h4>
             <ul class="space-y-2">
-              <li><a href="/nosotros" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.about')}</a></li>
-              <li><a href="/producto" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.product')}</a></li>
-              <li><a href="/blog" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.blog')}</a></li>
-              <li><a href="/contactanos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.contact')}</a></li>
+              <li><a href={getLocalizedLink('/nosotros')} class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.about')}</a></li>
+              <li><a href={getLocalizedLink('/producto')} class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.product')}</a></li>
+              <li><a href={getLocalizedLink('/blog')} class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.blog')}</a></li>
+              <li><a href={getLocalizedLink('/contactanos')} class="text-gray-300 hover:text-blue-400 transition-colors duration-200">{t('BaseLayout.QuickLinks.contact')}</a></li>
             </ul>
           </div>
           

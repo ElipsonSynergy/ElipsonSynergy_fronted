@@ -55,15 +55,47 @@ export default function MembersInfoDetailed({
         {shouldTruncate && (
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="inline-block mt-1 px-4 py-1 text-sm font-semibold text-indigo-600 border border-indigo-600 rounded-full hover:bg-indigo-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="group inline-flex items-center justify-center mt-3 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 hover:border-blue-300 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
             aria-expanded={isExpanded}
+            aria-label={isExpanded ? "Mostrar menos" : "Mostrar más"}
           >
-            {isExpanded
-              ? t("member_info_detailed.read_less")
-              : t("member_info_detailed.read_more")}
+            <span className="mr-2 text-xs font-semibold">
+              {isExpanded ? "" : ""}
+            </span>
+            {isExpanded ? (
+              <svg 
+                className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M5 15l7-7 7 7" 
+                />
+              </svg>
+            ) : (
+              <svg 
+                className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M19 9l-7 7-7-7" 
+                />
+              </svg>
+            )}
           </button>
         )}
-      </div>
+      </div>  
     </div>
   );
 }

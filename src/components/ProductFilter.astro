@@ -4,8 +4,15 @@ interface Props {
   translations?: (key: string) => string;
 }
 
-import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
-const lang = getLangFromUrl(Astro.url);
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
+
+let lang = getLangFromUrl(Astro.url);
+
+
 const t = useTranslations(lang);
 ---
 <div class="flex justify-center items-center mb-12 px-4">

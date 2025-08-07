@@ -6,15 +6,21 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import TeamCarousel from '@/components/MemberSwiper.jsx';
-
-import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
     params: { locate: loc },
   }));
+}
+
+let lang = getLangFromUrl(Astro.url);
+
+const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
 }
 ---
 
@@ -63,7 +69,7 @@ export async function getStaticPaths() {
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
           <a 
-            href="/contactanos" 
+            href={getLocalizedLink('/contactanos')} 
             class="btn-primary text-lg px-8 py-4 group min-w-[200px]"
           >
             <span>{t('index.hero.cta1')}</span>
@@ -72,7 +78,7 @@ export async function getStaticPaths() {
             </svg>
           </a>
           <a 
-            href="/producto" 
+            href={getLocalizedLink('/producto')} 
             class="btn-secondary text-lg px-8 py-4 group min-w-[200px]"
           >
             <span>{t('index.hero.cta2')}</span>
@@ -81,6 +87,20 @@ export async function getStaticPaths() {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
             </svg>
           </a>
+          <a 
+          href={getLocalizedLink('/nosotros')} 
+          class="btn-secondary text-lg px-8 py-4 group min-w-[200px]"
+        >
+          <span>{t('index.hero.cta3')}</span>
+          <svg 
+            class="w-5 h-5 ml-2 transition-transform duration-200 group-hover:scale-110" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </a>
         </div>
         
         <!-- Stats -->
@@ -295,7 +315,7 @@ export async function getStaticPaths() {
 <br>
 <div class="flex justify-center mt-4">
   <a
-    href="/nosotros"
+    href={getLocalizedLink('/nosotros')}
     class="inline-block no-underline px-6 py-3 text-white text-base sm:text-lg font-semibold rounded-full bg-blue-600 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg focus:outline-none focus:ring-0"
   >
     {t('index.team.cta')}

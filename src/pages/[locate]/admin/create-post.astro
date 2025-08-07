@@ -32,19 +32,26 @@
  */
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { useTranslations } from '../../../utils/i18n';
+import { useTranslations, languages, getLangFromUrl, getLocalizedPath } from '../../../utils/i18n';
+
 
 export async function getStaticPaths() {
-  return [
-    { params: { locate: 'es' } },
-    { params: { locate: 'en' } },
-    { params: { locate: 'por' } }
-  ];
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
 }
 
-const { locate } = Astro.params;
-const lang = (locate as 'es' | 'en' | 'por') || 'es';
+
+let lang = getLangFromUrl(Astro.url);
+
+
 const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
+
 ---
 
 <BaseLayout title="Crear Blog | Admin Panel" description="Panel administrativo para crear nuevos posts del blog">
@@ -661,7 +668,7 @@ const t = useTranslations(lang);
             <button class="success-btn" onclick="closeSuccessMessage()">
               Crear Otro Post
             </button>
-            <a href="/blog" class="success-btn success-btn--secondary">
+            <a href={getLocalizedLink('/blog')} class="success-btn success-btn--secondary">
               Ver Blog
             </a>
           </div>

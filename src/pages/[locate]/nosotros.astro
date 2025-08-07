@@ -2,18 +2,17 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TeamCarousel from '@/components/MemberSwiper';
 import TeamCarouselDetailed from '@/components/MemberSwiperDetailed';
-
-export async function getStaticPaths() {
-  return [
-    { params: { locate: 'es' } },
-    { params: { locate: 'en' } },
-    { params: { locate: 'por' } }
-  ];
-}
-
 import MembersInfoDetailed from '@/components/MembersInfoDetailed'
 import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
-const lang = getLangFromUrl(Astro.url);
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
+
+let lang = getLangFromUrl(Astro.url);
+
 const t = useTranslations(lang);
 
 ---

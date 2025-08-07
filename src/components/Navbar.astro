@@ -1,13 +1,20 @@
 ---
 // Navbar.astro - Premium navigation component with language switcher
-import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
+import { getLangFromUrl, useTranslations, languages, getLocalizedPath, cleanPathFromLanguage } from '@/utils/i18n';
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
 
-const lang = getLangFromUrl(Astro.url);
+let lang = getLangFromUrl(Astro.url);
+
 const t = useTranslations(lang);
 
 // Get the current path without language prefix
 const currentPath = Astro.url.pathname;
-const pathWithoutLang = lang === 'es' ? currentPath : currentPath.replace(`/${lang}`, '') || '/';
+// Clean the path by removing any language prefix
+const pathWithoutLang = cleanPathFromLanguage(currentPath);
 
 // Function to generate navigation links based on the current language
 function getNavLink(path: string) {
@@ -23,12 +30,6 @@ function getLanguageSwitchLink(targetLang: string) {
     // for other languages, add the prefix
     return `/${targetLang}${pathWithoutLang}`;
   }
-}
-
-export async function getStaticPaths() {
-  return Object.keys(languages).map((loc) => ({
-    params: { locate: loc },
-  }));
 }
 ---
 

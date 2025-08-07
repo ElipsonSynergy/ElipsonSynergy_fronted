@@ -4,16 +4,19 @@ export const prerender = false;
 import { Image } from "astro:assets";
 import { format } from "date-fns";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { useTranslations } from '../../../utils/i18n';
+import { useTranslations, languages, getLangFromUrl } from '../../../utils/i18n';
 import type { PostType } from "../../../types";
+
 
 // 1. Extraemos el slug de la URL
 const { slug } = Astro.params as { slug: string };
 
 // 2. Obtener idioma de la URL
-const { locate } = Astro.params;
-const lang = (locate as 'es' | 'en' | 'por') || 'es';
+const lang = getLangFromUrl(Astro.url);
+
+
 const t = useTranslations(lang);
+
 
 // 3. Fetch al endpoint de detalle (y aquí la API ya incrementa views)
 const postRes = await fetch(`http://localhost:8000/api/posts/slug/${slug}`);

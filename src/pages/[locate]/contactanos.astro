@@ -2,19 +2,31 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ContactModel from '@/components/ContactModel.astro';
 import infoData from '@/data/info';
-import { useTranslations } from '@/utils/i18n';
+import { useTranslations, languages, getLangFromUrl } from '@/utils/i18n';
 
 export async function getStaticPaths() {
-  return [
-    { params: { locate: 'es' } },
-    { params: { locate: 'en' } },
-    { params: { locate: 'por' } }
-  ];
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
 }
 
-const { locate } = Astro.params;
-const lang = (locate as 'es' | 'en' | 'por') || 'es';
+let lang = getLangFromUrl(Astro.url);
+
+
 const t = useTranslations(lang);
+
+
+// Logic for determining the backend URL
+function getBackendUrl() {
+  if (import.meta.env.PUBLIC_BACKEND_URL) {
+    return import.meta.env.PUBLIC_BACKEND_URL;
+  }
+  if (import.meta.env.PROD) {
+    return ''; 
+  }
+  return 'http://localhost:8000';
+}
+const backendUrl = getBackendUrl();
 ---
 
 <BaseLayout 
