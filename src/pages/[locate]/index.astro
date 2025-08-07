@@ -7,6 +7,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import TeamCarousel from '@/components/MemberSwiper.jsx';
 import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
+import ElipsonTitle from '@/components/ElipsonTitle.astro';
+import FuturoBanner from '@/components/FutureBanner.astro';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -54,6 +56,8 @@ function getLocalizedLink(path: string) {
           </svg>
           {t('index.hero.badge')}
         </div>
+
+        <ElipsonTitle/>
         
         <!-- Main title -->
         <h1 class="hero-title text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
@@ -121,6 +125,8 @@ function getLocalizedLink(path: string) {
       </div>
     </div>
   </section>
+
+  <FuturoBanner/>
 
 <!-- Features Section -->
   <section class="py-24 bg-gray-50 relative overflow-hidden">
@@ -342,6 +348,7 @@ function getLocalizedLink(path: string) {
   </a>
 </div>
 </section>
+
 
 
 
