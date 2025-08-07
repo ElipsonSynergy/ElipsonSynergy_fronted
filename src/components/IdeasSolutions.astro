@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  content?: string;
+  imageSrc?: string;
+  translationKey?: string;
+  translations?: (key: string) => string;
+}
+
+const {
+  title,
+  content,
+  imageSrc = "/images/brain.png",
+  translationKey,
+  translations,
+} = Astro.props;
+
+const t = translations || ((key: string) => key);
+
+// If translationKey is provided, use translations, otherwise use props or defaults
+const displayTitle = translationKey ? t(`ideas_solutions_cards.${translationKey}.title`) : (title || t('ideas_solutions_cards.default_title'));
+const displayContent = translationKey ? t(`ideas_solutions_cards.${translationKey}.content`) : (content || t('ideas_solutions_cards.default_content'));
+---
+
+<div class="bg-[#f5faff] rounded-2xl p-4 shadow-sm relative transform transition duration-300 ease-in-out hover:shadow-md hover:-translate-y-1 w-full max-w-[260px] min-h-[260px] h-[260px] flex flex-col">
+  <div class="absolute top-4 right-4 bg-white rounded-full w-10 h-10 flex items-center justify-center">
+    <img
+      src={imageSrc}
+      alt={t('ideas_solutions_cards.icon_alt')}
+      class="w-8 h-8 object-contain"
+    />
+  </div>
+
+  <div class="pt-10 flex flex-col flex-grow justify-between">
+    <div>
+      <h3 class="text-lg font-bold text-black mb-3">{displayTitle}</h3>
+      <p class="text-sm text-gray-800 leading-relaxed">{displayContent}</p>
+    </div>
+  </div>
+</div>

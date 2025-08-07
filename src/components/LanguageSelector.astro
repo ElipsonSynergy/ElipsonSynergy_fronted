@@ -1,0 +1,33 @@
+---
+import { getLangFromUrl, languages, getLocalizedPath, cleanPathFromLanguage } from '../utils/i18n';
+export async function getStaticPaths() {
+  return Object.keys(languages).map((loc) => ({
+    params: { locate: loc },
+  }));
+}
+
+let lang = getLangFromUrl(Astro.url);
+
+// Clean the path by removing any language prefix
+const currentPath = cleanPathFromLanguage(Astro.url.pathname);
+---
+
+<div class="relative group">
+  <button class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+    <span class="text-sm font-medium">{languages[lang]}</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  
+  <div class="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+    {Object.entries(languages).map(([langCode, langName]) => (
+      <a 
+        href={getLocalizedPath(currentPath, langCode)}
+        class={`block px-4 py-2 text-sm hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg ${lang === langCode ? 'bg-blue-50 text-blue-600' : 'text-gray-700'}`}
+      >
+        {langName}
+      </a>
+    ))}
+  </div>
+</div>

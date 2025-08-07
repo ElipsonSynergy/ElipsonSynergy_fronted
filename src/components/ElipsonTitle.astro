@@ -1,0 +1,386 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/utils/i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
+---
+<!-- 
+  Main EpsilonTitle Section
+  
+  The root container for the entire component, providing:
+  - Relative positioning for floating decorative elements
+  - Large maximum width with centered alignment
+  - Generous vertical spacing for visual separation
+  - Overflow hidden to contain floating animations
+-->
+<section class="epsilon-title">
+  <!-- 
+    Decorative Background Elements
+    
+    Floating circular animations that provide visual interest
+    without interfering with user interactions. Contains three
+    circles with staggered animation timing for dynamic effect.
+  -->
+  <div class="epsilon-bg-decoration">
+    <!-- Circle 1: Upper left, largest size, starts immediately -->
+    <div class="floating-circle circle-1"></div>
+    <!-- Circle 2: Lower right, medium size, 2s delay -->
+    <div class="floating-circle circle-2"></div>
+    <!-- Circle 3: Upper right, smallest size, 4s delay -->
+    <div class="floating-circle circle-3"></div>
+  </div>
+
+  <!-- 
+    Main Content Container
+    
+    Positioned above background decorations with higher z-index.
+    Contains all interactive and textual content of the component.
+  -->
+  <div class="epsilon-container">
+    <!-- 
+      Main Brand Title
+      
+      Large responsive heading featuring the ELIPSON brand name
+      with gradient text effects and accent animation:
+      - "ELI" and "SON" use gradient highlight styling
+      - "P" has pulsing animation for emphasis
+      - Uses clamp() for fluid responsive sizing
+    -->
+    <h1 class="epsilon-main-title">
+      <span class="title-highlight">ELI</span><span class="title-accent">P</span><span class="title-highlight">SON</span>
+    </h1>
+
+    <!-- 
+      Three-Column Graphics Grid
+      
+      Responsive grid layout containing the main content sections:
+      - Desktop: 3 equal columns with large gaps
+      - Tablet/Mobile: Single column stack
+      
+      Each column represents a different aspect of the brand:
+      - Left: Global transformation theme with planet
+      - Center: Main brand messaging with toucan mascot
+      - Right: Company statistics and achievements
+    -->
+    <div class="epsilon-graphics">
+      <!-- 
+        LEFT COLUMN: Planet Section
+        
+        Represents the global transformation theme with:
+        - Animated planet with orbital ring
+        - Descriptive caption about global technology
+        - Discovery section with dots and social icons
+        - Interactive elements for user engagement
+      -->
+      <div class="epsilon-graphic-left">
+        <!-- 
+          Planet Visualization Container
+          
+          Houses the animated planet element with orbital effects:
+          - Orbital ring: Dashed circle that rotates continuously
+          - Planet image: Earth representing global reach
+          - Planet glow: Radial gradient background for atmosphere
+          - Hover effects: Scale animation on planet interaction
+        -->
+        <div class="planet-container">
+          <!-- Animated dashed orbital ring rotating around planet -->
+          <div class="orbit-ring"></div>
+          <!-- 
+            Planet Earth Image
+            
+            Central visual element representing global transformation.
+            Features hover scaling and purple-tinted shadow for depth.
+            Alt text provides accessibility for screen readers.
+          -->
+          <img src="/earth-sm.png" alt="Planeta Tierra" class="epsilon-planet" />
+          <!-- Radial gradient glow effect behind planet -->
+          <div class="planet-glow"></div>
+        </div>
+        <!-- 
+          Caption Content Container
+          
+          Contains descriptive text and interactive elements below planet.
+          Constrained width ensures optimal readability and centered layout.
+        -->
+        <div class="caption-container">
+          <!-- Section heading for global transformation theme -->
+          <h3 class="caption-title">Transformación Global</h3>
+          <!-- 
+            Descriptive text explaining the company's global technology mission.
+            Uses muted color for visual hierarchy below the title.
+          -->
+          <p class="epsilon-caption">
+            Tecnología inteligente para el mundo, confiable, eficiente y sin complicaciones.
+          </p>
+          <!-- 
+            Discovery Section
+            
+            Interactive area encouraging user exploration with:
+            - Call-to-action text
+            - Dot navigation indicators
+            - Social media icons for external engagement
+          -->
+          <div class="discover-section">
+            <!-- Call-to-action text in brand color -->
+            <p class="discover-text">Descubre cómo lo hacemos posible</p>
+
+            <!-- 
+              Social Icons Section
+              
+              Horizontal row of social media/external links:
+              - Globe icon: Company website or global presence
+              - Info icon: Additional information or documentation
+              - Circular design with hover effects and accessibility
+            -->
+            <div class="social-icons">
+              <!-- 
+                Website/Global Presence Icon
+                Accessible link with aria-label for screen readers
+              -->
+              <a href="#" class="social-icon" aria-label="Visita nuestro sitio">
+                <img src="/icons/globe.png" alt="Sitio web" />
+              </a>
+              <!-- 
+                Information/Documentation Icon
+                Secondary information access point
+              -->
+              <a href="#" class="social-icon" aria-label="Más información">
+                <img src="/icons/info.png" alt="Información" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 
+        CENTER COLUMN: Toucan Section
+        
+        Main focal point of the component featuring:
+        - Large toucan mascot image (brand representative)
+        - Prominent subtitle with gradient text effects
+        - Primary call-to-action button
+        - Central positioning and largest visual impact
+        
+        This column serves as the primary conversion point,
+        directing users to the main projects page.
+      -->
+      <div class="epsilon-graphic-center">
+        <!-- 
+          Toucan Image Container
+          
+          Houses the main brand mascot with backdrop effects:
+          - Backdrop circle: Large subtle gradient background
+          - Toucan image: Main visual element with drop shadow
+          - Responsive sizing with maximum width constraints
+        -->
+        <div class="toucan-container">
+          <!-- Large circular gradient background element -->
+          <div class="toucan-backdrop"></div>
+          <!-- 
+            Toucan Mascot Image
+            
+            Primary brand representative image with:
+            - Responsive sizing (max 280px width)
+            - Realistic drop shadow for depth
+            - High z-index to appear above backdrop
+            - Alt text for accessibility
+          -->
+          <img src="/toucan-full.png" alt="Ilustración Tucán" class="epsilon-toucan" />
+        </div>
+        <!-- 
+          Center Content Container
+          
+          Groups the main messaging and call-to-action elements:
+          - Two-line subtitle with different styling
+          - Primary conversion button
+          - Positioned above backdrop elements
+        -->
+        <div class="center-content">
+          <!-- 
+            Main Section Subtitle
+            
+            Two-line heading with different styling for visual hierarchy:
+            - Line 1: "TECNOLOGÍA" in standard dark color
+            - Line 2: "QUE TRANSFORMA" with gradient text effect
+            - Large font size for impact and emphasis
+          -->
+          <h2 class="epsilon-subtitle">
+            <span class="subtitle-line1">TECNOLOGÍA</span>
+            <span class="subtitle-line2">QUE TRANSFORMA</span>
+          </h2>
+          <!-- 
+            Primary Call-to-Action Link
+            
+            Main conversion button directing to projects page:
+            - Pill-shaped design with gradient background
+            - Icon arrow indicating forward action
+            - Hover effects: lift animation and enhanced shadow
+            - High contrast styling for maximum visibility
+            
+            Features:
+            - Gradient background (dark blue to lighter blue)
+            - White text for contrast
+            - Arrow icon with horizontal animation on hover
+            - Box shadow for depth and prominence
+          -->
+          <a href="/proyectos" class="epsilon-link">
+            <span class="link-text">Nuestros Proyectos</span>
+            <!-- 
+              Arrow Icon SVG
+              
+              Directional indicator with smooth animation:
+              - Moves right on hover (translateX)
+              - Stroke-based design for consistency
+              - Current color inherits white from parent
+            -->
+            <svg class="link-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 
+        RIGHT COLUMN: Statistics Section
+        
+        Showcases company achievements and metrics with:
+        - Company mascot (cow) representing agricultural focus
+        - Industry impact badges highlighting key numbers
+        - Statistics grid showing projects and satisfaction
+        - Secondary call-to-action to blog
+        
+        This column provides credibility through concrete numbers
+        and offers additional engagement through the blog link.
+      -->
+      <div class="epsilon-graphic-right">
+        <!-- 
+          Statistics Header Section
+          
+          Combines company mascot with industry impact badges:
+          - Cow image: Represents agricultural/sustainable focus
+          - Multiple badges: Labs and industries impacted
+          - Flexible layout adapting to screen size
+        -->
+        <div class="stats-header">
+          <!-- 
+            Company Mascot - Cow Image
+            
+            Circular brand image representing:
+            - Agricultural industry focus
+            - Sustainable technology themes
+            - Brand personality and approachability
+            - Consistent sizing with other circular elements
+          -->
+          <img src="/cow-sm.png" alt="Vaca" class="epsilon-cow" />
+          <!-- 
+            Development Labs Badge
+            
+            Highlighted metric badge showing:
+            - "3+ Laboratorios" as main text
+            - "de Desarrollo" as descriptive subtext
+            - Gradient background for subtle prominence
+            - Border styling for definition
+          -->
+          <div class="industries-badge">
+            <span class="badge-text">3+ Laboratorios</span>
+            <span class="badge-subtext">de Desarrollo</span>
+          </div>
+          <!-- 
+            Industries Impact Badge
+            
+            Second metric badge displaying:
+            - "3+ Industrias" as main text
+            - "Impactadas" as descriptive subtext
+            - Consistent styling with labs badge
+            - Shows breadth of company influence
+          -->
+          <div class="industries-badge">
+            <span class="badge-text">3+ Industrias</span>
+            <span class="badge-subtext">Impactadas</span>
+          </div>
+        </div>
+
+        <!-- 
+          Statistics Grid Layout
+          
+          Two-column grid displaying key company metrics:
+          - Desktop: Side-by-side layout
+          - Mobile: Single column stack
+          - Hover effects on each stat item
+          - Consistent card-style design
+        -->
+        <div class="stats-grid">
+          <!-- 
+            Projects Statistic
+            
+            Card displaying project count:
+            - Large number: "12+" in brand color
+            - Label: "Proyectos" in muted color
+            - Hover animation: lift effect
+            - White background with shadow
+          -->
+          <div class="stat-item">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">Proyectos</div>
+          </div>
+          <!-- 
+            Satisfaction Statistic
+            
+            Card showing customer satisfaction:
+            - Large percentage: "98%" in brand color
+            - Label: "Satisfacción" in muted color
+            - Matching design with projects card
+            - Represents quality and customer happiness
+          -->
+          <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfacción</div>
+          </div>
+        </div>
+
+        <!-- 
+          Secondary Call-to-Action Container
+          
+          Houses the blog link as an alternative engagement option.
+          Positioned below statistics for logical content flow.
+        -->
+        <div class="cta-secondary">
+          <!-- 
+            Blog Link - Secondary CTA
+            
+            Compact version of the primary epsilon link:
+            - Same gradient background as main CTA
+            - Smaller sizing (secondary variant)
+            - Arrow icon with hover animation
+            - Directs to blog for content engagement
+            
+            Features:
+            - Pill-shaped design for consistency
+            - Lift animation on hover
+            - Enhanced shadow on interaction
+            - Brand color scheme maintained
+          -->
+          <a href={getLocalizedLink('/blog')} class="epsilon-link epsilon-link--secondary">
+            Blog
+            <!-- 
+              Secondary Arrow Icon
+              
+              Smaller version of the main arrow icon:
+              - Consistent animation behavior
+              - Proportional sizing for compact button
+              - Same stroke design and color inheritance
+            -->
+            <svg class="link-arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,136 @@
+---
+interface Props {
+  translations?: (key: string) => string;
+}
+
+const { translations } = Astro.props;
+const t = translations || ((key: string) => key);
+---
+
+<!-- Modal HTML -->
+<div id="contact-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-all duration-300">
+  <div class="bg-white rounded-3xl max-w-md w-full mx-4 shadow-2xl border border-white/20 transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+    <!-- Header with Status Bar -->
+    <div class="relative p-8 pb-4">
+      <div id="modal-status-bar" class="w-20 h-1.5 rounded-full mb-6 mx-auto bg-gradient-to-r from-blue-400 to-purple-500"></div>
+      
+      <!-- Close Button -->
+      <button
+        id="modal-close"
+        class="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-700 transition-all duration-200 group"
+        type="button"
+        aria-label={t('contact_modal_success.close_label')}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="group-hover:rotate-90 transition-transform duration-200">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <!-- Status Icon -->
+      <div class="flex justify-center mb-6">
+        <div id="modal-icon" class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg bg-gradient-to-r from-blue-500 to-purple-600">
+          <!-- Success Icon -->
+          <svg id="success-icon" class="w-8 h-8 hidden text-white" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <!-- Error Icon -->
+          <svg id="error-icon" class="w-8 h-8 hidden text-white" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="px-8 pb-8 text-center">
+      <h3 id="modal-title" class="text-2xl font-bold mb-3 text-gray-900">{t('contact_modal_success.title')}</h3>
+      <p id="modal-message" class="text-gray-600 mb-8 leading-relaxed">{t('contact_modal_success.message')}</p>
+      
+      <button 
+        id="modal-ok-btn"
+        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2"
+      >
+        <span>{t('contact_modal_success.ok_button')}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading overlay -->
+<div id="loading-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-40 hidden transition-all duration-300">
+  <div class="bg-white rounded-3xl p-8 shadow-2xl border border-white/20 max-w-sm w-full mx-4">
+    <div class="flex flex-col items-center space-y-4">
+      <!-- Modern Loading Spinner -->
+      <div class="relative">
+        <div class="w-12 h-12 border-4 border-blue-200 rounded-full"></div>
+        <div class="absolute inset-0 w-12 h-12 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"></div>
+      </div>
+      <div class="text-center">
+        <div class="text-gray-900 font-semibold text-lg">{t('contact_modal_loading.title')}</div>
+        <div class="text-gray-500 text-sm">{t('contact_modal_loading.subtitle')}</div>
+      </div>
+      
+      <!-- Loading steps indicator -->
+      <div class="w-full max-w-xs">
+        <div class="flex justify-between text-xs text-gray-400 mb-2">
+          <span id="step-validation" class="opacity-50">Validando email</span>
+          <span id="step-sending" class="opacity-50">Enviando mensaje</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-1">
+          <div id="progress-bar" class="bg-blue-600 h-1 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Progress indicator functions -->
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+  // Progress indicator functions
+  window.updateProgress = function(step, percentage) {
+    const progressBar = document.getElementById('progress-bar');
+    const stepValidation = document.getElementById('step-validation');
+    const stepSending = document.getElementById('step-sending');
+    
+    if (progressBar) {
+      progressBar.style.width = `${percentage}%`;
+    }
+    
+    // Update step indicators
+    if (step >= 1 && stepValidation) {
+      stepValidation.classList.remove('opacity-50');
+      stepValidation.classList.add('text-blue-600', 'font-medium');
+    }
+    
+    if (step >= 2 && stepSending) {
+      stepSending.classList.remove('opacity-50');
+      stepSending.classList.add('text-blue-600', 'font-medium');
+    }
+  };
+  
+  // Reset progress indicators
+  window.resetProgress = function() {
+    const progressBar = document.getElementById('progress-bar');
+    const stepValidation = document.getElementById('step-validation');
+    const stepSending = document.getElementById('step-sending');
+    
+    if (progressBar) {
+      progressBar.style.width = '0%';
+    }
+    
+    if (stepValidation) {
+      stepValidation.classList.add('opacity-50');
+      stepValidation.classList.remove('text-blue-600', 'font-medium');
+    }
+    
+    if (stepSending) {
+      stepSending.classList.add('opacity-50');
+      stepSending.classList.remove('text-blue-600', 'font-medium');
+    }
+  };
+});
+</script>

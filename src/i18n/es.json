@@ -1,0 +1,598 @@
+{
+  "contact_page_meta": {
+    "title": "Contacto - Elipson Synergy",
+    "description": "Ponte en contacto con Elipson Synergy. Estamos listos para ayudarte a transformar tus ideas en realidad digital."
+  },
+  "contact_page_header": {
+    "badge": "Contáctanos",
+    "title": "PONTE EN CONTACTO CON NOSOTROS",
+    "description": "Agradecemos tu mensaje y nos comprometemos a brindarte la mejor atención. Revisaremos tu solicitud y nos comunicaremos contigo pronto. Valoramos tu tiempo y apreciamos la oportunidad de ayudarte."
+  },
+  "contact_page_info": {
+    "location_title": "Nuestra Ubicación",
+    "phone_title": "Número de Teléfono", 
+    "email_title": "Correo Electrónico"
+  },
+  "contact_form_fields": {
+    "name_placeholder": "Tu nombre",
+    "email_placeholder": "Tu correo",
+    "phone_placeholder": "Tu teléfono",
+    "message_placeholder": "Déjanos tu mensaje",
+    "submit_button": "Enviar Mensaje",
+    "submit_sending": "Enviando...",
+    "character_counter": "0/1000"
+  },
+  "contact_validation_errors": {
+    "name_too_short": "El nombre es demasiado corto.",
+    "name_too_long": "El nombre no puede exceder 50 caracteres",
+    "name_invalid_chars": "El nombre solo puede contener letras, espacios, guiones y apostrofes",
+    "name_required": "El nombre debe tener al menos 2 caracteres",
+    "email_invalid": "Por favor, introduce un correo válido.",
+    "email_required": "El correo electrónico es requerido",
+    "email_too_long": "El correo electrónico es demasiado largo",
+    "message_too_short": "El mensaje debe tener al menos 10 caracteres.",
+    "message_too_long": "El mensaje no puede exceder los 1000 caracteres.",
+    "message_required": "El mensaje debe tener al menos 10 caracteres"
+  },
+  "contact_modal_success": {
+    "title": "¡Mensaje Enviado!",
+    "message": "Gracias por contactarnos. Te responderemos lo antes posible.",
+    "close_label": "Cerrar modal",
+    "ok_button": "Entendido"
+  },
+  "contact_modal_error": {
+    "title": "Error",
+    "default_message": "Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.",
+    "timeout_message": "La petición tardó demasiado. Verifica tu conexión e inténtalo de nuevo.",
+    "network_message": "No se pudo conectar con el servidor. Verifica tu conexión a internet.",
+    "server_error": "Error interno del servidor. Inténtalo más tarde.",
+    "invalid_data": "Los datos enviados no son válidos. Revisa el formulario.",
+    "connection_error": "Error de conexión. Por favor, inténtalo de nuevo."
+  },
+  "contact_modal_loading": {
+    "title": "Enviando mensaje",
+    "subtitle": "Por favor espera un momento..."
+  },
+  "contact_messages_js": {
+    "already_sending": "Ya se está enviando un mensaje",
+    "form_invalid": "Formulario no válido",
+    "sending_to": "Enviando a:",
+    "server_response": "Respuesta del servidor:",
+    "success_sent": "Mensaje enviado exitosamente",
+    "request_error": "Error en la petición:",
+    "form_not_found": "Formulario no encontrado",
+    "modal_not_found": "Modal no encontrado",
+    "elements_found": "Elementos encontrados correctamente"
+  },
+  "products_page_meta": {
+    "title": "Productos Innovadores - Elipson Synergy",
+    "description": "Explora nuestros desarrollos de vanguardia. Proyectos que transforman sectores enteros con tecnología de última generación.",
+    "keywords": "productos, innovación, desarrollos, tecnología, agro, jóvenes, store, makers, software, hardware"
+  },
+  "products_hero_section": {
+    "title_line1": "Desarrollos",
+    "title_line2": "Recientes",
+    "description": "En Elipson nos mantenemos activos desarrollando <strong>proyectos de alto impacto,</strong> que ayuden a innovar y desarrollar diversos sectores de la industria Colombiana.",
+    "description_highlight": "proyectos de alto impacto,"
+  },
+  "products_stats": {
+    "projects": "Proyectos",
+    "sectors": "Sectores",
+    "innovation": "Innovación", 
+    "impact": "Impacto"
+  },
+  "products_portfolio_section": {
+    "title": "Portfolio",
+    "title_highlight": "Interactivo",
+    "description": "Filtra por categoría y descubre cómo estamos revolucionando cada sector con soluciones tecnológicas únicas"
+  },
+  "products_cta_section": {
+    "title": "¿Listo para",
+    "title_highlight": "Innovar Juntos",
+    "title_question": "?",
+    "description": "Cada proyecto comienza con una conversación. Hablemos sobre cómo podemos transformar tu visión en realidad.",
+    "button_text": "Conversemos tu Proyecto",
+    "status_text": "Disponibles para nuevos proyectos"
+  },
+  "products_features_section": {
+    "title": "Tecnología que",
+    "title_highlight": "Impulsa el Futuro",
+    "description": "Metodologías ágiles, stack tecnológico de vanguardia y equipos multidisciplinarios para crear soluciones que marcan la diferencia.",
+    "agile_development": {
+      "title": "Desarrollo Ágil",
+      "description": "Metodologías que garantizan entregas rápidas y adaptación continua a las necesidades del mercado."
+    },
+    "premium_quality": {
+      "title": "Calidad Premium",
+      "description": "Estándares de calidad empresarial con testing automatizado y código mantenible a largo plazo."
+    },
+    "continuous_innovation": {
+      "title": "Innovación Continua", 
+      "description": "Investigación constante en nuevas tecnologías para mantener nuestros proyectos en la vanguardia."
+    }
+  },
+  "blog_page_meta": {
+    "title": "Blog - Elipson Synergy",
+    "description": "Lee nuestros últimos artículos, noticias y actualizaciones en el blog de Elipson Synergy."
+  },
+  "blog_hero_section": {
+    "title_line1": "Nuestro",
+    "title_line2": "Blog",
+    "subtitle": "Conocimiento, Innovación y Tendencias",
+    "description": "Explora artículos sobre tecnología, desarrollo, innovación y las últimas tendencias en el mundo digital. Compartimos nuestro conocimiento y experiencias para impulsar el crecimiento de la comunidad."
+  },
+  "blog_coming_soon": {
+    "badge": "Próximamente",
+    "title": "Contenido Increíble en Camino",
+    "description": "Estamos preparando artículos fascinantes sobre desarrollo, tecnología, casos de estudio y mucho más. Mientras tanto, te invitamos a conocer nuestros proyectos.",
+    "features": {
+      "tutorials": {
+        "title": "Tutoriales Técnicos",
+        "description": "Guías paso a paso sobre las últimas tecnologías y mejores prácticas de desarrollo."
+      },
+      "case_studies": {
+        "title": "Casos de Estudio",
+        "description": "Análisis profundos de nuestros proyectos y los desafíos que hemos superado."
+      },
+      "industry_insights": {
+        "title": "Insights de la Industria",
+        "description": "Tendencias, predicciones y análisis del panorama tecnológico actual."
+      }
+    }
+  },
+  "blog_cta_section": {
+    "title": "¿Quieres estar al día?",
+    "description": "Sé el primero en conocer nuestros nuevos artículos y actualizaciones. Mientras preparamos nuestro blog, puedes explorar nuestros proyectos actuales.",
+    "primary_button": "Ver Nuestros Proyectos",
+    "secondary_button": "Contáctanos",
+    "notification": "Te notificaremos cuando publiquemos nuestro primer artículo"
+  },
+  "product_filter": {
+    "all_projects": "Todos los proyectos",
+    "categories": {
+      "agro": "Agro",
+      "jovenes": "Jóvenes por Colombia", 
+      "store": "Store",
+      "makers": "For Makers",
+      "software": "Software & Hardware"
+    }
+  },
+  "project_card": {
+    "featured_badge": "Destacado",
+    "status_active": "ACTIVO",
+    "explore_button": "Explorar",
+    "category_labels": {
+      "agro": "Agro",
+      "jovenes": "Jóvenes",
+      "store": "Store", 
+      "makers": "Makers",
+      "software": "Software"
+    }
+  },
+  "team_members": {
+    "mateo_chilito": {
+      "name": "Mateo Chilito",
+      "role": "CEO",
+      "role_detailed": "Chief Executive Officer",
+      "description": "Lidera la visión global de Elipson Synergy, asegurando el crecimiento sostenible de la empresa y la alineación estratégica de todas las áreas. Su enfoque está centrado en el impacto tecnológico positivo en Latinoamérica y en consolidar un equipo de alto rendimiento."
+    },
+    "laura_hurtado": {
+      "name": "Laura Hurtado",
+      "role": "CMO", 
+      "role_detailed": "Chief Marketing Officer",
+      "description": "Encargada de construir la identidad de marca de Elipson Synergy y liderar las estrategias de comunicación y expansión en el mercado latinoamericano. Impulsa campañas centradas en la conexión emocional con los usuarios y la promoción de soluciones transformadoras."
+    },
+    "camilo_herrera": {
+      "name": "Camilo Herrera",
+      "role": "CTO",
+      "role_detailed": "Chief Technology Officer", 
+      "description": "Responsable de la arquitectura tecnológica de Elipson Synergy, lidera el desarrollo de soluciones digitales innovadoras con un enfoque en escalabilidad, seguridad y eficiencia. Supervisa los equipos de ingeniería para garantizar productos sólidos y alineados al futuro."
+    },
+    "franklin_romero": {
+      "name": "Franklin Romero",
+      "role": "CFO",
+      "role_detailed": "Chief Financial Officer",
+      "description": "Gestiona la salud financiera de la organización con visión estratégica. Supervisa presupuestos, inversiones y proyecciones de crecimiento económico, asegurando el equilibrio entre innovación y sostenibilidad financiera."
+    }
+  },
+  "about_page_meta": {
+    "title": "Nosotros - Elipson Synergy",
+    "description": "Conoce más sobre Elipson Synergy, nuestro equipo experto, nuestra misión y cómo transformamos ideas en soluciones tecnológicas innovadoras.",
+    "keywords": "equipo, empresa, historia, misión, visión, expertos tecnología"
+  },
+  "about_hero_section": {
+    "badge": "Elipson Synergy · Conectando Tecnología y Futuro",
+    "title_line1": "Conoce a",
+    "title_line2": "Elipson Synergy", 
+    "description": "Más que un equipo, somos una sinfonía de talentos que cree en el poder de la tecnología como agente de cambio. Nuestro propósito es claro: <strong>transformar realidades en Latinoamérica</strong> con soluciones que nacen del ingenio, la empatía y la innovación."
+  },
+  "about_essence_section": {
+    "title": "Nuestra Esencia",
+    "subtitle": "Lo que creemos, lo que buscamos y los valores que nos guían en cada paso.",
+    "mission": {
+      "title": "Misión",
+      "description": "Desarrollar soluciones tecnológicas innovadoras que resuelvan los retos sociales y empresariales de Latinoamérica, empoderando comunidades y generando impacto positivo sostenible."
+    },
+    "vision": {
+      "title": "Visión", 
+      "description": "Ser la referencia líder en tecnología transformadora en América Latina, destacando por la excelencia, la empatía y el compromiso con un futuro más conectado y justo."
+    },
+    "values": {
+      "title": "Valores",
+      "list": [
+        "Innovación con propósito",
+        "Colaboración y respeto", 
+        "Empatía social",
+        "Transparencia y ética",
+        "Excelencia continua"
+      ]
+    }
+  },
+  "about_team_section": {
+    "title": "Nuestros Miembros"
+  },
+  "member_card": {
+    "photo_alt": "Foto de {name}",
+    "social_icons": {
+      "whatsapp": "WhatsApp de {name}",
+      "facebook": "Facebook de {name}",
+      "instagram": "Instagram de {name}"
+    },
+    "social_tooltips": {
+      "whatsapp": "Contactar por WhatsApp",
+      "facebook": "Ver perfil de Facebook", 
+      "instagram": "Ver perfil de Instagram"
+    }
+  },
+  "ideas_solutions_cards": {
+    "icon_alt": "Ícono decorativo",
+    "default_title": "Tarjeta de prueba",
+    "default_content": "Esto es un texto de prueba para el componente de la tarjeta",
+    "active_listening": {
+      "title": "Escucha activa",
+      "content": "Entendemos necesidades reales desde el territorio y con las comunidades."
+    },
+    "human_centered_design": {
+      "title": "Diseño centrado en el ser humano",
+      "content": "Creamos soluciones útiles, accesibles y pensadas para quienes más las necesitan."
+    },
+    "impact_co_creation": {
+      "title": "Co-creación con impacto",
+      "content": "Trabajamos junto a líderes locales, empresas y expertos para que la innovación no se quede en una idea."
+    },
+    "responsible_innovation": {
+      "title": "Innovación responsable",
+      "content": "Buscamos soluciones creativas que no solo sean viables y efectivas, sino también sostenibles y éticas para el entorno y la sociedad."
+    },
+    "purposeful_technology": {
+      "title": "Tecnología con propósito",
+      "content": "No usamos lo más nuevo, usamos lo que sirve. Cada herramienta responde a un \"para qué\"."
+    },
+    "conscious_scalability": {
+      "title": "Escalabilidad consciente",
+      "content": "Diseñamos para crecer, pero sin perder la esencia: impacto antes que volumen."
+    },
+    "continuous_improvement": {
+      "title": "Cultura de mejora continua",
+      "content": "Iteramos, aprendemos y evolucionamos en cada proyecto."
+    },
+    "genuine_commitment": {
+      "title": "Compromiso genuino",
+      "content": "Trabajamos con integridad y dedicación para generar valor real en cada proyecto, siempre alineados con nuestros principios y propósito."
+    }
+  },
+  "member_info_detailed": {
+    "member_photo_alt": "Foto profesional de {name}",
+    "role_label": "Cargo:",
+    "description_label": "Descripción:",
+    "profile_card_title": "Perfil de {name}",
+    "read_more": "Leer más",
+    "read_less": "Leer menos"
+  },
+  "index": {
+    "meta": {
+      "title": "Elipson Synergy - Soluciones Tecnológicas Innovadoras",
+      "description": "Descubre las soluciones tecnológicas más innovadoras con Elipson Synergy. Transformamos ideas en realidad digital con tecnología de vanguardia.",
+      "keywords": "tecnología, innovación, desarrollo software, soluciones digitales, transformación digital"
+    },
+    "hero": {
+      "badge": "Innovación Tecnológica 2024",
+      "title1": "Transformamos",
+      "title2": "Ideas en Realidad",
+      "subtitle": "Soluciones tecnológicas innovadoras que impulsan el crecimiento de tu negocio con tecnología de vanguardia y diseño excepcional.",
+      "cta1": "Comenzar Proyecto",
+      "cta2": "Ver Soluciones",
+      "cta3": "Conoce a nuestro equipo",  
+      "stats": {
+        "projects": "Proyectos Exitosos",
+        "clients": "Clientes Satisfechos",
+        "support": "Soporte Técnico"
+      }
+    },
+    "features": {
+      "title": "ASÍ TRANSFORMAMOS IDEAS EN",
+      "subtitle": "SOLUCIONES",
+      "description": "Desde la escucha profunda hasta la implementación consciente, cada paso está diseñado para maximizar el impacto y la satisfacción del cliente.",
+      "listen": {
+        "title": "Escucha Activa",
+        "description": "Entendemos necesidades reales desde el territorio y con las comunidades."
+      },
+      "design": {
+        "title": "Diseño centrado en el ser humano",
+        "description": "Creamos soluciones útiles, accesibles y pensadas para quienes más las necesitan."
+      },
+      "develop": {
+        "title": "Co-creación con impacto",
+        "description": "Trabajamos junto a líderes locales, empresas y expertos para que la innovación no se quede en una idea."
+      },
+      "inovation": {
+        "title": "Innovación responsable",
+        "description": "Buscamos soluciones creativas que no solo sean viables y efectivas, sino también sostenibles y éticas para el entorno y la sociedad."
+      },
+      "tecnologies": {
+        "title": "Tecnología con propósito",
+        "description": "No usamos lo más nuevo, usamos lo que sirve. Cada herramienta responde a un 'para qué'."
+      },
+      "scalability": {
+        "title": "Escalabilidad consciente",
+        "description": "Diseñamos para crecer, pero sin perder la esencia: impacto antes que volumen."
+      },
+      "culture": {
+        "title": "Cultura de mejora continua",
+        "description": "Iteramos, aprendemos y evolucionamos en cada proyecto."
+      },
+      "Commitment": {
+        "title": "Compromiso genuino",
+        "description": "Trabajamos con integridad y dedicación para generar valor real en cada proyecto, siempre alineados con nuestros principios y propósito."
+      },
+      "transform": {
+        "title": "ASÍ TRANSFORMAMOS IDEAS EN SOLUCIONES",
+        "description": "Desde la escucha profunda hasta la implementación consciente, cada paso en Elipson está diseñado para generar impacto real, sostenible y humano."
+      },
+      "solutionsCards": {
+        "listen": {
+          "title": "Escucha activa",
+          "description": "Entendemos necesidades reales desde el territorio y con las comunidades."
+        },
+        "humanCentered": {
+          "title": "Diseño centrado en el ser humano",
+          "description": "Creamos soluciones útiles, accesibles y pensadas para quienes más las necesitan."
+        },
+        "coCreation": {
+          "title": "Co-creación con impacto",
+          "description": "Trabajamos junto a líderes locales, empresas y expertos para que la innovación no se quede en una idea."
+        },
+        "responsibleInnovation": {
+          "title": "Innovación responsable",
+          "description": "Buscamos soluciones creativas que no solo sean viables y efectivas, sino también sostenibles y éticas para el entorno y la sociedad."
+        },
+        "purposeTech": {
+          "title": "Tecnología con propósito",
+          "description": "No usamos lo más nuevo, usamos lo que sirve. Cada herramienta responde a un 'para qué'."
+        },
+        "scalability": {
+          "title": "Escalabilidad consciente",
+          "description": "Diseñamos para crecer, pero sin perder la esencia: impacto antes que volumen."
+        },
+        "improvementCulture": {
+          "title": "Cultura de mejora continua",
+          "description": "Iteramos, aprendemos y evolucionamos en cada proyecto."
+        },
+        "genuineCommitment": {
+          "title": "Compromiso genuino",
+          "description": "Trabajamos con integridad y dedicación para generar valor real en cada proyecto, siempre alineados con nuestros principios y propósito."
+        }
+      }
+    },
+    "latinAmerica": {
+      "title": "INNOVAR ES EL NUEVO LATIR",
+      "subtitle": "DE LATINOAMÉRICA",
+      "description": "Desde el corazón de los Andes hasta la selva amazónica, Elipson lleva inteligencia a cada rincón de Latinoamérica."
+    },
+    "team": {
+      "title": "CONOCE A NUESTRO EQUIPO",
+      "description": "Nuestro equipo está conformado por mentes apasionadas, comprometidas con transformar realidades a través de la tecnología. Cada uno de nosotros aporta desde su experiencia para llevar soluciones inteligentes a los desafíos",
+      "cta": "Conoce más acerca de nosotros"
+    }
+  },
+  "about": {
+    "title": "Nosotros - Elipson Synergy",
+    "description": "Conoce más sobre Elipson Synergy, nuestro equipo experto, nuestra misión y cómo transformamos ideas en soluciones tecnológicas innovadoras.",
+    "keywords": "equipo, empresa, historia, misión, visión, expertos tecnología",
+    "Elipson": {
+      "title": "Elipson Synergy · Conectando Tecnología y Futuro",
+      "subtitle": "Conoce a",
+      "tagline": "Elipson Synergy",
+      "description": "Más que un equipo, somos una sinfonía de talentos que cree en el poder de la tecnología como agente de cambio.",
+      "description2": "Nuestro propósito es claro:",
+      "description3": "transformar realidades en Latinoamérica",
+        "description4": "con soluciones que nacen del ingenio, la empatía y la innovación."
+    },
+    "essence": {
+      "title": "Nuestra Esencia",
+      "description": "Lo que creemos, lo que buscamos y los valores que nos guían en cada paso."
+    },
+    "Mission": {
+      "title": "Misión",
+      "description": "Desarrollar soluciones tecnológicas innovadoras que resuelvan los retos sociales y empresariales de Latinoamérica, empoderando comunidades y generando impacto positivo sostenible."
+    },
+    "Vision": {
+      "title": "Visión",
+      "description": "Ser la referencia líder en tecnología transformadora en América Latina, destacando por la excelencia, la empatía y el compromiso con un futuro más conectado y justo."
+    },
+    "values": {
+      "title": "Valores",
+      "innovation": {
+        "title": "Innovación con propósito"
+        },
+      "collaboration": {
+        "title": "Colaboración y respeto"
+    },
+        "socialEmpathy": {
+        "title": "Empatía social"
+        },
+        "transparency": {
+        "title": "Transparencia y ética"
+        },
+        "excellence": {
+        "title": "Excelencia continua"
+        }
+    },
+    "teamSection": {
+      "title": "Nuestros Miembros"
+    }
+    },
+    "teamSection": {
+        "title": "Nuestro Equipo - Elipson Synergy",
+        "subtitle": "Equipo",
+        "subtitle2": "Fantástico",
+        "description": "Conoce al equipo detrás de Elipson Synergy. Profesionales apasionados creando soluciones tecnológicas innovadoras."
+        },
+    "Navbar": {
+    "title": "Elipson Synergy",
+      "subtitle": "INNOVATION & TECHNOLOGY",
+      "home": "Inicio",
+      "about": "Nosotros",
+      "product": "Producto",
+      "blog": "Blog",
+      "team": "Equipo",
+      "contact": "Contacto",
+      "cta": {
+        "text": "Contáctanos",
+        "link": "/contactanos"
+      }
+    },
+    "TeamSection": {
+      "title": "Nuestro Equipo",
+        "subtitle": "Fantástico Equipo",
+        "subtitle2": "Un equipo diverso y apasionado, comprometido con transformar realidades a través de la tecnología. Cada miembro aporta su experiencia única para crear soluciones inteligentes y efectivas.",
+      "description": "Detrás de cada gran desarrollo hay personas con iniciativa, pasión e impacto. Conoce a los profesionales que hacen posible la transformación digital."
+    },
+    "ProjectCard": {
+      "Outstanding": "Destacado",
+        "Agro": "Agro",
+        "Youngs": "Jóvenes",
+        "Store": "Tienda",
+        "Makers": "Creadores",
+        "Software": "Software",
+        "Active": "ACTIVO",
+        "Explore": "Explorar"
+    },
+    "BaseLayout": {
+      "meta": {
+        "title": "Elipson Synergy - Soluciones Tecnológicas Innovadoras",
+        "description": "Elipson Synergy - Soluciones tecnológicas innovadoras que transforman ideas en realidad digital",
+        "keywords": "tecnología, innovación, desarrollo, software, soluciones digitales"
+      },
+        "hero": {
+            "title": "Elipson Synergy",
+            "subtitle": "INNOVATION & TECHNOLOGY",
+            "description": "Transformamos ideas en soluciones tecnológicas innovadoras que impulsan el crecimiento de tu negocio. Nuestra pasión es crear el futuro digital."
+        },
+        "QuickLinks": {
+            "title": "Enlaces",
+            "home": "Inicio",
+            "about": "Nosotros",
+            "product": "Producto",
+            "blog": "Blog",
+            "team": "Equipo",
+            "contact": "Contacto"
+        },
+        "lawyer": {
+            "title": "Derechos Reservados",
+            "description": "© 2024 Elipson Synergy. Todos los derechos reservados."
+        }
+    },
+    "blogPage": {
+      "hero":{
+        "title": "Nuestro Blog",
+        "subtitle": "Conocimiento, Innovación y Tendencias",
+        "description": "Descubre más sobre lo que es importante para ti",
+        "description2": "Explora nuestros artículos, tutoriales y recursos sobre tecnología e innovación"
+      },
+      "noResults": {
+        "title": "No se encontraron resultados",
+        "description": "Intenta ajustar tu búsqueda o los filtros"
+      }
+    },
+    "createPost": {
+      "title": "Crear Nuevo Post",
+      "subtitle": "Panel de Administración",
+      "description": "Crea contenido increíble para nuestros lectores",
+      "form": {
+        "title": "Editor de Blog",
+        "description": "Completa todos los campos para publicar tu artículo",
+        "title_label": "Título del Post",
+        "title_description": "Descripción Breve",
+        "content_label": "Contenido del Artículo",
+        "author": "Autor",
+        "loading": "Cargando autores...",
+        "image_label": "Imagen de Portada",
+        "tags_label": "Tags del Artículo",
+        "submit_button": "Publicar Blog Post"
+      },
+      "success_message": "Publicación creada exitosamente.",
+      "error_message": "Error al crear la publicación. Por favor, inténtalo de nuevo."
+    },
+      "blogDetail": {
+    "popular": "Artículos Populares",
+    "read_more": "¿Te gustó este artículo?",
+    "read_more_description": "Descubre más contenido interesante en nuestro blog.",
+    "explore": "Explorar Más Artículos",
+    "contact": "Contáctanos"
+  },
+  "project_detail": {
+    "meta": {
+      "title_suffix": "Elipson Synergy",
+      "keywords": "proyecto, tecnología, innovación, desarrollo, solución"
+    },
+    "navigation": {
+      "back_to_projects": "Volver a Proyectos"
+    },
+    "sections": {
+      "about_title": "Acerca de este Proyecto",
+      "features_title": "Características Principales"
+    },
+    "extended_descriptions": {
+      "agro": "Este proyecto utiliza tecnología IoT avanzada para revolucionar la agricultura moderna, integrando sensores inteligentes, análisis de datos en tiempo real y algoritmos de machine learning para optimizar los recursos y maximizar la productividad agrícola de manera sostenible.",
+      "jovenes": "Una iniciativa transformadora que empodera a los jóvenes colombianos a través de la tecnología, proporcionando herramientas digitales innovadoras, capacitación especializada y oportunidades de crecimiento que conectan el talento local con las demandas del mercado global.",
+      "store": "Solución integral de comercio electrónico que reimagina la experiencia de compra, combinando tecnologías emergentes con diseño centrado en el usuario para crear un ecosistema comercial robusto, escalable y altamente personalizado.",
+      "makers": "Plataforma colaborativa que democratiza el acceso a herramientas de fabricación digital, fomentando la innovación, la creatividad y el emprendimiento tecnológico en la comunidad maker latinoamericana.",
+      "software": "Desarrollo de software empresarial de última generación que integra inteligencia artificial, arquitecturas cloud-native y metodologías ágiles para resolver desafíos complejos del mundo real con soluciones escalables y sostenibles."
+    },
+    "features": {
+      "feature_1": {
+        "title": "Tecnología Avanzada",
+        "description": "Implementación de las últimas tecnologías y frameworks para garantizar rendimiento óptimo."
+      },
+      "feature_2": {
+        "title": "Escalabilidad",
+        "description": "Arquitectura diseñada para crecer con las necesidades del negocio sin comprometer la calidad."
+      },
+      "feature_3": {
+        "title": "Seguridad",
+        "description": "Protocolos de seguridad robustos que protegen los datos y la privacidad de los usuarios."
+      },
+      "feature_4": {
+        "title": "Experiencia de Usuario",
+        "description": "Interfaces intuitivas y accesibles diseñadas con el usuario como centro de la experiencia."
+      }
+    },
+    "sidebar": {
+      "project_info": "Información del Proyecto",
+      "category": "Categoría",
+      "status": "Estado",
+      "technologies": "Tecnologías",
+      "cta": {
+        "title": "¿Interesado en este Proyecto?",
+        "description": "Hablemos sobre cómo podemos adaptar esta solución a tus necesidades específicas.",
+        "button": "Contactar Ahora"
+      }
+    },
+    "related_projects": {
+      "title": "Proyectos Relacionados",
+      "description": "Explora otros proyectos innovadores en la misma categoría",
+      "view_all": "Ver Todos los Proyectos"
+    }
+  }
+}
