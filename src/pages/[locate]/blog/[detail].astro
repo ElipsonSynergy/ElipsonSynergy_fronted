@@ -258,13 +258,24 @@ const base = lang === 'es' ? '' : `/${lang}`;
 <BaseLayout title={blog?.title || "Blog"}>
   {blog ? (
     <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-        <Image
-        src={blog.imageUrl}
-        alt={blog.title}
-        class="card-image"
-        width={400}
-        height={220}
-        />
+        {blog.imageUrl ? (
+            <Image
+                src={blog.imageUrl}
+                alt={blog.title}
+                class="card-image"
+                width={400}
+                height={220}
+            />
+            ) : (
+            <Image
+                src="/banner.jpg"  
+                alt={blog.title}
+                class="card-image"
+                width={400}
+                height={220}
+            />
+            )}
+
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <!-- Contenido principal -->
