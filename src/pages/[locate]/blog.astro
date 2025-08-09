@@ -1,29 +1,20 @@
 ---
 /**
- * Blog Page Component
+ * Blog Page Component (Firestore version)
  *
- * Main blog listing page that displays blog posts with search, filtering, and pagination functionality.
- * Fetches posts and tags from the API and provides a user-friendly interface with modern design.
- *
- * Features:
- * - Search functionality across post titles and summaries
- * - Tag-based filtering system
- * - Client-side pagination with configurable page size
- * - Responsive grid layout for blog cards
- * - SEO-friendly URL parameters
- * - Modern gradient design with animations
- *
- * @component BlogPage
- * @requires BlogsListBanner - Banner component for page header
- * @requires BlogCard - Individual blog post card component
- * @since 1.0.0
+ * Lista de artículos con búsqueda, filtro por tags y paginación.
+ * Ahora los datos se leen directamente desde Firebase Firestore.
  */
-import BlogsListBanner from "../../components/BlogsListBanner.astro";
-import BlogCard from "../../components/BlogCard.astro";
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from "../../components/BlogCard.astro";
 import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
 
+// Firebase
+import { db } from "../../lib/firebase";
+import { collection, getDocs, query, orderBy } from "firebase/firestore/lite";
 
+/** Rutas estáticas por idioma */
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
     params: { locate: loc },
@@ -31,413 +22,410 @@ export async function getStaticPaths() {
 }
 
 let lang = getLangFromUrl(Astro.url);
-
 const t = useTranslations(lang);
 
-
-
-/**
- * Tag interface matching TagDto from backend
- * Represents a blog post tag with unique identifier and name
- *
- * @interface TagType
- * @property {string} id - Unique identifier for the tag
- * @property {string} name - Display name of the tag
- */
+/** Tipos */
 interface TagType {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
-/**
- * Author interface matching AuthorDto from backend
- * Represents blog post author information with optional profile data
- *
- * @interface AuthorType
- * @property {string} id - Unique identifier for the author
- * @property {string} name - Full name of the author
- * @property {string} [bio] - Optional author biography (can be null or undefined)
- * @property {string} [avatarUrl] - Optional author avatar image URL (can be null or undefined)
- */
 interface AuthorType {
-    id: string;
-    name: string;
-    bio?: string; // can be null or undefined
-    avatarUrl?: string; // can be null or undefined
+  id: string;
+  name: string;
+  bio?: string;
+  avatarUrl?: string;
 }
 
-/**
- * Post interface matching PostDto from backend
- * Represents a complete blog post with all associated data
- *
- * @interface PostType
- * @property {string} id - Unique identifier for the post
- * @property {string} slug - URL-friendly slug for SEO
- * @property {string} title - Post title
- * @property {string} summary - Brief post summary/excerpt
- * @property {string} content - Full post content
- * @property {string|null} imageUrl - Featured image URL (can be null)
- * @property {string} createdAt - ISO date string of creation
- * @property {string} updatedAt - ISO date string of last update
- * @property {AuthorType} author - Post author information
- * @property {TagType[]} tags - Array of associated tags
- */
 interface PostType {
-    id: string;
-    slug: string;
-    title: string;
-    summary: string;
-    content: string;
-    imageUrl: string | null;
-    createdAt: string;
-    updatedAt: string;
-    author: AuthorType;
-    tags: TagType[];
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  content: string;
+  imageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+  author: AuthorType;
+  tags: TagType[];
 }
 
-/**
- * API endpoint for posts data
- * @constant {string}
- */
-const POSTS_API = "http://localhost:8000/api/posts";
+/** Helpers Firestore */
+function toIso(v: any): string {
+  // Firestore Timestamp -> Date -> ISO
+  if (v?.toDate) return v.toDate().toISOString();
+  if (typeof v === "string") return v;
+  return new Date().toISOString();
+}
 
-/**
- * API endpoint for tags data
- * @constant {string}
- */
-const TAGS_API = "http://localhost:8000/api/tags";
+async function fetchPostsFromFirestore(): Promise<PostType[]> {
+  const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
+  const snap = await getDocs(q);
 
-// Extract and process URL parameters for search, filtering, and pagination
+  return snap.docs.map((doc) => {
+    const d: any = doc.data();
+
+    const normTags: TagType[] = Array.isArray(d.tags)
+      ? d.tags.map((t: any) =>
+          typeof t === "string"
+            ? { id: t, name: t }
+            : { id: t.id ?? t.name ?? String(t), name: t.name ?? String(t.id ?? t) }
+        )
+      : [];
+
+    const author: AuthorType =
+      d.author && typeof d.author === "object"
+        ? {
+            id: d.author.id ?? "",
+            name: d.author.name ?? "",
+            bio: d.author.bio,
+            avatarUrl: d.author.avatarUrl,
+          }
+        : { id: "", name: "" };
+
+    const blogs: PostType = {
+      id: doc.id,
+      slug: d.slug ?? doc.id,
+      title: d.title ?? "",
+      summary: d.summary ?? "",
+      content: d.content ?? "",
+      imageUrl: d.imageUrl ?? null,
+      createdAt: toIso(d.createdAt),
+      updatedAt: toIso(d.updatedAt ?? d.createdAt),
+      author,
+      tags: normTags,
+    };
+
+    return blogs;
+  });
+}
+
+async function fetchTagsFromFirestore(): Promise<TagType[]> {
+  // Si tienes colección "tags", úsala; si no, deriva de "posts".
+  try {
+    const snap = await getDocs(collection(db, "tags"));
+    if (!snap.empty) {
+      return snap.docs.map((doc) => {
+        const d: any = doc.data();
+        return { id: doc.id, name: d.name ?? doc.id } as TagType;
+      });
+    }
+  } catch {
+    // Si no existe la colección, derivamos desde posts.
+  }
+  const posts = await fetchPostsFromFirestore();
+  const uniq = new Map<string, TagType>();
+  posts.forEach((p) =>
+    p.tags.forEach((t) => {
+      const key = (t.name ?? t.id).toString();
+      if (!uniq.has(key)) uniq.set(key, t);
+    })
+  );
+  return Array.from(uniq.values());
+}
+
+/** Parámetros de URL (búsqueda, filtro, paginación) */
 const url = new URL(Astro.request.url);
 const search = url.searchParams.get("search")?.toLowerCase() || "";
 const tag = url.searchParams.get("tag") || "All";
 const pageNum = parseInt(url.searchParams.get("page") || "1", 10);
 
-/**
- * Number of posts to display per page
- * @constant {number}
- */
+/** Paginación */
 const pageSize = 9;
 
-/**
- * Fetch blog posts from API with error handling
- * @throws {Error} When API request fails
- */
-const postsRes = await fetch(POSTS_API);
-if (!postsRes.ok) throw new Error(`Error loading posts: ${postsRes.status}`);
-const posts: PostType[] = await postsRes.json();
+/** Carga de datos desde Firestore */
+const posts: PostType[] = await fetchPostsFromFirestore();
+const tagsData: TagType[] = await fetchTagsFromFirestore();
 
-/**
- * Fetch available tags from API with graceful fallback
- * Falls back to empty array if tags API fails
- */
-const tagsRes = await fetch(TAGS_API);
-const tagsData: TagType[] = tagsRes.ok ? await tagsRes.json() : [];
+/** Lista de tags (en MAYÚSCULAS para el filtro visual) */
+const allTags: string[] = ["All", ...tagsData.map((t) => (t.name ?? "").toUpperCase())];
 
-/**
- * Build complete list of tag names for filter selector
- * Includes "All" option for showing all posts
- * @constant {string[]}
- */
-const allTags: string[] = ["All", ...tagsData.map((t) => t.name.toUpperCase())];
-
-/**
- * Filter posts based on search query and selected tag
- * Search is performed across post titles and summaries (case-insensitive)
- * Tag filtering supports "All" option and exact tag name matching
- */
+/** Filtrado y slicing */
 const filtered = posts.filter(
-    (p) =>
-        (p.title.toLowerCase().includes(search) ||
-            p.summary.toLowerCase().includes(search)) &&
-        (tag === "All" || p.tags.some((t) => t.name.toUpperCase() === tag)),
+  (p) =>
+    (p.title.toLowerCase().includes(search) ||
+      p.summary.toLowerCase().includes(search)) &&
+    (tag === "All" || p.tags.some((t) => (t.name ?? "").toUpperCase() === tag)),
 );
 
-/**
- * Calculate pagination values
- */
 const total = filtered.length;
 const totalPages = Math.ceil(total / pageSize);
 const start = (pageNum - 1) * pageSize;
-
-/**
- * Get current page slice of filtered posts
- * @constant {PostType[]}
- */
 const slice: PostType[] = filtered.slice(start, start + pageSize);
 ---
 
 <BaseLayout title={t('blog_page_meta.title')}
   description={t('blog_page_meta.description')}
 >
-    <!-- Modern Hero Section with Blog Banner -->
-    <section class="relative py-24 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute inset-0">
-            <!-- Animated Grid -->
-            <div class="absolute inset-0 opacity-5">
-                <div class="grid grid-cols-8 grid-rows-6 gap-1 h-full w-full">
-                    {Array.from({length: 48}).map((_, i) => (
-                        <div class="bg-blue-500 rounded-sm animate-pulse" style={`animation-delay: ${i * 100}ms`}></div>
-                    ))}
-                </div>
-            </div>
-            
-            <!-- Floating Elements -->
-            <div class="absolute top-20 left-20 w-4 h-4 bg-blue-500/20 rounded-full animate-bounce"></div>
-            <div class="absolute top-40 right-40 w-6 h-6 bg-indigo-500/30 rotate-45 animate-pulse delay-500"></div>
-            <div class="absolute bottom-32 left-1/4 w-3 h-3 bg-purple-500/25 rounded-full animate-ping delay-1000"></div>
+  <!-- Modern Hero Section with Blog Banner -->
+  <section class="relative py-24 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute inset-0">
+      <!-- Animated Grid -->
+      <div class="absolute inset-0 opacity-5">
+        <div class="grid grid-cols-8 grid-rows-6 gap-1 h-full w-full">
+          {Array.from({length: 48}).map((_, i) => (
+            <div class="bg-blue-500 rounded-sm animate-pulse" style={`animation-delay: ${i * 100}ms`}></div>
+          ))}
         </div>
-        
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
-                <span class="block text-slate-900 mb-2">{t('blogPage.hero.title')}</span>
-                <span class="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{t('blogPage.hero.subtitle')}</span>
-            </h1>
-            
-            <p class="text-xl md:text-2xl font-semibold text-blue-600 mb-6">
-                {t('blogPage.hero.description')}
-            </p>
-            
-            <p class="max-w-4xl mx-auto text-lg md:text-xl text-slate-600 leading-relaxed">
-                {t('blogPage.hero.description2')}
-            </p>
-        </div>
-    </section>
+      </div>
 
-    <!-- Search and Filter Section with Modern Design -->
-    <section class="relative py-16 bg-white overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-5">
-            <div style="background-image: radial-gradient(circle at 1px 1px, rgba(59,130,246,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
-        </div>
-        
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 lg:p-12">
-                <!-- Search Form with Modern Styling -->
-                <div class="mb-8">
-                    <form method="get" class="max-w-2xl mx-auto">
-                        <div class="relative">
-                            <input
-                                type="text"
-                                name="search"
-                                placeholder="Buscar artículos..."
-                                value={search}
-                                aria-label="Buscar en el blog"
-                                class="w-full px-6 py-4 text-lg rounded-2xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all duration-300 pr-14"
-                            />
-                            <button 
-                                type="submit" 
-                                aria-label="Buscar"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 hover:scale-105"
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <path d="m21 21-4.35-4.35"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+      <!-- Floating Elements -->
+      <div class="absolute top-20 left-20 w-4 h-4 bg-blue-500/20 rounded-full animate-bounce"></div>
+      <div class="absolute top-40 right-40 w-6 h-6 bg-indigo-500/30 rotate-45 animate-pulse delay-500"></div>
+      <div class="absolute bottom-32 left-1/4 w-3 h-3 bg-purple-500/25 rounded-full animate-ping delay-1000"></div>
+    </div>
 
-                <!-- Tag Filter Navigation with Modern Pills -->
-                <div class="flex flex-wrap justify-center gap-3" role="navigation" aria-label="Filtros de categoría">
-                    {allTags.map((t) => (
-                        <a
-                            class={`px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 ${
-                                t === tag 
-                                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg" 
-                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
-                            }`}
-                            href={`?tag=${encodeURIComponent(t)}&search=${encodeURIComponent(search)}`}
-                            aria-label={`Filtrar por ${t}`}
-                        >
-                            {t}
-                        </a>
-                    ))}
-                </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
+        <span class="block text-slate-900 mb-2">{t('blogPage.hero.title')}</span>
+        <span class="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{t('blogPage.hero.subtitle')}</span>
+      </h1>
+
+      <p class="text-xl md:text-2xl font-semibold text-blue-600 mb-6">
+        {t('blogPage.hero.description')}
+      </p>
+
+      <p class="max-w-4xl mx-auto text-lg md:text-xl text-slate-600 leading-relaxed">
+        {t('blogPage.hero.description2')}
+      </p>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section with Modern Design -->
+  <section class="relative py-16 bg-white overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div style="background-image: radial-gradient(circle at 1px 1px, rgba(59,130,246,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 lg:p-12">
+        <!-- Search Form with Modern Styling -->
+        <div class="mb-8">
+          <form method="get" class="max-w-2xl mx-auto">
+            <div class="relative">
+              <input
+                type="text"
+                name="search"
+                placeholder="Buscar artículos..."
+                value={search}
+                aria-label="Buscar en el blog"
+                class="w-full px-6 py-4 text-lg rounded-2xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all duration-300 pr-14"
+              />
+              <button
+                type="submit"
+                aria-label="Buscar"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 hover:scale-105"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+              </button>
             </div>
+          </form>
         </div>
-    </section>
 
-    <!-- Blog Posts Grid Section with Modern Layout -->
-    <section class="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden" aria-label="Lista de artículos del blog">
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- No Results Message with Modern Styling -->
-            <div class="no-results bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center mx-auto max-w-2xl" style="display: none;" role="status" aria-live="polite">
-                <div class="w-20 h-20 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.44-1.01-5.93-2.62C8.08 10.83 10.92 10 12 10a7.96 7.96 0 016 2.709M6.343 6.343L19.657 19.657"></path>
-                    </svg>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-4">{t('blogPage.noResults.title')}</h3>
-                <p class="text-lg text-slate-600">{t('blogPage.noResults.description')}</p>
-            </div>
-
-            <!-- Blog Post Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {slice.map((post) => <BlogCard post={post} />)}
-            </div>
+        <!-- Tag Filter Navigation with Modern Pills -->
+        <div class="flex flex-wrap justify-center gap-3 tags" role="navigation" aria-label="Filtros de categoría">
+          {allTags.map((tname) => (
+            <a
+              class={`px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 tag ${
+                tname === tag
+                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
+              }`}
+              href={`?tag=${encodeURIComponent(tname)}&search=${encodeURIComponent(search)}`}
+              aria-label={`Filtrar por ${tname}`}
+            >
+              {tname}
+            </a>
+          ))}
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Pagination Navigation with Modern Design -->
-    {totalPages > 0 && (
-        <section class="relative py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <nav class="flex justify-center" role="navigation" aria-label="Navegación de páginas">
-                    <div class="flex items-center space-x-2 bg-slate-100 rounded-2xl p-2">
-                        {/* Previous Arrow */}
-                        {totalPages > 1 && pageNum > 1 && (
-                            <a
-                                class="flex items-center justify-center w-12 h-12 rounded-xl bg-white text-slate-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
-                                href={`?page=${pageNum - 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
-                                aria-label="Página anterior"
-                            >
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                                </svg>
-                            </a>
-                        )}
+  <!-- Blog Posts Grid Section with Modern Layout -->
+  <section class="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden" aria-label="Lista de artículos del blog">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- No Results Message with Modern Styling -->
+      <div class="no-results bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center mx-auto max-w-2xl" style="display: none;" role="status" aria-live="polite">
+        <div class="w-20 h-20 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.44-1.01-5.93-2.62C8.08 10.83 10.92 10 12 10a7.96 7.96 0 016 2.709M6.343 6.343L19.657 19.657"></path>
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-slate-900 mb-4">{t('blogPage.noResults.title')}</h3>
+        <p class="text-lg text-slate-600">{t('blogPage.noResults.description')}</p>
+      </div>
 
-                        {/* Page Number Links */}
-                        {Array.from({ length: totalPages }, (_, i) => (
-                            <a
-                                class={`flex items-center justify-center min-w-12 h-12 px-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 ${
-                                    i + 1 === pageNum
-                                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
-                                        : "bg-white text-slate-600 hover:bg-slate-50 shadow-sm"
-                                }`}
-                                href={`?page=${i + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
-                                aria-label={
-                                    i + 1 === pageNum
-                                        ? `Página actual: ${i + 1}`
-                                        : `Ir a página ${i + 1}`
-                                }
-                            >
-                                {i + 1}
-                            </a>
-                        ))}
+      <!-- Blog Post Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {slice.map((post) => <BlogCard post={post} />)}
+      </div>
+    </div>
+  </section>
 
-                        {/* Next Arrow */}
-                        {totalPages > 1 && pageNum < totalPages && (
-                            <a
-                                class="flex items-center justify-center w-12 h-12 rounded-xl bg-white text-slate-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
-                                href={`?page=${pageNum + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
-                                aria-label="Página siguiente"
-                            >
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        )}
-                    </div>
-                </nav>
-            </div>
-        </section>
-    )}
+  <!-- Pagination Navigation with Modern Design -->
+  {totalPages > 0 && (
+    <section class="relative py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex justify-center" role="navigation" aria-label="Navegación de páginas">
+          <div class="flex items-center space-x-2 bg-slate-100 rounded-2xl p-2">
+            {/* Previous Arrow */}
+            {totalPages > 1 && pageNum > 1 && (
+              <a
+                class="flex items-center justify-center w-12 h-12 rounded-xl bg-white text-slate-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
+                href={`?page=${pageNum - 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
+                aria-label="Página anterior"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+              </a>
+            )}
 
-    <!-- Client-Side Interactive Functionality -->
-    <script type="module">
-        /** @type {HTMLAnchorElement[]} */
-        const tagButtons = Array.from(
-            document.querySelectorAll(".tags .tag"),
-        );
-        /** @type {HTMLElement[]} */
-        const postCards = Array.from(
-            document.querySelectorAll(".card.post-card"),
-        );
-        /** @type {HTMLFormElement | null} */
-        const form = document.querySelector("form[method='get']");
-        /** @type {HTMLInputElement | null} */
-        const searchInput =
-            form?.querySelector('input[name="search"]') ?? null;
-        /** @type {HTMLElement | null} */
-        const noResultsEl = document.querySelector(".no-results");
-        /** @type {string[]} */
-        let selectedTags = [];
-        /** @type {string} */
-        let searchTerm = searchInput?.value.trim().toLowerCase() || "";
-
-        // Maneja el submit: evita recarga, toma el valor y filtra
-        form?.addEventListener("submit", (e) => {
-            e.preventDefault();
-            searchTerm = searchInput.value.trim().toLowerCase();
-            filterPosts();
-        });
-
-        function updateUI() {
-            tagButtons.forEach((btn) => {
-                const name = btn.textContent?.trim().toUpperCase() || "";
-                btn.classList.toggle(
-                    "active",
-                    name === "ALL"
-                        ? selectedTags.length === 0
-                        : selectedTags.includes(name),
-                );
-            });
-        }
-
-        function filterPosts() {
-            let anyVisible = false;
-            postCards.forEach((card) => {
-                // tags
-                const tagsAttr = card.getAttribute("data-tags") || "";
-                const cardTags = tagsAttr
-                    .split(",")
-                    .map((t) => t.trim().toUpperCase());
-                const matchesTag =
-                    selectedTags.length === 0 ||
-                    selectedTags.some((tag) => cardTags.includes(tag));
-
-                // búsqueda
-                const hayTagsTxt = tagsAttr
-                    .toLowerCase()
-                    .includes(searchTerm);
-                const title = card.getAttribute("data-title") || "";
-                const summary = card.getAttribute("data-summary") || "";
-                const content = card.getAttribute("data-content") || "";
-                const author = card.getAttribute("data-author") || "";
-                const slug = card.getAttribute("data-slug") || "";
-                const hayTexto = [
-                    title,
-                    summary,
-                    content,
-                    author,
-                    slug,
-                    hayTagsTxt ? tagsAttr.toLowerCase() : "",
-                ].some((field) => field.includes(searchTerm));
-
-                const visible =
-                    matchesTag && (searchTerm === "" || hayTexto);
-                card.style.display = visible ? "" : "none";
-                if (visible) anyVisible = true;
-            });
-
-            // muestra/oculta "no results"
-            if (noResultsEl) {
-                noResultsEl.style.display = anyVisible ? "none" : "";
-            }
-        }
-
-        tagButtons.forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-                e.preventDefault();
-                const name = btn.textContent?.trim().toUpperCase() || "";
-                if (name === "ALL") {
-                    selectedTags = [];
-                } else {
-                    const idx = selectedTags.indexOf(name);
-                    if (idx >= 0) selectedTags.splice(idx, 1);
-                    else selectedTags.push(name);
+            {/* Page Number Links */}
+            {Array.from({ length: totalPages }, (_, i) => (
+              <a
+                class={`flex items-center justify-center min-w-12 h-12 px-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 ${
+                  i + 1 === pageNum
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                    : "bg-white text-slate-600 hover:bg-slate-50 shadow-sm"
+                }`}
+                href={`?page=${i + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
+                aria-label={
+                  i + 1 === pageNum
+                    ? `Página actual: ${i + 1}`
+                    : `Ir a página ${i + 1}`
                 }
-                updateUI();
-                filterPosts();
-            });
-        });
+              >
+                {i + 1}
+              </a>
+            ))}
 
-        // Initialize application with proper documentation
+            {/* Next Arrow */}
+            {totalPages > 1 && pageNum < totalPages && (
+              <a
+                class="flex items-center justify-center w-12 h-12 rounded-xl bg-white text-slate-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
+                href={`?page=${pageNum + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
+                aria-label="Página siguiente"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            )}
+          </div>
+        </nav>
+      </div>
+    </section>
+  )}
+
+  <!-- Client-Side Interactive Functionality -->
+  <script type="module">
+    /** @type {HTMLAnchorElement[]} */
+    const tagButtons = Array.from(
+      document.querySelectorAll(".tags .tag"),
+    );
+    /** @type {HTMLElement[]} */
+    const postCards = Array.from(
+      document.querySelectorAll(".card.post-card"),
+    );
+    /** @type {HTMLFormElement | null} */
+    const form = document.querySelector("form[method='get']");
+    /** @type {HTMLInputElement | null} */
+    const searchInput =
+      form?.querySelector('input[name="search"]') ?? null;
+    /** @type {HTMLElement | null} */
+    const noResultsEl = document.querySelector(".no-results");
+    /** @type {string[]} */
+    let selectedTags = [];
+    /** @type {string} */
+    let searchTerm = searchInput?.value.trim().toLowerCase() || "";
+
+    // Maneja el submit: evita recarga, toma el valor y filtra
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!searchInput) return;
+      searchTerm = searchInput.value.trim().toLowerCase();
+      filterPosts();
+    });
+
+    function updateUI() {
+      tagButtons.forEach((btn) => {
+        const name = btn.textContent?.trim().toUpperCase() || "";
+        btn.classList.toggle(
+          "active",
+          name === "ALL"
+            ? selectedTags.length === 0
+            : selectedTags.includes(name),
+        );
+      });
+    }
+
+    function filterPosts() {
+      let anyVisible = false;
+      postCards.forEach((card) => {
+        // tags
+        const tagsAttr = card.getAttribute("data-tags") || "";
+        const cardTags = tagsAttr
+          .split(",")
+          .map((t) => t.trim().toUpperCase());
+        const matchesTag =
+          selectedTags.length === 0 ||
+          selectedTags.some((tag) => cardTags.includes(tag));
+
+        // búsqueda
+        const hayTagsTxt = tagsAttr
+          .toLowerCase()
+          .includes(searchTerm);
+        const title = (card.getAttribute("data-title") || "").toLowerCase();
+        const summary = (card.getAttribute("data-summary") || "").toLowerCase();
+        const content = (card.getAttribute("data-content") || "").toLowerCase();
+        const author = (card.getAttribute("data-author") || "").toLowerCase();
+        const slug = (card.getAttribute("data-slug") || "").toLowerCase();
+        const hayTexto = [
+          title,
+          summary,
+          content,
+          author,
+          slug,
+          hayTagsTxt ? tagsAttr.toLowerCase() : "",
+        ].some((field) => field.includes(searchTerm));
+
+        const visible =
+          matchesTag && (searchTerm === "" || hayTexto);
+        card.style.display = visible ? "" : "none";
+        if (visible) anyVisible = true;
+      });
+
+      // muestra/oculta "no results"
+      if (noResultsEl) {
+        noResultsEl.style.display = anyVisible ? "none" : "";
+      }
+    }
+
+    tagButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const name = btn.textContent?.trim().toUpperCase() || "";
+        if (name === "ALL") {
+          selectedTags = [];
+        } else {
+          const idx = selectedTags.indexOf(name);
+          if (idx >= 0) selectedTags.splice(idx, 1);
+          else selectedTags.push(name);
+        }
         updateUI();
         filterPosts();
-    </script>
+      });
+    });
+
+    // Initialize
+    updateUI();
+    filterPosts();
+  </script>
 </BaseLayout>

@@ -1,5 +1,13 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  getDoc,
+} from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBqeitkVnslmcclqcUaD5oTF2KoISfgnkw",
@@ -11,5 +19,5 @@ const firebaseConfig = {
   measurementId: "G-J5QL2P7PRZ"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const db = getFirestore(app);

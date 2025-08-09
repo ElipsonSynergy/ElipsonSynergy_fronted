@@ -1,7 +1,7 @@
 // Firebase functions for members management
 import { collection, getDocs, doc, getDoc, query, where, orderBy } from 'firebase/firestore';
-import { db } from './firebase';
-import { adminDb } from './firebaseAdmin';
+import { db } from '../lib/firebase';
+import { adminDb } from '../lib/firebaseAdmin';
 import type { FirebaseMember, LocalizedMember, SupportedLanguage } from '../types/firebase';
 
 const COLLECTION_NAME = 'members';
