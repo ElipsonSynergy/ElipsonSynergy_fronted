@@ -18,14 +18,63 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 
-// 3. Fetch al endpoint de detalle (y aquí la API ya incrementa views)
-const postRes = await fetch(`http://localhost:8000/api/posts/slug/${slug}`);
-if (!postRes.ok) throw new Error(`Post no encontrado: ${slug}`);
-const post: PostType = await postRes.json();
+// 3. Configuration for API endpoints
+const BASE_API_URL = import.meta.env.API_BASE_URL || "http://localhost:8000";
 
-// 4. (Opcional) Traer posts populares
-const popRes = await fetch(`http://localhost:8000/api/posts/popular?limit=5`);
-const populares: PostType[] = popRes.ok ? await popRes.json() : [];
+// 4. Fetch al endpoint de detalle con manejo de errores
+let post: PostType | null = null;
+let populares: PostType[] = [];
+
+try {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+  const postRes = await fetch(`${BASE_API_URL}/api/posts/slug/${slug}`, {
+    signal: controller.signal,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  });
+  
+  clearTimeout(timeoutId);
+  
+  if (postRes.ok) {
+    post = await postRes.json();
+  } else {
+    console.error(`Post no encontrado: ${slug}, Status: ${postRes.status}`);
+  }
+} catch (error) {
+  console.error('Error fetching post:', error);
+}
+
+// Si no encontramos el post, redirigir al blog
+if (!post) {
+  return Astro.redirect(`/${lang}/blog`);
+}
+
+// 5. (Opcional) Traer posts populares con manejo de errores
+try {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+  const popRes = await fetch(`${BASE_API_URL}/api/posts/popular?limit=5`, {
+    signal: controller.signal,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  });
+  
+  clearTimeout(timeoutId);
+  
+  if (popRes.ok) {
+    populares = await popRes.json();
+  }
+} catch (error) {
+  console.error('Error fetching popular posts:', error);
+  populares = [];
+}
 ---
 
 <BaseLayout title={`${post.title} | Blog Squair`} description={post.summary}>

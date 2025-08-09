@@ -24,13 +24,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
 
 
-export async function getStaticPaths() {
-  return Object.keys(languages).map((loc) => ({
-    params: { locate: loc },
-  }));
-}
+// Usar prerender = false para habilitar SSR en esta página
+export const prerender = false;
 
-let lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url);
 
 const t = useTranslations(lang);
 
@@ -96,16 +93,22 @@ interface PostType {
 }
 
 /**
+ * Get base API URL from environment or use localhost as fallback
+ * @constant {string}
+ */
+const BASE_API_URL = import.meta.env.API_BASE_URL || "http://localhost:8000";
+
+/**
  * API endpoint for posts data
  * @constant {string}
  */
-const POSTS_API = "http://localhost:8000/api/posts";
+const POSTS_API = `${BASE_API_URL}/api/posts`;
 
 /**
  * API endpoint for tags data
  * @constant {string}
  */
-const TAGS_API = "http://localhost:8000/api/tags";
+const TAGS_API = `${BASE_API_URL}/api/tags`;
 
 // Extract and process URL parameters for search, filtering, and pagination
 const url = new URL(Astro.request.url);
@@ -120,19 +123,63 @@ const pageNum = parseInt(url.searchParams.get("page") || "1", 10);
 const pageSize = 9;
 
 /**
- * Fetch blog posts from API with error handling
+ * Fetch blog posts from API with error handling and timeout
  * @throws {Error} When API request fails
  */
-const postsRes = await fetch(POSTS_API);
-if (!postsRes.ok) throw new Error(`Error loading posts: ${postsRes.status}`);
-const posts: PostType[] = await postsRes.json();
+let posts: PostType[] = [];
+let tagsData: TagType[] = [];
+
+try {
+  // Crear AbortController para timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+  const postsRes = await fetch(POSTS_API, {
+    signal: controller.signal,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  });
+  
+  clearTimeout(timeoutId);
+  
+  if (postsRes.ok) {
+    posts = await postsRes.json();
+  } else {
+    console.error(`Error loading posts: ${postsRes.status} ${postsRes.statusText}`);
+    posts = []; // Fallback a array vacío
+  }
+} catch (error) {
+  console.error('Error fetching posts:', error);
+  posts = []; // Fallback a array vacío
+}
 
 /**
  * Fetch available tags from API with graceful fallback
  * Falls back to empty array if tags API fails
  */
-const tagsRes = await fetch(TAGS_API);
-const tagsData: TagType[] = tagsRes.ok ? await tagsRes.json() : [];
+try {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
+  const tagsRes = await fetch(TAGS_API, {
+    signal: controller.signal,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  });
+  
+  clearTimeout(timeoutId);
+  
+  if (tagsRes.ok) {
+    tagsData = await tagsRes.json();
+  }
+} catch (error) {
+  console.error('Error fetching tags:', error);
+  tagsData = []; // Fallback a array vacío
+}
 
 /**
  * Build complete list of tag names for filter selector
@@ -263,21 +310,44 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
     <!-- Blog Posts Grid Section with Modern Layout -->
     <section class="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden" aria-label="Lista de artículos del blog">
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- No Results Message with Modern Styling -->
-            <div class="no-results bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center mx-auto max-w-2xl" style="display: none;" role="status" aria-live="polite">
-                <div class="w-20 h-20 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.44-1.01-5.93-2.62C8.08 10.83 10.92 10 12 10a7.96 7.96 0 016 2.709M6.343 6.343L19.657 19.657"></path>
-                    </svg>
+            <!-- No Connection Message -->
+            {posts.length === 0 && (
+                <div class="bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center mx-auto max-w-2xl" role="status" aria-live="polite">
+                    <div class="w-20 h-20 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 13.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">No se pudieron cargar los artículos</h3>
+                    <p class="text-lg text-slate-600 mb-4">Parece que hay un problema de conexión con el servidor.</p>
+                    <button onclick="window.location.reload()" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        Intentar nuevamente
+                    </button>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-4">{t('blogPage.noResults.title')}</h3>
-                <p class="text-lg text-slate-600">{t('blogPage.noResults.description')}</p>
-            </div>
+            )}
+
+            <!-- No Results Message with Modern Styling -->
+            {posts.length > 0 && slice.length === 0 && (
+                <div class="no-results bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center mx-auto max-w-2xl" role="status" aria-live="polite">
+                    <div class="w-20 h-20 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.44-1.01-5.93-2.62C8.08 10.83 10.92 10 12 10a7.96 7.96 0 016 2.709M6.343 6.343L19.657 19.657"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">{t('blogPage.noResults.title')}</h3>
+                    <p class="text-lg text-slate-600">{t('blogPage.noResults.description')}</p>
+                </div>
+            )}
 
             <!-- Blog Post Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {slice.map((post) => <BlogCard post={post} />)}
-            </div>
+            {posts.length > 0 && (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {slice.map((post) => <BlogCard post={post} />)}
+                </div>
+            )}
         </div>
     </section>
 
