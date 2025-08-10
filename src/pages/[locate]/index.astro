@@ -12,11 +12,12 @@ import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/
 import type { SupportedLanguage } from '../../types/firebase';
 import ElipsonTitle from '@/components/ElipsonTitle.astro';
 import FuturoBanner from '@/components/FutureBanner.astro';
-import type { APIRoute } from 'astro';
 
-export const GET: APIRoute = ({ redirect, url }) =>
-  redirect(new URL('/es/', url).toString(), 308);
-
+export const onRequest: MiddlewareHandler = (ctx, next) => {
+  const { pathname } = new URL(ctx.request.url);
+  if (pathname === '/') return ctx.redirect('/es/', 301);
+  return next();
+};
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
