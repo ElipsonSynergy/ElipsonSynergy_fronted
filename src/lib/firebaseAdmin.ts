@@ -1,5 +1,6 @@
 // src/lib/firebaseAdmin.ts
 import admin from 'firebase-admin';
+import 'dotenv/config';
 
 if (!admin.apps.length) {
   const projectId   = process.env.FIREBASE_PROJECT_ID!;
