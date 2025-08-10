@@ -31,6 +31,10 @@ export default defineConfig({
   },
 
   adapter: node({
-    mode: "standalone",
+    mode: "middleware",
   }),
+  build: {
+    client: "client",
+    server: "server",
+  }
 });
