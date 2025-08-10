@@ -5,9 +5,7 @@ import { Image } from "astro:assets";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { useTranslations, languages, getLangFromUrl } from '../../../utils/i18n';
 // Firestore (un solo entrypoint)
-import {
-  db, collection, getDocs, getDoc, query, where, orderBy, limit, doc
-} from '../../../lib/firebase';
+import { adminDb } from '../../../lib/firebaseAdmin';
 
 
 // ===== i18n =====
@@ -104,22 +102,20 @@ function mapDoc(id: string, d: any): PostType {
 }
 
 async function findBySlug(slug: string): Promise<PostType | null> {
-  const qy = query(
-    collection(db, 'blogs'),
-    where('slug', '==', slug),
-    limit(1)
-  );
-  const snap = await getDocs(qy);
+  const snap = await adminDb
+    .collection('blogs')
+    .where('slug', '==', slug)
+    .limit(1)
+    .get();
   if (snap.empty) return null;
   const s = snap.docs[0];
   return mapDoc(s.id, s.data());
 }
 
 async function findById(id: string): Promise<PostType | null> {
-  const ref = doc(db, 'blogs', id);
-  const s = await getDoc(ref);
-  if (!s.exists()) return null;
-  return mapDoc(s.id, s.data());
+  const s = await adminDb.collection('blogs').doc(id).get();
+  if (!s.exists) return null;
+   return mapDoc(s.id, s.data());
 }
 
 // ===== Parámetro dinámico =====
@@ -237,13 +233,12 @@ async function getRecent(limitCount = 5): Promise<PostType[]> {
   const hit = getRelatedCache(key);
   if (hit) return hit;
 
-  const qy = query(
-    collection(db, 'blogs'),
-    where('published', '==', true),
-    orderBy('createdAt', 'desc'),
-    limit(limitCount + 5) // por si filtramos el actual
-  );
-  const snap = await getDocs(qy);
+  const snap = await adminDb
+   .collection('blogs')
+   .where('published', '==', true)
+   .orderBy('createdAt', 'desc')
+   .limit(limitCount + 5)
+   .get();
   const items = snap.docs.map((d) => mapDoc(d.id, d.data()));
   setRelatedCache(key, items);
   return items;

@@ -11,8 +11,7 @@ import BlogCard from "../../components/BlogCard.astro";
 import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
 
 // Firebase
-import { db } from "../../lib/firebase";
-import { collection, getDocs, query, orderBy } from "firebase/firestore/lite";
+import { adminDb } from "../../lib/firebaseAdmin";
 
 /** Rutas estáticas por idioma */
 export async function getStaticPaths() {
@@ -59,8 +58,10 @@ function toIso(v: any): string {
 }
 
 async function fetchPostsFromFirestore(): Promise<PostType[]> {
-  const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
-  const snap = await getDocs(q);
+    const snap = await adminDb
+      .collection("blogs")
+      .orderBy("createdAt", "desc")
+      .get();
 
   return snap.docs.map((doc) => {
     const d: any = doc.data();
@@ -103,7 +104,7 @@ async function fetchPostsFromFirestore(): Promise<PostType[]> {
 async function fetchTagsFromFirestore(): Promise<TagType[]> {
   // Si tienes colección "tags", úsala; si no, deriva de "posts".
   try {
-    const snap = await getDocs(collection(db, "tags"));
+    const snap = await adminDb.collection("tags").get();
     if (!snap.empty) {
       return snap.docs.map((doc) => {
         const d: any = doc.data();
