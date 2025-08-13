@@ -1,19 +1,32 @@
-import { defineMiddleware } from "astro/middleware";
+// src/middleware.ts
+import { defineMiddleware } from 'astro/middleware';
 
 export const onRequest = defineMiddleware((context, next) => {
-  const supportedLocales = ["es", "en", "por"];
-  const defaultLocale = "es";
+  const supported = new Set(['es', 'en', 'por']);
+  const defaultLocale = 'es';
 
-  const [, maybeLocale] = context.url.pathname.split("/");
+  const { pathname } = context.url;
 
-  // Si la ruta no tiene idioma (ej: "/")
-  if (!maybeLocale || !supportedLocales.includes(maybeLocale)) {
-    return Response.redirect(
-      new URL(`/${defaultLocale}${context.url.pathname}`, context.url),
-      302
-    );
+  // 1) Deja pasar archivos estáticos y APIs
+  //    - extensiones /.*\.[\w]+$/ (ej: .css, .js, .png)
+  //    - prefijos: _astro, assets, images, api, favicon, robots, sitemap
+  if (
+    /\.[\w]+$/.test(pathname) ||                       // tiene extensión
+    pathname.startsWith('/_astro') ||
+    pathname.startsWith('/assets') ||
+    pathname.startsWith('/images') ||
+    pathname.startsWith('/api') ||
+    pathname === '/favicon.ico' ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml'
+  ) {
+    return next();
   }
-return next();
 
+  // 2) Si ya tiene locale, sigue
+  const seg = pathname.split('/').filter(Boolean)[0]; // primer segmento
+  if (seg && supported.has(seg)) return next();
+
+  // 3) Si no tiene locale, antepón el default
+  return context.redirect(`/${defaultLocale}${pathname}`, 302);
 });
-

@@ -1414,7 +1414,7 @@
   padding-top: 6rem;               /* Top padding reduced due to partial circle overlap */
   text-align: center;              /* Center all content horizontally */
   color: #fff;                     /* White text for contrast */
-  margin-top: 6rem;                /* Top margin to accommodate protruding circle */
+  margin-top: 7rem;                /* Increased top margin for better spacing */
 }
 
 /**
@@ -1546,7 +1546,7 @@
 .epsilon-title {
   position: relative;              /* Enable absolute positioning for decorative elements */
   max-width: 1400px;               /* Large container for expansive layout */
-  margin: 6rem auto;               /* Generous vertical spacing */
+  margin: 0 auto 6rem;             /* No top margin, maintained bottom spacing */
   padding: 0 2rem;                 /* Horizontal padding for mobile */
   overflow: hidden;                /* Hide floating elements that extend beyond bounds */
 }
@@ -2300,7 +2300,7 @@
 /* Tablet and mobile (768px and below) */
 @media (max-width: 768px) {
   .epsilon-title {
-    margin: 4rem auto;             /* Reduced vertical spacing */
+    margin: 0 auto 4rem;           /* No top margin for mobile */
   }
   
   .epsilon-graphics {

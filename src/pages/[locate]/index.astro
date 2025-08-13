@@ -2,13 +2,22 @@
 // index.astro - Premium main page
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import IdeasSolutionsCard from '@/components/IdeasSolutions.astro';
+import type { MiddlewareHandler } from 'astro';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import TeamCarousel from '@/components/MemberSwiper.jsx';
+import { getAllMembersServer, localizeMembers } from '../../lib/membersFirebase';
 import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
+import type { SupportedLanguage } from '../../types/firebase';
 import ElipsonTitle from '@/components/ElipsonTitle.astro';
 import FuturoBanner from '@/components/FutureBanner.astro';
+
+export const onRequest: MiddlewareHandler = (ctx, next) => {
+  const { pathname } = new URL(ctx.request.url);
+  if (pathname === '/') return ctx.redirect('/es/', 301);
+  return next();
+};
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -24,6 +33,10 @@ const t = useTranslations(lang);
 function getLocalizedLink(path: string) {
   return getLocalizedPath(path, lang);
 }
+
+// Get members from Firebase
+const firebaseMembers = await getAllMembersServer();
+const members = localizeMembers(firebaseMembers, lang as SupportedLanguage);
 ---
 
 <BaseLayout 
@@ -50,7 +63,7 @@ function getLocalizedLink(path: string) {
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="animate-fade-in-up">
         <!-- Badges -->
-        <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-8">
+        <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mt-4" style="margin-bottom: 0px;">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
           </svg>
@@ -335,7 +348,7 @@ function getLocalizedLink(path: string) {
   </p>
 </div>
 
-<!-- <TeamCarousel client:load lang={lang} /> -->
+<TeamCarousel client:load lang={lang} members={members} />
 <br>
 <br>
 <div class="flex justify-center mt-4">

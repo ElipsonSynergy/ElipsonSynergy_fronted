@@ -3,8 +3,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductFilter from '../../components/ProductFilter.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import { projectsI18n, getLocalizedProjects } from '../../data/projects-i18n';
+import { getAllProjectsServer, localizeProjects } from '../../lib/projectsFirebase';
 import { useTranslations, languages, getLangFromUrl, getLocalizedPath } from '../../utils/i18n';
+import type { SupportedLanguage } from '../../types/firebase';
 
 export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
@@ -20,8 +21,9 @@ function getLocalizedLink(path: string) {
   return getLocalizedPath(path, lang);
 }
 
-// Get localized projects based on current language
-const projects = getLocalizedProjects(lang as 'es' | 'en' | 'por');
+// Get projects from Firebase
+const firebaseProjects = await getAllProjectsServer();
+const projects = localizeProjects(firebaseProjects, lang as SupportedLanguage);
 
 ---
 

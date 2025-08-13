@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import MemberCard from "./MembersCard";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { getLocalizedMembers } from "@/data/members-i18n";
 import MembersInfoDetailed from "./MembersInfoDetailed";
+import type { LocalizedMember } from "../types/firebase";
 
 interface TeamCarouselDetailedProps {
   lang?: "es" | "en" | "por";
   translations?: (key: string) => string;
+  members: LocalizedMember[]; // Now we receive members as props
 }
 
 export default function TeamCarouselDetailed({
   lang = "es",
   translations,
+  members,
 }: TeamCarouselDetailedProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(300);
   const [gap, setGap] = useState(200);
 
-  // Get localized members based on current language
-  const members = getLocalizedMembers(lang);
   const t = translations || ((key: string) => key);
 
   useEffect(() => {
@@ -45,12 +45,14 @@ export default function TeamCarouselDetailed({
   const totalWidth = cardWidth + gap;
 
   const prev = () => {
+    if (members.length === 0) return;
     setActiveIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : members.length - 1
     );
   };
 
   const next = () => {
+    if (members.length === 0) return;
     setActiveIndex((prevIndex) =>
       prevIndex < members.length - 1 ? prevIndex + 1 : 0
     );
@@ -72,16 +74,33 @@ export default function TeamCarouselDetailed({
   };
   var memberDetailed;
 
+  // Add some debugging
+  const handlePrev = () => {
+    console.log("Prev button clicked, current index:", activeIndex, "members length:", members.length);
+    prev();
+  };
+
+  const handleNext = () => {
+    console.log("Next button clicked, current index:", activeIndex, "members length:", members.length);
+    next();
+  };
+
+  // Don't render if no members
+  if (!members || members.length === 0) {
+    return <div className="text-center text-gray-500">No hay miembros disponibles.</div>;
+  }
+
   return (
     <div>
       <div className="w-full flex justify-center items-center relative overflow-x-hidden overflow-y-visible">
         <div className="relative w-full max-w-7xl px-4 overflow-x-hidden overflow-y-hidden">
-          <div
-            onClick={prev}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 z-20 cursor-pointer"
+          <button
+            onClick={handlePrev}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-all"
+            type="button"
           >
-            <ChevronLeftIcon className="w-8 h-8 text-blue-500 hover:text-blue-600 transition" />
-          </div>
+            <ChevronLeftIcon className="w-6 h-6 text-blue-500 hover:text-blue-600 transition" />
+          </button>
 
           <div
             className="flex transition-transform duration-500 ease-in-out"
@@ -135,12 +154,13 @@ export default function TeamCarouselDetailed({
               );
             })}
           </div>
-          <div
-            onClick={next}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 z-20 cursor-pointer"
+          <button
+            onClick={handleNext}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-all"
+            type="button"
           >
-            <ChevronRightIcon className="w-8 h-8 text-blue-500 hover:text-blue-600 transition" />
-          </div>
+            <ChevronRightIcon className="w-6 h-6 text-blue-500 hover:text-blue-600 transition" />
+          </button>
         </div>
       </div>
       <div className="mt-6">{memberDetailed}</div>
