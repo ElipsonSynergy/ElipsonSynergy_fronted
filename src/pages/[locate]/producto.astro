@@ -128,7 +128,7 @@ const projects = localizeProjects(firebaseProjects, lang as SupportedLanguage);
       <!-- Revolutionary Projects Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-20" id="projects-grid">
         {projects.map((project, index) => (
-          <ProjectCard project={project} lang={lang} />
+          <ProjectCard project={project} />
         ))}
       </div>
       

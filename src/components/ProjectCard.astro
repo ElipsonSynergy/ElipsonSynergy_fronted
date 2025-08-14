@@ -9,10 +9,9 @@ export interface Props {
     category: string;
     featured?: boolean;
   };
-  lang?: string;
 }
 
-const { project, lang: propLang } = Astro.props;
+const { project } = Astro.props;
 
 import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
 
@@ -22,8 +21,7 @@ export async function getStaticPaths() {
   }));
 }
 
-// Use lang from props if available, otherwise get from URL
-const lang = (propLang || getLangFromUrl(Astro.url)) as keyof typeof languages;
+let lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 // Function to generate localized links
