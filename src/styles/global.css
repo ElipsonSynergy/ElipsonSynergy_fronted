@@ -115,3 +115,69 @@ body {
     background-position: -200% 0;
   }
 }
+
+/* Nuevas animaciones para la página "Sobre Nosotros" */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+}
+
+/* Efectos de hover mejorados para tarjetas */
+.card-3d {
+  perspective: 1000px;
+}
+
+.card-3d-inner {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover .card-3d-inner {
+  transform: rotateY(5deg) rotateX(5deg);
+}
+
+/* Efectos de glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Sombras mejoradas */
+.shadow-3xl {
+  box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+}
+
+/* Animación de entrada escalonada para elementos */
+.animate-fade-in-up-delayed {
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.animate-fade-in-up-delayed:nth-child(1) { animation-delay: 0.1s; }
+.animate-fade-in-up-delayed:nth-child(2) { animation-delay: 0.2s; }
+.animate-fade-in-up-delayed:nth-child(3) { animation-delay: 0.3s; }
+.animate-fade-in-up-delayed:nth-child(4) { animation-delay: 0.4s; }

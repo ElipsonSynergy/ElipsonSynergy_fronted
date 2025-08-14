@@ -429,6 +429,35 @@
     "title_line2": "Elipson Synergy", 
     "description": "More than a team, we are a symphony of talents who believe in the power of technology as an agent of change. Our purpose is clear: <strong>transform realities in Latin America</strong> with solutions born from ingenuity, empathy and innovation."
   },
+  "about_story_section": {
+    "title": "Our Story",
+    "subtitle": "From the Andes to the Digital World",
+    "content": "It all started with a simple question: what would happen if we combined Latin American creativity with cutting-edge technology? We were born in Colombia, in the heart of the Andes, with the conviction that from here we can create solutions that transcend borders.",
+    "content2": "We are not just developers or consultants. We are digital artisans who understand that behind every line of code there are real people with real needs. That's why every project we undertake carries our essence: passion, precision and purpose.",
+    "highlight": "We believe technology should be a bridge, not a barrier."
+  },
+  "about_culture_section": {
+    "title": "Our Way of Being",
+    "subtitle": "This is how we work, this is how we live, this is how we create",
+    "principles": [
+      {
+        "title": "Coffee and Code",
+        "description": "Our best ideas are born in informal conversations. We believe in the power of spontaneous collaboration."
+      },
+      {
+        "title": "Fail Fast, Learn Faster",
+        "description": "We don't fear mistakes, we embrace them as opportunities for growth and continuous improvement."
+      },
+      {
+        "title": "Impact Before Ego",
+        "description": "We measure our success by the positive impact we generate, not by the technologies we use."
+      },
+      {
+        "title": "Diversity as Strength",
+        "description": "Different perspectives, different solutions. Diversity of thought is our superpower."
+      }
+    ]
+  },
   "about_essence_section": {
     "title": "Our Essence",
     "subtitle": "What we believe, what we seek and the values that guide us in every step.",
@@ -452,7 +481,9 @@
     }
   },
   "about_team_section": {
-    "title": "Our Members"
+    "title": "The Brilliant Minds",
+    "subtitle": "Meet the people who make the magic happen",
+    "description": "Each member of our team brings a unique perspective, a fascinating story and an unmatched passion for technology. Together, we form a creative ecosystem where ideas come to life."
   },
   "member_card": {
     "photo_alt": "Photo of {name}",

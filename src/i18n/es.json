@@ -206,6 +206,35 @@
     "title_line2": "Elipson Synergy", 
     "description": "Más que un equipo, somos una sinfonía de talentos que cree en el poder de la tecnología como agente de cambio. Nuestro propósito es claro: <strong>transformar realidades en Latinoamérica</strong> con soluciones que nacen del ingenio, la empatía y la innovación."
   },
+  "about_story_section": {
+    "title": "Nuestra Historia",
+    "subtitle": "Desde los Andes hasta el Mundo Digital",
+    "content": "Todo comenzó con una pregunta simple: ¿qué pasaría si combináramos la creatividad latinoamericana con tecnología de vanguardia? Nacimos en Colombia, en el corazón de los Andes, con la convicción de que desde aquí podemos crear soluciones que trasciendan fronteras.",
+    "content2": "No somos solo desarrolladores o consultores. Somos artesanos digitales que entienden que detrás de cada línea de código hay personas reales con necesidades reales. Por eso, cada proyecto que emprendemos lleva nuestra esencia: pasión, precisión y propósito.",
+    "highlight": "Creemos que la tecnología debe ser un puente, no una barrera."
+  },
+  "about_culture_section": {
+    "title": "Nuestra Forma de Ser",
+    "subtitle": "Así trabajamos, así vivimos, así creamos",
+    "principles": [
+      {
+        "title": "Café y Código",
+        "description": "Nuestras mejores ideas nacen en conversaciones informales. Creemos en el poder de la colaboración espontánea."
+      },
+      {
+        "title": "Falla Rápido, Aprende Más Rápido",
+        "description": "No le tememos a los errores, los abrazamos como oportunidades de crecimiento y mejora continua."
+      },
+      {
+        "title": "Impacto Antes que Ego",
+        "description": "Medimos nuestro éxito por el impacto positivo que generamos, no por las tecnologías que usamos."
+      },
+      {
+        "title": "Diversidad Como Fortaleza",
+        "description": "Diferentes perspectivas, diferentes soluciones. La diversidad de pensamiento es nuestro superpoder."
+      }
+    ]
+  },
   "about_essence_section": {
     "title": "Nuestra Esencia",
     "subtitle": "Lo que creemos, lo que buscamos y los valores que nos guían en cada paso.",
@@ -229,7 +258,9 @@
     }
   },
   "about_team_section": {
-    "title": "Nuestros Miembros"
+    "title": "Las Mentes Brillantes",
+    "subtitle": "Conoce a las personas que hacen la magia posible",
+    "description": "Cada integrante de nuestro equipo trae una perspectiva única, una historia fascinante y una pasión inigualable por la tecnología. Juntos, formamos un ecosistema creativo donde las ideas cobran vida."
   },
   "member_card": {
     "photo_alt": "Foto de {name}",
