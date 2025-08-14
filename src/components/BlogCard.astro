@@ -22,7 +22,7 @@
 import { format } from "date-fns";
 
 import { Image } from "astro:assets";
-import { useTranslations, getLangFromUrl } from '../utils/i18n';
+import { useTranslations, getLangFromUrl, getLocalizedPath } from '../utils/i18n';
 
 
 /**
@@ -111,6 +111,11 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : "/fallback-avatar.png";
 
 let lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
 ---
 
 <!-- 
@@ -132,7 +137,7 @@ const t = useTranslations(lang);
   data-slug={post.slug.toLowerCase()}
 >
   <!-- Featured image link to full post -->
-  <a href={`/blog/${slug}`}>
+  <a href={getLocalizedLink(`/blog/${slug}`)}>
     <Image
       src={imgSrc}
       alt={title}
@@ -167,6 +172,6 @@ const t = useTranslations(lang);
     <p class="card-summary">{summary}</p>
 
     <!-- Read more link to full post -->
-    <a href={`/blog/${slug}`} class="read-more">{t('member_info_detailed.read_more')}</a>
+    <a href={getLocalizedLink(`/blog/${slug}`)} class="read-more">{t('member_info_detailed.read_more')}</a>
   </div>
 </article>
