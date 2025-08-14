@@ -128,7 +128,7 @@ async function fetchTagsFromFirestore(): Promise<TagType[]> {
 /** Parámetros de URL (búsqueda, filtro, paginación) */
 const url = new URL(Astro.request.url);
 const search = url.searchParams.get("search")?.toLowerCase() || "";
-const tag = url.searchParams.get("tag") || "All";
+const tag = url.searchParams.get("tag") || t('blog_search_page_meta.all_button');
 const pageNum = parseInt(url.searchParams.get("page") || "1", 10);
 
 /** Paginación */
@@ -139,14 +139,14 @@ const posts: PostType[] = await fetchPostsFromFirestore();
 const tagsData: TagType[] = await fetchTagsFromFirestore();
 
 /** Lista de tags (en MAYÚSCULAS para el filtro visual) */
-const allTags: string[] = ["All", ...tagsData.map((t) => (t.name ?? "").toUpperCase())];
+const allTags: string[] = [t('blog_search_page_meta.all_button'), ...tagsData.map((t) => (t.name ?? "").toUpperCase())];
 
 /** Filtrado y slicing */
 const filtered = posts.filter(
   (p) =>
     (p.title.toLowerCase().includes(search) ||
       p.summary.toLowerCase().includes(search)) &&
-    (tag === "All" || p.tags.some((t) => (t.name ?? "").toUpperCase() === tag)),
+    (tag === t('blog_search_page_meta.all_button') || p.tags.some((t) => (t.name ?? "").toUpperCase() === tag)),
 );
 
 const total = filtered.length;
@@ -209,14 +209,14 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
               <input
                 type="text"
                 name="search"
-                placeholder="Buscar artículos..."
+                placeholder={t('blog_search_page_meta.searching_placeholder')}
                 value={search}
-                aria-label="Buscar en el blog"
+                aria-label={t('blog_search_page_meta.searching_blog')}
                 class="w-full px-6 py-4 text-lg rounded-2xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all duration-300 pr-14"
               />
               <button
                 type="submit"
-                aria-label="Buscar"
+                aria-label={t('blog_search_page_meta.searching')}
                 class="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 hover:scale-105"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -360,7 +360,7 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
         const name = btn.textContent?.trim().toUpperCase() || "";
         btn.classList.toggle(
           "active",
-          name === "ALL"
+          name === t('blog_search_page_meta.all_button')
             ? selectedTags.length === 0
             : selectedTags.includes(name),
         );
@@ -413,7 +413,7 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         const name = btn.textContent?.trim().toUpperCase() || "";
-        if (name === "ALL") {
+        if (name === t('blog_search_page_meta.all_button')) {
           selectedTags = [];
         } else {
           const idx = selectedTags.indexOf(name);

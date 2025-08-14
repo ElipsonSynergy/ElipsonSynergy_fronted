@@ -503,6 +503,13 @@
             "description": "© 2024 Elipson Synergy. Todos los derechos reservados."
         }
     },
+    "blog_search_page_meta": {
+      "searching_placeholder": "Buscar artículos...",
+      "results": "resultados",
+      "searching_blog": "Buscando en el blog...", 
+      "searching": "Buscando...", 
+      "all_button": "Todos"
+    },
     "blogPage": {
       "hero":{
         "title": "Nuestro Blog",

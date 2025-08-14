@@ -111,6 +111,13 @@
       "description": "Pesquisa constante em novas tecnologias para manter nossos projetos na vanguarda."
     }
   },
+  "blog_search_page_meta": {
+    "searching_placeholder": "Buscando artigos...",
+    "results": "resultados",
+    "searching_blog": "Buscando no blog...", 
+    "searching": "Buscando...", 
+    "all_button": "Todos"
+  },
   "blog_page_meta": {
     "title": "Blog - Elipson Synergy",
     "description": "Leia nossos últimos artigos, notícias e atualizações no blog da Elipson Synergy."

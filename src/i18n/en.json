@@ -326,6 +326,14 @@
       "description": "Constant research in new technologies to keep our projects at the forefront."
     }
   },
+  "blog_search_page_meta": {
+    "searching_placeholder": "Searching articles...",
+    "results": "results",
+    "searching_blog": "Searching in the blog...", 
+    "searching": "Searching...",
+    "all_button": "All"
+
+  },
   "blog_page_meta": {
     "title": "Blog - Elipson Synergy",
     "description": "Read our latest articles, news and updates on the Elipson Synergy blog."
