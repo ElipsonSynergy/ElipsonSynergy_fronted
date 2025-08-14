@@ -335,15 +335,21 @@
       "cta2": "Ver Soluciones",
       "cta3": "Conoce a nuestro equipo",  
       "stats": {
-        "projects": "Proyectos Exitosos",
-        "clients": "Clientes Satisfechos",
-        "support": "Soporte Técnico"
+        "founded": "Año de Fundación",
+        "team": "Miembros del Equipo",
+        "potential": "Potencial Ilimitado"
       }
+    },
+    "projects": {
+      "title": "Nuestros Proyectos",
+      "subtitle": "Destacados",
+      "description": "Conoce algunos de los proyectos en los que estamos trabajando actualmente. Cada uno representa nuestro compromiso con la innovación y el impacto positivo.",
+      "cta": "Ver Todos los Proyectos"
     },
     "features": {
       "title": "ASÍ TRANSFORMAMOS IDEAS EN",
       "subtitle": "SOLUCIONES",
-      "description": "Desde la escucha profunda hasta la implementación consciente, cada paso está diseñado para maximizar el impacto y la satisfacción del cliente.",
+      "description": "Nuestro enfoque integral combina metodología, tecnología y propósito para crear soluciones que generan valor real.",
       "listen": {
         "title": "Escucha Activa",
         "description": "Entendemos necesidades reales desde el territorio y con las comunidades."

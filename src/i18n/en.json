@@ -13,16 +13,22 @@
       "cta1": "Start Project",
       "cta2": "View Solutions",
       "stats": {
-        "projects": "Successful Projects",
-        "clients": "Satisfied Clients",
-        "support": "Technical Support"
+        "founded": "Year Founded",
+        "team": "Team Members",
+        "potential": "Unlimited Potential"
       },
       "cta3": "Meet the Team"
+    },
+    "projects": {
+      "title": "Our Projects",
+      "subtitle": "Featured",
+      "description": "Learn about some of the projects we are currently working on. Each one represents our commitment to innovation and positive impact.",
+      "cta": "View All Projects"
     },
     "features": {
       "title": "HOW WE TRANSFORM IDEAS INTO",
       "subtitle": "SOLUTIONS",
-      "description": "From deep listening to conscious implementation, every step is designed to maximize impact and customer satisfaction.",
+      "description": "Our comprehensive approach combines methodology, technology and purpose to create solutions that generate real value.",
       "listen": {
         "title": "Active Listening",
         "description": "We understand real needs from the ground and with communities."
