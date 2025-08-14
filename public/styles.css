@@ -2166,6 +2166,45 @@
 }
 
 /**
+ * Mission Statement Container
+ * 
+ * Replaces statistics grid with purpose-focused messaging.
+ * Clean typography and centered layout for impact.
+ */
+.mission-statement {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Mission Text Styling
+ * 
+ * Main mission statement with emphasis on purpose.
+ * Uses brand colors and clear hierarchy.
+ */
+.mission-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/**
+ * Mission Subtext
+ * 
+ * Supporting text with lighter color for hierarchy.
+ * Complements main mission statement.
+ */
+.mission-subtext {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/**
  * Statistic Number Display
  * 
  * Large, bold numerical display.

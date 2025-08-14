@@ -43,6 +43,11 @@ import { getAllProjectsServer, localizeProjects } from '../../lib/projectsFireba
 const firebaseProjects = await getAllProjectsServer();
 const allProjects = localizeProjects(firebaseProjects, lang as SupportedLanguage);
 const featuredProjects = allProjects.filter(project => project.featured).slice(0, 3);
+
+// Calculate real statistics from Firebase data
+const totalProjects = firebaseProjects.length;
+const totalMembers = firebaseMembers.length;
+const foundedYear = 2024; // This is a real fact about the company
 ---
 
 <BaseLayout 
@@ -126,21 +131,27 @@ const featuredProjects = allProjects.filter(project => project.featured).slice(0
         </a>
         </div>
         
-        <!-- Stats -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
-          <div class="text-center">
-            <div class="text-4xl font-bold text-blue-600 mb-2">2024</div>
-            <div class="text-gray-600 font-medium">{t('index.hero.stats.founded')}</div>
+        <!-- Stats - Only show if we have real data -->
+        {(totalProjects > 0 || totalMembers > 0) && (
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-blue-600 mb-2">{foundedYear}</div>
+              <div class="text-gray-600 font-medium">{t('index.hero.stats.founded')}</div>
+            </div>
+            {totalMembers > 0 && (
+              <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600 mb-2">{totalMembers}</div>
+                <div class="text-gray-600 font-medium">{t('index.hero.stats.team')}</div>
+              </div>
+            )}
+            {totalProjects > 0 && (
+              <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600 mb-2">{totalProjects}</div>
+                <div class="text-gray-600 font-medium">{t('index.hero.stats.projects')}</div>
+              </div>
+            )}
           </div>
-          <div class="text-center">
-            <div class="text-4xl font-bold text-blue-600 mb-2">4</div>
-            <div class="text-gray-600 font-medium">{t('index.hero.stats.team')}</div>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl font-bold text-blue-600 mb-2">∞</div>
-            <div class="text-gray-600 font-medium">{t('index.hero.stats.potential')}</div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   </section>

@@ -253,7 +253,7 @@ const relatedRaw = await getRecent(5);
 const related = blog ? relatedRaw.filter((p) => p.id !== blog.id).slice(0, 5) : relatedRaw.slice(0, 5);
 
 // Para construir URLs localizadas simples:
-const base = lang === 'es' ? '' : `/${lang}`;
+const base = lang === 'es' ? '/es' : `/${lang}`;
 ---
 <BaseLayout title={blog?.title || "Blog"}>
   {blog ? (
