@@ -32,8 +32,7 @@ export async function getStaticPaths() {
 
 // Get params from URL
 const { locate, id } = Astro.params;
-const langFromUrl = locate || getLangFromUrl(Astro.url);
-const lang = (langFromUrl in languages) ? langFromUrl as keyof typeof languages : 'es';
+const lang = locate || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 // Find the project by ID from Firebase

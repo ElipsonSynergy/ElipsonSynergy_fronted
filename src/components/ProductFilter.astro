@@ -4,7 +4,8 @@ interface Props {
   translations?: (key: string) => string;
 }
 
-import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';export async function getStaticPaths() {
+import { getLangFromUrl, useTranslations, languages } from '@/utils/i18n';
+export async function getStaticPaths() {
   return Object.keys(languages).map((loc) => ({
     params: { locate: loc },
   }));
