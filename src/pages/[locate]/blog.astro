@@ -1,17 +1,16 @@
 ---
 /**
- * Blog Page Component (Firestore version)
+ * Blog Page Component with Firebase and Internationalization
  *
  * Lista de artículos con búsqueda, filtro por tags y paginación.
- * Ahora los datos se leen directamente desde Firebase Firestore.
+ * Now uses Firebase with internationalization support following the same pattern as projects.
  */
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from "../../components/BlogCard.astro";
-import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
-
-// Firebase
-import { adminDb } from "../../lib/firebaseAdmin";
+import { useTranslations, languages, getLangFromUrl, getLocalizedPath } from '../../utils/i18n';
+import { getAllBlogsServer, localizeBlogs } from '../../lib/blogsFirebase';
+import type { SupportedLanguage } from '../../types/firebase';
 
 /** Rutas estáticas por idioma */
 export async function getStaticPaths() {
@@ -23,106 +22,9 @@ export async function getStaticPaths() {
 let lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-/** Tipos */
-interface TagType {
-  id: string;
-  name: string;
-}
-
-interface AuthorType {
-  id: string;
-  name: string;
-  bio?: string;
-  avatarUrl?: string;
-}
-
-interface PostType {
-  id: string;
-  slug: string;
-  title: string;
-  summary: string;
-  content: string;
-  imageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-  author: AuthorType;
-  tags: TagType[];
-}
-
-/** Helpers Firestore */
-function toIso(v: any): string {
-  // Firestore Timestamp -> Date -> ISO
-  if (v?.toDate) return v.toDate().toISOString();
-  if (typeof v === "string") return v;
-  return new Date().toISOString();
-}
-
-async function fetchPostsFromFirestore(): Promise<PostType[]> {
-    const snap = await adminDb
-      .collection("blogs")
-      .orderBy("createdAt", "desc")
-      .get();
-
-  return snap.docs.map((doc) => {
-    const d: any = doc.data();
-
-    const normTags: TagType[] = Array.isArray(d.tags)
-      ? d.tags.map((t: any) =>
-          typeof t === "string"
-            ? { id: t, name: t }
-            : { id: t.id ?? t.name ?? String(t), name: t.name ?? String(t.id ?? t) }
-        )
-      : [];
-
-    const author: AuthorType =
-      d.author && typeof d.author === "object"
-        ? {
-            id: d.author.id ?? "",
-            name: d.author.name ?? "",
-            bio: d.author.bio,
-            avatarUrl: d.author.avatarUrl,
-          }
-        : { id: "", name: "" };
-
-    const blogs: PostType = {
-      id: doc.id,
-      slug: d.slug ?? doc.id,
-      title: d.title ?? "",
-      summary: d.summary ?? "",
-      content: d.content ?? "",
-      imageUrl: d.imageUrl ?? null,
-      createdAt: toIso(d.createdAt),
-      updatedAt: toIso(d.updatedAt ?? d.createdAt),
-      author,
-      tags: normTags,
-    };
-
-    return blogs;
-  });
-}
-
-async function fetchTagsFromFirestore(): Promise<TagType[]> {
-  // Si tienes colección "tags", úsala; si no, deriva de "posts".
-  try {
-    const snap = await adminDb.collection("tags").get();
-    if (!snap.empty) {
-      return snap.docs.map((doc) => {
-        const d: any = doc.data();
-        return { id: doc.id, name: d.name ?? doc.id } as TagType;
-      });
-    }
-  } catch {
-    // Si no existe la colección, derivamos desde posts.
-  }
-  const posts = await fetchPostsFromFirestore();
-  const uniq = new Map<string, TagType>();
-  posts.forEach((p) =>
-    p.tags.forEach((t) => {
-      const key = (t.name ?? t.id).toString();
-      if (!uniq.has(key)) uniq.set(key, t);
-    })
-  );
-  return Array.from(uniq.values());
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
 }
 
 /** Parámetros de URL (búsqueda, filtro, paginación) */
@@ -134,28 +36,34 @@ const pageNum = parseInt(url.searchParams.get("page") || "1", 10);
 /** Paginación */
 const pageSize = 9;
 
-/** Carga de datos desde Firestore */
-const posts: PostType[] = await fetchPostsFromFirestore();
-const tagsData: TagType[] = await fetchTagsFromFirestore();
+/** Carga de datos desde Firebase con internacionalización */
+const firebaseBlogs = await getAllBlogsServer();
+const localizedBlogs = localizeBlogs(firebaseBlogs, lang as SupportedLanguage);
 
-/** Lista de tags (en MAYÚSCULAS para el filtro visual) */
-const allTags: string[] = [t('blog_search_page_meta.all_button'), ...tagsData.map((t) => (t.name ?? "").toUpperCase())];
+/** Extracción de tags únicos de los blogs localizados */
+const allTagsSet = new Set<string>();
+localizedBlogs.forEach(blog => {
+  blog.tags.forEach(tag => allTagsSet.add(tag.toUpperCase()));
+});
+const allTags: string[] = [t('blog_search_page_meta.all_button'), ...Array.from(allTagsSet).sort()];
 
 /** Filtrado y slicing */
-const filtered = posts.filter(
-  (p) =>
-    (p.title.toLowerCase().includes(search) ||
-      p.summary.toLowerCase().includes(search)) &&
-    (tag === t('blog_search_page_meta.all_button') || p.tags.some((t) => (t.name ?? "").toUpperCase() === tag)),
+const filtered = localizedBlogs.filter(
+  (blog) =>
+    (blog.title.toLowerCase().includes(search) ||
+      blog.summary.toLowerCase().includes(search) ||
+      blog.author.name.toLowerCase().includes(search)) &&
+    (tag === t('blog_search_page_meta.all_button') || blog.tags.some((t) => t.toUpperCase() === tag)),
 );
 
 const total = filtered.length;
 const totalPages = Math.ceil(total / pageSize);
 const start = (pageNum - 1) * pageSize;
-const slice: PostType[] = filtered.slice(start, start + pageSize);
+const slice = filtered.slice(start, start + pageSize);
 ---
 
-<BaseLayout title={t('blog_page_meta.title')}
+<BaseLayout 
+  title={t('blog_page_meta.title')}
   description={t('blog_page_meta.description')}
 >
   <!-- Modern Hero Section with Blog Banner -->
@@ -230,17 +138,17 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
 
         <!-- Tag Filter Navigation with Modern Pills -->
         <div class="flex flex-wrap justify-center gap-3 tags" role="navigation" aria-label="Filtros de categoría">
-          {allTags.map((tname) => (
+          {allTags.map((tagName) => (
             <a
               class={`px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 tag ${
-                tname === tag
+                tagName === tag
                   ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
               }`}
-              href={`?tag=${encodeURIComponent(tname)}&search=${encodeURIComponent(search)}`}
-              aria-label={`Filtrar por ${tname}`}
+              href={`?tag=${encodeURIComponent(tagName)}&search=${encodeURIComponent(search)}`}
+              aria-label={`Filtrar por ${tagName}`}
             >
-              {tname}
+              {tagName}
             </a>
           ))}
         </div>
@@ -252,31 +160,35 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
   <section class="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden" aria-label="Lista de artículos del blog">
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- No Results Message with Modern Styling -->
-      <div class="no-results bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center mx-auto max-w-2xl" style="display: none;" role="status" aria-live="polite">
-        <div class="w-20 h-20 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.44-1.01-5.93-2.62C8.08 10.83 10.92 10 12 10a7.96 7.96 0 016 2.709M6.343 6.343L19.657 19.657"></path>
-          </svg>
+      {slice.length === 0 && (
+        <div class="no-results bg-white rounded-3xl shadow-lg border border-slate-200 p-12 text-center mx-auto max-w-2xl" role="status" aria-live="polite">
+          <div class="w-20 h-20 bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.44-1.01-5.93-2.62C8.08 10.83 10.92 10 12 10a7.96 7.96 0 016 2.709M6.343 6.343L19.657 19.657"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 mb-4">{t('blogPage.noResults.title')}</h3>
+          <p class="text-lg text-slate-600">{t('blogPage.noResults.description')}</p>
         </div>
-        <h3 class="text-2xl font-bold text-slate-900 mb-4">{t('blogPage.noResults.title')}</h3>
-        <p class="text-lg text-slate-600">{t('blogPage.noResults.description')}</p>
-      </div>
+      )}
 
       <!-- Blog Post Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {slice.map((post) => <BlogCard post={post} />)}
-      </div>
+      {slice.length > 0 && (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 blog-grid">
+          {slice.map((blog) => <BlogCard blog={blog} />)}
+        </div>
+      )}
     </div>
   </section>
 
   <!-- Pagination Navigation with Modern Design -->
-  {totalPages > 0 && (
+  {totalPages > 1 && (
     <section class="relative py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav class="flex justify-center" role="navigation" aria-label="Navegación de páginas">
           <div class="flex items-center space-x-2 bg-slate-100 rounded-2xl p-2">
-            {/* Previous Arrow */}
-            {totalPages > 1 && pageNum > 1 && (
+            <!-- Previous Arrow -->
+            {pageNum > 1 && (
               <a
                 class="flex items-center justify-center w-12 h-12 rounded-xl bg-white text-slate-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
                 href={`?page=${pageNum - 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
@@ -288,7 +200,7 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
               </a>
             )}
 
-            {/* Page Number Links */}
+            <!-- Page Number Links -->
             {Array.from({ length: totalPages }, (_, i) => (
               <a
                 class={`flex items-center justify-center min-w-12 h-12 px-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 ${
@@ -307,8 +219,8 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
               </a>
             ))}
 
-            {/* Next Arrow */}
-            {totalPages > 1 && pageNum < totalPages && (
+            <!-- Next Arrow -->
+            {pageNum < totalPages && (
               <a
                 class="flex items-center justify-center w-12 h-12 rounded-xl bg-white text-slate-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
                 href={`?page=${pageNum + 1}&tag=${encodeURIComponent(tag)}&search=${encodeURIComponent(search)}`}
@@ -332,8 +244,8 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
       document.querySelectorAll(".tags .tag"),
     );
     /** @type {HTMLElement[]} */
-    const postCards = Array.from(
-      document.querySelectorAll(".card.post-card"),
+    const blogCards = Array.from(
+      document.querySelectorAll(".blog-card"),
     );
     /** @type {HTMLFormElement | null} */
     const form = document.querySelector("form[method='get']");
@@ -352,24 +264,32 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
       e.preventDefault();
       if (!searchInput) return;
       searchTerm = searchInput.value.trim().toLowerCase();
-      filterPosts();
+      filterBlogs();
     });
 
     function updateUI() {
       tagButtons.forEach((btn) => {
-        const name = btn.textContent?.trim().toUpperCase() || "";
-        btn.classList.toggle(
-          "active",
-          name === t('blog_search_page_meta.all_button')
-            ? selectedTags.length === 0
-            : selectedTags.includes(name),
-        );
+        const name = btn.textContent?.trim() || "";
+        const isAllButton = name === `${t('blog_search_page_meta.all_button')}`;
+        const isActive = isAllButton 
+          ? selectedTags.length === 0
+          : selectedTags.includes(name.toUpperCase());
+        
+        btn.classList.toggle("bg-gradient-to-r", isActive);
+        btn.classList.toggle("from-blue-600", isActive);
+        btn.classList.toggle("to-indigo-600", isActive);
+        btn.classList.toggle("text-white", isActive);
+        btn.classList.toggle("shadow-lg", isActive);
+        btn.classList.toggle("bg-slate-100", !isActive);
+        btn.classList.toggle("text-slate-700", !isActive);
+        btn.classList.toggle("border", !isActive);
+        btn.classList.toggle("border-slate-200", !isActive);
       });
     }
 
-    function filterPosts() {
+    function filterBlogs() {
       let anyVisible = false;
-      postCards.forEach((card) => {
+      blogCards.forEach((card) => {
         // tags
         const tagsAttr = card.getAttribute("data-tags") || "";
         const cardTags = tagsAttr
@@ -380,25 +300,16 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
           selectedTags.some((tag) => cardTags.includes(tag));
 
         // búsqueda
-        const hayTagsTxt = tagsAttr
-          .toLowerCase()
-          .includes(searchTerm);
         const title = (card.getAttribute("data-title") || "").toLowerCase();
         const summary = (card.getAttribute("data-summary") || "").toLowerCase();
         const content = (card.getAttribute("data-content") || "").toLowerCase();
         const author = (card.getAttribute("data-author") || "").toLowerCase();
         const slug = (card.getAttribute("data-slug") || "").toLowerCase();
-        const hayTexto = [
-          title,
-          summary,
-          content,
-          author,
-          slug,
-          hayTagsTxt ? tagsAttr.toLowerCase() : "",
-        ].some((field) => field.includes(searchTerm));
+        const hayTexto = [title, summary, content, author, slug].some((field) => 
+          field.includes(searchTerm)
+        );
 
-        const visible =
-          matchesTag && (searchTerm === "" || hayTexto);
+        const visible = matchesTag && (searchTerm === "" || hayTexto);
         card.style.display = visible ? "" : "none";
         if (visible) anyVisible = true;
       });
@@ -412,21 +323,22 @@ const slice: PostType[] = filtered.slice(start, start + pageSize);
     tagButtons.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
-        const name = btn.textContent?.trim().toUpperCase() || "";
-        if (name === t('blog_search_page_meta.all_button')) {
+        const name = btn.textContent?.trim() || "";
+        if (name === `${t('blog_search_page_meta.all_button')}`) {
           selectedTags = [];
         } else {
-          const idx = selectedTags.indexOf(name);
+          const tagName = name.toUpperCase();
+          const idx = selectedTags.indexOf(tagName);
           if (idx >= 0) selectedTags.splice(idx, 1);
-          else selectedTags.push(name);
+          else selectedTags.push(tagName);
         }
         updateUI();
-        filterPosts();
+        filterBlogs();
       });
     });
 
     // Initialize
     updateUI();
-    filterPosts();
+    filterBlogs();
   </script>
 </BaseLayout>
