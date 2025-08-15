@@ -3,11 +3,9 @@ export const prerender = false;
 
 import { Image } from "astro:assets";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { useTranslations, languages, getLangFromUrl } from '../../../utils/i18n';
-// Firestore (un solo entrypoint)
-import {
-  db, collection, getDocs, getDoc, query, where, orderBy, limit, doc
-} from '../../../lib/firebase';
+import { useTranslations, languages, getLangFromUrl, getLocalizedPath } from '../../../utils/i18n';
+import { getBlogBySlugServer, getBlogByIdServer, localizeBlog, getAllBlogsServer, localizeBlogs } from '../../../lib/blogsFirebase';
+import type { SupportedLanguage, LocalizedBlog } from '../../../types/firebase';
 
 
 // ===== i18n =====
@@ -19,107 +17,9 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// ===== Tipos =====
-interface AuthorType {
-  id?: string;
-  name?: string;
-  bio?: string;
-  avatarUrl?: string;
-}
-interface PostType {
-  id: string;
-  slug: string;
-  title: string;
-  summary?: string;
-  content?: any;              // string (MD/HTML) o JSON simple
-  imageUrl?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
-  author?: AuthorType;
-  tags?: string[];
-  locale?: string;
-  published?: boolean;
-}
-
-// ===== Caché en memoria (por instancia del server) =====
-type DetailEntry = { expires: number; data: PostType };
-type ListEntry = { expires: number; data: PostType[] };
-const TTL = 5 * 60 * 1000; // 5 minutos
-
-const g: any = globalThis as any;
-g.__DETAIL_CACHE ??= new Map<string, DetailEntry>();
-g.__RELATED_CACHE ??= new Map<string, ListEntry>();
-const DETAIL_CACHE: Map<string, DetailEntry> = g.__DETAIL_CACHE;
-const RELATED_CACHE: Map<string, ListEntry> = g.__RELATED_CACHE;
-
-function getDetailCache(key: string): PostType | null {
-  const hit = DETAIL_CACHE.get(key);
-  if (!hit) return null;
-  if (Date.now() > hit.expires) {
-    DETAIL_CACHE.delete(key);
-    return null;
-  }
-  return hit.data;
-}
-function setDetailCache(key: string, data: PostType) {
-  DETAIL_CACHE.set(key, { expires: Date.now() + TTL, data });
-}
-function getRelatedCache(key: string): PostType[] | null {
-  const hit = RELATED_CACHE.get(key);
-  if (!hit) return null;
-  if (Date.now() > hit.expires) {
-    RELATED_CACHE.delete(key);
-    return null;
-  }
-  return hit.data;
-}
-function setRelatedCache(key: string, data: PostType[]) {
-  RELATED_CACHE.set(key, { expires: Date.now() + TTL, data });
-}
-
-// ===== Helpers =====
-function toIso(v: any): string | undefined {
-  if (!v) return undefined;
-  if (v?.toDate) return v.toDate().toISOString();
-  if (typeof v === 'string') return v;
-  return new Date().toISOString();
-}
-
-// Mapea un doc de Firestore a PostType
-function mapDoc(id: string, d: any): PostType {
-  return {
-    id,
-    slug: d.slug ?? id,
-    title: d.title ?? '',
-    summary: d.summary ?? '',
-    content: d.content,
-    imageUrl: d.imageUrl ?? null,
-    createdAt: toIso(d.createdAt),
-    updatedAt: toIso(d.updatedAt ?? d.createdAt),
-    author: d.author ?? {},
-    tags: Array.isArray(d.tags) ? d.tags.map((x: any) => String(x)) : [],
-    locale: d.locale,
-    published: d.published,
-  };
-}
-
-async function findBySlug(slug: string): Promise<PostType | null> {
-  const qy = query(
-    collection(db, 'blogs'),
-    where('slug', '==', slug),
-    limit(1)
-  );
-  const snap = await getDocs(qy);
-  if (snap.empty) return null;
-  const s = snap.docs[0];
-  return mapDoc(s.id, s.data());
-}
-
-async function findById(id: string): Promise<PostType | null> {
-  const ref = doc(db, 'blogs', id);
-  const s = await getDoc(ref);
-  if (!s.exists()) return null;
-  return mapDoc(s.id, s.data());
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
 }
 
 // ===== Parámetro dinámico =====
@@ -128,23 +28,23 @@ const detail = (Astro.params as Record<string, string>).detail!;
 // Normaliza lo que viene en la URL
 const detailParam = decodeURIComponent(detail).trim();
 
-// ===== Resuelve desde caché o Firestore =====
-const cacheKey = `detail:${detail}`;
-let blog: PostType | null = getDetailCache(cacheKey);
+// ===== Resuelve desde Firebase con internacionalización =====
+let blog: LocalizedBlog | null = null;
 
-if (!blog) {
-  // Probamos ambas búsquedas en paralelo
-  const [bySlug, byId] = await Promise.all([
-    findBySlug(detailParam),
-    findById(detailParam),
-  ]);
-  blog = bySlug ?? byId ?? null;
+// Probamos ambas búsquedas en paralelo
+const [firebaseBlogBySlug, firebaseBlogById] = await Promise.all([
+  getBlogBySlugServer(detailParam),
+  getBlogByIdServer(detailParam),
+]);
 
-  if (blog) setDetailCache(cacheKey, blog);
+const firebaseBlog = firebaseBlogBySlug ?? firebaseBlogById ?? null;
 
-  // logging de ayuda (aparece en consola del server)
-  console.log('[detail] param =', detailParam, 'foundBy', bySlug ? 'slug' : byId ? 'id' : 'none');
+if (firebaseBlog) {
+  blog = localizeBlog(firebaseBlog, lang as SupportedLanguage);
 }
+
+// logging de ayuda (aparece en consola del server)
+console.log('[detail] param =', detailParam, 'foundBy', firebaseBlogBySlug ? 'slug' : firebaseBlogById ? 'id' : 'none');
 
 // ===== Cabecera HTTP para cache del HTML =====
 Astro.response.headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
@@ -231,29 +131,12 @@ function richToHtml(content: any): string {
 
 const htmlContent = richToHtml(blog?.content);
 
-// ===== Relacionados (recientes) con caché =====
-async function getRecent(limitCount = 5): Promise<PostType[]> {
-  const key = `recent:${lang}:${limitCount}`;
-  const hit = getRelatedCache(key);
-  if (hit) return hit;
-
-  const qy = query(
-    collection(db, 'blogs'),
-    where('published', '==', true),
-    orderBy('createdAt', 'desc'),
-    limit(limitCount + 5) // por si filtramos el actual
-  );
-  const snap = await getDocs(qy);
-  const items = snap.docs.map((d) => mapDoc(d.id, d.data()));
-  setRelatedCache(key, items);
-  return items;
-}
-
-const relatedRaw = await getRecent(5);
-const related = blog ? relatedRaw.filter((p) => p.id !== blog.id).slice(0, 5) : relatedRaw.slice(0, 5);
-
-// Para construir URLs localizadas simples:
-const base = lang === 'es' ? '/es' : `/${lang}`;
+// ===== Relacionados (recientes) =====
+const firebaseBlogs = await getAllBlogsServer();
+const allLocalizedBlogs = localizeBlogs(firebaseBlogs, lang as SupportedLanguage);
+const related = blog 
+  ? allLocalizedBlogs.filter((p) => p.id !== blog.id).slice(0, 5) 
+  : allLocalizedBlogs.slice(0, 5);
 ---
 <BaseLayout title={blog?.title || "Blog"}>
   {blog ? (
@@ -314,7 +197,7 @@ const base = lang === 'es' ? '/es' : `/${lang}`;
             <h2 class="text-xl font-bold mb-4">Artículos Populares</h2>
             <div class="space-y-4">
               {related.map((p) => (
-                <a href={`${base}/blog/${p.slug ?? p.id}`} class="block bg-white rounded-lg p-4 shadow hover:shadow-md transition">
+                                 <a href={getLocalizedLink(`/blog/${p.slug ?? p.id}`)} class="block bg-white rounded-lg p-4 shadow hover:shadow-md transition">
                   <div class="font-semibold">{p.title}</div>
                   {p.summary && <div class="text-sm text-gray-500 mt-1 line-clamp-2">{p.summary}</div>}
                 </a>

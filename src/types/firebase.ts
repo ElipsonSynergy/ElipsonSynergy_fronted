@@ -81,3 +81,60 @@ export interface LocalizedMember {
   active: boolean;
   order: number;
 }
+
+// Firebase types for blogs with internationalization
+export interface FirebaseBlog {
+  id?: string; // Firestore document ID
+  slug: string;
+  title: {
+    es: string;
+    en: string;
+    por: string;
+  };
+  summary: {
+    es: string;
+    en: string;
+    por: string;
+  };
+  content: {
+    es: string;
+    en: string;
+    por: string;
+  };
+  imageUrl: string | null;
+  author?: {
+    id: string;
+    name: string;
+    bio?: string;
+    avatarUrl?: string;
+  };
+  tags?: {
+    es: string[];
+    en: string[];
+    por: string[];
+  };
+  published: boolean;
+  featured?: boolean;
+  createdAt: any; // Firestore Timestamp
+  updatedAt: any; // Firestore Timestamp
+}
+
+export interface LocalizedBlog {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  content: string;
+  imageUrl: string | null;
+  author: {
+    id: string;
+    name: string;
+    bio?: string;
+    avatarUrl?: string;
+  };
+  tags: string[];
+  published: boolean;
+  featured?: boolean;
+  createdAt: string;
+  updatedAt: string;
+}

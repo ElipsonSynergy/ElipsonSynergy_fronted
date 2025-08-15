@@ -9,9 +9,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from "../../components/BlogCard.astro";
 import { useTranslations, languages, getLangFromUrl } from '../../utils/i18n';
-
-// Firebase
-import { adminDb } from "../../lib/firebaseAdmin";
+import { getAllBlogsServer, localizeBlogs } from '../../lib/blogsFirebase';
+import type { SupportedLanguage } from '../../types/firebase';
 
 /** Rutas estáticas por idioma */
 export async function getStaticPaths() {
@@ -23,107 +22,7 @@ export async function getStaticPaths() {
 let lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-/** Tipos */
-interface TagType {
-  id: string;
-  name: string;
-}
 
-interface AuthorType {
-  id: string;
-  name: string;
-  bio?: string;
-  avatarUrl?: string;
-}
-
-interface PostType {
-  id: string;
-  slug: string;
-  title: string;
-  summary: string;
-  content: string;
-  imageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-  author: AuthorType;
-  tags: TagType[];
-}
-
-/** Helpers Firestore */
-function toIso(v: any): string {
-  // Firestore Timestamp -> Date -> ISO
-  if (v?.toDate) return v.toDate().toISOString();
-  if (typeof v === "string") return v;
-  return new Date().toISOString();
-}
-
-async function fetchPostsFromFirestore(): Promise<PostType[]> {
-    const snap = await adminDb
-      .collection("blogs")
-      .orderBy("createdAt", "desc")
-      .get();
-
-  return snap.docs.map((doc) => {
-    const d: any = doc.data();
-
-    const normTags: TagType[] = Array.isArray(d.tags)
-      ? d.tags.map((t: any) =>
-          typeof t === "string"
-            ? { id: t, name: t }
-            : { id: t.id ?? t.name ?? String(t), name: t.name ?? String(t.id ?? t) }
-        )
-      : [];
-
-    const author: AuthorType =
-      d.author && typeof d.author === "object"
-        ? {
-            id: d.author.id ?? "",
-            name: d.author.name ?? "",
-            bio: d.author.bio,
-            avatarUrl: d.author.avatarUrl,
-          }
-        : { id: "", name: "" };
-
-    const blogs: PostType = {
-      id: doc.id,
-      slug: d.slug ?? doc.id,
-      title: d.title ?? "",
-      summary: d.summary ?? "",
-      content: d.content ?? "",
-      imageUrl: d.imageUrl ?? null,
-      createdAt: toIso(d.createdAt),
-      updatedAt: toIso(d.updatedAt ?? d.createdAt),
-      author,
-      tags: normTags,
-    };
-
-    return blogs;
-  });
-}
-
-async function fetchTagsFromFirestore(): Promise<TagType[]> {
-  // Si tienes colección "tags", úsala; si no, deriva de "posts".
-  try {
-    const snap = await adminDb.collection("tags").get();
-    if (!snap.empty) {
-      return snap.docs.map((doc) => {
-        const d: any = doc.data();
-        return { id: doc.id, name: d.name ?? doc.id } as TagType;
-      });
-    }
-  } catch {
-    // Si no existe la colección, derivamos desde posts.
-  }
-  const posts = await fetchPostsFromFirestore();
-  const uniq = new Map<string, TagType>();
-  posts.forEach((p) =>
-    p.tags.forEach((t) => {
-      const key = (t.name ?? t.id).toString();
-      if (!uniq.has(key)) uniq.set(key, t);
-    })
-  );
-  return Array.from(uniq.values());
-}
 
 /** Parámetros de URL (búsqueda, filtro, paginación) */
 const url = new URL(Astro.request.url);
@@ -134,9 +33,14 @@ const pageNum = parseInt(url.searchParams.get("page") || "1", 10);
 /** Paginación */
 const pageSize = 9;
 
-/** Carga de datos desde Firestore */
-const posts: PostType[] = await fetchPostsFromFirestore();
-const tagsData: TagType[] = await fetchTagsFromFirestore();
+/** Carga de datos desde Firestore con internacionalización */
+const firebaseBlogs = await getAllBlogsServer();
+const posts = localizeBlogs(firebaseBlogs, lang as SupportedLanguage);
+
+// Extract unique tags from localized blogs
+const tagsData = Array.from(new Set(
+  posts.flatMap(post => post.tags)
+)).map(tag => ({ id: tag, name: tag }));
 
 /** Lista de tags (en MAYÚSCULAS para el filtro visual) */
 const allTags: string[] = [t('blog_search_page_meta.all_button'), ...tagsData.map((t) => (t.name ?? "").toUpperCase())];
@@ -146,13 +50,13 @@ const filtered = posts.filter(
   (p) =>
     (p.title.toLowerCase().includes(search) ||
       p.summary.toLowerCase().includes(search)) &&
-    (tag === t('blog_search_page_meta.all_button') || p.tags.some((t) => (t.name ?? "").toUpperCase() === tag)),
+    (tag === t('blog_search_page_meta.all_button') || p.tags.some((t) => t.toUpperCase() === tag)),
 );
 
 const total = filtered.length;
 const totalPages = Math.ceil(total / pageSize);
 const start = (pageNum - 1) * pageSize;
-const slice: PostType[] = filtered.slice(start, start + pageSize);
+const slice = filtered.slice(start, start + pageSize);
 ---
 
 <BaseLayout title={t('blog_page_meta.title')}

@@ -23,64 +23,13 @@
 
 import { Image } from "astro:assets";
 import { useTranslations, getLangFromUrl, getLocalizedPath } from '../utils/i18n';
-
-
-/**
- * Tag interface for blog post categorization
- * Represents a tag associated with blog posts
- *
- * @interface TagType
- * @property {string} id - Unique identifier for the tag
- * @property {string} name - Display name of the tag
- */
-interface TagType {
-  id: string;
-  name: string;
-}
-
-/**
- * Author interface for blog post creators
- * Represents author information with optional avatar
- *
- * @interface AuthorType
- * @property {string} id - Unique identifier for the author
- * @property {string} name - Full name of the author
- * @property {string} [avatarUrl] - Optional author avatar image URL
- */
-interface AuthorType {
-  id: string;
-  name: string;
-  avatarUrl?: string;
-}
-
-/**
- * Post interface for blog post data
- * Represents a blog post with all necessary display information
- *
- * @interface PostType
- * @property {string} slug - URL-friendly identifier for the post
- * @property {string} title - Post title
- * @property {string} summary - Brief post summary/excerpt
- * @property {string|null} imageUrl - Featured image URL (can be null)
- * @property {string} createdAt - ISO date string of post creation
- * @property {AuthorType} author - Post author information
- * @property {TagType[]} tags - Array of associated tags
- */
-interface PostType {
-  slug: string;
-  title: string;
-  summary: string;
-  imageUrl: string | null;
-  createdAt: string;
-  author: AuthorType;
-  tags: TagType[];
-}
+import type { LocalizedBlog } from '../types/firebase';
 
 /**
  * Component props interface
- * @property {PostType} post - Blog post data to display
+ * @property {LocalizedBlog} post - Blog post data to display (localized)
  */
-const { post } = Astro.props as { post: PostType };
+const { post } = Astro.props as { post: LocalizedBlog };
 
 /**
  * Destructure post data for easier access
@@ -93,6 +42,7 @@ const {
   imageUrl,
   createdAt,
   author: { name: authorName, avatarUrl },
+  tags
 } = post;
 
 /**
@@ -129,7 +79,7 @@ function getLocalizedLink(path: string) {
 
 <article
   class="card post-card"
-  data-tags={post.tags.map((t) => t.name.toUpperCase()).join(",")}
+  data-tags={post.tags.map((t) => t.toUpperCase()).join(",")}
   data-title={post.title.toLowerCase()}
   data-summary={post.summary.toLowerCase()}
   data-content={post.summary.toLowerCase()}

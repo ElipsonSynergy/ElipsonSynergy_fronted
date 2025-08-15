@@ -105,11 +105,11 @@ export async function getProjectByIdServer(id: string): Promise<FirebaseProject 
 export function localizeProject(project: FirebaseProject, lang: SupportedLanguage): LocalizedProject {
   return {
     id: project.id || '',
-    title: project.title[lang],
-    description: project.description[lang],
+    title: project.title[lang] || project.title.es || '',
+    description: project.description[lang] || project.description.es || '',
     image: project.image,
     category: project.category,
-    tags: project.tags[lang],
+    tags: project.tags[lang] || project.tags.es || [],
     featured: project.featured,
     active: project.active
   };
