@@ -19,7 +19,7 @@
  * @since 1.0.0
  */
 
-import { format } from "date-fns";
+ import { format } from "date-fns";
 
 import { Image } from "astro:assets";
 import { useTranslations, getLangFromUrl, getLocalizedPath } from '../utils/i18n';
@@ -111,6 +111,11 @@ const avatarSrc = avatarUrl ? encodeURI(avatarUrl) : "/fallback-avatar.png";
 
 let lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Function to generate localized links
+function getLocalizedLink(path: string) {
+  return getLocalizedPath(path, lang);
+}
 ---
 
 <!-- 

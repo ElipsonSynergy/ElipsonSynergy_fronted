@@ -23,13 +23,8 @@ function getNavLink(path: string) {
 
 // Function to generate language switch links
 function getLanguageSwitchLink(targetLang: string) {
-  if (targetLang === 'es') {
-    // for Spanish, return path without language prefix
-    return pathWithoutLang;
-  } else {
-    // for other languages, add the prefix
-    return `/${targetLang}${pathWithoutLang}`;
-  }
+  // Always include language prefix for consistency
+  return getLocalizedPath(pathWithoutLang, targetLang);
 }
 ---
 
