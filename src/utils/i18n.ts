@@ -44,7 +44,7 @@ export function useTranslations(lang: keyof typeof translations) {
 }
 
 export function getLocalizedPath(path: string, lang: string) {
-  // Always include language prefix to ensure consistency with middleware
+  if (lang === 'es') return path;
   return `/${lang}${path}`;
 }
 
