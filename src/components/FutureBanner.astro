@@ -47,15 +47,14 @@
  * defined in the Future Banner Component Styles section
  */
 
- import { getLangFromUrl, useTranslations, languages, getLocalizedPath } from '@/utils/i18n';
+ import { useTranslations, getLocalizedPath } from '@/utils/i18n';
+import type { SupportedLanguage } from '../types/firebase';
 
-export async function getStaticPaths() {
-  return Object.keys(languages).map((loc) => ({
-    params: { locate: loc },
-  }));
+export interface Props {
+  lang?: SupportedLanguage;
 }
 
-let lang = getLangFromUrl(Astro.url);
+const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
 
 // Function to generate localized links
@@ -86,7 +85,7 @@ function getLocalizedLink(path: string) {
   <div class="banner-circle" aria-hidden="true">
     <img 
       src="/earth.png" 
-      alt="Planet Earth representing our environmental commitment" 
+      alt={t('index.future_banner.image_alt')} 
       loading="eager"
     />
   </div>
@@ -107,8 +106,8 @@ function getLocalizedLink(path: string) {
       Uses Spanish text to match brand voice and target audience.
     -->
     <h1 class="banner-title">
-      CREEMOS EN UN<br />
-      FUTURO QUE CUIDA LO NUESTRO
+      {t('index.future_banner.title_line1')}<br />
+      {t('index.future_banner.title_line2')}
     </h1>
     
     <!-- 
@@ -119,7 +118,7 @@ function getLocalizedLink(path: string) {
       in Elipson's mission and approach to development.
     -->
     <p class="banner-subtitle">
-      Creemos en una tecnología que respeta, que regenera, que siembra futuro. Cada línea de código, cada solución, cada idea en Elipson nace pensando en el planeta que queremos dejar.
+      {t('index.future_banner.subtitle')}
     </p>
     
     <!-- 
@@ -130,11 +129,11 @@ function getLocalizedLink(path: string) {
       Uses arrow indicator to suggest forward movement/progress.
     -->
     <a 
-      href={getLocalizedLink('/#descubre')} 
+      href={getLocalizedLink('/producto')} 
       class="banner-button"
-      aria-label="Discover more about our environmental commitment"
+      aria-label={t('index.future_banner.image_alt')}
     >
-      Descubre →
+      {t('index.future_banner.cta')} →
     </a>
   </div>
 </section>

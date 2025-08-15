@@ -52,8 +52,8 @@ const foundedYear = 2024; // This is a real fact about the company
 
 <BaseLayout 
   title={t('index.meta.title')} 
-  description="Descubre las soluciones tecnológicas más innovadoras con Elipson Synergy. Transformamos ideas en realidad digital con tecnología de vanguardia."
-  keywords="tecnología, innovación, desarrollo software, soluciones digitales, transformación digital"
+  description={t('index.meta.description')}
+  keywords={t('index.meta.keywords')}
 >
   <!-- Premium Hero Section -->
   <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -156,7 +156,7 @@ const foundedYear = 2024; // This is a real fact about the company
     </div>
   </section>
 
-  <FuturoBanner/>
+  <FuturoBanner lang={lang} />
 
 <!-- Features Section -->
   <section class="py-24 bg-gray-50 relative overflow-hidden">
@@ -341,7 +341,7 @@ const foundedYear = 2024; // This is a real fact about the company
   <div class="hidden lg:block flex-1 relative">
     <img
       src="/images/LatinAmerica.png"
-      alt="Latinoamérica"
+      alt={t('index.latinAmerica.image_alt')}
       class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-gradient-to-l from-white to-transparent"></div>
   </div>

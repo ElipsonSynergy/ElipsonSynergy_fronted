@@ -353,6 +353,13 @@
       "description": "Conheça alguns dos projetos em que estamos trabalhando atualmente. Cada um representa nosso compromisso com a inovação e o impacto positivo.",
       "cta": "Ver Todos os Projetos"
     },
+    "future_banner": {
+      "title_line1": "ACREDITAMOS EM UM",
+      "title_line2": "FUTURO QUE CUIDA DO QUE É NOSSO",
+      "subtitle": "Acreditamos em uma tecnologia que respeita, que regenera, que semeia futuro. Cada linha de código, cada solução, cada ideia na Elipson nasce pensando no planeta que queremos deixar.",
+      "cta": "Descubra",
+      "image_alt": "Planeta Terra representando nosso compromisso ambiental"
+    },
     "features": {
       "title": "ASSIM TRANSFORMAMOS IDEIAS EM",
       "subtitle": "SOLUÇÕES",
@@ -431,7 +438,8 @@
     "latinAmerica": {
       "title": "INOVAR É O NOVO PULSAR",
       "subtitle": "DA AMÉRICA LATINA",
-      "description": "Do coração dos Andes até a floresta amazônica, a Elipson leva inteligência para cada canto da América Latina."
+      "description": "Do coração dos Andes até a floresta amazônica, a Elipson leva inteligência para cada canto da América Latina.",
+      "image_alt": "América Latina"
     },
     "team": {
       "title": "CONHEÇA NOSSO TIME",

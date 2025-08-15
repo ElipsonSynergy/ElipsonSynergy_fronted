@@ -25,6 +25,13 @@
       "description": "Learn about some of the projects we are currently working on. Each one represents our commitment to innovation and positive impact.",
       "cta": "View All Projects"
     },
+    "future_banner": {
+      "title_line1": "WE BELIEVE IN A",
+      "title_line2": "FUTURE THAT CARES FOR WHAT'S OURS",
+      "subtitle": "We believe in technology that respects, regenerates, and plants seeds for the future. Every line of code, every solution, every idea at Elipson is born thinking about the planet we want to leave behind.",
+      "cta": "Discover",
+      "image_alt": "Planet Earth representing our environmental commitment"
+    },
     "features": {
       "title": "HOW WE TRANSFORM IDEAS INTO",
       "subtitle": "SOLUTIONS",
@@ -103,7 +110,8 @@
     "latinAmerica": {
       "title": "TO INNOVATE IS THE NEW HEARTBEAT",
       "subtitle": "OF LATIN AMERICA",
-      "description": "From the heart of the Andes to the Amazon rainforest, Elipson brings intelligence to every corner of Latin America."
+      "description": "From the heart of the Andes to the Amazon rainforest, Elipson brings intelligence to every corner of Latin America.",
+      "image_alt": "Latin America"
     },
     "team": {
       "title": "MEET OUR TEAM",
