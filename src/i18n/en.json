@@ -580,18 +580,6 @@
     "success_message": "Post created successfully.",
     "error_message": "Error creating post. Please try again."
   },
-  "blog": {
-    "featured": "Featured",
-    "read_more": "Read more",
-    "more_tags": "more tags",
-    "published_on": "Published on",
-    "tags": "Tags",
-    "about_author": "About the Author",
-    "author_bio": "Author and content contributor at Elipson Synergy",
-    "recent_posts": "Recent Posts",
-    "view_all_posts": "View all posts",
-    "back_to_blog": "Back to Blog"
-  },
   "blogDetail": {
     "popular": "Popular Articles",
     "read_more": "Did you like this article?",

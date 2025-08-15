@@ -1,9 +1,9 @@
 ---
 /**
- * Blog Card Component with Firebase and Internationalization
+ * Blog Card Component
  *
  * Displays an individual blog post as a card with image, title, summary, author info, and metadata.
- * Now uses Firebase data with internationalization support.
+ * Provides clickable links to the full blog post and handles fallback images for missing content.
  *
  * Features:
  * - Responsive card layout with featured image
@@ -11,18 +11,18 @@
  * - Formatted publication date using date-fns
  * - Fallback images for missing post images and author avatars
  * - SEO-friendly links using post slugs
- * - Internationalized content and links
- * - Truncated summary with localized "read more" link
+ * - Truncated summary with "read more" link
  *
  * @component BlogCard
  * @requires date-fns - For date formatting functionality
- * @param {LocalizedBlog} blog - Localized blog post data object
- * @since 2.0.0
+ * @param {PostType} post - Blog post data object
+ * @since 1.0.0
  */
 
 import { format } from "date-fns";
+
 import { Image } from "astro:assets";
-import { useTranslations, getLangFromUrl } from '../utils/i18n';
+import { useTranslations, getLangFromUrl, getLocalizedPath } from '../utils/i18n';
 
 
 /**
@@ -78,13 +78,13 @@ interface PostType {
 
 /**
  * Component props interface
- * @property {LocalizedBlog} blog - Localized blog post data to display
+ * @property {PostType} post - Blog post data to display
  */
-const { blog } = Astro.props as { blog: LocalizedBlog };
+const { post } = Astro.props as { post: PostType };
 
 /**
- * Destructure blog data for easier access
- * Extracts all necessary fields from the blog object and author nested object
+ * Destructure post data for easier access
+ * Extracts all necessary fields from the post object and author nested object
  */
 const {
   slug,
@@ -93,12 +93,11 @@ const {
   imageUrl,
   createdAt,
   author: { name: authorName, avatarUrl },
-  tags
-} = blog;
+} = post;
 
 /**
  * Featured image source with fallback
- * Uses fallback image if blog has no featured image
+ * Uses fallback image if post has no featured image
  * @constant {string}
  */
 const imgSrc = imageUrl ? encodeURI(imageUrl) : "/fallback-post-image.png";
@@ -122,17 +121,18 @@ const t = useTranslations(lang);
   Designed for use in blog listing grids and search results.
 -->
 
+
 <article
-  class="card blog-card group cursor-pointer bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100/50 hover:border-blue-200/50 hover:-translate-y-2 relative"
-  data-tags={tags.map((t) => t.toUpperCase()).join(",")}
-  data-title={title.toLowerCase()}
-  data-summary={summary.toLowerCase()}
-  data-content={summary.toLowerCase()}
-  data-author={authorName.toLowerCase()}
-  data-slug={slug.toLowerCase()}
+  class="card post-card"
+  data-tags={post.tags.map((t) => t.name.toUpperCase()).join(",")}
+  data-title={post.title.toLowerCase()}
+  data-summary={post.summary.toLowerCase()}
+  data-content={post.summary.toLowerCase()}
+  data-author={post.author.name.toLowerCase()}
+  data-slug={post.slug.toLowerCase()}
 >
   <!-- Featured image link to full post -->
-  <a href={`/blog/${slug}`}>
+  <a href={getLocalizedLink(`/blog/${slug}`)}>
     <Image
       src={imgSrc}
       alt={title}
@@ -143,48 +143,20 @@ const t = useTranslations(lang);
   </a>
 
   <!-- Card content container -->
-  <div class="p-6 space-y-4">
+  <div class="card-content">
     <!-- Post title -->
-    <a href={getLocalizedLink(`/blog/${slug}`)} class="block">
-      <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300 leading-tight line-clamp-2">
-        {title}
-      </h3>
-    </a>
-    
-    <!-- Post summary -->
-    <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 font-medium">
-      {summary}
-    </p>
+    <h3 class="card-title">{title}</h3>
 
     <!-- Post metadata: author info and publication date -->
-    <div class="flex items-center justify-between pt-2 border-t border-gray-100">
-      <div class="flex items-center space-x-3">
-        <Image
-          src={avatarSrc}
-          alt={authorName}
-          class="w-8 h-8 rounded-full border-2 border-white shadow-sm"
-          width={32}
-          height={32}
-        />
-        <div>
-          <span class="text-sm font-medium text-slate-700">{authorName}</span>
-          <!-- Semantic time element with formatted date -->
-          <time class="block text-xs text-slate-500" datetime={createdAt}>
-            {format(new Date(createdAt), "MMM d, yyyy")}
-          </time>
-        </div>
-      </div>
-
-      <!-- Read more link -->
-      <a 
-        href={getLocalizedLink(`/blog/${slug}`)} 
-        class="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-50 to-blue-100/50 group-hover:from-blue-100 group-hover:to-blue-150 text-blue-700 group-hover:text-blue-800 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 border border-blue-200/50 group-hover:border-blue-300/50 shadow-sm group-hover:shadow-md"
-      >
-        <span class="tracking-wide">{t('blog.read_more')}</span>
-        <svg class="w-4 h-4 transition-all duration-300 group-hover:translate-x-0.5 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-        </svg>
-      </a>
+    <div class="card-meta">
+      <Image
+        src={avatarSrc}
+        alt={authorName}
+        class="author-avatar"
+        width={28}
+        height={28}
+      />
+      <span class="author-name">{authorName}</span>
     </div>
     <!-- Semantic time element with formatted date -->
     <time class="card-date" datetime={createdAt}>
@@ -195,25 +167,6 @@ const t = useTranslations(lang);
     <p class="card-summary">{summary}</p>
 
     <!-- Read more link to full post -->
-    <a href={`/blog/${slug}`} class="read-more">{t('member_info_detailed.read_more')}</a>
+    <a href={getLocalizedLink(`/blog/${slug}`)} class="read-more">{t('member_info_detailed.read_more')}</a>
   </div>
-  
-  <!-- Subtle decorative element -->
-  <div class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-50/50 to-transparent rounded-tl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 </article>
-
-<style>
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>

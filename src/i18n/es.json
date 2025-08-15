@@ -585,18 +585,6 @@
     "explore": "Explorar Más Artículos",
     "contact": "Contáctanos"
   },
-  "blog": {
-    "featured": "Destacado",
-    "read_more": "Leer más",
-    "more_tags": "más etiquetas",
-    "published_on": "Publicado el",
-    "tags": "Etiquetas",
-    "about_author": "Sobre el Autor",
-    "author_bio": "Autor y contribuidor de contenido en Elipson Synergy",
-    "recent_posts": "Artículos Recientes",
-    "view_all_posts": "Ver todos los artículos",
-    "back_to_blog": "Volver al Blog"
-  },
   "project_detail": {
     "meta": {
       "title_suffix": "Elipson Synergy",
